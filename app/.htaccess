@@ -1,6 +1,6 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteBase /weaver-ui-seed/
+    RewriteBase /status-system/
     RewriteEngine on
     RewriteCond %{HTTP:X-Requested-With} !XMLHttpRequest$
     RewriteCond %{REQUEST_FILENAME} !-f
