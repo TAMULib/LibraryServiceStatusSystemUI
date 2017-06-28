@@ -1,14 +1,25 @@
 // CONVENTION: must match model name, case sensitive
 var apiMapping = {
-	OverallStatus: {
+	OverallStatusPublic: {
 		instantiate: {
 			'endpoint': '/private/queue',
 			'controller': 'status',
-			'method': 'overall'
+			'method': 'overall-public'
 		},
 		listen: {
 			'endpoint': '/channel',
-			'controller': 'status/overall'
+			'controller': 'status/overall-public'
+		}
+	},
+	OverallStatusFull: {
+		instantiate: {
+			'endpoint': '/private/queue',
+			'controller': 'status',
+			'method': 'overall-full'
+		},
+		listen: {
+			'endpoint': '/channel',
+			'controller': 'status/overall-full'
 		}
 	},
 	Theme: {

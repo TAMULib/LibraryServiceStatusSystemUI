@@ -1,11 +1,7 @@
-app.controller("DashboardController", function($controller, $scope, AlertService, OverallStatus) {
+app.controller("DashboardController", function($controller, $scope, AlertService, User, OverallStatusPublic, OverallStatusFull) {
 
-    angular.extend(this, $controller('AbstractController', {$scope: $scope}));
+    angular.extend(this, $controller('AppAbstractController', {$scope: $scope}));
 
-    $scope.overallStatus = new OverallStatus();
-
-    $scope.overallStatus.ready().then(function() {
-        AlertService.add({type: $scope.overallStatus.type, message: $scope.overallStatus.message}, "status/general");
-    });
+    $scope.overallStatus = $scope.isFullServiceConsumer() ? new OverallStatusFull() : new OverallStatusPublic();
 
 });
