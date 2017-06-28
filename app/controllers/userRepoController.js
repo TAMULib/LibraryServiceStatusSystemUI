@@ -34,13 +34,13 @@ app.controller('UserRepoController', function ($controller, $location, $injector
 		
 		$scope.allowableRoles = function(userRole) {
 			if(StorageService.get('role') == 'ROLE_ADMIN') {
-				return ['ROLE_ADMIN','ROLE_MANAGER','ROLE_ANNOTATOR','ROLE_USER'];
+				return ['ROLE_ADMIN','ROLE_WEB_MANAGER', 'ROLE_SERVICE_MANAGER', 'ROLE_STAFF','ROLE_USER'];
 			}
-			else if(StorageService.get('role') == 'ROLE_MANAGER') {
+			else if(StorageService.get('role') == 'ROLE_WEB_MANAGER') {
 				if(userRole == 'ROLE_ADMIN') {
 					return ['ROLE_ADMIN'];
 				}
-				return ['ROLE_MANAGER','ROLE_ANNOTATOR','ROLE_USER'];
+				return ['ROLE_WEB_MANAGER', 'ROLE_SERVICE_MANAGER', 'ROLE_STAFF','ROLE_USER'];
 			}
 			else {
 				return [userRole];
