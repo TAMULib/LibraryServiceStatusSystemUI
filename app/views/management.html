@@ -1,0 +1,12 @@
+<br/>
+<div class="row" ng-controller="UserRepoController">
+
+	<!-- ADMINS AND MANAGERS ONLY -->
+	<div ng-if="!isManager() && !isAdmin()" class="row" ng-include src="'views/restrictedAccess.html'" ></div>
+	
+	<div>
+		Hello Manager!
+	</div>
+
+
+</div>

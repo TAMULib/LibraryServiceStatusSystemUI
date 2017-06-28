@@ -4,6 +4,10 @@ app.config(function($routeProvider) {
 		when('/register', {
 			templateUrl: 'bower_components/core/app/views/register.html'
 		}).
+		when('/management', {
+			templateUrl: 'views/management.html',
+			access: ["ROLE_ADMIN", "ROLE_MANGER"]
+		}).
 		when('/users', {
 			templateUrl: 'views/users.html',
 			access: ["ROLE_ADMIN", "ROLE_MANGER"]
