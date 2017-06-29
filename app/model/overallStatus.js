@@ -3,15 +3,15 @@ var OverallStatus = function OverallStatus($timeout, AlertService) {
 
     return function OverallStatus() {
 
-        // additional app level model methods and variables
         var ALERT_CHANNEL = "status/general";
-        var count = 0;
 
         var alert;
 
         this.listen(function(){
-            alert.type = this.type;
-            alert.message = this.message + " " + (count++);
+            if(alert) {
+                alert.type = this.type;
+                alert.message = this.message;
+            }
         }.bind(this));
 
         this.ready().then(function() {
