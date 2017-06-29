@@ -3,4 +3,17 @@
   <div>
     Hello Manager!
   </div>
+
+  <div>
+  <h3>Here's one</h3>
+    <ul class="list-unstyled">
+      <li ng-repeat="service in services">
+        
+      </li>
+    </ul>
+  </div>
+
+  <modal modal-id="addServiceModal" modal-view="views/modals/addServiceModal.html" modal-header-class="modal-header-primary"></modal>
+
+  <button class="btn btn-default view-action-button" ng-click="openModal('#addServiceModal')">Add Service</button>
 </div>

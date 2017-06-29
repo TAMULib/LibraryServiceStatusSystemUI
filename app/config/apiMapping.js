@@ -100,6 +100,10 @@ var apiMapping = {
 			'controller': 'service',
 			'method': 'create'
 		},
+		listen: {
+			'endpoint': '/channel',
+			'controller': 'service'
+		},
 		update: {
 			'endpoint': '/private/queue', 
 			'controller': 'service',

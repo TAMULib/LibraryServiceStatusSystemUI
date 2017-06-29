@@ -1,0 +1,34 @@
+<div class="modal-header {{attr.modalHeaderClass}}">
+  <button 
+    type="button" 
+    class="close" 
+    ng-click="resetServices()"
+    aria-label="Close">
+    <span class="modal-close" aria-hidden="true">&times;</span>
+  </button>
+  <h3 class="modal-title">Add Service</h3>
+</div>
+
+<form ng-submit="createService()" name="services.create">
+  <validatedinput
+      model="modalData"
+      property="name"
+      label="Name"
+      placeholder="Name of the new Service"
+      form="forms.create"
+      validations="serviceRepo.getValidations()"
+      results="serviceRepo.ValidationResults">
+    </validatedinput>
+
+    <div class="modal-footer">
+    <button 
+      type="button" 
+      class="btn btn-warning" 
+      ng-click="resetServices()">Cancel</button>
+    <button 
+      id="services-save" 
+      type="submit" 
+      class="btn btn-primary"
+      ng-disabled="forms.create.$invalid">Create</button>
+  </div>
+</form>
