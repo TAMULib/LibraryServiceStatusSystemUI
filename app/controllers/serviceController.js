@@ -1,4 +1,4 @@
-app.controller('ServiceController', function($controller, $scope, ServiceRepo) {
+app.controller('ServiceController', function($controller, $scope, ServiceRepo, NgTableParams) {
 
   angular.extend(this, $controller('AbstractController', {$scope: $scope}));
 
@@ -23,13 +23,29 @@ app.controller('ServiceController', function($controller, $scope, ServiceRepo) {
   $scope.createService = function() {
     console.log($scope.modalData);
     $scope.serviceRepo.create($scope.modalData).then(function (res) {
-      if (angular.fromJson(res.body).meta.type != 'SUCCESS') {
-        console.log(res);
+      if (angular.fromJson(res.body).meta.type === 'SUCCESS') {
+        $scope.resetServices();
       }
     });
+
   }
 
   $scope.clearServiceUrl = function() {
     delete $scope.modalData.serviceUrl;
   }
+
+  var buildTable = function() {
+    return new NgTableParams({}, {
+      counts: [],
+      filterDelay: 0,
+      dataset: ServiceRepo.getAll()
+    });
+  };
+
+  ServiceRepo.ready().then(function() {
+
+    $scope.tableParams = buildTable();
+    $scope.tableParams.reload();
+
+  });
 });

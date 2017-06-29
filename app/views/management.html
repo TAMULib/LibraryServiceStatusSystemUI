@@ -4,14 +4,18 @@
     Hello Manager!
   </div>
 
-  <div>
-  <h3>Here's one</h3>
-    <ul class="list-unstyled">
-      <li ng-repeat="service in services">
-        
-      </li>
-    </ul>
-  </div>
+  <table ng-table="tableParams" show-filter="false" class="table table-bordered table-striped etd-table">
+      <tr ng-repeat="row in services track by row.id">
+      <td title="'Service'">{{row.name}}</td>
+      <td title="'Status'">{{row.status}}</td>
+      <td title="'Public'">{{row.isPublic}}</td>
+      <td title="'Short List'">{{row.onShortList}}</td>
+      <td title="'Actions'">
+        <button class="btn btn-danger" ng-click="confirmDelete(row)">Delete</button>
+        <button class="btn btn-primary" ng-click="openModal('#editServiceModal')">Edit</button>
+      </td>
+      </tr>
+    </table>
 
   <modal modal-id="addServiceModal" modal-view="views/modals/addServiceModal.html" modal-header-class="modal-header-primary"></modal>
 
