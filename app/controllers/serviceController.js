@@ -6,6 +6,8 @@ app.controller('ServiceController', function($controller, $scope, ServiceRepo, N
 
   $scope.services = ServiceRepo.getAll();
 
+  $scope.serviceToDelete = {};
+
   $scope.resetServices = function() {
     $scope.serviceRepo.clearValidationResults();
     $scope.modalData = {
@@ -48,4 +50,20 @@ app.controller('ServiceController', function($controller, $scope, ServiceRepo, N
     $scope.tableParams.reload();
 
   });
+
+  $scope.confirmDelete = function(service) {
+    $scope.openModal('#confirmDeleteModal');
+    $scope.serviceToDelete = service;
+  }
+
+  $scope.deleteService = function() {
+    $scope.deleting = true;
+    $scope.serviceToDelete.delete().then(function() {
+      $scope.closeModal();
+      $scope.deleting = false;
+      ServiceRepo.remove($scope.serviceToDelete);
+      $scope.serviceToDelete = {};
+      $scope.tableParams.reload();
+    })
+  }
 });
