@@ -10,7 +10,8 @@
 </div>
 
 <form ng-submit="createService()" name="services.create">
-  <validatedinput
+  <div class="modal-body">
+    <validatedinput
       model="modalData"
       property="name"
       label="Name"
@@ -20,15 +21,32 @@
       results="serviceRepo.ValidationResults">
     </validatedinput>
 
+    <label>Status</label>
+    <br>
+    <input type="radio" name="status" value="AUTO" ng-model="modalData.status">Auto
+    <input type="text" ng-if="modalData.status==='AUTO'" ng-model="modalData.serviceUrl">
+    <br>
+    <input type="radio" name="status" value="UP" ng-model="modalData.status" ng-click="clearServiceUrl()">Up<br>
+    <input type="radio" name="status" value="DOWN" ng-model="modalData.status" ng-click="clearServiceUrl()">Down<br>
+
+    <div class="checkbox">
+      <label><input type="checkbox" value="false" ng-model="modalData.isPublic">Is the Service Public?</label>
+    </div>
+  
+    <div class="checkbox">
+      <label><input type="checkbox" value="false" ng-model="modalData.onShortList">Is the Service on the short list?</label>
+    </div>
+
     <div class="modal-footer">
-    <button 
-      type="button" 
-      class="btn btn-warning" 
-      ng-click="resetServices()">Cancel</button>
-    <button 
-      id="services-save" 
-      type="submit" 
-      class="btn btn-primary"
-      ng-disabled="forms.create.$invalid">Create</button>
+      <button 
+        type="button" 
+        class="btn btn-warning" 
+        ng-click="resetServices()">Cancel</button>
+      <button 
+        id="services-save" 
+        type="submit" 
+        class="btn btn-primary"
+        ng-disabled="forms.create.$invalid">Create</button>
+    </div>
   </div>
 </form>

@@ -8,18 +8,28 @@ app.controller('ServiceController', function($controller, $scope, ServiceRepo) {
 
   $scope.resetServices = function() {
     $scope.serviceRepo.clearValidationResults();
-
+    $scope.modalData = {
+      'isPublic': false,
+      'onShortList': false
+    };
     $scope.closeModal();
   }
 
   $scope.modalData = {
-    'isPublic': true,
-    'onShortList': true,
-    'status': 'UP'
+    'isPublic': false,
+    'onShortList': false
   };
 
   $scope.createService = function() {
     console.log($scope.modalData);
-    $scope.serviceRepo.create($scope.modalData);
+    $scope.serviceRepo.create($scope.modalData).then(function (res) {
+      if (angular.fromJson(res.body).meta.type != 'SUCCESS') {
+        console.log(res);
+      }
+    });
+  }
+
+  $scope.clearServiceUrl = function() {
+    delete $scope.modalData.serviceUrl;
   }
 });
