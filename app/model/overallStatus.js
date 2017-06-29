@@ -1,5 +1,5 @@
 
-var OverallStatus = function OverallStatus(AlertService) {
+var OverallStatus = function OverallStatus($timeout, AlertService) {
 
     return function OverallStatus() {
 
@@ -7,13 +7,15 @@ var OverallStatus = function OverallStatus(AlertService) {
         var ALERT_CHANNEL = "status/general";
         var count = 0;
 
+        var alert;
+
         this.listen(function(){
-            AlertService.removeAll(ALERT_CHANNEL);
-            AlertService.add({type: this.type, message: this.message + " " + (count++)}, ALERT_CHANNEL);
+            alert.type = this.type;
+            alert.message = this.message + " " + (count++);
         }.bind(this));
 
         this.ready().then(function() {
-            AlertService.add({type: this.type, message: this.message}, ALERT_CHANNEL);
+            alert = AlertService.add({type: this.type, message: this.message}, ALERT_CHANNEL);
         }.bind(this));
 
         return this;
