@@ -56,6 +56,7 @@
 
 							<ul class="dropdown-menu" role="menu">
 								<li ng-if="isAdmin() || isAssuming() == 'true'" role="presentation" class="dropdown-header">Manager Actions</li>
+								<li ng-if="isAdmin() || isManager()" ><a href="management">Management Dashboard</a></li>
 								<li ng-if="isAdmin() || isManager()" ><a href="users">Manage Users</a></li>
 								<li ng-if="isAdmin() || isAssuming() == 'true'" role="presentation" class="divider"></li>
 								<li ng-if="isAdmin() || isAssuming() == 'true'" role="presentation" class="dropdown-header">Admin Actions</li>
@@ -191,6 +192,7 @@
 	<!-- endbuild -->
 
 	<!--  App libraries -->
+			<script src="bower_components/ng-table/dist/ng-table.min.js"></script>
 
 	<!-- build:js resources/scripts/app_concat.js -->
 	
@@ -208,18 +210,20 @@
 	    <!-- Repos -->	    
 	    <script src="repo/abstractAppRepo.js"></script>
 	    <script src="repo/userRepo.js"></script>
+	    <script src="repo/serviceRepo.js"></script>
 
 	    <!-- Models -->
 	    <script src="model/abstractAppModel.js"></script>
-		<script src="model/overallStatus.js"></script>
+			<script src="model/overallStatus.js"></script>
+			<script src="model/service.js"></script>
 
 	    <!-- Controllers -->
 	    <script src="controllers/adminController.js"></script>
-		<script src="controllers/appAbstractController.js"></script>
+			<script src="controllers/appAbstractController.js"></script>
 	    <script src="controllers/dashboardController.js"></script>
 	    <script src="controllers/userRepoController.js"></script>
 	    <script src="controllers/navigationController.js"></script>
-
+	    <script src="controllers/serviceController.js"></script>
 	    <script src="controllers/navigationController.js"></script>
 	    
 	 
