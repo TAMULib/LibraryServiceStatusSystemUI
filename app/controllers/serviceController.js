@@ -1,4 +1,4 @@
-app.controller('ServiceController', function($controller, $scope, ServiceRepo, NgTableParams) {
+app.controller('ServiceController', function($controller, $scope, Service, ServiceRepo, NgTableParams) {
 
   angular.extend(this, $controller('AbstractController', {$scope: $scope}));
 
@@ -8,24 +8,22 @@ app.controller('ServiceController', function($controller, $scope, ServiceRepo, N
 
   $scope.serviceToDelete = {};
 
+  $scope.forms = {};
+
   $scope.resetServices = function() {
-    $scope.modalData = {
+    $scope.modalData = new Service({
       'isPublic': false,
       'onShortList': false
-    };
+    });
     $scope.closeModal();
     $scope.serviceRepo.reset();
-    
+    console.log($scope.modalData)
   }
-
-  $scope.modalData = {
-    'isPublic': false,
-    'onShortList': false
-  };
-
-  // ServiceRepo.listen(function() {
-  //   $scope.tableParams.reload();
-  // });
+  $scope.resetServices();
+  // $scope.modalData = {
+  //   'isPublic': false,
+  //   'onShortList': false
+  // };
 
   $scope.createService = function() {
     if ($scope.modalData.isAuto) {
@@ -39,23 +37,24 @@ app.controller('ServiceController', function($controller, $scope, ServiceRepo, N
       }
     });
 
-  }
+  };
 
-  $scope.editService = function(id) {
-    $scope.modalData = $scope.services.find(srv => srv.id === id);
+  $scope.editService = function(service) {
+    angular.extend($scope.modalData, service);
+    console.log($scope.modalData.getValidationResults());
     $scope.openModal('#editServiceModal');
-  }
+  };
 
   $scope.updateService = function() {
     $scope.serviceRepo.update($scope.modalData).then(function(res) {
       if (angular.fromJson(res.body).meta.type === 'SUCCESS') {
         $scope.resetServices();
       }
+      
     });
-  }
+  };
 
   var buildTable = function() {
-    console.log(ServiceRepo.getAll());
     $scope.tableParams = new NgTableParams({}, {
       counts: [],
       filterDelay: 0,
@@ -67,6 +66,7 @@ app.controller('ServiceController', function($controller, $scope, ServiceRepo, N
 
     buildTable();
     $scope.tableParams.reload();
+    console.log($scope.modalData);
 
   });
 

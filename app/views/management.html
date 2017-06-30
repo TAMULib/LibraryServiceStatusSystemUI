@@ -5,16 +5,16 @@
   </div>
 
   <table ng-table="tableParams" show-filter="false" class="table table-bordered table-striped service-table">
-      <tr ng-repeat="row in services track by row.id">
-      <td title="'Service'">{{row.name}}</td>
-      <td title="'Status'">{{row.status}}</td>
-      <td title="'Auto Updating'">{{row.isAuto}}</td>
-      <td title="'Public'">{{row.isPublic}}</td>
-      <td title="'Short List'">{{row.onShortList}}</td>
-      <td title="'URL'">{{row.serviceUrl}}</td>
+      <tr ng-repeat="service in services track by service.id">
+      <td title="'Service'">{{service.name}}</td>
+      <td title="'Status'">{{service.status}}</td>
+      <td title="'Auto Updating'">{{service.isAuto}}</td>
+      <td title="'Public'">{{service.isPublic}}</td>
+      <td title="'Short List'">{{service.onShortList}}</td>
+      <td title="'URL'">{{service.serviceUrl}}</td>
       <td title="'Actions'">
-        <button class="btn btn-danger" ng-click="confirmDelete(row)">Delete</button>
-        <button class="btn btn-primary" ng-click="editService(row.id)">Edit</button>
+        <button class="btn btn-danger" ng-click="confirmDelete(service)">Delete</button>
+        <button class="btn btn-primary" ng-click="editService(service)">Edit</button>
       </td>
       </tr>
     </table>

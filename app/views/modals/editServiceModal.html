@@ -9,17 +9,18 @@
   <h3 class="modal-title">Edit Service</h3>
 </div>
 
-<form ng-submit="updateService()" name="services.update">
+<form ng-submit="updateService()" name="forms.update" novalidate>
 
   <div class="modal-body">
+    -->{{modalData.getValidationResults()}}<--
     <validatedinput
       model="modalData"
       property="name"
       label="Name"
       placeholder="Name of the new Service"
-      form="services.update"
-      validations="serviceRepo.getValidations()"
-      results="serviceRepo.ValidationResults">
+      form="forms.update"
+      validations="modalData.getValidations()"
+      results="modalData.getValidationResults()">
     </validatedinput>
 
     <label>Status</label>

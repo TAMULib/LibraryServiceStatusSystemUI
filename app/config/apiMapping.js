@@ -80,6 +80,7 @@ var apiMapping = {
 		}
 	},
 	Service: {
+		validations: true,
 		all: {
 			'endpoint': '/private/queue',
 			'controller': 'service',
