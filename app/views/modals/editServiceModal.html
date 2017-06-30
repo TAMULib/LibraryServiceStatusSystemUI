@@ -6,17 +6,20 @@
     aria-label="Close">
     <span class="modal-close" aria-hidden="true">&times;</span>
   </button>
-  <h3 class="modal-title">Add Service</h3>
+  <h3 class="modal-title">Edit Service</h3>
 </div>
 
-<form ng-submit="createService()" name="services.create">
+<form ng-submit="updateService()" name="services.update">
+
+  <validationmessage results="modalData.ValidationResults"></validationmessage>
+
   <div class="modal-body">
     <validatedinput
       model="modalData"
       property="name"
       label="Name"
       placeholder="Name of the new Service"
-      form="forms.create"
+      form="forms.update"
       validations="serviceRepo.getValidations()"
       results="serviceRepo.ValidationResults">
     </validatedinput>
@@ -46,7 +49,7 @@
         id="services-save" 
         type="submit" 
         class="btn btn-primary"
-        ng-disabled="forms.create.$invalid">Create</button>
+        ng-disabled="forms.create.$invalid">Update</button>
     </div>
   </div>
 </form>

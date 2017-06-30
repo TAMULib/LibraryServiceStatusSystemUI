@@ -10,15 +10,17 @@
       <td title="'Status'">{{row.status}}</td>
       <td title="'Public'">{{row.isPublic}}</td>
       <td title="'Short List'">{{row.onShortList}}</td>
+      <td title="'URL'">{{row.serviceUrl}}</td>
       <td title="'Actions'">
         <button class="btn btn-danger" ng-click="confirmDelete(row)">Delete</button>
-        <button class="btn btn-primary" ng-click="openModal('#editServiceModal')">Edit</button>
+        <button class="btn btn-primary" ng-click="editService(row.id)">Edit</button>
       </td>
       </tr>
     </table>
 
   <modal modal-id="addServiceModal" modal-view="views/modals/addServiceModal.html" modal-header-class="modal-header-primary"></modal>
   <modal modal-id="confirmDeleteModal" modal-view="views/modals/confirmDeleteModal.html" modal-header-class="modal-header-danger"></modal>
+  <modal modal-id="editServiceModal" modal-view="views/modals/editServiceModal.html" modal-header-class="modal-header-primary"></modal>
 
   <button class="btn btn-default view-action-button" ng-click="openModal('#addServiceModal')">Add Service</button>
 </div>

@@ -32,6 +32,19 @@ app.controller('ServiceController', function($controller, $scope, ServiceRepo, N
 
   }
 
+  $scope.editService = function(id) {
+    $scope.modalData = $scope.services.find(srv => srv.id === id);
+    $scope.openModal('#editServiceModal');
+  }
+
+  $scope.updateService = function() {
+    $scope.serviceRepo.update($scope.modalData).then(function(res) {
+      if (angular.fromJson(res.body).meta.type === 'SUCCESS') {
+        $scope.resetServices();
+      }
+    });
+  }
+
   $scope.clearServiceUrl = function() {
     delete $scope.modalData.serviceUrl;
   }
