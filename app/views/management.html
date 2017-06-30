@@ -1,13 +1,14 @@
 <br/>
 <div class="row" ng-controller="ServiceController">
   <div>
-    Hello Manager!
+    Welcome
   </div>
 
-  <table ng-table="tableParams" show-filter="false" class="table table-bordered table-striped etd-table">
+  <table ng-table="tableParams" show-filter="false" class="table table-bordered table-striped service-table">
       <tr ng-repeat="row in services track by row.id">
       <td title="'Service'">{{row.name}}</td>
       <td title="'Status'">{{row.status}}</td>
+      <td title="'Auto Updating'">{{row.isAuto}}</td>
       <td title="'Public'">{{row.isPublic}}</td>
       <td title="'Short List'">{{row.onShortList}}</td>
       <td title="'URL'">{{row.serviceUrl}}</td>

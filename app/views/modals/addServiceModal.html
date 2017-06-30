@@ -23,11 +23,11 @@
 
     <label>Status</label>
     <br>
-    <input type="radio" name="status" value="AUTO" ng-model="modalData.status">Auto
-    <input type="text" ng-if="modalData.status==='AUTO'" ng-model="modalData.serviceUrl">
+    <input type="radio" name="isAuto" value="true" ng-model="modalData.isAuto" ng-click="clearStatus()">Auto
+    <input type="text" ng-if="modalData.isAuto" ng-model="modalData.serviceUrl">
     <br>
-    <input type="radio" name="status" value="UP" ng-model="modalData.status">Up<br>
-    <input type="radio" name="status" value="DOWN" ng-model="modalData.status"">Down<br>
+    <input type="radio" name="status" value="UP" ng-model="modalData.status" ng-click="clearIsAuto()">Up<br>
+    <input type="radio" name="status" value="DOWN" ng-model="modalData.status" ng-click="clearIsAuto()">Down<br>
 
     <div class="checkbox">
       <label><input type="checkbox" value="false" ng-model="modalData.isPublic">Is the Service Public?</label>

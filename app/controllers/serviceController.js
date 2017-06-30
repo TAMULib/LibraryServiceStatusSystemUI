@@ -9,12 +9,13 @@ app.controller('ServiceController', function($controller, $scope, ServiceRepo, N
   $scope.serviceToDelete = {};
 
   $scope.resetServices = function() {
-    $scope.serviceRepo.clearValidationResults();
     $scope.modalData = {
       'isPublic': false,
       'onShortList': false
     };
     $scope.closeModal();
+    $scope.serviceRepo.reset();
+    
   }
 
   $scope.modalData = {
@@ -22,8 +23,16 @@ app.controller('ServiceController', function($controller, $scope, ServiceRepo, N
     'onShortList': false
   };
 
+  // ServiceRepo.listen(function() {
+  //   $scope.tableParams.reload();
+  // });
+
   $scope.createService = function() {
-    console.log($scope.modalData);
+    if ($scope.modalData.isAuto) {
+      $scope.modalData.status = 'UP';
+    } else {
+      $scope.modalData.isAuto = false;
+    }
     $scope.serviceRepo.create($scope.modalData).then(function (res) {
       if (angular.fromJson(res.body).meta.type === 'SUCCESS') {
         $scope.resetServices();
@@ -45,12 +54,9 @@ app.controller('ServiceController', function($controller, $scope, ServiceRepo, N
     });
   }
 
-  $scope.clearServiceUrl = function() {
-    delete $scope.modalData.serviceUrl;
-  }
-
   var buildTable = function() {
-    return new NgTableParams({}, {
+    console.log(ServiceRepo.getAll());
+    $scope.tableParams = new NgTableParams({}, {
       counts: [],
       filterDelay: 0,
       dataset: ServiceRepo.getAll()
@@ -59,7 +65,7 @@ app.controller('ServiceController', function($controller, $scope, ServiceRepo, N
 
   ServiceRepo.ready().then(function() {
 
-    $scope.tableParams = buildTable();
+    buildTable();
     $scope.tableParams.reload();
 
   });
@@ -78,5 +84,13 @@ app.controller('ServiceController', function($controller, $scope, ServiceRepo, N
       $scope.serviceToDelete = {};
       $scope.tableParams.reload();
     })
+  }
+
+  $scope.clearStatus = function() {
+    delete $scope.modalData.status;
+  }
+
+  $scope.clearIsAuto = function() {
+    delete $scope.modalData.isAuto;
   }
 });
