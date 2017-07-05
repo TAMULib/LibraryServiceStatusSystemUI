@@ -78,5 +78,42 @@ var apiMapping = {
 			'controller': 'user',
 			'method': 'update'
 		}
+	},
+	Service: {
+		validations: true,
+		all: {
+			'endpoint': '/private/queue',
+			'controller': 'service',
+			'method': 'all'
+		},
+		public: {
+			'endpoint': '/private/queue',
+			'controller': 'service',
+			'method': 'public'
+		},
+		get: {
+			'endpoint': '/private/queue', 
+			'controller': 'service',
+			'method': 'get'
+		},
+		create: {
+			'endpoint': '/private/queue', 
+			'controller': 'service',
+			'method': 'create'
+		},
+		listen: {
+			'endpoint': '/channel',
+			'controller': 'service'
+		},
+		update: {
+			'endpoint': '/private/queue', 
+			'controller': 'service',
+			'method': 'update'
+		},
+		remove: {
+			'endpoint': '/private/queue', 
+			'controller': 'service',
+			'method': 'remove'
+		}
 	}
 }

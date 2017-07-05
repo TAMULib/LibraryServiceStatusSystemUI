@@ -1,6 +1,17 @@
 
 app.config(function($routeProvider) {	
 	$routeProvider.
+		when('/management', {
+			templateUrl: 'views/management.html',
+			access: ["ROLE_ADMIN", "ROLE_MANGER"]
+		}).
+		when('/users', {
+			templateUrl: 'views/users.html',
+			access: ["ROLE_ADMIN", "ROLE_MANGER"]
+		}).
+		when('/home', {
+			redirectTo: '/'
+		}).
 		when('/', {
 			templateUrl: 'views/dashboard.html',
 			controller: 'DashboardController'

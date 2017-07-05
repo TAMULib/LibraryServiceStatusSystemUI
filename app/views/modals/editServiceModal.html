@@ -1,0 +1,49 @@
+<div class="modal-header {{attr.modalHeaderClass}}">
+  <button 
+    type="button" 
+    class="close" 
+    ng-click="resetServices()"
+    aria-label="Close">
+    <span class="modal-close" aria-hidden="true">&times;</span>
+  </button>
+  <h3 class="modal-title">Edit Service</h3>
+</div>
+
+<form ng-submit="updateService()" name="forms.update" novalidate>
+
+  <div class="modal-body">
+    <validatedinput
+      model="modalData"
+      property="name"
+      label="Name"
+      placeholder="Name of the new Service"
+      form="forms.update"
+      validations="modalData.getValidations()"
+      results="modalData.getValidationResults()">
+    </validatedinput>
+
+    <service-status
+      model="modalData">
+    </service-status>
+
+    <div class="checkbox">
+      <label><input type="checkbox" value="false" ng-model="modalData.isPublic">Is the Service Public?</label>
+    </div>
+  
+    <div class="checkbox">
+      <label><input type="checkbox" value="false" ng-model="modalData.onShortList">Is the Service on the short list?</label>
+    </div>
+
+    <div class="modal-footer">
+      <button 
+        type="button" 
+        class="btn btn-warning" 
+        ng-click="resetServices()">Cancel</button>
+      <button 
+        id="services-update" 
+        type="submit" 
+        class="btn btn-primary"
+        ng-disabled="forms.create.$invalid">Update</button>
+    </div>
+  </div>
+</form>
