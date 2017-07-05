@@ -115,5 +115,17 @@ var apiMapping = {
 			'controller': 'service',
 			'method': 'remove'
 		}
+	},
+	Note: {
+		validations: true,
+		all: {
+			'endpoint': '/private/queue',
+			'controller': 'note',
+			'method': 'all'
+		},
+		listen: {
+			'endpoint': '/channel',
+			'controller': 'note'
+		},
 	}
 }
