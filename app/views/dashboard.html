@@ -2,10 +2,10 @@
   <alerts seconds="9999999999" channels="status/general" types="SUCCESS, INFO, ERROR, WARNING" view="views/customAlert.html" exclusive></alerts>
 </div>
 
-<div class="publicDashboardServiceShortlist" ng-controller="DashboardController">
-  <div ng-repeat="service in services |  filter:{isPublic: 'true'} | filter:{onShortList: 'true'} ">
+<ul class="publicDashboardServiceShortlist" ng-controller="DashboardController">
+  <li class="serviceShortListItem" ng-repeat="service in services |  filter:{isPublic: 'true'} | filter:{onShortList: 'true'} ">
   	<span class="serviceName">{{service.name}}</span>: 
-  	<span ng-if="service.status=='UP'">UP!</span>
-  	<span ng-if="service.status=='DOWN'">DOWN :(</span>
-  </div>
-</div>
+  	<span ng-if="service.status=='UP'"><img src="resources/images/knob_valid_green.png"/></span>
+  	<span ng-if="service.status=='DOWN'"><img src="resources/images/knob_cancel.png"/></span>
+  </li>
+</ul>
