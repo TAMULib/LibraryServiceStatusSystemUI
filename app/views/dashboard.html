@@ -3,7 +3,9 @@
 </div>
 
 <div class="publicDashboardServiceShortlist" ng-controller="DashboardController">
-  <span ng-repeat="service in services">
-  	{{service.name}}: {{service.status}}
-  </span>
+  <div ng-repeat="service in services |  filter:{isPublic: 'true'} | filter:{onShortList: 'true'} ">
+  	<span class="serviceName">{{service.name}}</span>: 
+  	<span ng-if="service.status=='UP'">UP!</span>
+  	<span ng-if="service.status=='DOWN'">DOWN :(</span>
+  </div>
 </div>
