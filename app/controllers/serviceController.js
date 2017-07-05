@@ -17,13 +17,8 @@ app.controller('ServiceController', function($controller, $scope, Service, Servi
     });
     $scope.closeModal();
     $scope.serviceRepo.reset();
-    console.log($scope.modalData)
   }
   $scope.resetServices();
-  // $scope.modalData = {
-  //   'isPublic': false,
-  //   'onShortList': false
-  // };
 
   $scope.createService = function() {
     if ($scope.modalData.isAuto) {
@@ -40,8 +35,7 @@ app.controller('ServiceController', function($controller, $scope, Service, Servi
   };
 
   $scope.editService = function(service) {
-    angular.extend($scope.modalData, service);
-    console.log($scope.modalData.getValidationResults());
+    $scope.modalData = service;
     $scope.openModal('#editServiceModal');
   };
 
@@ -63,11 +57,8 @@ app.controller('ServiceController', function($controller, $scope, Service, Servi
   };
 
   ServiceRepo.ready().then(function() {
-
     buildTable();
     $scope.tableParams.reload();
-    console.log($scope.modalData);
-
   });
 
   $scope.confirmDelete = function(service) {
@@ -84,13 +75,5 @@ app.controller('ServiceController', function($controller, $scope, Service, Servi
       $scope.serviceToDelete = {};
       $scope.tableParams.reload();
     })
-  }
-
-  $scope.clearStatus = function() {
-    delete $scope.modalData.status;
-  }
-
-  $scope.clearIsAuto = function() {
-    delete $scope.modalData.isAuto;
   }
 });
