@@ -1,3 +1,9 @@
 <div class="overallStatusAlert">
   <alerts seconds="9999999999" channels="status/general" types="SUCCESS, INFO, ERROR, WARNING" view="views/customAlert.html" exclusive></alerts>
 </div>
+
+<div class="publicDashboardServiceShortlist" ng-controller="DashboardController">
+  <span ng-repeat="service in services">
+  	{{service.name}}: {{service.status}}
+  </span>
+</div>
