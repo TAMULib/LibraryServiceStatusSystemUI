@@ -1,0 +1,67 @@
+<div class="modal-header {{attr.modalHeaderClass}}">
+  <button 
+    type="button" 
+    class="close" 
+    ng-click="resetServices()"
+    aria-label="Close">
+    <span class="modal-close" aria-hidden="true">&times;</span>
+  </button>
+  <h3 class="modal-title">Add Note</h3>
+</div>
+
+<form ng-submit="createNote()" name="forms.create" novalidate>
+  <div class="modal-body">
+
+    <validatedinput
+      model="modalData"
+      property="title"
+      label="Title"
+      placeholder="Title of the Note"
+      form="forms.create"
+      validations="modalData.getValidations()"
+      results="modalData.ValidationResults">
+    </validatedinput>
+    {{modalData}}
+    <validatedselect
+      model="modalData"
+      property="services"
+      label="Services"
+      form="forms.create"
+      validations="modalData.getValidations()"
+      results="modalData.ValidationResults"
+      options="services"
+      optionProperty="name">
+    </validatedselect>
+
+    <validatedselect
+      model="modalData"
+      property="noteType"
+      label="Note Type"
+      form="forms.create"
+      validations="modalData.getValidations()"
+      results="modalData.ValidationResults"
+      options="noteTypes">
+    </validatedselect>
+
+    <validatedtextarea
+      model="modalData"
+      property="body"
+      label="Message Body"
+      form="forms.create"
+      validations="modalData.getValidations()"
+      results="modalData.ValidationResults">    
+    </validatedtextarea>
+
+    <div class="modal-footer">
+      <button 
+        type="button" 
+        class="btn btn-warning" 
+        ng-click="resetServices()">Cancel</button>
+      <button 
+        id="notes-save" 
+        type="submit" 
+        class="btn btn-primary"
+        ng-disabled="forms.create.$invalid">Create</button>
+    </div>
+  </div>
+</form>

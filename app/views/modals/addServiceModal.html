@@ -9,7 +9,7 @@
   <h3 class="modal-title">Add Service</h3>
 </div>
 
-<form ng-submit="createService()" name="services.create">
+<form ng-submit="createService()" name="forms.create" novalidate>
   <div class="modal-body">
     <validatedinput
       model="modalData"
@@ -17,8 +17,8 @@
       label="Name"
       placeholder="Name of the new Service"
       form="forms.create"
-      validations="serviceRepo.getValidations()"
-      results="serviceRepo.ValidationResults">
+      validations="modalData.getValidations()"
+      results="modalData.ValidationResults">
     </validatedinput>
 
     <service-status
