@@ -62,7 +62,7 @@ app.controller('ServiceController', function($controller, $scope, Service, Servi
   });
 
   $scope.confirmDelete = function(service) {
-    $scope.openModal('#confirmDeleteModal');
+    $scope.openModal('#deleteServiceModal');
     $scope.serviceToDelete = service;
   }
 
