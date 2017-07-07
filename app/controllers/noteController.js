@@ -6,7 +6,11 @@ app.controller('NoteController', function($controller, $scope, NoteRepo, NgTable
 
   $scope.noteRepo = NoteRepo;
 
+  $scope.noteRepo = NoteRepo;
+
   $scope.forms = {};
+
+  $scope.noteToDelete = {};
 
   $scope.services = ServiceRepo.getAll();
 
@@ -23,11 +27,12 @@ app.controller('NoteController', function($controller, $scope, NoteRepo, NgTable
     $scope.tableParams.reload();
   });
 
-  $scope.resetServices = function() {
+  $scope.resetNotes = function() {
     $scope.modalData = new Note({});
     $scope.closeModal();
+    $scope.noteRepo.reset();
   };
-  $scope.resetServices();
+  $scope.resetNotes();
 
   $scope.createNote = function() {
     if (!Array.isArray($scope.modalData.services)) {
@@ -35,10 +40,39 @@ app.controller('NoteController', function($controller, $scope, NoteRepo, NgTable
     }
     $scope.noteRepo.create($scope.modalData, UserService.getCurrentUser().uin).then(function (res) {
       if (angular.fromJson(res.body).meta.type === 'SUCCESS') {
-        $scope.resetServices();
+        $scope.resetNotes();
       }
     });
   };
+
+  $scope.editNote = function(note) {
+    $scope.modalData = note;
+    $scope.openModal('#editNoteModal');
+  };
+
+  $scope.updateNote = function() {
+    $scope.noteRepo.update($scope.modalData).then(function(res) {
+      if (angular.fromJson(res.body).meta.type === 'SUCCESS') {
+        $scope.resetNotes();
+      }
+    });
+  };
+
+  $scope.confirmDelete = function(note) {
+    $scope.openModal('#deleteNoteModal');
+    $scope.noteToDelete = note;
+  }
+
+  $scope.deleteNote = function() {
+    $scope.deleting = true;
+    $scope.noteToDelete.delete().then(function() {
+      $scope.closeModal();
+      $scope.deleting = false;
+      ServiceRepo.remove($scope.noteToDelete);
+      $scope.noteToDelete = {};
+      $scope.tableParams.reload();
+    })
+  }
 
   $scope.noteTypes = {
     'ENHANCEMENT': 'Enhancement',
