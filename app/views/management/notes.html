@@ -1,4 +1,7 @@
 <div ng-controller="NoteController">
+
+  <button class="btn btn-default view-action-button" ng-click="openModal('#addNoteModal')">Add Note</button>
+  <hr>
   <table ng-table="tableParams" show-filter="false" class="table table-bordered table-striped note-table">
     <tr ng-repeat="note in notes track by note.id">
       <td title="'Title'">{{note.title}}</td>
@@ -15,10 +18,6 @@
       </td>
     </tr>
   </table>
-
-  <modal modal-id="addNotemModal" modal-view="views/modals/addNoteModal.html" modal-header-class="modal-header-primary"></modal>
-
-  <button class="btn btn-default view-action-button" ng-click="openModal('#addNoteModal')">Add Note</button>
 
   <modal modal-id="addNoteModal" modal-view="views/modals/addNoteModal.html" modal-header-class="modal-header-primary"></modal>
   <modal modal-id="deleteNoteModal" modal-view="views/modals/deleteNoteModal.html" modal-header-class="modal-header-danger"></modal>
