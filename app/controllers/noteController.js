@@ -38,7 +38,7 @@ app.controller('NoteController', function($controller, $scope, NoteRepo, NgTable
     if (!Array.isArray($scope.modalData.services)) {
       $scope.modalData.services = [$scope.modalData.services];
     }
-    $scope.noteRepo.create($scope.modalData, UserService.getCurrentUser().uin).then(function (res) {
+    $scope.noteRepo.create($scope.modalData).then(function (res) {
       if (angular.fromJson(res.body).meta.type === 'SUCCESS') {
         $scope.resetNotes();
       }
