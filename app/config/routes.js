@@ -14,12 +14,10 @@ app.config(function($routeProvider) {
 		}).
 		when('/services', {
 			templateUrl: 'views/management/services.html',
-			controller: 'ServiceController',
 			access: ["ROLE_ADMIN", "ROLE_MANGER"]
 		}).
 		when('/notes', {
 			templateUrl: 'views/management/notes.html',
-			controller: 'NoteController',
 			access: ["ROLE_ADMIN", "ROLE_MANGER"]
 		}).
 		when('/home', {

@@ -11,36 +11,38 @@ app.controller('ServiceController', function($controller, $scope, Service, Servi
   $scope.forms = {};
 
   $scope.resetServices = function() {
-    $scope.modalData = new Service({
+    $scope.serviceData = new Service({
       'isPublic': false,
-      'onShortList': false
+      'onShortList': false,
+      'isAuto': false,
+      'status': 'UP'
     });
     $scope.closeModal();
     $scope.serviceRepo.reset();
+    console.log("reset", $scope.serviceData);
   }
   $scope.resetServices();
 
   $scope.createService = function() {
-    if ($scope.modalData.isAuto) {
-      $scope.modalData.status = 'UP';
+    if ($scope.serviceData.isAuto) {
+      $scope.serviceData.status = 'UP';
     } else {
-      $scope.modalData.isAuto = false;
+      $scope.serviceData.isAuto = false;
     }
-    $scope.serviceRepo.create($scope.modalData).then(function (res) {
+    $scope.serviceRepo.create($scope.serviceData).then(function (res) {
       if (angular.fromJson(res.body).meta.type === 'SUCCESS') {
         $scope.resetServices();
       }
     });
-
   };
 
   $scope.editService = function(service) {
-    $scope.modalData = service;
+    $scope.serviceData = service;
     $scope.openModal('#editServiceModal');
   };
 
   $scope.updateService = function() {
-    $scope.serviceRepo.update($scope.modalData).then(function(res) {
+    $scope.serviceRepo.update($scope.serviceData).then(function(res) {
       if (angular.fromJson(res.body).meta.type === 'SUCCESS') {
         $scope.resetServices();
       }

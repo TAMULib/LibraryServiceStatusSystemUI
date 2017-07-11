@@ -1,10 +1,8 @@
 app.controller('NoteController', function($controller, $scope, NoteRepo, NgTableParams, ServiceRepo, Note, UserService) {
 
   angular.extend(this, $controller('AbstractController', {$scope: $scope}));
-
+  console.log("Note controller");
   $scope.notes = NoteRepo.getAll();
-
-  $scope.noteRepo = NoteRepo;
 
   $scope.noteRepo = NoteRepo;
 
@@ -24,21 +22,26 @@ app.controller('NoteController', function($controller, $scope, NoteRepo, NgTable
 
   NoteRepo.ready().then(function() {
     buildTable();
-    $scope.tableParams.reload();
   });
 
   $scope.resetNotes = function() {
-    $scope.modalData = new Note({});
+    console.log($scope.noteData);
+    $scope.noteData = new Note({
+      'title': ''
+    });
     $scope.closeModal();
+        console.log($scope.noteData);
     $scope.noteRepo.reset();
+    $scope.noteRepo.clearValidationResults();
+
   };
   $scope.resetNotes();
 
   $scope.createNote = function() {
-    if (!Array.isArray($scope.modalData.services)) {
-      $scope.modalData.services = [$scope.modalData.services];
+    if (!Array.isArray($scope.noteData.services)) {
+      $scope.noteData.services = [$scope.noteData.services];
     }
-    $scope.noteRepo.create($scope.modalData).then(function (res) {
+    $scope.noteRepo.create($scope.noteData).then(function (res) {
       if (angular.fromJson(res.body).meta.type === 'SUCCESS') {
         $scope.resetNotes();
       }
@@ -46,12 +49,12 @@ app.controller('NoteController', function($controller, $scope, NoteRepo, NgTable
   };
 
   $scope.editNote = function(note) {
-    $scope.modalData = note;
+    $scope.noteData = note;
     $scope.openModal('#editNoteModal');
   };
 
   $scope.updateNote = function() {
-    $scope.noteRepo.update($scope.modalData).then(function(res) {
+    $scope.noteRepo.update($scope.noteData).then(function(res) {
       if (angular.fromJson(res.body).meta.type === 'SUCCESS') {
         $scope.resetNotes();
       }
@@ -70,7 +73,6 @@ app.controller('NoteController', function($controller, $scope, NoteRepo, NgTable
       $scope.deleting = false;
       ServiceRepo.remove($scope.noteToDelete);
       $scope.noteToDelete = {};
-      $scope.tableParams.reload();
     })
   }
 
