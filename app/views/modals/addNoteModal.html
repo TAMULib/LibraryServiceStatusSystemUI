@@ -18,8 +18,8 @@
       label="Title"
       placeholder="Title of the Note"
       form="forms.create"
-      validations="modalData.getValidations()"
-      results="modalData.ValidationResults">
+      validations="noteRepo.getValidations()"
+      results="noteRepo.ValidationResults">
     </validatedinput>
     
     <validatedselect
@@ -27,8 +27,8 @@
       property="services"
       label="Services"
       form="forms.create"
-      validations="modalData.getValidations()"
-      results="modalData.ValidationResults"
+      validations="noteRepo.getValidations()"
+      results="noteRepo.ValidationResults"
       options="services"
       optionProperty="name">
     </validatedselect>
@@ -38,8 +38,8 @@
       property="noteType"
       label="Note Type"
       form="forms.create"
-      validations="modalData.getValidations()"
-      results="modalData.ValidationResults"
+      validations="noteRepo.getValidations()"
+      results="noteRepo.ValidationResults"
       options="noteTypes">
     </validatedselect>
 
@@ -48,8 +48,8 @@
       property="body"
       label="Message Body"
       form="forms.create"
-      validations="modalData.getValidations()"
-      results="modalData.ValidationResults">
+      validations="noteRepo.getValidations()"
+      results="noteRepo.ValidationResults">
     </validatedtextarea>
 
     <div class="modal-footer">
