@@ -9,7 +9,7 @@
       <td title="'Type'">{{note.noteType}}</td>
       <td title="'Services'">
         <div ng-repeat="service in note.services">
-          {{service}}
+          {{service.id ? service.id : service}}
         </div>
       </td>
       <td title="'Actions'">

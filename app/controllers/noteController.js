@@ -1,7 +1,7 @@
 app.controller('NoteController', function($controller, $scope, NoteRepo, NgTableParams, ServiceRepo, Note, UserService) {
 
   angular.extend(this, $controller('AbstractController', {$scope: $scope}));
-  console.log("Note controller");
+  
   $scope.notes = NoteRepo.getAll();
 
   $scope.noteRepo = NoteRepo;
@@ -25,15 +25,19 @@ app.controller('NoteController', function($controller, $scope, NoteRepo, NgTable
   });
 
   $scope.resetNotes = function() {
-    console.log($scope.noteData);
+    if ($scope.noteData) {
+      $scope.noteData.clearValidationResults();
+    }
+    for (var key in $scope.forms) {
+        if (!$scope.forms[key].$pristine) {
+            $scope.forms[key].$setPristine();
+        }
+    }
     $scope.noteData = new Note({
       'title': ''
     });
     $scope.closeModal();
-        console.log($scope.noteData);
     $scope.noteRepo.reset();
-    $scope.noteRepo.clearValidationResults();
-
   };
   $scope.resetNotes();
 
@@ -50,10 +54,12 @@ app.controller('NoteController', function($controller, $scope, NoteRepo, NgTable
 
   $scope.editNote = function(note) {
     $scope.noteData = note;
+    // $scope.noteData.services = ServiceRepo.findById($scope.noteData.services[0]);
     $scope.openModal('#editNoteModal');
   };
 
   $scope.updateNote = function() {
+    console.log($scope.noteData);
     $scope.noteRepo.update($scope.noteData).then(function(res) {
       if (angular.fromJson(res.body).meta.type === 'SUCCESS') {
         $scope.resetNotes();

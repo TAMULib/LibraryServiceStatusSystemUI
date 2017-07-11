@@ -13,43 +13,43 @@
   <div class="modal-body">
 
     <validatedinput
-      model="modalData"
+      model="noteData"
       property="title"
       label="Title"
       placeholder="Title of the Note"
       form="forms.edit"
-      validations="modalData.getValidations()"
-      results="modalData.ValidationResults">
+      validations="noteData.getValidations()"
+      results="noteData.ValidationResults">
     </validatedinput>
 
     <validatedselect
-      model="modalData"
+      model="noteData"
       property="services"
       label="Services"
       form="forms.edit"
-      validations="modalData.getValidations()"
-      results="modalData.ValidationResults"
+      validations="noteData.getValidations()"
+      results="noteData.ValidationResults"
       options="services"
       optionProperty="name">
     </validatedselect>
 
     <validatedselect
-      model="modalData"
+      model="noteData"
       property="noteType"
       label="Note Type"
       form="forms.edit"
-      validations="modalData.getValidations()"
-      results="modalData.ValidationResults"
+      validations="noteData.getValidations()"
+      results="noteData.ValidationResults"
       options="noteTypes">
     </validatedselect>
 
     <validatedtextarea
-      model="modalData"
+      model="noteData"
       property="body"
       label="Message Body"
       form="forms.edit"
-      validations="modalData.getValidations()"
-      results="modalData.ValidationResults">
+      validations="noteData.getValidations()"
+      results="noteData.ValidationResults">
     </validatedtextarea>
 
     <div class="modal-footer">

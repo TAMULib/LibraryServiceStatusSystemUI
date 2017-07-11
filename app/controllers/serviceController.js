@@ -11,7 +11,16 @@ app.controller('ServiceController', function($controller, $scope, Service, Servi
   $scope.forms = {};
 
   $scope.resetServices = function() {
+    if ($scope.serviceData) {
+      $scope.serviceData.clearValidationResults();
+    }
+    for (var key in $scope.forms) {
+        if (!$scope.forms[key].$pristine) {
+            $scope.forms[key].$setPristine();
+        }
+    }
     $scope.serviceData = new Service({
+      'name': '',
       'isPublic': false,
       'onShortList': false,
       'isAuto': false,
@@ -19,7 +28,6 @@ app.controller('ServiceController', function($controller, $scope, Service, Servi
     });
     $scope.closeModal();
     $scope.serviceRepo.reset();
-    console.log("reset", $scope.serviceData);
   }
   $scope.resetServices();
 
