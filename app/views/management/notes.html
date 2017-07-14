@@ -1,0 +1,25 @@
+<div class="management-table" ng-controller="NoteController">
+
+  <button class="btn btn-default view-action-button" ng-click="openModal('#addNoteModal')">Add Note</button>
+  <hr>
+  <table ng-table="tableParams" show-filter="false" class="table table-bordered table-striped note-table">
+    <tr ng-repeat="note in notes track by note.id">
+      <td title="'Title'">{{note.title}}</td>
+      <td title="'Body'">{{note.body}}</td>
+      <td title="'Type'">{{note.noteType}}</td>
+      <td title="'Services'">
+        <div ng-repeat="service in note.services">
+          {{service.id ? service.id : service}}
+        </div>
+      </td>
+      <td title="'Actions'">
+      <button class="btn btn-danger" ng-click="confirmDelete(note)">Delete</button>
+      <button class="btn btn-primary" ng-click="editNote(note)">Edit</button>
+      </td>
+    </tr>
+  </table>
+
+  <modal modal-id="addNoteModal" modal-view="views/modals/addNoteModal.html" modal-header-class="modal-header-primary"></modal>
+  <modal modal-id="deleteNoteModal" modal-view="views/modals/deleteNoteModal.html" modal-header-class="modal-header-danger"></modal>
+  <modal modal-id="editNoteModal" modal-view="views/modals/editNoteModal.html" modal-header-class="modal-header-primary"></modal>
+</div>

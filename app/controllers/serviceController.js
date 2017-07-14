@@ -11,9 +11,20 @@ app.controller('ServiceController', function($controller, $scope, Service, Servi
   $scope.forms = {};
 
   $scope.resetServices = function() {
-    $scope.modalData = new Service({
+    if ($scope.serviceData) {
+      $scope.serviceData.clearValidationResults();
+    }
+    for (var key in $scope.forms) {
+        if (!$scope.forms[key].$pristine) {
+            $scope.forms[key].$setPristine();
+        }
+    }
+    $scope.serviceData = new Service({
+      'name': '',
       'isPublic': false,
-      'onShortList': false
+      'onShortList': false,
+      'isAuto': false,
+      'status': 'UP'
     });
     $scope.closeModal();
     $scope.serviceRepo.reset();
@@ -21,26 +32,25 @@ app.controller('ServiceController', function($controller, $scope, Service, Servi
   $scope.resetServices();
 
   $scope.createService = function() {
-    if ($scope.modalData.isAuto) {
-      $scope.modalData.status = 'UP';
+    if ($scope.serviceData.isAuto) {
+      $scope.serviceData.status = 'UP';
     } else {
-      $scope.modalData.isAuto = false;
+      $scope.serviceData.isAuto = false;
     }
-    $scope.serviceRepo.create($scope.modalData).then(function (res) {
+    $scope.serviceRepo.create($scope.serviceData).then(function (res) {
       if (angular.fromJson(res.body).meta.type === 'SUCCESS') {
         $scope.resetServices();
       }
     });
-
   };
 
   $scope.editService = function(service) {
-    $scope.modalData = service;
+    $scope.serviceData = service;
     $scope.openModal('#editServiceModal');
   };
 
   $scope.updateService = function() {
-    $scope.serviceRepo.update($scope.modalData).then(function(res) {
+    $scope.serviceRepo.update($scope.serviceData).then(function(res) {
       if (angular.fromJson(res.body).meta.type === 'SUCCESS') {
         $scope.resetServices();
       }
@@ -62,7 +72,7 @@ app.controller('ServiceController', function($controller, $scope, Service, Servi
   });
 
   $scope.confirmDelete = function(service) {
-    $scope.openModal('#confirmDeleteModal');
+    $scope.openModal('#deleteServiceModal');
     $scope.serviceToDelete = service;
   }
 
