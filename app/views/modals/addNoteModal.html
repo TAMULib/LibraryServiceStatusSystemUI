@@ -18,16 +18,16 @@
       label="Title"
       placeholder="Title of the Note"
       form="forms.create"
-      validations="noteRepo.getValidations()"
+      validations="noteData.getValidations()"
       results="noteRepo.ValidationResults">
     </validatedinput>
 
     <validatedselect
       model="noteData"
-      property="services"
-      label="Services"
+      property="service"
+      label="Service"
       form="forms.create"
-      validations="noteRepo.getValidations()"
+      validations="noteData.getValidations()"
       results="noteRepo.ValidationResults"
       options="services"
       optionProperty="name">
@@ -38,7 +38,7 @@
       property="noteType"
       label="Note Type"
       form="forms.create"
-      validations="noteRepo.getValidations()"
+      validations="noteData.getValidations()"
       results="noteRepo.ValidationResults"
       options="noteTypes">
     </validatedselect>
@@ -48,7 +48,7 @@
       property="body"
       label="Message Body"
       form="forms.create"
-      validations="noteRepo.getValidations()"
+      validations="noteData.getValidations()"
       results="noteRepo.ValidationResults">
     </validatedtextarea>
 

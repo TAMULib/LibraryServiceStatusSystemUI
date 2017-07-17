@@ -13,7 +13,7 @@
     </td>
     <td class="serviceNotes">
       <div ng-repeat="note in service.notes | orderBy: lastModified">
-        <span><strong>{{note.title}}:</strong> {{note.body}}</span>
+        <span><strong>{{getNoteById(note).title}}:</strong> {{getNoteById(note).body}}</span>
       </div>
       
     </td>

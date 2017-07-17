@@ -1,10 +1,23 @@
-app.model("Note", function Service() {
+app.model("Note", function Note(Service, ServiceRepo) {
 
-    return function Service() {
+    return function Note() {
+
+      // // var note = this;
         
-        // additional model methods and variables
+      // var instantiateService = function() {
+      //   console.log("instantiate");
+      //   this.service = ServiceRepo.findById(this.service);
+      // };
 
-        return this;
+      // this.before(function() {
+      //   instantiateService();
+      // });
+
+      // this.listen(function() {
+      //   instantiateService();
+      // });
+
+      return this;
     };
 
 });

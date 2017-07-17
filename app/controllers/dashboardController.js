@@ -1,4 +1,4 @@
-app.controller("DashboardController", function($controller, $scope, AlertService, User, OverallStatusPublic, OverallStatusFull, Service, ServiceRepo) {
+app.controller("DashboardController", function($controller, $scope, AlertService, User, OverallStatusPublic, OverallStatusFull, Service, ServiceRepo, NoteRepo) {
 
     angular.extend(this, $controller('AppAbstractController', {$scope: $scope}));
 
@@ -6,6 +6,8 @@ app.controller("DashboardController", function($controller, $scope, AlertService
 
     $scope.services = ServiceRepo.getAll();
 
-
+    $scope.getNoteById = function(id) {
+      return NoteRepo.findById(id);
+    };
 
 });
