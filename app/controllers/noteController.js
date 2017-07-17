@@ -32,9 +32,10 @@ app.controller('NoteController', function($q, $controller, $scope, NoteRepo, NgT
       $scope.noteData.clearValidationResults();
     }
     for (var key in $scope.forms) {
-        if (!$scope.forms[key].$pristine) {
-            $scope.forms[key].$setPristine();
-        }
+      if (!$scope.forms[key].$pristine) {
+        $scope.forms[key].$setPristine();
+        $scope.forms[key].$setUntouched();
+      }
     }
     $scope.noteData = {};
     $scope.noteData = new Note({
