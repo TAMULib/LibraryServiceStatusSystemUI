@@ -34,7 +34,7 @@
 	<!-- Content placed here will appear on every page -->
 	<main>
 
-		<tamuheader title="Weaver UI Seed"></tamuheader>
+		<tamuheader title="Library Service Status System"></tamuheader>
 
 		<alerts types="WARNING, ERROR"></alerts>
 		<alerts seconds="45" channels="auth/register" types="SUCCESS"></alerts>
@@ -45,12 +45,8 @@
 
 					<nav class="pull-right userMenu" ng-controller="AuthenticationController">
 
-						<modal modal-id="verifyEmailModal" modal-view="bower_components/core/app/views/modals/verifyEmailModal.html" modal-header-class="modal-header-primary"></modal>					
-						<modal modal-id="loginModal" modal-view="bower_components/core/app/views/modals/loginModal.html" modal-header-class="modal-header-primary"></modal>
-
-						<ul  ng-if="isAnonymous()" class="list-inline">
-						  	<li><a href ng-if="isAnonymous()" ng-click="openModal('#loginModal')">Login</a></li>
-						  	<li><a href ng-if="isAnonymous()" ng-click="openModal('#verifyEmailModal')">Register</a></li>
+						<ul  ng-if="isAnonymous()" class="list-inline" >
+						  	<li><a href ng-if="isAnonymous()" ng-click="login()">Login</a></li>
 						</ul>
 												
 						<div ng-if="!isAnonymous()" class="dropdown">
@@ -60,6 +56,7 @@
 
 							<ul class="dropdown-menu" role="menu">
 								<li ng-if="isAdmin() || isAssuming() == 'true'" role="presentation" class="dropdown-header">Manager Actions</li>
+								<li ng-if="isAdmin() || isManager()" ><a href="management">Management Dashboard</a></li>
 								<li ng-if="isAdmin() || isManager()" ><a href="users">Manage Users</a></li>
 								<li ng-if="isAdmin() || isAssuming() == 'true'" role="presentation" class="divider"></li>
 								<li ng-if="isAdmin() || isAssuming() == 'true'" role="presentation" class="dropdown-header">Admin Actions</li>
@@ -78,23 +75,9 @@
 						<modal modal-id="assumeUserModal" modal-view="bower_components/core/app/views/modals/assumeUserModal.html" modal-header-class="modal-header-primary"></modal>
 					</div>	
 
-					<div class="row" ng-controller="NavigationController">
-
-						<div class="col-12 col-lg-12">
-
-							<div class="btn-group btn-group-lg app-menu" ng-class="{'btn-group-justified': windowWidth > 750, 'btn-group-vertical vertical-justified': windowWidth <= 750}" role="group">							
-								<a ng-class="{'active' : view == '/users'}" class="btn btn-default" href="users">Users</a>
-								<a ng-class="{'active' : view == '/theme'}" class="btn btn-default" href="theme">Theme Manager</a>	
-								<a class="btn btn-default" href="directives" ng-class="{'active' : view == '/directives'}">Directives</a>							
-							</div>
-						</div>
-					</div>
 					
 					<div ng-view class="view"></div>
 
-					<footer>
-						TAMU UI Seed App Version: <span app-version></span>
-					</footer>
 				</div>
 			</div>
 		</div>
@@ -166,7 +149,7 @@
 	    <script src="bower_components/core/app/directives/modalDirective.js"></script>
 	    <script src="bower_components/core/app/directives/alertDirective.js"></script>
 	    <script src="bower_components/core/app/directives/accordionDirective.js"></script>
-	   	<script src="bower_components/core/app/directives/tabsDirective.js"></script>
+	   	
 	   	<script src="bower_components/core/app/directives/tooltipDirective.js"></script>
 	   	<script src="bower_components/core/app/directives/validationMessageDirective.js"></script>
 	    <script src="bower_components/core/app/directives/validatedInputDirective.js"></script>
@@ -209,6 +192,7 @@
 	<!-- endbuild -->
 
 	<!--  App libraries -->
+			<script src="bower_components/ng-table/dist/ng-table.min.js"></script>
 
 	<!-- build:js resources/scripts/app_concat.js -->
 	
@@ -218,6 +202,8 @@
 	    <script src="config/routes.js"></script>
 
 	    <!-- Directives -->
+	    <script src="directives/serviceStatusDirective.js"></script>
+	    <script src="directives/tabsDirective.js"></script>
 
 	    <!-- Services -->
 
@@ -226,20 +212,25 @@
 	    <!-- Repos -->	    
 	    <script src="repo/abstractAppRepo.js"></script>
 	    <script src="repo/userRepo.js"></script>
-	    <script src="repo/themeRepo.js"></script>
+	    <script src="repo/serviceRepo.js"></script>
+	    <script src="repo/noteRepo.js"></script>
 
 	    <!-- Models -->
 	    <script src="model/abstractAppModel.js"></script>
-	    <script src="model/theme.js"></script>
+			<script src="model/overallStatus.js"></script>
+			<script src="model/service.js"></script>
+			<script src="model/note.js"></script>
 
 	    <!-- Controllers -->
 	    <script src="controllers/adminController.js"></script>
-	    <script src="controllers/themeController.js"></script>
+			<script src="controllers/appAbstractController.js"></script>
+	    <script src="controllers/dashboardController.js"></script>
 	    <script src="controllers/userRepoController.js"></script>
 	    <script src="controllers/navigationController.js"></script>
-	    <script src="controllers/directiveGalleryController.js"></script>
-
+	    <script src="controllers/serviceController.js"></script>
 	    <script src="controllers/navigationController.js"></script>
+	    <script src="controllers/managementController.js"></script>
+	    <script src="controllers/noteController.js"></script>
 	    
 	 
     

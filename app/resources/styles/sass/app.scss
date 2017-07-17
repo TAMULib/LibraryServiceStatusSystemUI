@@ -202,3 +202,31 @@ main footer {
 .view-theme-manager .input-group-addon label {
   min-width: 100px;
 }
+
+.overallStatusAlert .alert-wrapper {
+  top: 25px;
+}
+
+.publicDashboardServiceShortlist {
+  margin-top: 50px;  
+}
+
+.serviceName {
+  font-size:1.5em;  
+}
+
+.serviceIndicator {
+  font-size: 2em;
+}
+
+.serviceUp {
+  color:#3c763d;  
+}
+
+.serviceDown {
+  color:#a94442;
+}
+
+.management-table {
+  margin-bottom: 70px;
+}

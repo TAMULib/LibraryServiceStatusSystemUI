@@ -1,35 +1,36 @@
 
 app.config(function($routeProvider) {	
 	$routeProvider.
-		when('/register', {
-			templateUrl: 'bower_components/core/app/views/register.html'
+		when('/management', {
+			redirectTo: '/management/services'
+		}).
+		when('/management/:tab', {
+			templateUrl: 'views/management.html',
+			access: ["ROLE_ADMIN", "ROLE_MANGER"]
 		}).
 		when('/users', {
 			templateUrl: 'views/users.html',
 			access: ["ROLE_ADMIN", "ROLE_MANGER"]
 		}).
-		when('/theme', {
-			templateUrl: 'views/theme.html',
-			access: ["ROLE_ADMIN"]
+		when('/services', {
+			templateUrl: 'views/management/services.html',
+			access: ["ROLE_ADMIN", "ROLE_MANGER"]
 		}).
-		when('/directives', {
-			templateUrl: 'views/directive-demo/directives.html',
-			controller: 'DirectiveGalleryController',
-			reloadOnSearch: false
-		}).
-		when('/directives/:tab', {
-			templateUrl: 'views/directive-demo/directives.html',
-			controller: 'DirectiveGalleryController',
-			reloadOnSearch: false
+		when('/notes', {
+			templateUrl: 'views/management/notes.html',
+			access: ["ROLE_ADMIN", "ROLE_MANGER"]
 		}).
 		when('/home', {
 			redirectTo: '/'
 		}).
 		when('/', {
-			templateUrl: 'views/home.html'
+			templateUrl: 'views/dashboard.html',
+			controller: 'DashboardController'
 		}).
-
-
+		when('/users', {
+			templateUrl: 'views/users.html',
+			controller: 'UserRepoController'
+		}).
 		// Error Routes
 		when('/error/403', {
 			templateUrl: 'views/errors/403.html',
