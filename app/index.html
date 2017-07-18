@@ -25,6 +25,8 @@
 
 	<script src="bower_components/html5-boilerplate/src/js/vendor/modernizr-2.8.3.min.js"></script>
 
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+
 </head>
 <body>
 	<!--[if lt IE 7]>
@@ -32,9 +34,9 @@
 	<![endif]-->
 
 	<!-- Content placed here will appear on every page -->
-	<main>
+	<main ng-controller="AuthenticationController">
 
-		<tamuheader title="Library Service Status System"></tamuheader>
+		<custom-header title="Library Service Status System" home="/status-system/" login="login()" anonymous="isAnonymous()"></custom-header>
 
 		<alerts types="WARNING, ERROR"></alerts>
 		<alerts seconds="45" channels="auth/register" types="SUCCESS"></alerts>
@@ -43,7 +45,7 @@
 			<div class="container">
 				<div class="col-md-12 appContent">
 
-					<nav class="pull-right userMenu" ng-controller="AuthenticationController">
+					<nav class="pull-right userMenu">
 
 						<ul  ng-if="isAnonymous()" class="list-inline" >
 						  	<li><a href ng-if="isAnonymous()" ng-click="login()">Login</a></li>
@@ -204,6 +206,7 @@
 	    <!-- Directives -->
 	    <script src="directives/serviceStatusDirective.js"></script>
 	    <script src="directives/tabsDirective.js"></script>
+	    <script src="directives/customHeaderDirective.js"></script>
 
 	    <!-- Services -->
 
