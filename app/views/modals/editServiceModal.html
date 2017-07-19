@@ -22,7 +22,9 @@
       results="serviceData.getValidationResults()">
     </validatedinput>
 
-    <textarea ui-tinymce="tinycmeOptions" ng-model="serviceData.description"></textarea>
+    <label>Description</label>
+    <textarea ui-tinymce="tinymceOptions" ng-model="serviceData.description"></textarea>
+    <br>
 
     <service-status
       model="serviceData">
