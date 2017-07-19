@@ -1,6 +1,6 @@
 app.controller('ServiceController', function($controller, $scope, Service, ServiceRepo, NgTableParams) {
 
-  angular.extend(this, $controller('AbstractController', {$scope: $scope}));
+  angular.extend(this, $controller('AppAbstractController', {$scope: $scope}));
 
   $scope.serviceRepo = ServiceRepo;
 
