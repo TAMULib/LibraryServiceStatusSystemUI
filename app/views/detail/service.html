@@ -5,7 +5,13 @@
 <div class="container">
   <h3>{{service.name}} Details</h3>
   <hr>
+  {{service}}
   <div>
     <span ng-bind-html="service.description | decode"></span>
+  </div>
+</div>
+
+<div class="container service-notes">
+  <div ng-repeat="note in notes">
   </div>
 </div>
