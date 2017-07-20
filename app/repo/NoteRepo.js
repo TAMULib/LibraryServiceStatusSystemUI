@@ -1,4 +1,4 @@
-app.repo("NoteRepo", function NoteRepo($q) {
+app.repo("NoteRepo", function NoteRepo() {
 
   return this;
 

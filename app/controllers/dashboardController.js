@@ -6,8 +6,4 @@ app.controller("DashboardController", function($controller, $scope, AlertService
 
     $scope.services = ServiceRepo.getAll();
 
-    $scope.getNoteById = function(id) {
-      return NoteRepo.findById(id);
-    };
-
 });
