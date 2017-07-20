@@ -50,12 +50,10 @@ app.controller('ServiceController', function($controller, $scope, Service, Servi
   };
 
   $scope.updateService = function() {
-    console.log($scope.serviceData);
     $scope.serviceRepo.update($scope.serviceData).then(function(res) {
       if (angular.fromJson(res.body).meta.type === 'SUCCESS') {
         $scope.resetServices();
       }
-      
     });
   };
 
@@ -92,6 +90,6 @@ app.controller('ServiceController', function($controller, $scope, Service, Servi
     toolbar1: "formatselect,bold,italic,separator,bullist,numlist,undo,redo",
     theme: "modern",
     plugins: "link",
-    entity_encoding: "raw+named"
+    selector: 'textarea'
   };
 });

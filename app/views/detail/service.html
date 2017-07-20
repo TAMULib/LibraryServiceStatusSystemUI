@@ -6,6 +6,6 @@
   <h3>{{service.name}} Details</h3>
   <hr>
   <div>
-    <span>{{service.description}}</span>
+    <span ng-bind-html="service.description" ng-model="service" encode-decode></span>
   </div>
 </div>
