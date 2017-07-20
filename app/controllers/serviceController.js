@@ -24,7 +24,8 @@ app.controller('ServiceController', function($controller, $scope, Service, Servi
       'isPublic': false,
       'onShortList': false,
       'isAuto': false,
-      'status': 'UP'
+      'status': 'UP',
+      'description': ''
     });
     $scope.closeModal();
     $scope.serviceRepo.reset();
