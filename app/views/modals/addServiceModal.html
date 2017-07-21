@@ -21,6 +21,10 @@
       results="serviceRepo.ValidationResults">
     </validatedinput>
 
+    <label>Description</label>
+    <textarea ui-tinymce="tinymceOptions" ng-model="serviceData.description" encode-decode></textarea>
+    <br>
+
     <service-status
       model="serviceData">
     </service-status>

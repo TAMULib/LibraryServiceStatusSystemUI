@@ -204,7 +204,11 @@ main footer {
 }
 
 .overallStatusAlert .alert-wrapper {
-  top: 25px;
+  margin-top: 25px;
+}
+
+.serviceStatusAlert {
+  margin-top: 25px;
 }
 
 .publicDashboardServiceShortlist {
@@ -229,4 +233,7 @@ main footer {
 
 .management-table {
   margin-bottom: 70px;
+}
+.note-body {
+  word-wrap: break-word;
 }

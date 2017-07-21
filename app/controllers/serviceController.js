@@ -1,6 +1,6 @@
 app.controller('ServiceController', function($controller, $scope, Service, ServiceRepo, NgTableParams) {
 
-  angular.extend(this, $controller('AbstractController', {$scope: $scope}));
+  angular.extend(this, $controller('AppAbstractController', {$scope: $scope}));
 
   $scope.serviceRepo = ServiceRepo;
 
@@ -24,7 +24,8 @@ app.controller('ServiceController', function($controller, $scope, Service, Servi
       'isPublic': false,
       'onShortList': false,
       'isAuto': false,
-      'status': 'UP'
+      'status': 'UP',
+      'description': ''
     });
     $scope.closeModal();
     $scope.serviceRepo.reset();
@@ -54,7 +55,6 @@ app.controller('ServiceController', function($controller, $scope, Service, Servi
       if (angular.fromJson(res.body).meta.type === 'SUCCESS') {
         $scope.resetServices();
       }
-      
     });
   };
 
@@ -86,4 +86,11 @@ app.controller('ServiceController', function($controller, $scope, Service, Servi
       $scope.tableParams.reload();
     })
   }
+
+  $scope.tinymceOptions = {
+    toolbar1: "formatselect,bold,italic,separator,bullist,numlist,undo,redo",
+    theme: "modern",
+    plugins: "link",
+    selector: 'textarea'
+  };
 });
