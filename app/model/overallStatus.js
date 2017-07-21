@@ -6,10 +6,9 @@ var OverallStatus = function OverallStatus($timeout, AlertService) {
         var ALERT_CHANNEL = "status/general";
 
         var alert;
-
         this.listen(function(){
             if(alert) {
-                alert.type = this.type;
+                alert.class = this.type === "ERROR" ? "danger" : "success";
                 alert.message = this.message;
             }
         }.bind(this));
