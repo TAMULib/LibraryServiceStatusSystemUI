@@ -1,4 +1,4 @@
-app.repo("ServiceRepo", function ServiceRepo($q) {
+app.repo("ServiceRepo", function ServiceRepo() {
 
 	return this;
 
