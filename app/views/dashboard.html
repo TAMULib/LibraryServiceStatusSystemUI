@@ -13,7 +13,7 @@
     </td>
     <td class="serviceNotes">
       <div ng-repeat="note in service.notes | orderBy: lastModified">
-        <span><strong>{{getNoteById(note).title}}:</strong> {{getNoteById(note).body}}</span>
+        <span><strong>{{note}}:</strong> {{note.body}}</span>
       </div>
       
     </td>
@@ -22,3 +22,5 @@
 </table>
 <button class="btn btn-default" ng-if="showShortList" ng-click="showHideShortList()">Show All Services</button>
 <button class="btn btn-default" ng-if="!showShortList" ng-click="showHideShortList()">Collapse</button>
+
+{{notes}}

@@ -25,4 +25,12 @@ app.controller("DashboardController", function($controller, $scope, AlertService
       $scope.showShortList = !$scope.showShortList;
     }
 
+    NoteRepo.ready().then(function() {
+      promise = NoteRepo.page(0, 3, 'DESC', 'title', {title: []}).then(function(value) {
+
+          $scope.notes = value;
+      });
+        console.log(promise);
+
+    });
 });
