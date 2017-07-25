@@ -26,10 +26,10 @@
 <br>
 <h4>Recent Notes</h4>
 <hr>
-<div class="container notes-container">
+<div class="container-fluid notes-container">
   <div ng-repeat="note in notes" class="well">
     <div>
-      <span class="lead">{{note.title}} [{{note.service.name}}]</span>
+      <span class="lead">{{note.title}} [<a href="{{'/service/' + note.service.id + '/detail/'}}">{{note.service.name}}</a>]</span>
       <span class="pull-right label {{note.noteType | serviceLabel}}">{{note.noteType}}</span>
     </div>
     <br>

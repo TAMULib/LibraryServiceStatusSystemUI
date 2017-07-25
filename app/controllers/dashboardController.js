@@ -10,7 +10,7 @@ app.controller("DashboardController", function($controller, $scope, AlertService
 
     $scope.pageSettings = {
       pageNumber: 0,
-      pageSize: 10,
+      pageSize: 5,
       direction: 'DESC',
       properties: 'title',
       filters: {title: []}
@@ -47,6 +47,7 @@ app.controller("DashboardController", function($controller, $scope, AlertService
         $scope.pageSettings.properties,
         $scope.pageSettings.filters
       ).then(function(value) {
+        $scope.pageSettings.totalPages = value.totalPages;
         $scope.notes = value.content;
       });
     }
