@@ -8,6 +8,15 @@ app.controller("DashboardController", function($controller, $scope, AlertService
 
     $scope.showShortList = true;
 
+    $scope.pageSettings = {
+      pageNumber: 0,
+      pageSize: 10,
+      direction: 'DESC',
+      properties: 'title',
+      filters: {title: []}
+    };
+    console.log($scope);
+
     $scope.getNoteById = function(id) {
       return NoteRepo.findById(id);
     };
@@ -26,11 +35,23 @@ app.controller("DashboardController", function($controller, $scope, AlertService
     }
 
     NoteRepo.ready().then(function() {
-      promise = NoteRepo.page(0, 3, 'DESC', 'title', {title: []}).then(function(value) {
+      console.log($scope.pageSettings);
+      loadPage(0, $scope.pageSettings.pageSize, 'DESC', 'title', {title: []});
+    });
 
-          $scope.notes = value;
+    var loadPage = function() {
+      NoteRepo.page(
+        $scope.pageSettings.pageNumber,
+        $scope.pageSettings.pageSize,
+        $scope.pageSettings.direction,
+        $scope.pageSettings.properties,
+        $scope.pageSettings.filters
+      ).then(function(value) {
+        $scope.notes = value.content;
       });
-        console.log(promise);
+    }
 
+    $scope.$watchCollection('pageSettings', function(newValue) {
+      loadPage();
     });
 });
