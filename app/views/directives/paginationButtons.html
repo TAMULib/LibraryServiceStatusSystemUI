@@ -1,14 +1,25 @@
-<div class="btn-group pull-right" data-toggle="buttons">
-<label class="btn btn-default active">
-    <input type="radio" name="options" id="10" value="10" autocomplete="off" checked> 10
-  </label>
-  <label class="btn btn-default">
-    <input type="radio" name="options" id="25" value="25" autocomplete="off"> 25
-  </label>
-  <label class="btn btn-default">
-    <input type="radio" name="options" id="50" value="50" autocomplete="off"> 50
-  </label>
-  <label class="btn btn-default">
-    <input type="radio" name="options" id="100" value="100" autocomplete="off"> 100
-  </label>
+<div class="row">
+  <div class="col-md-6">
+    <div class="btn-group">
+      <div id="previous" class="btn btn-default">&laquo;</div>
+      <div class="btn btn-default" ng-class="(isActive(page[$index]) ? 'active' : '')" id="{{page[$index]}}" ng-repeat="page in pages track by $index">{{page[$index]}}</div>
+      <div id="next" class="btn btn-default">&raquo;</div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="btn-group pull-right" data-toggle="buttons">
+      <label class="btn btn-default active">
+        <input type="radio" name="options" id="5" autocomplete="off" checked> 5
+      </label>
+      <label class="btn btn-default">
+        <input type="radio" name="options" id="10" autocomplete="off"> 10
+      </label>
+      <label class="btn btn-default">
+        <input type="radio" name="options" id="25" autocomplete="off"> 25
+      </label>
+      <label class="btn btn-default">
+        <input type="radio" name="options" id="50" autocomplete="off"> 50
+      </label>
+    </div>
+  </div>
 </div>
