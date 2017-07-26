@@ -109,6 +109,11 @@ var apiMapping = {
 			'endpoint': '/private/queue',
 			'controller': 'note',
 			'method': 'remove'
+		},
+		page: {
+			'endpoint': '/private/queue',
+			'controller': 'note',
+			'method': 'page'
 		}
 	},
 	Service: {

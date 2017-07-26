@@ -13,7 +13,7 @@
     </td>
     <td class="serviceNotes">
       <div ng-repeat="note in service.notes | orderBy: lastModified">
-        <span><strong>{{getNoteById(note).title}}:</strong> {{getNoteById(note).body}}</span>
+        <span><strong>{{note}}:</strong> {{note.body}}</span>
       </div>
       
     </td>
@@ -22,3 +22,30 @@
 </table>
 <button class="btn btn-default" ng-if="showShortList" ng-click="showHideShortList()">Show All Services</button>
 <button class="btn btn-default" ng-if="!showShortList" ng-click="showHideShortList()">Collapse</button>
+<br>
+<br>
+<h4>Recent Notes</h4>
+<hr>
+<div class="container-fluid notes-container">
+  <div ng-repeat="note in notes" class="well">
+    <div>
+      <span class="lead">{{note.title}} [<a href="{{'/service/' + note.service.id + '/detail/'}}">{{note.service.name}}</a>]</span>
+      <span class="pull-right label {{note.noteType | serviceLabel}}">{{note.noteType}}</span>
+    </div>
+    <br>
+    <div>
+      <span>{{note.body}}</span>
+    </div>
+    <br>
+    <div>
+      <span>Posted by {{note.author.firstName}} {{note.author.lastName}} on {{note.lastModified | date : 'medium' : 'CST'}}</span>
+    </div>
+  </div>
+  <div>
+    <pagination-buttons
+    pageSettings="pageSettings">
+    </pagination-buttons>
+  </div>
+  
+</div>
+
