@@ -20,10 +20,10 @@ app.directive("paginationButtons", function() {
             if (target[0].id === 'previous') {
               $scope.pageSettings.pageNumber = ($scope.pageSettings.pageNumber == 0 ? 0 : $scope.pageSettings.pageNumber - 1);
             } else if (target[0].id === 'next') {
-              $scope.pageSettings.pageNumber = ($scope.pageSettings.pageNumber == $scope.pageSettings.totalPages ? $scope.pageSettings.pageNumber : $scope.pageSettings.pageNumber + 1);
+              $scope.pageSettings.pageNumber = ($scope.pageSettings.pageNumber == $scope.pageSettings.totalPages - 1 ? $scope.pageSettings.pageNumber : $scope.pageSettings.pageNumber + 1);
             } else {
               console.log(target[0].id);
-              $scope.pageSettings.pageNumber = target[0].id;
+              $scope.pageSettings.pageNumber = target[0].id - 1;
             }
           });
         }
