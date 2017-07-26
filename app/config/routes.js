@@ -20,6 +20,10 @@ app.config(function($routeProvider) {
 			templateUrl: 'views/management/notes.html',
 			access: ["ROLE_ADMIN", "ROLE_MANGER"]
 		}).
+		when('/service/:serviceId/detail', {
+ 			templateUrl: 'views/detail/service.html',
+ 			controller: 'ServiceDetailController'
+ 		}).
 		when('/home', {
 			redirectTo: '/'
 		}).

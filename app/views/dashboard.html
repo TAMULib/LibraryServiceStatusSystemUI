@@ -6,16 +6,15 @@
   <thead><th>Service Name</th><th>Status</th><th>Notes</th></thead>
   <tbody>
   <tr class="serviceShortListItem" ng-repeat="service in services | dashboardServices:{showPublic: showPublic, showShortList: showShortList}">
-    <td class="serviceName">{{service.name}}:</td> 
+    <td class="serviceName"><a href="{{'service/' + service.id + '/detail/'}}">{{service.name}}:</a></td> 
     <td> 
   	  <span ng-if="service.status=='UP'" class="glyphicon glyphicon-ok-sign serviceIndicator serviceUp"></span>
   	  <span ng-if="service.status=='DOWN'" class="glyphicon glyphicon-remove-sign serviceIndicator serviceDown"></span>
     </td>
     <td class="serviceNotes">
       <div ng-repeat="note in service.notes | orderBy: lastModified">
-        <span><strong>{{note}}:</strong> {{note.body}}</span>
+        <span><strong>{{note.title}}:</strong> {{note.body}}</span>
       </div>
-      
     </td>
   </tr>
   </tbody>
@@ -29,7 +28,7 @@
 <div class="container-fluid notes-container">
   <div ng-repeat="note in notes" class="well">
     <div>
-      <span class="lead">{{note.title}} [<a href="{{'/service/' + note.service.id + '/detail/'}}">{{note.service.name}}</a>]</span>
+      <span class="lead">{{note.title}} [<a href="{{'service/' + note.service.id + '/detail/'}}">{{note.service.name}}</a>]</span>
       <span class="pull-right label {{note.noteType | serviceLabel}}">{{note.noteType}}</span>
     </div>
     <br>

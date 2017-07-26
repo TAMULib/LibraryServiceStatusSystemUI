@@ -1,0 +1,28 @@
+<div class="serviceStatusAlert alert" ng-class="service.status == 'UP' ? 'alert-success' : 'alert-danger'" role="alert"><h2>{{service.name}} is {{service.status | lowercase}}</h2>
+  
+</div>
+
+<div class="container">
+  <h3>{{service.name}} Details</h3>
+  <hr>
+  <div>
+    <span ng-bind-html="service.description | decode"></span>
+  </div>
+</div>
+
+<div class="container service-notes">
+  <div class="well" ng-repeat="note in service.notes">
+    <div >
+      <div class="row">
+        <h4 class="col-md-8 note-title">{{note.title}}</h4>
+        <h4 class="col-md-4 text-right note-type">{{note.noteType}}</h4>
+      </div>
+      <div class="note-body"> 
+        {{note.body}}
+      </div>
+      <div>
+        <span>Posted by {{note.author.firstName}} {{note.author.lastName}} on {{note.lastModified | date : 'medium' : 'CST'}}</span>
+      </div>
+    </div>
+  </div>
+</div>

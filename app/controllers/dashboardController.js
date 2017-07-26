@@ -15,11 +15,6 @@ app.controller("DashboardController", function($controller, $scope, AlertService
       properties: 'title',
       filters: {title: []}
     };
-    console.log($scope);
-
-    $scope.getNoteById = function(id) {
-      return NoteRepo.findById(id);
-    };
 
     $scope.showPublic = function() {
       var user = UserService.getCurrentUser();
@@ -35,7 +30,6 @@ app.controller("DashboardController", function($controller, $scope, AlertService
     }
 
     NoteRepo.ready().then(function() {
-      console.log($scope.pageSettings);
       loadPage(0, $scope.pageSettings.pageSize, 'DESC', 'title', {title: []});
     });
 

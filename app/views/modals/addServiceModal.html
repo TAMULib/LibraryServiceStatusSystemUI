@@ -10,6 +10,7 @@
 </div>
 
 <form ng-submit="createService()" name="forms.create" novalidate>
+
   <div class="modal-body">
     <validatedinput
       model="serviceData"
@@ -20,6 +21,10 @@
       validations="serviceData.getValidations()"
       results="serviceRepo.ValidationResults">
     </validatedinput>
+
+    <label>Description</label>
+    <textarea ui-tinymce="tinymceOptions" ng-model="serviceData.description" encode-decode></textarea>
+    <br>
 
     <service-status
       model="serviceData">

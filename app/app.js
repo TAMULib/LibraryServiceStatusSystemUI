@@ -21,7 +21,7 @@ setUpApp(function(connected) {
 	angular.element(document).ready(function() {	   	
 	   	try {
 	   		//If the app is already bootstrapped then an error will be thrown
-			angular.bootstrap(document, ['app', 'core', 'ui.bootstrap']);
+			angular.bootstrap(document, ['app', 'core', 'ui.tinymce', 'ui.bootstrap']);
 
 			if(!window.stompClient.connected) {
 				AlertService = injector.get('AlertService');
