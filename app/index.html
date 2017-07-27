@@ -47,9 +47,7 @@
 
 					<nav class="pull-right userMenu">
 
-						<ul  ng-if="isAnonymous()" class="list-inline" >
-						  	<li><a href ng-if="isAnonymous()" ng-click="login()">Login</a></li>
-						</ul>
+						
 												
 						<div ng-if="!isAnonymous()" class="dropdown">
 							<span class="glyphicon glyphicon-user"></span>
@@ -84,9 +82,9 @@
 			</div>
 		</div>
 	</main>
-
-	<tamufooter></tamufooter>
-
+	<div ng-controller="AuthenticationController">
+		<custom-footer login="login()" anonymous="isAnonymous()"></custom-footer>
+	</div>
 
 	<!-- In production use: <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script> -->
 
@@ -205,6 +203,7 @@
 	    <script src="config/routes.js"></script>
 
 	    <!-- Directives -->
+	    <script src="directives/customFooterDirective.js"></script>
 	    <script src="directives/serviceStatusDirective.js"></script>
 	    <script src="directives/tabsDirective.js"></script>
 	    <script src="directives/customHeaderDirective.js"></script>
