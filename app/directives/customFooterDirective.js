@@ -1,6 +1,6 @@
-app.directive('customHeader', function ($controller) {
+app.directive('customFooter', function ($controller) {
     return {
-        templateUrl: 'views/directives/header.html',
+        templateUrl: 'views/directives/footer.html',
         restrict: 'E',
         replace: false,
         transclude: true,
@@ -9,8 +9,6 @@ app.directive('customHeader', function ($controller) {
             anonymous: '='
         },
         link: function ($scope, element, attr) {
-            $scope.title = attr.title;
-            $scope.home = attr.home;
             $scope.loginuser = function() {
                 $scope.login({});
             }
