@@ -243,6 +243,11 @@ main footer {
 .service-notes {
   margin-bottom: 70px;
 }
+@media (min-width: 767px) {
+  .serviceName {
+    min-width: 225px;
+  }
+}
 
 /*********** header **********/
 header {
