@@ -3,7 +3,6 @@ app.repo("NoteRepo", function NoteRepo($q, WsApi) {
   noteRepo = this;
 
   noteRepo.page = function(number, size, direction, properties, filters) {
-    console.log(size);
     return $q(function(resolve) {
       if (!properties) {
         properties = 'title';
@@ -26,11 +25,10 @@ app.repo("NoteRepo", function NoteRepo($q, WsApi) {
           'filters': filters
         }
       });
-      console.log(noteRepo.mapping.page);
       WsApi.fetch(noteRepo.mapping.page).then(function(data) {
         var page = angular.fromJson(data.body).payload.PageImpl;
-        console.log(page.content);
-        noteRepo.empty();
+        // noteRepo.empty();
+        console.log(page);
         noteRepo.addAll(page.content);
         resolve(page);
       });

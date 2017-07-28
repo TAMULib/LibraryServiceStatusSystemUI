@@ -22,7 +22,6 @@ app.directive("paginationButtons", function() {
             } else if (target[0].id === 'next') {
               $scope.pageSettings.pageNumber = ($scope.pageSettings.pageNumber == $scope.pageSettings.totalPages - 1 ? $scope.pageSettings.pageNumber : $scope.pageSettings.pageNumber + 1);
             } else {
-              console.log(target[0].id);
               $scope.pageSettings.pageNumber = target[0].id - 1;
             }
           });
@@ -30,7 +29,6 @@ app.directive("paginationButtons", function() {
       });
 
       $scope.$watch('pageSettings', function(newVal) {
-        console.log(newVal);
         element.removeClass('active');
         if (!$scope.pageSettings && newVal === $scope.pageSettings.pageSize) {
           element.addClass('active');

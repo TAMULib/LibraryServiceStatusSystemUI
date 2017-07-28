@@ -5,6 +5,7 @@ app.controller("DashboardController", function($controller, $scope, AlertService
     $scope.overallStatus = $scope.isFullServiceConsumer() ? new OverallStatusFull() : new OverallStatusPublic();
 
     $scope.services = ServiceRepo.getAll();
+    console.log($scope.services);
 
     $scope.showShortList = true;
 
@@ -21,7 +22,7 @@ app.controller("DashboardController", function($controller, $scope, AlertService
       var publicView = false;
       if (user.role === 'ROLE_ANONYMOUS' || user.role === 'ROLE_USER') {
         publicView = true;
-      } 
+      }
       return publicView;
     };
 
@@ -49,4 +50,8 @@ app.controller("DashboardController", function($controller, $scope, AlertService
     $scope.$watchCollection('pageSettings', function(newValue) {
       loadPage();
     });
+
+    // ServiceRepo.listen(function(response) {
+    //   console.log(angular.fromJson(response.body));
+    // });
 });

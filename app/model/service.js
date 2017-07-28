@@ -4,14 +4,18 @@ app.model("Service", function Service(NoteRepo) {
 
       var service = this;
         
-        this.before(function() {
+        service.before(function() {
           NoteRepo.ready().then(function() {
+            console.log(JSON.stringify(service.notes));
             if (service.notes) {
-              var notes = [];
-              service.notes.forEach(function(note) {
-                notes.push(NoteRepo.findById(note));
+              var noteIds = angular.copy(service.notes);
+              console.log(JSON.stringify(noteIds));
+              service.notes.length = 0;
+              angular.forEach(noteIds, function(noteId){
+                var fullNote = NoteRepo.findById(noteId);
+                service.notes.push(fullNote);
+                console.log(fullNote, noteId);
               });
-              service.notes = notes;
             }
           });
         });
