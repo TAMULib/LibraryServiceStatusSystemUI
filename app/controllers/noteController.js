@@ -1,4 +1,4 @@
-app.controller('NoteController', function($q, $controller, $scope, NoteRepo, NgTableParams, ServiceRepo, Note, UserService) {
+app.controller('NoteController', function($controller, $scope, $q, NgTableParams, UserService, Note, NoteRepo, ServiceRepo) {
 
   angular.extend(this, $controller('AbstractController', {$scope: $scope}));
   
