@@ -1,11 +1,10 @@
-app.controller("DashboardController", function($controller, $scope, AlertService, User, OverallStatusPublic, OverallStatusFull, Service, ServiceRepo, NoteRepo, UserService) {
+app.controller("DashboardController", function($controller, $scope, WsApi, User, UserService, AlertService, NoteRepo, OverallStatusFull, OverallStatusPublic, Service, ServiceRepo) {
 
     angular.extend(this, $controller('AppAbstractController', {$scope: $scope}));
 
     $scope.overallStatus = $scope.isFullServiceConsumer() ? new OverallStatusFull() : new OverallStatusPublic();
 
     $scope.services = ServiceRepo.getAll();
-    console.log($scope.services);
 
     $scope.showShortList = true;
 
@@ -47,11 +46,12 @@ app.controller("DashboardController", function($controller, $scope, AlertService
       });
     }
 
-    $scope.$watchCollection('pageSettings', function(newValue) {
+    $scope.$watchCollection('pageSettings', function() {
       loadPage();
     });
 
-    // ServiceRepo.listen(function(response) {
-    //   console.log(angular.fromJson(response.body));
-    // });
+    WsApi.listen(noteRepo.mapping.createListen).then(null, null, function(data) {
+      NoteRepo.add(angular.fromJson(data.body).payload.Note);
+      loadPage();
+    });
 });

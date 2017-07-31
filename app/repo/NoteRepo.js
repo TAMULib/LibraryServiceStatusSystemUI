@@ -1,6 +1,22 @@
-app.repo("NoteRepo", function NoteRepo($q, WsApi) {
+app.repo("NoteRepo", function NoteRepo($q, WsApi, Note) {
 
   noteRepo = this;
+
+  noteRepo.fetchAndAddById = function(id) {
+    angular.extend(noteRepo.mapping.get, {'method': 'get/' + id});
+
+    return $q(function(resolve) {
+      var note = noteRepo.findById(id);
+
+      if (note === undefined || note === null) {
+        WsApi.fetch(noteRepo.mapping.get).then(function(data) {
+          resolve(angular.fromJson(data.body).payload.Note);
+         });
+      } else {
+        resolve(note);
+      }
+    });
+  };
 
   noteRepo.page = function(number, size, direction, properties, filters) {
     return $q(function(resolve) {
@@ -10,8 +26,6 @@ app.repo("NoteRepo", function NoteRepo($q, WsApi) {
       if (!direction) {
         direction = 'ASC';
       }
-
-
       angular.extend(noteRepo.mapping.page, {
         'data': {
           'page': {
@@ -27,8 +41,6 @@ app.repo("NoteRepo", function NoteRepo($q, WsApi) {
       });
       WsApi.fetch(noteRepo.mapping.page).then(function(data) {
         var page = angular.fromJson(data.body).payload.PageImpl;
-        // noteRepo.empty();
-        console.log(page);
         noteRepo.addAll(page.content);
         resolve(page);
       });

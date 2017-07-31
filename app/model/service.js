@@ -1,26 +1,34 @@
-app.model("Service", function Service(NoteRepo) {
+app.model("Service", function Service($q, Note, NoteRepo) {
 
     return function Service() {
 
       var service = this;
         
-        service.before(function() {
-          NoteRepo.ready().then(function() {
-            console.log(JSON.stringify(service.notes));
-            if (service.notes) {
-              var noteIds = angular.copy(service.notes);
-              console.log(JSON.stringify(noteIds));
-              service.notes.length = 0;
-              angular.forEach(noteIds, function(noteId){
-                var fullNote = NoteRepo.findById(noteId);
-                service.notes.push(fullNote);
-                console.log(fullNote, noteId);
-              });
-            }
-          });
-        });
+      service.before(function() {
+        
+        if (service.notes.length > 0) {
 
-        return service;
+          var notePromises = []
+
+          for(var i in service.notes) {
+            var noteId = service.notes[i];
+            notePromises.push($q(function(resolve) { 
+              NoteRepo.fetchAndAddById(noteId).then(function(note) {
+                resolve(new Note(note));
+              });
+            }));
+          }
+
+          $q.all(notePromises).then(function(serviceNotes) {
+            angular.extend(service, {
+              notes: serviceNotes
+            });
+          });
+        }
+
+      });
+
+      return service;
     };
 
 });

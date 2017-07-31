@@ -12,7 +12,6 @@
   	  <span ng-if="service.status=='DOWN'" class="glyphicon glyphicon-remove-sign serviceIndicator serviceDown"></span>
     </td>
     <td class="serviceNotes">
-      {{service}}
       <div ng-repeat="note in service.notes | orderBy: lastModified">
         <span><strong><span class="label {{note.noteType | serviceLabel}}">{{note.noteType}}</span> {{note.title}}:</strong> {{note.body}}</span>
       </div>
