@@ -6,8 +6,8 @@
   <thead><th>Service Name</th><th>Status</th><th>Notes</th></thead>
   <tbody>
   <tr class="serviceShortListItem" ng-repeat="service in services | dashboardServices:{showPublic: showPublic, showShortList: showShortList}">
-    <td class="serviceName"><a href="{{'service/' + service.id + '/detail/'}}">{{service.name}}</a></td> 
-    <td> 
+    <td class="serviceName"><a href="{{'service/' + service.id + '/detail/'}}">{{service.name}}</a></td>
+    <td>
   	  <span ng-if="service.status=='UP'" class="glyphicon glyphicon-ok-sign serviceIndicator serviceUp"></span>
   	  <span ng-if="service.status=='DOWN'" class="glyphicon glyphicon-remove-sign serviceIndicator serviceDown"></span>
     </td>
@@ -21,6 +21,7 @@
 </table>
 <button class="btn btn-default" ng-if="showShortList" ng-click="showHideShortList()">Show All Services</button>
 <button class="btn btn-default" ng-if="!showShortList" ng-click="showHideShortList()">Collapse</button>
+<br>
 <br>
 <br>
 <h4>Recent Notes</h4>
@@ -45,6 +46,5 @@
     pageSettings="pageSettings">
     </pagination-buttons>
   </div>
-  
-</div>
 
+</div>
