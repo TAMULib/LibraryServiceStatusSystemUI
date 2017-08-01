@@ -1,4 +1,4 @@
-app.model("Service", function Service($q, Note, NoteRepo) {
+app.model("Service", function Service($q, Note, NoteRepo, ServiceRepo) {
 
     return function Service() {
 
@@ -28,6 +28,15 @@ app.model("Service", function Service($q, Note, NoteRepo) {
           }
         }
       });
+
+      service.removeNote = function(note) {
+        for (var i in service.notes) {
+          if (service.notes[i].id === note.id) {
+            service.notes.splice(i, 1);
+            ServiceRepo.update(service);
+          }
+        }
+      };
 
       return service;
     };

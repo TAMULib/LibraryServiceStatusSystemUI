@@ -1,4 +1,4 @@
-app.repo("NoteRepo", function NoteRepo($q, WsApi, Note) {
+app.repo("NoteRepo", function NoteRepo($q, WsApi, Note, ServiceRepo) {
 
   noteRepo = this;
 
@@ -16,6 +16,15 @@ app.repo("NoteRepo", function NoteRepo($q, WsApi, Note) {
         resolve(note);
       }
     });
+  };
+
+  noteRepo.removeAndUpdateService = function (modelToRemove) {
+    
+    var service = ServiceRepo.findById(modelToRemove.service.id);
+    console.log(modelToRemove);
+    noteRepo.remove(modelToRemove);
+    service.removeNote(modelToRemove);
+    console.log(service);
   };
 
   noteRepo.page = function(number, size, direction, properties, filters) {

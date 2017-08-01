@@ -50,8 +50,8 @@ app.controller("DashboardController", function($controller, $scope, WsApi, User,
       loadPage();
     });
 
-    WsApi.listen(noteRepo.mapping.createListen).then(null, null, function(data) {
-      NoteRepo.add(angular.fromJson(data.body).payload.Note);
+    WsApi.listen(noteRepo.mapping.createListen).then(null, null, function(response) {
+      NoteRepo.add(angular.fromJson(response.body).payload.Note);
       loadPage();
     });
 });
