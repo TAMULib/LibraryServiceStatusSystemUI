@@ -13,7 +13,7 @@
     </td>
     <td class="serviceNotes">
       <div ng-repeat="note in service.notes | orderBy: lastModified">
-        <span><strong><span class="label {{note.noteType | serviceLabel}}">{{note.noteType}}</span> {{note.title}}:</strong> {{note.body}}</span>
+        <span><strong><span class="label {{note.noteType | serviceLabel}}">{{note.noteType | replaceUnderscore}}</span> {{note.title}}:</strong> {{note.body}}</span>
       </div>
     </td>
   </tr>
@@ -30,7 +30,7 @@
   <div ng-repeat="note in notes" class="well">
     <div>
       <span class="lead">{{note.title}} [<a href="{{'service/' + note.service.id + '/detail/'}}">{{note.service.name}}</a>]</span>
-      <span class="pull-right label {{note.noteType | serviceLabel}}">{{note.noteType}}</span>
+      <span class="pull-right label {{note.noteType | serviceLabel}}">{{note.noteType | replaceUnderscore}}</span>
     </div>
     <br>
     <div>
@@ -38,7 +38,7 @@
     </div>
     <br>
     <div>
-      <span>Posted by {{note.author.firstName}} {{note.author.lastName}} on {{note.lastModified | date : 'medium'}}</span>
+      <span><em>Posted by {{note.author.firstName}} {{note.author.lastName}} on {{note.lastModified | date : 'medium'}}</em></span>
     </div>
   </div>
   <div>
