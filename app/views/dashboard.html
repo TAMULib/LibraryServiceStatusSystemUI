@@ -13,7 +13,7 @@
     </td>
     <td class="serviceNotes">
       <div ng-repeat="note in service.notes | orderBy: lastModified">
-        <span><strong><span class="label {{note.noteType | serviceLabel}}">{{note.noteType}}</span> {{note.title}}:</strong> {{note.body}}</span>
+        <span><strong><span class="label {{note.noteType | serviceLabel}}">{{note.noteType | replaceUnderscore}}</span> {{note.title}}:</strong> {{note.body}}</span>
       </div>
     </td>
   </tr>
@@ -27,19 +27,8 @@
 <h4>Recent Notes</h4>
 <hr>
 <div class="container-fluid notes-container">
-  <div ng-repeat="note in notes" class="well">
-    <div>
-      <span class="lead">{{note.title}} [<a href="{{'service/' + note.service.id + '/detail/'}}">{{note.service.name}}</a>]</span>
-      <span class="pull-right label {{note.noteType | serviceLabel}}">{{note.noteType}}</span>
-    </div>
-    <br>
-    <div>
-      <span>{{note.body}}</span>
-    </div>
-    <br>
-    <div>
-      <span>Posted by {{note.author.firstName}} {{note.author.lastName}} on {{note.lastModified | date : 'medium'}}</span>
-    </div>
+  <div ng-repeat="note in notes">
+    <note note="note" link="true"></note>
   </div>
   <div>
     <pagination-buttons

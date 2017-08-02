@@ -11,18 +11,9 @@
 </div>
 
 <div class="container service-notes">
-  <div class="well" ng-repeat="note in service.notes">
-    <div >
-      <div class="row">
-        <h4 class="col-md-8 note-title">{{note.title}}</h4>
-        <h4 class="col-md-4 text-right note-type">{{note.noteType}}</h4>
-      </div>
-      <div class="note-body"> 
-        {{note.body}}
-      </div>
-      <div>
-        <span>Posted by {{note.author.firstName}} {{note.author.lastName}} on {{note.lastModified | date : 'medium'}}</span>
-      </div>
-    </div>
+  <h3>Notes</h3>
+  <hr>
+  <div ng-repeat="note in service.notes">
+    <note note="note"></note>
   </div>
 </div>
