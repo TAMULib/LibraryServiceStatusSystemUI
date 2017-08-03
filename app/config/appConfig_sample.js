@@ -1,6 +1,6 @@
 var appConfig = {
 
-    'version': 'TAMU UI Seed',
+    'version': 'Library Webservices Status',
 
     'allowAnonymous': true,
 
