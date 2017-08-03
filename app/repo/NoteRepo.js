@@ -1,29 +1,12 @@
 app.repo("NoteRepo", function NoteRepo($q, WsApi, Note, ServiceRepo) {
 
-    noteRepo = this;
+    var noteRepo = this;
 
-    noteRepo.fetchAndAddById = function (id) {
-        angular.extend(noteRepo.mapping.get, {
-            'method': 'get/' + id
+    noteRepo.getNotesByService = function (service) {
+        angular.extend(noteRepo.mapping.getByService, {
+            'data': service
         });
-
-        return $q(function (resolve) {
-            var note = noteRepo.findById(id);
-
-            if (note === undefined || note === null) {
-                WsApi.fetch(noteRepo.mapping.get).then(function (data) {
-                    resolve(angular.fromJson(data.body).payload.Note);
-                });
-            } else {
-                resolve(note);
-            }
-        });
-    };
-
-    noteRepo.removeAndUpdateService = function (modelToRemove) {
-        var service = ServiceRepo.findById(modelToRemove.service.id);
-        noteRepo.remove(modelToRemove);
-        service.removeNote(modelToRemove);
+        return WsApi.fetch(noteRepo.mapping.getByService);
     };
 
     noteRepo.page = function (number, size, direction, properties, filters) {
@@ -55,6 +38,22 @@ app.repo("NoteRepo", function NoteRepo($q, WsApi, Note, ServiceRepo) {
         });
 
     };
+
+    noteRepo.createListen = WsApi.listen(noteRepo.mapping.createListen);
+
+    noteRepo.createListen.then(null, null, function (response) {
+        var note = angular.fromJson(response.body).payload.Note;
+        noteRepo.add(note);
+        ServiceRepo.addNote(noteRepo.findById(note.id));
+    });
+
+    noteRepo.deleteListen = WsApi.listen(noteRepo.mapping.deleteListen);
+
+    noteRepo.deleteListen.then(null, null, function (response) {
+        var note = noteRepo.findById(angular.fromJson(response.body).payload.Long);
+        noteRepo.remove(note);
+        ServiceRepo.removeNote(note);
+    });
 
     return noteRepo;
 

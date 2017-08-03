@@ -95,4 +95,5 @@ app.controller('NoteController', function ($controller, $scope, $q, NgTableParam
         'SCHEDULED_DOWNTIME': 'Scheduled Downtime',
         'MAINTENANCE': 'Maintenance'
     };
+
 });

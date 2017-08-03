@@ -61,8 +61,12 @@ var apiMapping = {
         },
         get: {
             'endpoint': '/private/queue',
+            'controller': 'note'
+        },
+        getByService: {
+            'endpoint': '/private/queue',
             'controller': 'note',
-            'method': 'get'
+            'method': 'by-service'
         },
         create: {
             'endpoint': '/private/queue',
@@ -71,7 +75,11 @@ var apiMapping = {
         },
         createListen: {
             'endpoint': '/channel',
-            'controller': 'note/new'
+            'controller': 'note/create'
+        },
+        deleteListen: {
+            'endpoint': '/channel',
+            'controller': 'note/delete'
         },
         update: {
             'endpoint': '/private/queue',
@@ -104,8 +112,7 @@ var apiMapping = {
         },
         get: {
             'endpoint': '/private/queue',
-            'controller': 'service',
-            'method': 'get'
+            'controller': 'service'
         },
         create: {
             'endpoint': '/private/queue',
@@ -115,6 +122,14 @@ var apiMapping = {
         listen: {
             'endpoint': '/channel',
             'controller': 'service'
+        },
+        createListen: {
+            'endpoint': '/channel',
+            'controller': 'service/create'
+        },
+        deleteListen: {
+            'endpoint': '/channel',
+            'controller': 'service/delete'
         },
         update: {
             'endpoint': '/private/queue',
