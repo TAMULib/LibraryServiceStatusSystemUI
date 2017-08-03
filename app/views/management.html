@@ -1,16 +1,16 @@
 <div class="row">
 
   <div class="row" ng-controller="ManagementController">
-    
-    <tabs target="managementView">
-      <tab path="management/services" view="views/management/services.html" label="Services"></tab>
-      <tab path="management/notes" view="views/management/notes.html" label="Notes"></tab>
-    </tabs>
 
-    <tabview class="management-vew" for="managementView">
-    </tabview>
+    <wvr-tabs target="managementView">
+      <wvr-tab path="services" view="views/management/services.html" label="Services">Services</wvr-tab>
+      <wvr-tab path="notes" view="views/management/notes.html" label="Notes">Notes</wvr-tab>
+    </wvr-tabs>
+
+    <wvr-tabview class="management-vew" for="managementView">
+    </wvr-tabview>
 
   </div>
 
- 
+
 </div>

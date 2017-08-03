@@ -1,37 +1,38 @@
 var appConfig = {
 
-		'version': 'TAMU UI Seed',
+    'version': 'Library Webservices Status',
 
-		'allowAnonymous': true,
-        'anonymousRole': 'ROLE_ANONYMOUS',
+    'allowAnonymous': true,
 
-		// Set this to the webService if mocking AuthService
+    'anonymousRole': 'ROLE_ANONYMOUS',
 
-		'authService': 'https://labs.library.tamu.edu/',
-		'webService': 'http://localhost:9000',
+    // Set this to the webService if mocking AuthService
 
-		'storageType': 'session',
+    'authService': 'https://labs.library.tamu.edu/',
+    'webService': 'http://localhost:9000',
 
-		'logging': {
-			'log': true,
-			'info': true,
-			'warn': true,
-			'error': true,
-			'debug': true
-		},
+    'storageType': 'session',
 
-		'stompDebug': false,
+    'logging': {
+        'log': true,
+        'info': true,
+        'warn': true,
+        'error': true,
+        'debug': true
+    },
 
-		/*
-		Determines the type of connection stomp will attempt to make with the service.
-		TYPES:  websocket, xhr-streaming, xdr-streaming, eventsource, iframe-eventsource,
-				htmlfile, iframe-htmlfile, xhr-polling, xdr-polling, iframe-xhr-polling,
-				jsonp-polling
-		*/
-		'sockJsConnectionType': ['websocket', 'iframe-eventsource',  'iframe-htmlfile', 'jsonp-polling'],
+    'stompDebug': false,
 
-		// Set this to 'admin' or 'user' if using mock AuthService
-		// otherwise set to null or false
+    /*
+    Determines the type of connection stomp will attempt to make with the service.
+    TYPES:  websocket, xhr-streaming, xdr-streaming, eventsource, iframe-eventsource,
+    		htmlfile, iframe-htmlfile, xhr-polling, xdr-polling, iframe-xhr-polling,
+    		jsonp-polling
+    */
+    'sockJsConnectionType': ['websocket', 'iframe-eventsource', 'iframe-htmlfile', 'jsonp-polling'],
 
-		'mockRole': null
+    // Set this to 'admin' or 'user' if using mock AuthService
+    // otherwise set to null or false
+
+    'mockRole': null
 };
