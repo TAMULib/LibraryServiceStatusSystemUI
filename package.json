@@ -6,6 +6,7 @@
   "repository": "https://github.com/TAMULib/LibraryServiceStatusSystemUI.git",
   "license": "MIT",
   "scripts": {
+    "preinstall": "npm install -g grunt-cli",
     "postinstall": "grunt",
     "pretest": "npm install",
     "test": "karma start karma.conf.js",
@@ -24,9 +25,9 @@
   },
   "devDependencies": {
     "grunt": "1.0.1",
-    "grunt-contrib-compass": "1.1.1",
     "grunt-contrib-concat": "1.0.1",
     "grunt-contrib-jshint": "1.1.0",
+    "grunt-contrib-sass": "1.0.0",
     "grunt-contrib-symlink": "1.0.0",
     "grunt-contrib-uglify": "3.0.1",
     "grunt-contrib-watch": "1.0.0",

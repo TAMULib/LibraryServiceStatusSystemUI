@@ -82,7 +82,6 @@ app.controller('NoteController', function ($controller, $scope, $q, NgTableParam
         $scope.noteToDelete.delete().then(function () {
             $scope.closeModal();
             $scope.deleting = false;
-            NoteRepo.removeAndUpdateService($scope.noteToDelete);
             $scope.noteToDelete = {};
         })
     }

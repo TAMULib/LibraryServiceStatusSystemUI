@@ -95,18 +95,25 @@ module.exports = function (grunt) {
             }
         },
 
-        compass: {
+        sass: {
             dist: {
                 options: {
-                    config: 'config.rb'
-                }
+                    loadPath: 'node_modules/weaver-ui-core/app/resources/styles/sass'
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'app/resources/styles/sass',
+                    src: ['*.scss'],
+                    dest: 'app/resources/styles/sass',
+                    ext: '.css'
+                }]
             }
         },
 
         watch: {
             css: {
                 files: '**/*.scss',
-                tasks: ['compass']
+                tasks: ['sass']
             }
         }
 
@@ -117,15 +124,15 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-usemin');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-compass');
+    grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('default', ['compass', 'symlink']);
+    grunt.registerTask('default', ['sass', 'symlink']);
 
     grunt.registerTask('watch', ['watch']);
 
     grunt.registerTask('develop', ['jshint', 'useminPrepare', 'concat', 'usemin', 'watch']);
 
-    grunt.registerTask('deploy', ['jshint', 'useminPrepare', 'concat', 'uglify', 'usemin', 'compass']);
+    grunt.registerTask('deploy', ['jshint', 'useminPrepare', 'concat', 'uglify', 'usemin', 'sass']);
 
 };
