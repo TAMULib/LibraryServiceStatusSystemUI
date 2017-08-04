@@ -4,7 +4,7 @@ app.repo("NoteRepo", function NoteRepo($q, $location, $timeout, NgTableParams, W
 
     var pageSettings = {
         pageNumber: $location.search().page ? $location.search().page : 1,
-        pageSize: 10,
+        pageSize: $location.search().size ? $location.search().size : 10,
         direction: 'DESC',
         properties: ['title'],
         filters: {}
@@ -18,6 +18,7 @@ app.repo("NoteRepo", function NoteRepo($q, $location, $timeout, NgTableParams, W
 
     var setSize = function (pageSize) {
         pageSettings.pageSize = pageSize;
+        $location.search('size', pageSettings.pageSize);
     };
 
     var tableParams = new NgTableParams({
