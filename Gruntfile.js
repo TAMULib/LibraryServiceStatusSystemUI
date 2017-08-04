@@ -41,6 +41,7 @@ module.exports = function (grunt) {
                 'node_modules/weaver-ui-core/components/**/*',
                 'node_modules/weaver-ui-core/resources/**/*',
                 '!node_modules/**/*',
+                '!<%= build.app %>/node_modules/**/*',
                 '!<%= build.app %>/components/**/*',
                 '!<%= build.app %>/resources/**/*'
             ]
