@@ -1,4 +1,4 @@
-app.controller('NoteController', function ($controller, $scope, $q, NgTableParams, UserService, Note, NoteRepo, ServiceRepo) {
+app.controller('NoteController', function ($controller, $scope, $q, NgTableParams, Note, NoteRepo, ServiceRepo) {
 
     angular.extend(this, $controller('AbstractController', {
         $scope: $scope
@@ -11,10 +11,10 @@ app.controller('NoteController', function ($controller, $scope, $q, NgTableParam
     $scope.services = ServiceRepo.getAll();
 
     $scope.tableParams = new NgTableParams({
-        page: 0,
-        count: 10,
+        page: NoteRepo.pageSettings.pageNumber,
+        count: NoteRepo.pageSettings.pageSize,
         sorting: {
-            name: 'asc'
+            name: NoteRepo.pageSettings.direction
         },
         filter: {
 
@@ -22,10 +22,9 @@ app.controller('NoteController', function ($controller, $scope, $q, NgTableParam
     }, {
         total: 0,
         getData: function (params) {
-            return NoteRepo.ready().then(function (notes) {
-                var notes = NoteRepo.getAll();
-                params.total(notes.length);
-                return notes;
+            return NoteRepo.page().then(function (page) {
+                params.total(page.totalElements);
+                return NoteRepo.getContents();
             });
         }
     });
@@ -75,7 +74,7 @@ app.controller('NoteController', function ($controller, $scope, $q, NgTableParam
     $scope.confirmDelete = function (note) {
         $scope.openModal('#deleteNoteModal');
         $scope.noteToDelete = note;
-    }
+    };
 
     $scope.deleteNote = function () {
         $scope.deleting = true;
@@ -84,7 +83,7 @@ app.controller('NoteController', function ($controller, $scope, $q, NgTableParam
             $scope.deleting = false;
             $scope.noteToDelete = {};
         })
-    }
+    };
 
     $scope.noteTypes = {
         'ENHANCEMENT': 'Enhancement',

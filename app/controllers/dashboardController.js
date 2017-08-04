@@ -1,4 +1,4 @@
-app.controller("DashboardController", function ($controller, $scope, WsApi, User, UserService, AlertService, NoteRepo, OverallStatusFull, OverallStatusPublic, Service, ServiceRepo) {
+app.controller("DashboardController", function ($controller, $scope, UserService, NoteRepo, OverallStatusFull, OverallStatusPublic, ServiceRepo) {
 
     angular.extend(this, $controller('AppAbstractController', {
         $scope: $scope
@@ -10,15 +10,11 @@ app.controller("DashboardController", function ($controller, $scope, WsApi, User
 
     $scope.showShortList = true;
 
-    $scope.pageSettings = {
-        pageNumber: 0,
-        pageSize: 5,
-        direction: 'DESC',
-        properties: 'title',
-        filters: {
-            title: []
-        }
-    };
+    $scope.notes = NoteRepo.getContents();
+
+    NoteRepo.page();
+
+    $scope.pageSettings = NoteRepo.pageSettings;
 
     $scope.showPublic = function () {
         var user = UserService.getCurrentUser();
@@ -31,33 +27,6 @@ app.controller("DashboardController", function ($controller, $scope, WsApi, User
 
     $scope.showHideShortList = function () {
         $scope.showShortList = !$scope.showShortList;
-    }
-
-    NoteRepo.ready().then(function () {
-        loadPage(0, $scope.pageSettings.pageSize, 'DESC', 'title', {
-            title: []
-        });
-    });
-
-    var loadPage = function () {
-        NoteRepo.page(
-            $scope.pageSettings.pageNumber,
-            $scope.pageSettings.pageSize,
-            $scope.pageSettings.direction,
-            $scope.pageSettings.properties,
-            $scope.pageSettings.filters
-        ).then(function (value) {
-            $scope.pageSettings.totalPages = value.totalPages;
-            $scope.notes = value.content;
-        });
-    }
-
-    $scope.$watchCollection('pageSettings', function () {
-        loadPage();
-    });
-
-    NoteRepo.createListen.then(null, null, function (response) {
-        loadPage();
-    });
+    };
 
 });

@@ -2,6 +2,14 @@ app.repo("NoteRepo", function NoteRepo($q, WsApi, Note, ServiceRepo) {
 
     var noteRepo = this;
 
+    noteRepo.pageSettings = {
+        pageNumber: 0,
+        pageSize: 10,
+        direction: 'DESC',
+        properties: ['title'],
+        filters: {}
+    };
+
     noteRepo.getNotesByService = function (service) {
         angular.extend(noteRepo.mapping.getByService, {
             'data': service
@@ -9,50 +17,33 @@ app.repo("NoteRepo", function NoteRepo($q, WsApi, Note, ServiceRepo) {
         return WsApi.fetch(noteRepo.mapping.getByService);
     };
 
-    noteRepo.page = function (number, size, direction, properties, filters) {
+    noteRepo.page = function () {
         return $q(function (resolve) {
-            if (!properties) {
-                properties = 'title';
-            }
-            if (!direction) {
-                direction = 'ASC';
-            }
             angular.extend(noteRepo.mapping.page, {
-                'data': {
-                    'page': {
-                        'number': number,
-                        'size': size
-                    },
-                    'direction': {
-                        'properties': properties,
-                        'direction': direction
-                    },
-                    'filters': filters
-                }
+                'data': noteRepo.pageSettings
             });
             WsApi.fetch(noteRepo.mapping.page).then(function (data) {
                 var page = angular.fromJson(data.body).payload.PageImpl;
+                noteRepo.empty();
                 noteRepo.addAll(page.content);
                 resolve(page);
             });
         });
-
     };
 
-    noteRepo.createListen = WsApi.listen(noteRepo.mapping.createListen);
-
-    noteRepo.createListen.then(null, null, function (response) {
-        var note = angular.fromJson(response.body).payload.Note;
-        noteRepo.add(note);
-        ServiceRepo.addNote(noteRepo.findById(note.id));
+    WsApi.listen(noteRepo.mapping.createListen).then(null, null, function (response) {
+        ServiceRepo.addNote(new Note(angular.fromJson(response.body).payload.Note));
+        noteRepo.page();
     });
 
-    noteRepo.deleteListen = WsApi.listen(noteRepo.mapping.deleteListen);
+    WsApi.listen(noteRepo.mapping.updateListen).then(null, null, function (response) {
+        ServiceRepo.updateNote(new Note(angular.fromJson(response.body).payload.Note));
+        noteRepo.page();
+    });
 
-    noteRepo.deleteListen.then(null, null, function (response) {
-        var note = noteRepo.findById(angular.fromJson(response.body).payload.Long);
-        noteRepo.remove(note);
-        ServiceRepo.removeNote(note);
+    WsApi.listen(noteRepo.mapping.deleteListen).then(null, null, function (response) {
+        ServiceRepo.removeNoteById(angular.fromJson(response.body).payload.Long);
+        noteRepo.page();
     });
 
     return noteRepo;

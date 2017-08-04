@@ -49,7 +49,7 @@ var apiMapping = {
     Note: {
         lazy: true,
         validations: true,
-        modelListeners: true,
+        modelListeners: false,
         all: {
             'endpoint': '/private/queue',
             'controller': 'note',
@@ -77,6 +77,10 @@ var apiMapping = {
             'endpoint': '/channel',
             'controller': 'note/create'
         },
+        updateListen: {
+            'endpoint': '/channel',
+            'controller': 'note/update'
+        },
         deleteListen: {
             'endpoint': '/channel',
             'controller': 'note/delete'
@@ -99,7 +103,7 @@ var apiMapping = {
     },
     Service: {
         validations: true,
-        modelListeners: true,
+        modelListeners: false,
         all: {
             'endpoint': '/private/queue',
             'controller': 'service',
@@ -126,6 +130,10 @@ var apiMapping = {
         createListen: {
             'endpoint': '/channel',
             'controller': 'service/create'
+        },
+        updateListen: {
+            'endpoint': '/channel',
+            'controller': 'service/update'
         },
         deleteListen: {
             'endpoint': '/channel',
