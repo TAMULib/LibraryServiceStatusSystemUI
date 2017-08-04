@@ -6,6 +6,8 @@ app.controller('NotificationController', function($controller, $scope, Notificat
 
   $scope.notificationRepo = NotificationRepo;
 
+  $scope.notifications = NotificationRepo.getAll();
+
   $scope.forms = {};
 
   $scope.notificationToDelete = {};
@@ -40,7 +42,25 @@ app.controller('NotificationController', function($controller, $scope, Notificat
     });
   };
 
-  $scope.locations = {
+  $scope.confirmDelete = function (notification) {
+    $scope.openModal('#deleteNotificationModal');
+    $scope.notificationToDelete = notification;
+  };
 
+  $scope.deleteNotification = function () {
+    $scope.deleting = true;
+    $scope.notificationToDelete.delete().then(function () {
+      $scope.closeModal();
+      $scope.deleting = false;
+      NotificationRepo.remove($scope.notificationToDelete);
+      $scope.notificationToDelete = {};
+    });
+  };
+
+  $scope.locations = {
+    EVANS: 'Evans Library (Main Campus)',
+    CUSHING: 'Cushing',
+    MSL: 'Medical Sciences Library',
+    WCL: 'West Campus Library'
   };
 });

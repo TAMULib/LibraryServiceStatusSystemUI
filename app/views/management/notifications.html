@@ -6,6 +6,8 @@
     <tr ng-repeat="notification in notifications track by notification.id">
     <td title="'Name'">{{notification.name}}</td>
     <td title="'Body'">{{notification.body}}</td>
+    <td title="'Active'">{{notification.isActive}}</td>
+    <td title="'Locations'">{{notification.locations.join(', ')}}</td>
     <td title="'Actions'">
       <button class="btn btn-danger" ng-click="confirmDelete(notification)">Delete</button>
       <button class="btn btn-primary" ng-click="editNotification(notification)">Edit</button>

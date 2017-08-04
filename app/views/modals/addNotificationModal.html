@@ -35,14 +35,15 @@
       <label><input type="checkbox" value="true" ng-model="notificationData.isActive">Is the Notification Active?</label>
     </div>
 
+    <label for="locationSelect">Locations</label>
+    <br>
     <select
-      ng-model="notifcationData"
+      class="form-control"
+      ng-model="notificationData.locations"
       name="Locations"
       multiple>
-      <option ng-repeat="location in locations" value="{{location}}">{{location}}</option>
+      <option ng-repeat="(key, location) in locations" value="{{key}}">{{location}}</option>
     </select>
-
-
 
     <div class="modal-footer">
       <button
