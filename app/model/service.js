@@ -11,7 +11,7 @@ app.model("Service", function Service($location, NoteRepo, Note) {
                     service.notes.push(new Note(notes[i]));
                 }
             });
-        }
+        };
 
         return service;
     };
