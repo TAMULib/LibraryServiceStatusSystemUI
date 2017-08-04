@@ -12,15 +12,15 @@
   	  <span ng-if="service.status=='DOWN'" class="glyphicon glyphicon-remove-sign serviceIndicator serviceDown"></span>
     </td>
     <td class="serviceNotes">
-      <div ng-repeat="note in service.notes | orderBy: lastModified">
+      <div class="note-label" ng-repeat="note in service.notes | orderBy: lastModified">
         <span><strong><span class="label {{note.noteType | serviceLabel}}">{{note.noteType | replaceUnderscore}}</span> {{note.title}}:</strong> {{note.body}}</span>
       </div>
     </td>
   </tr>
   </tbody>
 </table>
-<button class="btn btn-default" ng-if="showShortList" ng-click="showHideShortList()">Show All Services</button>
-<button class="btn btn-default" ng-if="!showShortList" ng-click="showHideShortList()">Collapse</button>
+<button class="btn btn-info" ng-if="showShortList" ng-click="showHideShortList()">Show All Services</button>
+<button class="btn btn-info" ng-if="!showShortList" ng-click="showHideShortList()">Collapse</button>
 <br>
 <br>
 <br>

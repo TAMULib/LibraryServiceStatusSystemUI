@@ -252,11 +252,11 @@ main footer {
 }
 
 .serviceUp {
-  color: #3c763d;
+  color: #5cb85c;
 }
 
 .serviceDown {
-  color: #a94442;
+  color: #d9534f;
 }
 
 .management-table {
@@ -377,4 +377,13 @@ header {
   .navbar-header b {
     color: white;
   }
+}
+
+.label {
+  padding: 0.6em;
+  border-radius: 0;
+}
+
+.note-label {
+  padding: 0.3em;
 }
