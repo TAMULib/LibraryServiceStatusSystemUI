@@ -1,4 +1,4 @@
-app.controller("DashboardController", function ($controller, $scope, UserService, NoteRepo, OverallStatusFull, OverallStatusPublic, ServiceRepo) {
+app.controller("DashboardController", function ($controller, $scope, NgTableParams, UserService, NoteRepo, OverallStatusFull, OverallStatusPublic, ServiceRepo) {
 
     angular.extend(this, $controller('AppAbstractController', {
         $scope: $scope

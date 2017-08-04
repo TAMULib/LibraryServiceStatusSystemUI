@@ -19,7 +19,7 @@ app.controller("AppAbstractController", function ($controller, $scope) {
         return $scope.isStaff() ||
             $scope.isServiceManager() ||
             $scope.isWebManager() ||
-            $scope.isAdmin()
+            $scope.isAdmin();
     };
 
 });

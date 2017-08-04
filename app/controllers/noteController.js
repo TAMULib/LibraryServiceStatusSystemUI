@@ -29,7 +29,6 @@ app.controller('NoteController', function ($controller, $scope, $q, NgTableParam
         }
     });
 
-
     $scope.resetNotes = function () {
         if ($scope.noteData) {
             $scope.noteData.clearValidationResults();
@@ -82,7 +81,7 @@ app.controller('NoteController', function ($controller, $scope, $q, NgTableParam
             $scope.closeModal();
             $scope.deleting = false;
             $scope.noteToDelete = {};
-        })
+        });
     };
 
     $scope.noteTypes = {

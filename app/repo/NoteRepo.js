@@ -1,4 +1,4 @@
-app.repo("NoteRepo", function NoteRepo($q, WsApi, Note, ServiceRepo) {
+app.repo("NoteRepo", function NoteRepo($q, $timeout, WsApi, Note, ServiceRepo) {
 
     var noteRepo = this;
 
@@ -19,14 +19,16 @@ app.repo("NoteRepo", function NoteRepo($q, WsApi, Note, ServiceRepo) {
 
     noteRepo.page = function () {
         return $q(function (resolve) {
-            angular.extend(noteRepo.mapping.page, {
-                'data': noteRepo.pageSettings
-            });
-            WsApi.fetch(noteRepo.mapping.page).then(function (data) {
-                var page = angular.fromJson(data.body).payload.PageImpl;
-                noteRepo.empty();
-                noteRepo.addAll(page.content);
-                resolve(page);
+            $timeout(function () {
+                angular.extend(noteRepo.mapping.page, {
+                    'data': noteRepo.pageSettings
+                });
+                WsApi.fetch(noteRepo.mapping.page).then(function (data) {
+                    var page = angular.fromJson(data.body).payload.PageImpl;
+                    noteRepo.empty();
+                    noteRepo.addAll(page.content);
+                    resolve(page);
+                });
             });
         });
     };

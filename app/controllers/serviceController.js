@@ -87,7 +87,7 @@ app.controller('ServiceController', function ($controller, $scope, Service, Serv
             ServiceRepo.remove($scope.serviceToDelete);
             $scope.serviceToDelete = {};
             $scope.tableParams.reload();
-        })
+        });
     };
 
     $scope.tinymceOptions = {

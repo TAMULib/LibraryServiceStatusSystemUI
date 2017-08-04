@@ -150,4 +150,4 @@ var apiMapping = {
             'method': 'remove'
         }
     }
-}
+};
