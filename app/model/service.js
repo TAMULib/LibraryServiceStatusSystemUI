@@ -1,21 +1,18 @@
-app.model("Service", function Service(NoteRepo) {
+app.model("Service", function Service(NoteRepo, Note) {
 
     return function Service() {
-
-      var service = this;
-        
-        this.before(function() {
-          NoteRepo.ready().then(function() {
-            if (service.notes) {
-              var notes = [];
-              service.notes.forEach(function(note) {
-                notes.push(NoteRepo.findById(note));
-              });
-              service.notes = notes;
+        var service = this;
+        service.before(function () {
+            if (service.id) {
+                service.notes = [];
+                NoteRepo.getNotesByService(service).then(function (response) {
+                    var notes = angular.fromJson(response.body).payload["ArrayList<Note>"];
+                    for (var i in notes) {
+                        service.notes.push(new Note(notes[i]));
+                    }
+                });
             }
-          });
         });
-
         return service;
     };
 

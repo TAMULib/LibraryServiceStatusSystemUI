@@ -1,22 +1,33 @@
 <div class="overallStatusAlert">
-  <alerts seconds="9999999999" channels="status/general" types="SUCCESS, INFO, ERROR, WARNING" view="views/customAlert.html" exclusive></alerts>
+  <alerts fixed="true" channels="status/general" types="SUCCESS, INFO, ERROR, WARNING" view="views/customAlert.html" exclusive></alerts>
 </div>
 
-<table class="table table-striped publicDashboardServiceShortlist" ng-controller="DashboardController">
+<table class="table table-striped publicDashboardServiceShortlist">
   <thead><th>Service Name</th><th>Status</th><th>Notes</th></thead>
   <tbody>
-  <tr class="serviceShortListItem" ng-repeat="service in services |  filter:{isPublic: 'true'} | filter:{onShortList: 'true'} ">
-    <td class="serviceName"><a href="{{'service/' + service.id + '/detail/'}}">{{service.name}}:</a></td> 
-    <td> 
+  <tr class="serviceShortListItem" ng-repeat="service in services | dashboardServices:{showPublic: showPublic, showShortList: showShortList}">
+    <td class="serviceName"><a href="{{'service/' + service.id + '/detail/'}}">{{service.name}}</a></td>
+    <td>
   	  <span ng-if="service.status=='UP'" class="glyphicon glyphicon-ok-sign serviceIndicator serviceUp"></span>
   	  <span ng-if="service.status=='DOWN'" class="glyphicon glyphicon-remove-sign serviceIndicator serviceDown"></span>
     </td>
     <td class="serviceNotes">
       <div ng-repeat="note in service.notes | orderBy: lastModified">
-        <span><strong>{{note.title}}:</strong> {{note.body}}</span>
+        <span><strong><span class="label {{note.noteType | serviceLabel}}">{{note.noteType | replaceUnderscore}}</span> {{note.title}}:</strong> {{note.body}}</span>
       </div>
-      
     </td>
   </tr>
   </tbody>
 </table>
+<button class="btn btn-default" ng-if="showShortList" ng-click="showHideShortList()">Show All Services</button>
+<button class="btn btn-default" ng-if="!showShortList" ng-click="showHideShortList()">Collapse</button>
+<br>
+<br>
+<br>
+<h4>Recent Notes</h4>
+<hr>
+<div class="container-fluid notes-container">
+  <div ng-repeat="note in notes">
+    <note note="note" link="true"></note>
+  </div>
+</div>
