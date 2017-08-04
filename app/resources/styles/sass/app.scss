@@ -263,6 +263,18 @@ main footer {
   margin-bottom: 70px;
 }
 
+.notes-table {
+  margin-bottom: 0;
+}
+
+.notes-table thead {
+  display: none;
+}
+
+.notes-table tbody tr td {
+  border-top: none;
+}
+
 .notes-container {
   margin-bottom: 70px;
 }
@@ -377,4 +389,8 @@ header {
   .navbar-header b {
     color: white;
   }
+}
+
+.pagination {
+  margin: 0;
 }

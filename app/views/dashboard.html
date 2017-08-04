@@ -21,13 +21,18 @@
 </table>
 <button class="btn btn-default" ng-if="showShortList" ng-click="showHideShortList()">Show All Services</button>
 <button class="btn btn-default" ng-if="!showShortList" ng-click="showHideShortList()">Collapse</button>
-<br>
-<br>
-<br>
+<br />
+<br />
 <h4>Recent Notes</h4>
-<hr>
+<hr />
 <div class="container-fluid notes-container">
-  <div ng-repeat="note in notes">
-    <note note="note" link="true"></note>
-  </div>
+  <table ng-table="tableParams" template-pagination="views/notePaginationControls.html" show-filter="false" class="table borderless notes-table">
+    <tbody>
+      <tr ng-repeat="note in $data">
+        <td>
+          <note note="note" link="true"></note>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

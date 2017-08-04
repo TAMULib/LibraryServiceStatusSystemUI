@@ -5,7 +5,8 @@ app.config(function ($routeProvider) {
     }).
     when('/management/:tab', {
         templateUrl: 'views/management.html',
-        access: ["ROLE_ADMIN", "ROLE_MANGER"]
+        access: ["ROLE_ADMIN", "ROLE_MANGER"],
+        reloadOnSearch: false
     }).
     when('/users', {
         templateUrl: 'views/users.html',
@@ -28,7 +29,8 @@ app.config(function ($routeProvider) {
     }).
     when('/', {
         templateUrl: 'views/dashboard.html',
-        controller: 'DashboardController'
+        controller: 'DashboardController',
+        reloadOnSearch: false
     }).
     when('/users', {
         templateUrl: 'views/users.html',
