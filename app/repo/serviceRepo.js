@@ -23,9 +23,16 @@ app.repo("ServiceRepo", function ServiceRepo(WsApi) {
         var service = getNotesService(note);
         for (var i in service.notes) {
             if (service.notes[i].id === note.id) {
-                angular.extend(service.notes[i], note);
-                break;
+                if (note.pinned) {
+                    angular.extend(service.notes[i], note);
+                } else {
+                    service.notes.splice(i, 1);
+                }
+                return;
             }
+        }
+        if (note.pinned) {
+            service.notes.push(note);
         }
     };
 
@@ -36,7 +43,7 @@ app.repo("ServiceRepo", function ServiceRepo(WsApi) {
             for (var j in services[i].notes) {
                 if (services[i].notes[j].id === id) {
                     services[i].notes.splice(j, 1);
-                    break;
+                    return;
                 }
             }
         }

@@ -43,6 +43,16 @@ app.repo("NoteRepo", function NoteRepo($q, $location, $timeout, NgTableParams, W
         }
     });
 
+    var updateNote = function (note) {
+        var notes = noteRepo.getContents();
+        for (var i in notes) {
+            if (notes[i].id === note.id) {
+                angular.extend(notes[i], note);
+                return;
+            }
+        }
+    };
+
     noteRepo.getPageSettings = function () {
         return pageSettings;
     };
@@ -51,8 +61,9 @@ app.repo("NoteRepo", function NoteRepo($q, $location, $timeout, NgTableParams, W
         return tableParams;
     };
 
-    noteRepo.getNotesByService = function (service) {
+    noteRepo.getNotesByService = function (service, pinned) {
         angular.extend(noteRepo.mapping.getByService, {
+            'method': 'by-service/' + pinned,
             'data': service
         });
         return WsApi.fetch(noteRepo.mapping.getByService);
@@ -95,8 +106,9 @@ app.repo("NoteRepo", function NoteRepo($q, $location, $timeout, NgTableParams, W
     });
 
     WsApi.listen(noteRepo.mapping.updateListen).then(null, null, function (response) {
-        ServiceRepo.updateNote(new Note(angular.fromJson(response.body).payload.Note));
-        tableParams.reload();
+        var note = new Note(angular.fromJson(response.body).payload.Note);
+        ServiceRepo.updateNote(note);
+        updateNote(note);
     });
 
     WsApi.listen(noteRepo.mapping.deleteListen).then(null, null, function (response) {

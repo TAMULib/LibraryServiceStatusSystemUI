@@ -5,7 +5,7 @@
 <table class="table table-striped publicDashboardServiceShortlist">
   <thead><th>Service Name</th><th>Status</th><th>Notes</th></thead>
   <tbody>
-  <tr class="serviceShortListItem" ng-repeat="service in services | dashboardServices:{showPublic: showPublic, showShortList: showShortList}">
+  <tr class="serviceShortListItem" ng-repeat="service in services | dashboardServices:{showPublic: showPublic, showShortList: showShortList}" ng-init="service.getNotes(true)">
     <td class="serviceName"><a href="{{'service/' + service.id + '/detail/'}}">{{service.name}}</a></td>
     <td>
   	  <span ng-if="service.status=='UP'" class="glyphicon glyphicon-ok-sign serviceIndicator serviceUp"></span>

@@ -35,6 +35,7 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
             }
             $scope.noteData = new Note({
                 title: '',
+                pinned: false,
                 service: $scope.services[0],
                 noteType: 'ENHANCEMENT'
             });
