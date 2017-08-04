@@ -88,7 +88,7 @@ app.repo("NoteRepo", function NoteRepo($q, $location, $timeout, NgTableParams, W
             }, 100);
         });
         pagePromise.then(function (page) {
-            if (pageSettings.pageNumber > page.totalPages) {
+            if (pageSettings.pageNumber > 1 && pageSettings.pageNumber > page.totalPages) {
                 setPage(page.totalPages);
                 noteRepo.fetchPage().then(function (response) {
                     var page = angular.fromJson(response.body).payload.PageImpl;

@@ -1,6 +1,6 @@
 <div ng-table-pagination="tableParams">
   <div class="ng-cloak ng-table-pager">
-    <div ng-if="params.settings().counts.length" class="form-group pull-right">
+    <div ng-if="pages.length > 0 && params.settings().counts.length" class="form-group pull-right">
         <select ng-model="count" ng-change="params.count(count)" class="form-control">
           <option id="count" ng-repeat="count in params.settings().counts">{{count}}</option>
         </select>
