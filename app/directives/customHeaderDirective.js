@@ -11,9 +11,9 @@ app.directive('customHeader', function ($controller) {
         link: function ($scope, element, attr) {
             $scope.title = attr.title;
             $scope.home = attr.home;
-            $scope.loginuser = function() {
+            $scope.loginuser = function () {
                 $scope.login({});
-            }
+            };
         }
     };
 });

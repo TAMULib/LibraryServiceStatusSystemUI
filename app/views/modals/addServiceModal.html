@@ -1,7 +1,7 @@
 <div class="modal-header {{attr.modalHeaderClass}}">
-  <button 
-    type="button" 
-    class="close" 
+  <button
+    type="button"
+    class="close"
     ng-click="resetServices()"
     aria-label="Close">
     <span class="modal-close" aria-hidden="true">&times;</span>
@@ -23,7 +23,7 @@
     </validatedinput>
 
     <label>Description</label>
-    <textarea ui-tinymce="tinymceOptions" ng-model="serviceData.description" encode-decode></textarea>
+    <textarea ui-tinymce="tinymceOptions" ng-model="serviceData.description"></textarea>
     <br>
 
     <service-status
@@ -33,19 +33,19 @@
     <div class="checkbox">
       <label><input type="checkbox" value="false" ng-model="serviceData.isPublic">Is the Service Public?</label>
     </div>
-  
+
     <div class="checkbox">
       <label><input type="checkbox" value="false" ng-model="serviceData.onShortList">Is the Service on the short list?</label>
     </div>
 
     <div class="modal-footer">
-      <button 
-        type="button" 
-        class="btn btn-warning" 
+      <button
+        type="button"
+        class="btn btn-warning"
         ng-click="resetServices()">Cancel</button>
-      <button 
-        id="services-save" 
-        type="submit" 
+      <button
+        id="services-save"
+        type="submit"
         class="btn btn-primary"
         ng-disabled="forms.create.$invalid">Create</button>
     </div>

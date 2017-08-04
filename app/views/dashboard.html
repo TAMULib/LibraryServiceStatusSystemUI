@@ -1,5 +1,5 @@
-<div class="overallStatusAlert" ng-controller="DashboardController">
-  <alerts seconds="9999999999" channels="status/general" types="SUCCESS, INFO, ERROR, WARNING" view="views/customAlert.html" exclusive></alerts>
+<div class="overallStatusAlert">
+  <alerts fixed="true" channels="status/general" types="SUCCESS, INFO, ERROR, WARNING" view="views/customAlert.html" exclusive></alerts>
 </div>
 
 <table class="table table-striped publicDashboardServiceShortlist">
@@ -30,10 +30,4 @@
   <div ng-repeat="note in notes">
     <note note="note" link="true"></note>
   </div>
-  <div>
-    <pagination-buttons
-    pageSettings="pageSettings">
-    </pagination-buttons>
-  </div>
-
 </div>
