@@ -67,6 +67,7 @@ module.exports = function (grunt) {
                     '!<%= build.app %>/config/appConfig.js',
                     '!<%= build.app %>/config/appConfig_sample.js',
                     '!node_modules/**/*',
+                    '!<%= build.app %>/node_modules/**/*',
                     '!<%= build.app %>/components/**/*',
                     '!<%= build.app %>/resources/**/*',
                     '!<%= build.app %>/resources/scripts/app_concat.js'
