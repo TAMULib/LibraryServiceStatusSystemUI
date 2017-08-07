@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <h3>{{note.title}}</h3>
+    
+  </div>
+  <hr>
+  <div class="well">
+    <p>
+      <span>Note Type: </span>
+      <span class="label {{note.noteType | serviceLabel}}">{{note.noteType | replaceUnderscore}}</span>
+    </p>
+    <p>
+      <span>Service: {{note.service.name}}</span>
+    </p>
+    <p>
+      <span>Message: {{note.body}}</span>
+    </p>
+    <p>
+      <span><em>Posted by {{note.author.firstName}} {{note.author.lastName}} on {{note.lastModified | date : 'medium'}}</em></span>
+  </div>
+</div>
