@@ -15,8 +15,10 @@ app.repo("ServiceRepo", function ServiceRepo(WsApi) {
     };
 
     serviceRepo.addNote = function (note) {
-        var service = getNotesService(note);
-        service.notes.push(note);
+        if (note.pinned) {
+            var service = getNotesService(note);
+            service.notes.push(note);
+        }
     };
 
     serviceRepo.updateNote = function (note) {
