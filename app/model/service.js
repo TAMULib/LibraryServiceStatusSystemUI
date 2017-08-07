@@ -33,7 +33,7 @@ app.model("Service", function Service($location, $q, $timeout, NoteRepo, Note, T
             });
             pagePromise.then(function (page) {
                 if (table.getPageSettings().pageNumber > 1 && table.getPageSettings().pageNumber > page.totalPages) {
-                    setPage(page.totalPages);
+                    table.setPage(page.totalPages);
                     service.fetchNotePage().then(function (response) {
                         var page = angular.fromJson(response.body).payload.PageImpl;
                         addAllNotes(page.content);
