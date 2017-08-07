@@ -13,7 +13,7 @@
     </td>
     <td class="serviceNotes">
       <div ng-repeat="note in service.notes | orderBy: lastModified">
-        <span><strong><span class="label {{note.noteType | serviceLabel}}">{{note.noteType | replaceUnderscore}}</span> {{note.title}}:</strong> {{note.body}}</span>
+        <span><strong><span class="label {{note.noteType | serviceLabel}}">{{note.noteType | replaceUnderscore}}</span> <a href="{{'note/' + note.id + '/detail/'}}">{{note.title}}</a>:</strong> {{note.body}}</span>
       </div>
     </td>
   </tr>
