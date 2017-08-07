@@ -1,6 +1,6 @@
-app.controller('NotificationController', function($controller, $scope, Notification, NotificationRepo) {
+app.controller('NotificationController', function($controller, $scope, Notification, NotificationRepo, NgTableParams) {
 
-  angular.extend(this, $controller('AbstractController', {
+  angular.extend(this, $controller('AppAbstractController', {
     $scope: $scope
   }));
 
@@ -42,6 +42,32 @@ app.controller('NotificationController', function($controller, $scope, Notificat
     });
   };
 
+  $scope.editNotification = function (notification) {
+    $scope.notificationData = notification;
+    $scope.openModal('#editNotificationModal');
+  };
+
+  $scope.updateNotification = function () {
+    $scope.notificationRepo.update($scope.notificationData).then(function (response) {
+      if (angular.fromJson(response.body).meta.type === 'SUCCESS') {
+        $scope.resetNotifications();
+      }
+    });
+  };
+
+  var buildTable = function () {
+    $scope.tableParams = new NgTableParams({}, {
+      counts: [],
+      filterDelay: 0,
+      dataset: NotificationRepo.getAll()
+    });
+  };
+
+  NotificationRepo.ready().then(function () {
+    buildTable();
+    $scope.tableParams.reload();
+  });
+
   $scope.confirmDelete = function (notification) {
     $scope.openModal('#deleteNotificationModal');
     $scope.notificationToDelete = notification;
@@ -54,6 +80,7 @@ app.controller('NotificationController', function($controller, $scope, Notificat
       $scope.deleting = false;
       NotificationRepo.remove($scope.notificationToDelete);
       $scope.notificationToDelete = {};
+      $scope.tableParams.reload();
     });
   };
 
