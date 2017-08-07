@@ -2,7 +2,9 @@
 
   <button class="btn btn-default view-action-button" ng-click="openModal('#addNoteModal')">Add Note</button>
   <hr>
-  <table ng-table="tableParams" show-filter="false" class="table table-bordered table-striped note-table">
+
+
+  <table ng-table="tableParams" template-pagination="views/notePaginationControls.html" show-filter="false" class="table table-bordered table-striped note-table">
     <tr ng-repeat="note in $data">
       <td title="'Service'">
         {{note.service.name}}

@@ -50,11 +50,6 @@ var apiMapping = {
         lazy: true,
         validations: true,
         modelListeners: false,
-        all: {
-            'endpoint': '/private/queue',
-            'controller': 'note',
-            'method': 'all'
-        },
         listen: {
             'endpoint': '/channel',
             'controller': 'note',
@@ -63,10 +58,10 @@ var apiMapping = {
             'endpoint': '/private/queue',
             'controller': 'note'
         },
-        getByService: {
+        query: {
             'endpoint': '/private/queue',
             'controller': 'note',
-            'method': 'by-service'
+            'method': 'query'
         },
         create: {
             'endpoint': '/private/queue',
@@ -147,6 +142,50 @@ var apiMapping = {
         remove: {
             'endpoint': '/private/queue',
             'controller': 'service',
+            'method': 'remove'
+        }
+    },
+    Notification: {
+        validations: true,
+        modelListeners: false,
+        all: {
+            'endpoint': '/private/queue',
+            'controller': 'notification',
+            'method': 'all'
+        },
+        get: {
+            'endpoint': '/private/queue',
+            'controller': 'notification'
+        },
+        create: {
+            'endpoint': '/private/queue',
+            'controller': 'notification',
+            'method': 'create'
+        },
+        listen: {
+            'endpoint': '/channel',
+            'controller': 'notification'
+        },
+        createListen: {
+            'endpoint': '/channel',
+            'controller': 'notification/create'
+        },
+        updateListen: {
+            'endpoint': '/channel',
+            'controller': 'notification/update'
+        },
+        deleteListen: {
+            'endpoint': '/channel',
+            'controller': 'notification/delete'
+        },
+        update: {
+            'endpoint': '/private/queue',
+            'controller': 'notification',
+            'method': 'update'
+        },
+        remove: {
+            'endpoint': '/private/queue',
+            'controller': 'notification',
             'method': 'remove'
         }
     }
