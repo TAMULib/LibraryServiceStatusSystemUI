@@ -10,10 +10,16 @@
   </div>
 </div>
 
-<div class="container service-notes">
+<div class="container notes-container">
   <h3>Notes</h3>
   <hr>
-  <div ng-repeat="note in service.notes">
-    <note note="note"></note>
-  </div>
+  <table ng-table="tableParams" template-pagination="views/notePaginationControls.html" show-filter="false" class="table borderless notes-table">
+    <tbody>
+      <tr ng-repeat="note in $data">
+        <td>
+          <note note="note" link="true"></note>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

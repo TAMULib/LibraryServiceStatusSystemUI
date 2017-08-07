@@ -58,10 +58,10 @@ var apiMapping = {
             'endpoint': '/private/queue',
             'controller': 'note'
         },
-        getByService: {
+        query: {
             'endpoint': '/private/queue',
             'controller': 'note',
-            'method': 'by-service'
+            'method': 'query'
         },
         create: {
             'endpoint': '/private/queue',

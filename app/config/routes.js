@@ -22,7 +22,8 @@ app.config(function ($routeProvider) {
     }).
     when('/service/:serviceId/detail', {
         templateUrl: 'views/detail/service.html',
-        controller: 'ServiceDetailController'
+        controller: 'ServiceDetailController',
+        reloadOnSearch: false
     }).
     when('/home', {
         redirectTo: '/'
