@@ -1,4 +1,4 @@
-app.controller("DashboardController", function ($controller, $scope, NgTableParams, UserService, NoteRepo, OverallStatusFull, OverallStatusPublic, ServiceRepo) {
+app.controller("DashboardController", function ($controller, $scope, UserService, NoteRepo, OverallStatusFull, OverallStatusPublic, ServiceRepo) {
 
     angular.extend(this, $controller('AppAbstractController', {
         $scope: $scope
@@ -14,8 +14,6 @@ app.controller("DashboardController", function ($controller, $scope, NgTablePara
 
     NoteRepo.page();
 
-    $scope.pageSettings = NoteRepo.pageSettings;
-
     $scope.showPublic = function () {
         var user = UserService.getCurrentUser();
         var publicView = false;
@@ -28,5 +26,7 @@ app.controller("DashboardController", function ($controller, $scope, NgTablePara
     $scope.showHideShortList = function () {
         $scope.showShortList = !$scope.showShortList;
     };
+
+    $scope.tableParams = NoteRepo.getTableParams();
 
 });

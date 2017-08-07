@@ -50,11 +50,6 @@ var apiMapping = {
         lazy: true,
         validations: true,
         modelListeners: false,
-        all: {
-            'endpoint': '/private/queue',
-            'controller': 'note',
-            'method': 'all'
-        },
         listen: {
             'endpoint': '/channel',
             'controller': 'note',
@@ -63,10 +58,10 @@ var apiMapping = {
             'endpoint': '/private/queue',
             'controller': 'note'
         },
-        getByService: {
+        query: {
             'endpoint': '/private/queue',
             'controller': 'note',
-            'method': 'by-service'
+            'method': 'query'
         },
         create: {
             'endpoint': '/private/queue',
