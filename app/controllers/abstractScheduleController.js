@@ -14,7 +14,7 @@ app.controller("AbstractScheduleController", function ($controller, $scope) {
             scheduleData: {
                 nextStatus: 'DOWN'
             }
-        }
+        };
     };
 
     $scope.reset();
@@ -45,7 +45,7 @@ app.controller("AbstractScheduleController", function ($controller, $scope) {
         if (useScheduleData) {
             $scope.schedule.scheduleData.previousStatus = $scope.data.status;
         } else {
-            $scope.schedule.scheduleData = {};
+            delete $scope.schedule.scheduleData;
         }
         $scope.data.schedules.push($scope.schedule);
     };
