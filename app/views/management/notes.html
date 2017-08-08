@@ -13,9 +13,12 @@
       <td title="'Body'">{{note.body}}</td>
       <td title="'Type'">{{note.noteType}}</td>
       <td title="'Last Modified'">{{note.lastModified | date : 'medium'}}</td>
+      <td title="'Pinned'">{{note.pinned}}</td>
+      <td title="'Active'">{{note.active}}</td>
       <td title="'Actions'">
-      <button class="btn btn-danger" ng-click="confirmDelete(note)">Delete</button>
-      <button class="btn btn-primary" ng-click="editNote(note)">Edit</button>
+        <span class="glyphicon glyphicon-pencil" ng-click="editNote(note)"></span>
+        <span class="glyphicon glyphicon-time" ng-click="editSchedule(note)"></span>
+        <span class="glyphicon glyphicon-trash" ng-click="confirmDelete(note)"></span>
       </td>
     </tr>
   </table>
@@ -23,4 +26,5 @@
   <modal modal-id="addNoteModal" modal-view="views/modals/addNoteModal.html" modal-header-class="modal-header-primary"></modal>
   <modal modal-id="deleteNoteModal" modal-view="views/modals/deleteNoteModal.html" modal-header-class="modal-header-danger"></modal>
   <modal modal-id="editNoteModal" modal-view="views/modals/editNoteModal.html" modal-header-class="modal-header-primary"></modal>
+  <modal modal-id="editScheduleModal" modal-view="views/modals/editScheduleModal.html" modal-header-class="modal-header-primary"></modal>
 </div>

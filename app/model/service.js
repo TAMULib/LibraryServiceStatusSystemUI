@@ -15,7 +15,6 @@ app.model("Service", function Service($location, $q, $timeout, NoteRepo, Note, T
 
         service.fetchNotePage = function () {
             table.getPageSettings().filters = {
-                pinned: [false],
                 service: [service.id]
             };
             return NoteRepo.getNotesByService(table.getPageSettings());
@@ -43,12 +42,13 @@ app.model("Service", function Service($location, $q, $timeout, NoteRepo, Note, T
             return pagePromise;
         };
 
-        service.getNotes = function (pinned) {
+        service.getNotes = function (pinned, active) {
             service.notes.length = 0;
             table.getPageSettings().pageNumber = 1;
             table.getPageSettings().pageSize = 1000;
             table.getPageSettings().filters = {
                 pinned: [pinned],
+                active: [active],
                 service: [service.id]
             };
             NoteRepo.getNotesByService(table.getPageSettings()).then(function (response) {

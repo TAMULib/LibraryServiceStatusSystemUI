@@ -394,3 +394,17 @@ header {
 .pagination {
   margin: 0;
 }
+
+.note-table .glyphicon,
+.notification-table .glyphicon,
+.service-table .glyphicon {
+  font-size: 16px;
+  margin: 0 5px;
+}
+
+.note-table .glyphicon:hover,
+.notification-table .glyphicon:hover,
+.service-table .glyphicon:hover {
+  cursor: pointer;
+  color: $primary;
+}

@@ -6,15 +6,17 @@
     <tr ng-repeat="notification in notifications track by notification.id">
     <td title="'Name'">{{notification.name}}</td>
     <td title="'Body'">{{notification.body}}</td>
-    <td title="'Active'">{{notification.isActive}}</td>
     <td title="'Locations'">{{notification.locations.join(', ')}}</td>
+    <td title="'Active'">{{notification.active}}</td>
     <td title="'Actions'">
-      <button class="btn btn-danger" ng-click="confirmDelete(notification)">Delete</button>
-      <button class="btn btn-primary" ng-click="editNotification(notification)">Edit</button>
+      <span class="glyphicon glyphicon-pencil" ng-click="editNotification(notification)"></span>
+      <span class="glyphicon glyphicon-time" ng-click="editSchedule(notification)"></span>
+      <span class="glyphicon glyphicon-trash" ng-click="confirmDelete(notification)"></span>
     </td>
   </table>
 
   <modal modal-id="addNotificationModal" modal-view="views/modals/addNotificationModal.html" modal-header-class="modal-header-primary"></modal>
   <modal modal-id="deleteNotificationModal" modal-view="views/modals/deleteNotificationModal.html" modal-header-class="modal-header-danger"></modal>
   <modal modal-id="editNotificationModal" modal-view="views/modals/editNotificationModal.html" modal-header-class="modal-header-primary"></modal>
+  <modal modal-id="editScheduleModal" modal-view="views/modals/editScheduleModal.html" modal-header-class="modal-header-primary"></modal>
 </div>

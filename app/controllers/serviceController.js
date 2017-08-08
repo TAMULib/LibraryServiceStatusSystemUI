@@ -1,16 +1,22 @@
-app.controller('ServiceController', function ($controller, $scope, Service, ServiceRepo, NgTableParams) {
+app.controller('ServiceController', function ($controller, $scope, $timeout, Service, ServiceRepo, NgTableParams) {
 
-    angular.extend(this, $controller('AppAbstractController', {
+    angular.extend(this, $controller('AbstractScheduleController', {
         $scope: $scope
     }));
+
+    $scope.modalData = {
+        title: "Edit Service Schedule",
+        type: "service",
+        options: ['UP', 'DOWN', 'AUTO']
+    };
 
     $scope.serviceRepo = ServiceRepo;
 
     $scope.services = ServiceRepo.getAll();
 
-    $scope.serviceToDelete = {};
-
     $scope.forms = {};
+
+    $scope.serviceToDelete = {};
 
     $scope.resetServices = function () {
         if ($scope.serviceData) {
@@ -22,12 +28,12 @@ app.controller('ServiceController', function ($controller, $scope, Service, Serv
             }
         }
         $scope.serviceData = new Service({
-            'name': '',
-            'isPublic': false,
-            'onShortList': false,
-            'isAuto': false,
-            'status': 'UP',
-            'description': ''
+            name: '',
+            isPublic: false,
+            onShortList: false,
+            isAuto: false,
+            status: 'UP',
+            description: ''
         });
         $scope.closeModal();
         $scope.serviceRepo.reset();
@@ -59,6 +65,15 @@ app.controller('ServiceController', function ($controller, $scope, Service, Serv
                 $scope.resetServices();
             }
         });
+    };
+
+    $scope.editSchedule = function (service) {
+        $scope.data = service;
+        $scope.openModal('#editScheduleModal');
+    };
+
+    $scope.resetSchedule = function () {
+        $scope.resetServices();
     };
 
     var buildTable = function () {
