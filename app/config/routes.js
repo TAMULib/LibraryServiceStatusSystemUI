@@ -25,6 +25,11 @@ app.config(function ($routeProvider) {
         controller: 'ServiceDetailController',
         reloadOnSearch: false
     }).
+    when('/note/:noteId/detail', {
+        templateUrl: 'views/detail/note.html',
+        controller: 'NoteDetailController',
+        reloadOnSearch: false
+    }).
     when('/home', {
         redirectTo: '/'
     }).

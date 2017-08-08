@@ -4,6 +4,15 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
         $scope: $scope
     }));
 
+    $scope.locations = {
+        MAIN: 'Main Campus Libraries (Evans/Annex)',
+        CUSHING: 'Cushing',
+        MSL: 'Medical Sciences Library',
+        WCL: 'West Campus Library',
+        PSEL: 'Policy Sciences & Economics Library',
+        QATAR: 'Qatar Library'
+    };
+
     $scope.modalData = {
         title: "Edit Notification Schedule",
         type: "notification"
@@ -59,6 +68,22 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
         });
     };
 
+    $scope.confirmDelete = function (notification) {
+        $scope.openModal('#deleteNotificationModal');
+        $scope.notificationToDelete = notification;
+    };
+
+    $scope.deleteNotification = function () {
+        $scope.deleting = true;
+        $scope.notificationToDelete.delete().then(function () {
+            $scope.closeModal();
+            $scope.deleting = false;
+            NotificationRepo.remove($scope.notificationToDelete);
+            $scope.notificationToDelete = {};
+            $scope.tableParams.reload();
+        });
+    };
+
     $scope.editSchedule = function (notification) {
         $scope.data = notification;
         $scope.openModal('#editScheduleModal');
@@ -81,26 +106,4 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
         $scope.tableParams.reload();
     });
 
-    $scope.confirmDelete = function (notification) {
-        $scope.openModal('#deleteNotificationModal');
-        $scope.notificationToDelete = notification;
-    };
-
-    $scope.deleteNotification = function () {
-        $scope.deleting = true;
-        $scope.notificationToDelete.delete().then(function () {
-            $scope.closeModal();
-            $scope.deleting = false;
-            NotificationRepo.remove($scope.notificationToDelete);
-            $scope.notificationToDelete = {};
-            $scope.tableParams.reload();
-        });
-    };
-
-    $scope.locations = {
-        EVANS: 'Evans Library (Main Campus)',
-        CUSHING: 'Cushing',
-        MSL: 'Medical Sciences Library',
-        WCL: 'West Campus Library'
-    };
 });

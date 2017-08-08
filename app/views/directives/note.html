@@ -2,7 +2,7 @@
   <div >
     <div class="row">
       <div class="lead col-md-8 note-title">
-        <span>{{note.title}}</span>
+        <span><a href="{{'note/' + note.id + '/detail/'}}">{{note.title}}</a></span>
         <span ng-if="link"> [<a href="{{'service/' + note.service.id + '/detail/'}}">{{note.service.name}}</a>]</span>
       </div>
       <span class="col-md-4 text-right note-type">
