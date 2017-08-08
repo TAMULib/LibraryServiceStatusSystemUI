@@ -1,9 +1,9 @@
-app.repo("NoteRepo", function NoteRepo($location, $q, $timeout, WsApi, Note, Note, ServiceRepo, TableFactory) {
+app.repo("NoteRepo", function NoteRepo($location, $q, $timeout, WsApi, Note, ServiceRepo, TableFactory) {
 
     var noteRepo = this;
 
     noteRepo.fetchById = function (noteId) {
-        
+
         var note = new Note();
 
         angular.extend(noteRepo.mapping.instantiate, {
