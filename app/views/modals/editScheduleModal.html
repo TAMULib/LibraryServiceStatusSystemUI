@@ -1,0 +1,84 @@
+<div class="modal-header {{attr.modalHeaderClass}}">
+  <button type="button" class="close" ng-click="resetSchedule()" aria-label="Close">
+    <span class="modal-close" aria-hidden="true">&times;</span>
+  </button>
+  <h3 class="modal-title">{{modalData.title}}</h3>
+</div>
+
+<form ng-submit="saveSchedule()" name="forms.schedule" novalidate>
+
+  <div class="modal-body row">
+
+    <div class="col-xs-6">
+      <label>Start </label>
+      <p class="input-group">
+        <input type="text" class="form-control" datepicker-popup ng-model="schedule.scheduledPostingStart" is-open="popupStart.opened" datepicker-options="dateOptions" close-text="Close" date-as-timestamp/>
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="openStart($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+      </p>
+      <timepicker ng-model="schedule.scheduledPostingStart" hour-step="1" minute-step="1" show-meridian="true" date-as-timestamp></timepicker>
+    </div>
+
+    <div class="col-xs-6">
+      <label>End </label>
+      <p class="input-group">
+        <input type="text" class="form-control" datepicker-popup ng-model="schedule.scheduledPostingEnd" is-open="popupEnd.opened" datepicker-options="dateOptions" close-text="Close" date-as-timestamp/>
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="openEnd($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+      </p>
+      <timepicker ng-model="schedule.scheduledPostingEnd" hour-step="1" minute-step="1" show-meridian="true" date-as-timestamp></timepicker>
+    </div>
+
+
+
+    <div class="col-xs-6">
+      <span ng-if="modalData.type === 'service'">
+        <label>Status </label>
+        <select class="form-control" ng-model="schedule.scheduleData.nextStatus" name="Status">
+          <option ng-repeat="s in modalData.options" value="{{s}}">{{s}}</option>
+        </select>
+      </span>
+      </div>
+
+    <div class="col-xs-2 col-xs-offset-4">
+      <label>Add </label>
+      <p class="input-group">
+        <button type="button" class="btn btn-default" ng-click="addSchedule(modalData.type === 'service')" ng-disabled="invalidSchedule()"><i class="glyphicon glyphicon-plus"></i></button>
+      </p>
+    </div>
+
+    <div class="col-xs-12">
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Start</th>
+            <th>End</th>
+            <th ng-if="modalData.type === 'service'">Status</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="schedule in data.schedules | orderBy: 'scheduledPostingStart'">
+            <th>{{schedule.scheduledPostingStart | date: 'MM/dd/yyyy h:mm a'}}</th>
+            <th>{{schedule.scheduledPostingEnd | date: 'MM/dd/yyyy h:mm a'}}</th>
+            <th ng-if="modalData.type === 'service'">{{schedule.scheduleData.nextStatus}}</th>
+            <th>
+              <button type="button" class="btn btn-default" ng-click="removeSchedule(schedule)"><i class="glyphicon glyphicon-minus"></i></button>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-warning" ng-click="resetSchedule()">Cancel</button>
+    <button id="schedule-update" type="submit" class="btn btn-primary">Save</button>
+  </div>
+  </div>
+</form>

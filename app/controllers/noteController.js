@@ -1,6 +1,6 @@
 app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, ServiceRepo) {
 
-    angular.extend(this, $controller('AbstractController', {
+    angular.extend(this, $controller('AbstractScheduleController', {
         $scope: $scope
     }));
 
@@ -11,6 +11,11 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
         REPORT: 'Report',
         SCHEDULED_DOWNTIME: 'Scheduled Downtime',
         MAINTENANCE: 'Maintenance'
+    };
+
+    $scope.modalData = {
+        title: "Edit Note Schedule",
+        type: "note"
     };
 
     $scope.forms = {};
@@ -35,6 +40,7 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
             }
             $scope.noteData = new Note({
                 title: '',
+                active: false,
                 pinned: false,
                 service: $scope.services[0],
                 noteType: 'ENHANCEMENT'
@@ -64,6 +70,15 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
                     $scope.resetNotes();
                 }
             });
+        };
+
+        $scope.editSchedule = function (note) {
+            $scope.data = note;
+            $scope.openModal('#editScheduleModal');
+        };
+
+        $scope.resetSchedule = function () {
+            $scope.resetNotes();
         };
 
         $scope.confirmDelete = function (note) {

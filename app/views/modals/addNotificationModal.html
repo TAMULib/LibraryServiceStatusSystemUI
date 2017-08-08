@@ -31,10 +31,6 @@
       results="notificationRepo.ValidationResults">
     </validatedtextarea>
 
-    <div class="checkbox">
-      <label><input type="checkbox" value="true" ng-model="notificationData.isActive">Is the Notification Active?</label>
-    </div>
-
     <label for="locationSelect">Locations</label>
     <br>
     <select
@@ -44,6 +40,10 @@
       multiple>
       <option ng-repeat="(key, location) in locations" value="{{key}}">{{location}}</option>
     </select>
+
+    <div class="checkbox">
+      <label><input type="checkbox" value="false" ng-model="notificationData.active">Is the Notification active?</label>
+    </div>
 
     <div class="modal-footer">
       <button

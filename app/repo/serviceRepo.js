@@ -15,7 +15,7 @@ app.repo("ServiceRepo", function ServiceRepo(WsApi) {
     };
 
     serviceRepo.addNote = function (note) {
-        if (note.pinned) {
+        if (note.pinned || note.active) {
             var service = getNotesService(note);
             service.notes.push(note);
         }
@@ -25,7 +25,7 @@ app.repo("ServiceRepo", function ServiceRepo(WsApi) {
         var service = getNotesService(note);
         for (var i in service.notes) {
             if (service.notes[i].id === note.id) {
-                if (note.pinned) {
+                if (note.pinned || note.active) {
                     angular.extend(service.notes[i], note);
                 } else {
                     service.notes.splice(i, 1);
@@ -33,7 +33,7 @@ app.repo("ServiceRepo", function ServiceRepo(WsApi) {
                 return;
             }
         }
-        if (note.pinned) {
+        if (note.pinned || note.active) {
             service.notes.push(note);
         }
     };

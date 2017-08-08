@@ -11,13 +11,15 @@
     <td title="'Short List'">{{service.onShortList}}</td>
     <td title="'URL'">{{service.serviceUrl}}</td>
     <td title="'Actions'">
-      <button class="btn btn-danger" ng-click="confirmDelete(service)">Delete</button>
-      <button class="btn btn-primary" ng-click="editService(service)">Edit</button>
+      <span class="glyphicon glyphicon-pencil" ng-click="editService(service)"></span>
+      <span class="glyphicon glyphicon-time" ng-click="editSchedule(service)"></span>
+      <span class="glyphicon glyphicon-trash" ng-click="confirmDelete(service)"></span>
     </td>
     </tr>
   </table>
-
+  
   <modal modal-id="addServiceModal" modal-view="views/modals/addServiceModal.html" modal-header-class="modal-header-primary"></modal>
   <modal modal-id="deleteServiceModal" modal-view="views/modals/deleteServiceModal.html" modal-header-class="modal-header-danger"></modal>
   <modal modal-id="editServiceModal" modal-view="views/modals/editServiceModal.html" modal-header-class="modal-header-primary"></modal>
+  <modal modal-id="editScheduleModal" modal-view="views/modals/editScheduleModal.html" modal-header-class="modal-header-primary"></modal>
 </div>
