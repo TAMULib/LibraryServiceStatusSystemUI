@@ -54,7 +54,7 @@ var apiMapping = {
             'endpoint': '/channel',
             'controller': 'note',
         },
-        get: {
+        instantiate: {
             'endpoint': '/private/queue',
             'controller': 'note'
         },
