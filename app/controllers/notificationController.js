@@ -42,7 +42,6 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
             locations: []
         });
         $scope.closeModal();
-        $scope.notificationRepo.reset();
     };
 
     $scope.resetNotifications();
@@ -78,7 +77,6 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
         $scope.notificationToDelete.delete().then(function () {
             $scope.closeModal();
             $scope.deleting = false;
-            NotificationRepo.remove($scope.notificationToDelete);
             $scope.notificationToDelete = {};
             $scope.tableParams.reload();
         });
