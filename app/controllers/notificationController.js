@@ -84,9 +84,11 @@ app.controller('NotificationController', function($controller, $scope, Notificat
   };
 
   $scope.locations = {
-    EVANS: 'Evans Library (Main Campus)',
+    MAIN: 'Main Campus Libraries (Evans/Annex)',
     CUSHING: 'Cushing',
     MSL: 'Medical Sciences Library',
-    WCL: 'West Campus Library'
+    WCL: 'West Campus Library',
+    PSEL: 'Policy Sciences & Economics Library',
+    QATAR: 'Qatar Library'
   };
 });
