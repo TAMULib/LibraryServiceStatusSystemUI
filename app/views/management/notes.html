@@ -5,8 +5,8 @@
 
   <table ng-table="tableParams" template-pagination="views/notePaginationControls.html" show-filter="false" class="table table-bordered table-striped note-table">
     <tr ng-repeat="note in $data">
-      <td title="'Title'"><a href="{{'note/' + note.id + '/detail/'}}">{{note.title}}</a></td>
       <td title="'Service'"><a href="{{'service/' + note.service.id + '/detail/'}}">{{note.service.name}}</a></td>
+      <td title="'Title'"><a href="{{'note/' + note.id + '/detail/'}}">{{note.title}}</a></td>
       <td title="'Body'">{{note.body}}</td>
       <td title="'Type'">{{note.noteType}}</td>
       <td title="'Last Modified'">{{note.lastModified | date : 'medium'}}</td>
