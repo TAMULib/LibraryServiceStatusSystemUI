@@ -5,4 +5,5 @@ app.controller('NoteDetailController', function ($controller, $routeParams, $sco
   }));
 
   $scope.note = NoteRepo.fetchById($routeParams.noteId);
+
 });

@@ -1,9 +1,5 @@
 <div class="modal-header {{attr.modalHeaderClass}}">
-  <button
-    type="button"
-    class="close"
-    ng-click="resetServices()"
-    aria-label="Close">
+  <button type="button" class="close" ng-click="resetServices()" aria-label="Close">
     <span class="modal-close" aria-hidden="true">&times;</span>
   </button>
   <h3 class="modal-title">Add Service</h3>
@@ -12,22 +8,14 @@
 <form ng-submit="createService()" name="forms.create" novalidate>
 
   <div class="modal-body">
-    <validatedinput
-      model="serviceData"
-      property="name"
-      label="Name"
-      placeholder="Name of the new Service"
-      form="forms.create"
-      validations="serviceData.getValidations()"
-      results="serviceRepo.ValidationResults">
+    <validatedinput model="serviceData" property="name" label="Name" placeholder="Name of the new Service" form="forms.create" validations="serviceData.getValidations()" results="serviceRepo.ValidationResults">
     </validatedinput>
 
     <label>Description</label>
     <textarea ui-tinymce="tinymceOptions" ng-model="serviceData.description"></textarea>
     <br>
 
-    <service-status
-      model="serviceData">
+    <service-status model="serviceData">
     </service-status>
 
     <div class="checkbox">
@@ -39,15 +27,8 @@
     </div>
 
     <div class="modal-footer">
-      <button
-        type="button"
-        class="btn btn-warning"
-        ng-click="resetServices()">Cancel</button>
-      <button
-        id="services-save"
-        type="submit"
-        class="btn btn-primary"
-        ng-disabled="forms.create.$invalid">Create</button>
+      <button type="button" class="btn btn-warning" ng-click="resetServices()">Cancel</button>
+      <button id="services-save" type="submit" class="btn btn-primary" ng-disabled="forms.create.$invalid">Create</button>
     </div>
   </div>
 </form>

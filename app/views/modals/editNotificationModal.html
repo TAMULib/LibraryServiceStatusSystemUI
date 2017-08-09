@@ -1,9 +1,5 @@
 <div class="modal-header {{attr.modalHeaderClass}}">
-  <button
-    type="button"
-    class="close"
-    ng-click="resetNotifications()"
-    aria-label="Close">
+  <button type="button" class="close" ng-click="resetNotifications()" aria-label="Close">
     <span class="modal-close" aria-hidden="true">&times;</span>
   </button>
   <h3 class="modal-title">Edit Notification</h3>
@@ -13,32 +9,15 @@
 
   <div class="modal-body">
 
-    <validatedinput
-      model="notificationData"
-      property="name"
-      label="Name"
-      placeholder="Name of the Notification"
-      form="forms.update"
-      validations="notificationData.getValidations()"
-      results="notificationRepo.ValidationResults">
+    <validatedinput model="notificationData" property="name" label="Name" placeholder="Name of the Notification" form="forms.update" validations="notificationData.getValidations()" results="notificationRepo.ValidationResults">
     </validatedinput>
 
-    <validatedtextarea
-      model="notificationData"
-      property="body"
-      label="Notification Body"
-      form="forms.update"
-      validations="notificationData.getValidations()"
-      results="notificationRepo.ValidationResults">
+    <validatedtextarea model="notificationData" property="body" label="Notification Body" form="forms.update" validations="notificationData.getValidations()" results="notificationRepo.ValidationResults">
     </validatedtextarea>
 
     <label for="locationSelect">Locations</label>
     <br>
-    <select
-      class="form-control"
-      ng-model="notificationData.locations"
-      name="Locations"
-      multiple>
+    <select class="form-control" ng-model="notificationData.locations" name="Locations" multiple>
       <option ng-repeat="(key, location) in locations" value="{{key}}">{{location}}</option>
     </select>
 
@@ -47,15 +26,8 @@
     </div>
 
     <div class="modal-footer">
-      <button
-        type="button"
-        class="btn btn-warning"
-        ng-click="resetNotifications()">Cancel</button>
-      <button
-        id="notification-update"
-        type="submit"
-        class="btn btn-primary"
-        ng-disabled="forms.create.$invalid">Update</button>
+      <button type="button" class="btn btn-warning" ng-click="resetNotifications()">Cancel</button>
+      <button id="notification-update" type="submit" class="btn btn-primary" ng-disabled="forms.create.$invalid">Update</button>
     </div>
   </div>
 </form>
