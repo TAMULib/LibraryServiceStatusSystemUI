@@ -1,18 +1,19 @@
 <div class="management-table" ng-controller="NotificationController">
 
   <button class="btn btn-default view-action-button" ng-click="openModal('#addNotificationModal')">Add Notification</button>
-  <hr>
+  <hr />
+
   <table ng-table="tableParams" show-filter="false" class="table table-bordered table-striped notification-table">
     <tr ng-repeat="notification in notifications track by notification.id">
-    <td title="'Name'">{{notification.name}}</td>
-    <td title="'Body'">{{notification.body}}</td>
-    <td title="'Locations'">{{notification.locations.join(', ')}}</td>
-    <td title="'Active'">{{notification.active}}</td>
-    <td title="'Actions'">
-      <span class="glyphicon glyphicon-pencil" ng-click="editNotification(notification)"></span>
-      <span class="glyphicon glyphicon-time" ng-click="editSchedule(notification)"></span>
-      <span class="glyphicon glyphicon-trash" ng-click="confirmDelete(notification)"></span>
-    </td>
+      <td title="'Name'">{{notification.name}}</td>
+      <td title="'Body'">{{notification.body}}</td>
+      <td title="'Locations'">{{notification.locations.join(', ')}}</td>
+      <td title="'Active'">{{notification.active}}</td>
+      <td class="actions-column" title="'Actions'">
+        <span class="glyphicon glyphicon-pencil" ng-click="editNotification(notification)"></span>
+        <span class="glyphicon glyphicon-time" ng-click="editSchedule(notification)"></span>
+        <span class="glyphicon glyphicon-trash" ng-click="confirmDelete(notification)"></span>
+      </td>
   </table>
 
   <modal modal-id="addNotificationModal" modal-view="views/modals/addNotificationModal.html" modal-header-class="modal-header-primary"></modal>

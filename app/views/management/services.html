@@ -1,23 +1,24 @@
 <div class="management-table" ng-controller="ServiceController">
 
   <button class="btn btn-default view-action-button" ng-click="openModal('#addServiceModal')">Add Service</button>
-  <hr>
+  <hr />
+
   <table ng-table="tableParams" show-filter="false" class="table table-bordered table-striped service-table">
     <tr ng-repeat="service in services track by service.id">
-    <td title="'Service'">{{service.name}}</td>
-    <td title="'Status'">{{service.status}}</td>
-    <td title="'Auto Updating'">{{service.isAuto}}</td>
-    <td title="'Public'">{{service.isPublic}}</td>
-    <td title="'Short List'">{{service.onShortList}}</td>
-    <td title="'URL'">{{service.serviceUrl}}</td>
-    <td title="'Actions'">
-      <span class="glyphicon glyphicon-pencil" ng-click="editService(service)"></span>
-      <span class="glyphicon glyphicon-time" ng-click="editSchedule(service)"></span>
-      <span class="glyphicon glyphicon-trash" ng-click="confirmDelete(service)"></span>
-    </td>
+      <td title="'Service'"><a href="{{'service/' + service.id + '/detail/'}}">{{service.name}}</a></td>
+      <td title="'Status'">{{service.status}}</td>
+      <td title="'Auto Updating'">{{service.isAuto}}</td>
+      <td title="'Public'">{{service.isPublic}}</td>
+      <td title="'Short List'">{{service.onShortList}}</td>
+      <td title="'URL'">{{service.serviceUrl}}</td>
+      <td class="actions-column" title="'Actions'">
+        <span class="glyphicon glyphicon-pencil" ng-click="editService(service)"></span>
+        <span class="glyphicon glyphicon-time" ng-click="editSchedule(service)"></span>
+        <span class="glyphicon glyphicon-trash" ng-click="confirmDelete(service)"></span>
+      </td>
     </tr>
   </table>
-  
+
   <modal modal-id="addServiceModal" modal-view="views/modals/addServiceModal.html" modal-header-class="modal-header-primary"></modal>
   <modal modal-id="deleteServiceModal" modal-view="views/modals/deleteServiceModal.html" modal-header-class="modal-header-danger"></modal>
   <modal modal-id="editServiceModal" modal-view="views/modals/editServiceModal.html" modal-header-class="modal-header-primary"></modal>

@@ -1,4 +1,4 @@
-app.repo("NotificationRepo", function NotificationRepo (WsApi) {
+app.repo("NotificationRepo", function NotificationRepo(WsApi) {
 
   var notificationRepo = this;
 

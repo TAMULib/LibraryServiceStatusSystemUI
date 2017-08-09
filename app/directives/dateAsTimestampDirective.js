@@ -1,9 +1,9 @@
-app.directive('dateAsTimestamp', function() {
+app.directive('dateAsTimestamp', function () {
   return {
     restrict: 'A',
     require: 'ngModel',
-    link: function(scope,elem,attrs,ngModelCtrl) {
-      ngModelCtrl.$parsers.push(function(value){
+    link: function (scope, elem, attrs, ngModelCtrl) {
+      ngModelCtrl.$parsers.push(function (value) {
         if (value && value.getTime) {
           return value.getTime();
         } else {

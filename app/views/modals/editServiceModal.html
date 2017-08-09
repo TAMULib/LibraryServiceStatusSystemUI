@@ -1,9 +1,5 @@
 <div class="modal-header {{attr.modalHeaderClass}}">
-  <button
-    type="button"
-    class="close"
-    ng-click="resetServices()"
-    aria-label="Close">
+  <button type="button" class="close" ng-click="resetServices()" aria-label="Close">
     <span class="modal-close" aria-hidden="true">&times;</span>
   </button>
   <h3 class="modal-title">Edit Service</h3>
@@ -12,22 +8,14 @@
 <form ng-submit="updateService()" name="forms.update" novalidate>
 
   <div class="modal-body">
-    <validatedinput
-      model="serviceData"
-      property="name"
-      label="Name"
-      placeholder="Name of the Service"
-      form="forms.update"
-      validations="serviceRepo.getValidations()"
-      results="serviceData.getValidationResults()">
+    <validatedinput model="serviceData" property="name" label="Name" placeholder="Name of the Service" form="forms.update" validations="serviceRepo.getValidations()" results="serviceData.getValidationResults()">
     </validatedinput>
 
     <label>Description</label>
     <textarea ui-tinymce="tinymceOptions" ng-model="serviceData.description"></textarea>
     <br>
 
-    <service-status
-      model="serviceData">
+    <service-status model="serviceData">
     </service-status>
 
     <div class="checkbox">
@@ -39,15 +27,8 @@
     </div>
 
     <div class="modal-footer">
-      <button
-        type="button"
-        class="btn btn-warning"
-        ng-click="resetServices()">Cancel</button>
-      <button
-        id="services-update"
-        type="submit"
-        class="btn btn-primary"
-        ng-disabled="forms.create.$invalid">Update</button>
+      <button type="button" class="btn btn-warning" ng-click="resetServices()">Cancel</button>
+      <button id="services-update" type="submit" class="btn btn-primary" ng-disabled="forms.create.$invalid">Update</button>
     </div>
   </div>
 </form>

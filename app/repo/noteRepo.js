@@ -3,15 +3,11 @@ app.repo("NoteRepo", function NoteRepo($location, $q, $timeout, WsApi, Note, Ser
     var noteRepo = this;
 
     noteRepo.fetchById = function (noteId) {
-
         var note = new Note();
-
         angular.extend(noteRepo.mapping.instantiate, {
             'method': noteId
         });
-
         note.fetch();
-
         return note;
     };
 
