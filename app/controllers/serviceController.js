@@ -7,7 +7,7 @@ app.controller('ServiceController', function ($controller, $scope, $timeout, Ser
     $scope.modalData = {
         title: "Edit Service Schedule",
         type: "service",
-        options: ['UP', 'DOWN', 'AUTO']
+        options: ['UP', 'DOWN', 'MAINTENANCE']
     };
 
     $scope.serviceRepo = ServiceRepo;

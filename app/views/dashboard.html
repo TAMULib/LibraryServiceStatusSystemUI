@@ -4,17 +4,16 @@
 
 <table class="table table-striped publicDashboardServiceShortlist">
   <thead>
-    <th>Service Name</th>
     <th>Status</th>
+    <th>Service Name</th>
     <th>Notes</th>
   </thead>
   <tbody>
     <tr class="serviceShortListItem" ng-repeat="service in services | dashboardServices:{showPublic: showPublic, showShortList: showShortList}" ng-init="service.getNotes(true, true)">
-      <td class="serviceName"><a href="{{'service/' + service.id + '/detail/'}}">{{service.name}}</a></td>
       <td>
-        <span ng-if="service.status=='UP'" class="glyphicon glyphicon-ok-sign serviceIndicator serviceUp"></span>
-        <span ng-if="service.status=='DOWN'" class="glyphicon glyphicon-remove-sign serviceIndicator serviceDown"></span>
+        <span class="glyphicon service-indicator" ng-class="{'glyphicon-ok-sign serviceUp': service.status==='UP', 'glyphicon-remove-sign serviceDown': service.status==='DOWN', 'glyphicon-minus-sign serviceMaintenance': service.status==='MAINTENANCE'}"></span>
       </td>
+      <td class="serviceName"><a href="{{'service/' + service.id + '/detail/'}}">{{service.name}}</a></td>
       <td class="serviceNotes">
         <div class="note-label" ng-repeat="note in service.notes | orderBy: lastModified">
           <span><strong><span class="label {{note.noteType | serviceLabel}}">{{note.noteType | replaceUnderscore}}</span> <a href="{{'note/' + note.id + '/detail/'}}">{{note.title}}</a>:</strong> {{note.body}}</span>
