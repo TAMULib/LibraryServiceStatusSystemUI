@@ -12,8 +12,9 @@
     <tr class="serviceShortListItem" ng-repeat="service in services | dashboardServices:{showPublic: showPublic, showShortList: showShortList}" ng-init="service.getNotes(true, true)">
       <td class="serviceName"><a href="{{'service/' + service.id + '/detail/'}}">{{service.name}}</a></td>
       <td>
-        <span ng-if="service.status=='UP'" class="glyphicon glyphicon-ok-sign serviceIndicator serviceUp"></span>
-        <span ng-if="service.status=='DOWN'" class="glyphicon glyphicon-remove-sign serviceIndicator serviceDown"></span>
+        <span ng-if="service.status==='UP'" class="glyphicon glyphicon-ok-sign serviceIndicator serviceUp"></span>
+        <span ng-if="service.status==='DOWN'" class="glyphicon glyphicon-remove-sign serviceIndicator serviceDown"></span>
+        <span ng-if="service.status==='MAINTENANCE'" class="glyphicon glyphicon-minus-sign serviceIndicator serviceMaintenance"></span>
       </td>
       <td class="serviceNotes">
         <div class="note-label" ng-repeat="note in service.notes | orderBy: lastModified">

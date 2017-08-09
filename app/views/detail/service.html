@@ -1,9 +1,9 @@
-<div class="serviceStatusAlert alert" ng-class="service.status == 'UP' ? 'alert-success' : 'alert-danger'" role="alert">
-  <h2>{{service.name}} is {{service.status | lowercase}}</h2>
-</div>
 
-<div class="container">
-  <h3>{{service.name}} Details</h3>
+
+<div class="container service-details">
+  <h1>
+    <span class="glyphicon service-indicator" ng-class="{'glyphicon-ok-sign serviceUp': service.status==='UP', 'glyphicon-remove-sign serviceDown': service.status==='DOWN', 'glyphicon-minus-sign serviceMaintenance': service.status==='MAINTENANCE'}"></span>
+    {{service.name}}</h1>
   <hr>
   <div>
     <span ng-bind-html="service.description | decode"></span>
@@ -11,7 +11,7 @@
 </div>
 
 <div class="container notes-container">
-  <h3>Notes</h3>
+  <h2>Notes</h2>
   <hr>
   <table ng-table="tableParams" template-pagination="views/notePaginationControls.html" show-filter="false" class="table borderless notes-table">
     <tbody>
