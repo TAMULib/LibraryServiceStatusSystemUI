@@ -14,11 +14,12 @@
     "preupdate-webdriver": "npm install",
     "update-webdriver": "webdriver-manager update",
     "preprotractor": "npm run update-webdriver",
-    "protractor": "protractor e2e-tests/protractor.conf.js"
+    "protractor": "protractor e2e-tests/protractor.conf.js",
+    "start": "wvr server -p 8080 -b /status-system"
   },
   "dependencies": {
     "angular-ui-tinymce": "0.0.19",
-    "core": "git+https://github.com/TAMULib/Weaver-UI-Core.git#2.0.x",
+    "core": "git+https://github.com/TAMULib/Weaver-UI-Core.git#2.0.x-webservice",
     "ng-csv": "0.3.6",
     "ng-table": "3.0.1",
     "tinymce": "4.6.5"
