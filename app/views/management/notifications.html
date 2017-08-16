@@ -5,7 +5,7 @@
 
   <table ng-table="tableParams" show-filter="false" class="table table-bordered table-striped notification-table">
     <tr ng-repeat="notification in notifications track by notification.id">
-      <td title="'Name'">{{notification.name}}</td>
+      <td title="'Name'">{{notification.name}} <span ng-if="notification.schedules.length > 0">(scheduled)</span></td>
       <td title="'Body'">{{notification.body}}</td>
       <td title="'Locations'">{{notification.locations.join(', ')}}</td>
       <td title="'Active'">{{notification.active}}</td>

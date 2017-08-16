@@ -5,7 +5,7 @@
 
   <table ng-table="tableParams" show-filter="false" class="table table-bordered table-striped service-table">
     <tr ng-repeat="service in services track by service.id">
-      <td title="'Service'"><a href="{{'service/' + service.id + '/detail/'}}">{{service.name}}</a></td>
+      <td title="'Service'"><a href="{{'service/' + service.id + '/detail/'}}">{{service.name}}</a> <span ng-if="service.schedules.length > 0">(scheduled)</span></td>
       <td title="'Status'">{{service.status}}</td>
       <td title="'Auto Updating'">{{service.isAuto}}</td>
       <td title="'Public'">{{service.isPublic}}</td>

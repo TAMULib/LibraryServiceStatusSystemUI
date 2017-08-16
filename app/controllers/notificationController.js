@@ -1,4 +1,4 @@
-app.controller('NotificationController', function ($controller, $scope, $timeout, Notification, NotificationRepo, NgTableParams) {
+app.controller('NotificationController', function ($controller, $scope, Notification, NotificationRepo, NgTableParams) {
 
     angular.extend(this, $controller('AbstractScheduleController', {
         $scope: $scope
@@ -14,7 +14,7 @@ app.controller('NotificationController', function ($controller, $scope, $timeout
     };
 
     $scope.modalData = {
-        title: "Edit Notification Schedule",
+        title: "Edit",
         type: "notification"
     };
 
@@ -42,9 +42,6 @@ app.controller('NotificationController', function ($controller, $scope, $timeout
             locations: []
         });
         $scope.closeModal();
-        $timeout(function () {
-            NotificationRepo.reset();
-        }, 250);
     };
 
     $scope.resetNotifications();
