@@ -5,7 +5,7 @@
 
   <table ng-table="tableParams" template-pagination="views/notePaginationControls.html" show-filter="false" class="table table-bordered table-striped note-table">
     <tr ng-repeat="note in $data">
-      <td title="'Service'"><a href="{{'service/' + note.service.id + '/detail/'}}">{{note.service.name}}</a></td>
+      <td title="'Service'"><a href="{{'service/' + note.service.id + '/detail/'}}">{{note.service.name}}</a> <span ng-if="note.schedules.length > 0">(scheduled)</span></td>
       <td title="'Title'"><a href="{{'note/' + note.id + '/detail/'}}">{{note.title}}</a></td>
       <td title="'Body'">{{note.body}}</td>
       <td title="'Type'">{{note.noteType}}</td>
@@ -20,8 +20,8 @@
     </tr>
   </table>
 
-  <modal modal-id="addNoteModal" modal-view="views/modals/addNoteModal.html" modal-header-class="modal-header-primary"></modal>
-  <modal modal-id="deleteNoteModal" modal-view="views/modals/deleteNoteModal.html" modal-header-class="modal-header-danger"></modal>
-  <modal modal-id="editNoteModal" modal-view="views/modals/editNoteModal.html" modal-header-class="modal-header-primary"></modal>
-  <modal modal-id="editScheduleModal" modal-view="views/modals/editScheduleModal.html" modal-header-class="modal-header-primary"></modal>
+  <modal modal-id="addNoteModal" modal-view="views/modals/addNoteModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+  <modal modal-id="deleteNoteModal" modal-view="views/modals/deleteNoteModal.html" modal-header-class="modal-header-danger" wvr-modal-backdrop="static"></modal>
+  <modal modal-id="editNoteModal" modal-view="views/modals/editNoteModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+  <modal modal-id="editScheduleModal" modal-view="views/modals/editScheduleModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
 </div>

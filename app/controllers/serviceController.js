@@ -1,11 +1,11 @@
-app.controller('ServiceController', function ($controller, $scope, $timeout, Service, ServiceRepo, NgTableParams) {
+app.controller('ServiceController', function ($controller, $scope, Service, ServiceRepo, NgTableParams) {
 
     angular.extend(this, $controller('AbstractScheduleController', {
         $scope: $scope
     }));
 
     $scope.modalData = {
-        title: "Edit Service Schedule",
+        title: "Edit",
         type: "service",
         options: ['UP', 'DOWN', 'MAINTENANCE']
     };
@@ -36,7 +36,6 @@ app.controller('ServiceController', function ($controller, $scope, $timeout, Ser
             description: ''
         });
         $scope.closeModal();
-        $scope.serviceRepo.reset();
     };
 
     $scope.resetServices();
@@ -47,7 +46,7 @@ app.controller('ServiceController', function ($controller, $scope, $timeout, Ser
         } else {
             $scope.serviceData.isAuto = false;
         }
-        $scope.serviceRepo.create($scope.serviceData).then(function (res) {
+        ServiceRepo.create($scope.serviceData).then(function (res) {
             if (angular.fromJson(res.body).meta.type === 'SUCCESS') {
                 $scope.resetServices();
             }
@@ -60,7 +59,7 @@ app.controller('ServiceController', function ($controller, $scope, $timeout, Ser
     };
 
     $scope.updateService = function () {
-        $scope.serviceRepo.update($scope.serviceData).then(function (res) {
+        ServiceRepo.update($scope.serviceData).then(function (res) {
             if (angular.fromJson(res.body).meta.type === 'SUCCESS') {
                 $scope.resetServices();
             }

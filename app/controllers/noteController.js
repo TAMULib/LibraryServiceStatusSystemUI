@@ -13,8 +13,10 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
         MAINTENANCE: 'Maintenance'
     };
 
+    $scope.noteRepo = NoteRepo;
+
     $scope.modalData = {
-        title: "Edit Note Schedule",
+        title: "Edit",
         type: "note"
     };
 
@@ -46,7 +48,6 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
                 noteType: 'ENHANCEMENT'
             });
             $scope.closeModal();
-            NoteRepo.reset();
         };
 
         $scope.resetNotes();

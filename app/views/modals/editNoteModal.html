@@ -8,7 +8,7 @@
 <form ng-submit="updateNote()" name="forms.edit" novalidate>
   <div class="modal-body">
 
-    <validatedinput model="noteData" property="title" label="Title" placeholder="Title of the Note" form="forms.edit" validations="noteData.getValidations()" results="noteData.ValidationResults">
+    <validatedinput model="noteData" property="title" label="Title" placeholder="Title of the Note" form="forms.edit" validations="noteData.getValidations()" results="noteRepo.ValidationResults">
     </validatedinput>
 
     <validatedselect model="noteData" property="service" label="Services" form="forms.edit" validations="noteData.getValidations()" results="noteData.ValidationResults" options="services" optionProperty="name">
@@ -29,7 +29,7 @@
     </div>
 
     <div class="modal-footer">
-      <button type="button" class="btn btn-warning" ng-click="resetNotes()">Cancel</button>
+      <button type="button" class="btn btn-default" ng-click="resetNotes()">Cancel</button>
       <button id="notes-update" type="submit" class="btn btn-primary" ng-disabled="forms.edit.$invalid">Update</button>
     </div>
   </div>

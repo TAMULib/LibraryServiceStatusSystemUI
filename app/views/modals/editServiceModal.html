@@ -8,7 +8,7 @@
 <form ng-submit="updateService()" name="forms.update" novalidate>
 
   <div class="modal-body">
-    <validatedinput model="serviceData" property="name" label="Name" placeholder="Name of the Service" form="forms.update" validations="serviceRepo.getValidations()" results="serviceData.getValidationResults()">
+    <validatedinput model="serviceData" property="name" label="Name" placeholder="Name of the Service" form="forms.update" validations="serviceData.getValidations()" results="serviceRepo.ValidationResults">
     </validatedinput>
 
     <label>Description</label>
@@ -27,7 +27,7 @@
     </div>
 
     <div class="modal-footer">
-      <button type="button" class="btn btn-warning" ng-click="resetServices()">Cancel</button>
+      <button type="button" class="btn btn-default" ng-click="resetServices()">Cancel</button>
       <button id="services-update" type="submit" class="btn btn-primary" ng-disabled="forms.create.$invalid">Update</button>
     </div>
   </div>

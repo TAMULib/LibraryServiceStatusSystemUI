@@ -14,7 +14,7 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
     };
 
     $scope.modalData = {
-        title: "Edit Notification Schedule",
+        title: "Edit",
         type: "notification"
     };
 
@@ -47,7 +47,7 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
     $scope.resetNotifications();
 
     $scope.createNotification = function () {
-        $scope.notificationRepo.create($scope.notificationData).then(function (response) {
+        NotificationRepo.create($scope.notificationData).then(function (response) {
             if (angular.fromJson(response.body).meta.type === 'SUCCESS') {
                 $scope.resetNotifications();
             }
@@ -60,7 +60,7 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
     };
 
     $scope.updateNotification = function () {
-        $scope.notificationRepo.update($scope.notificationData).then(function (response) {
+        NotificationRepo.update($scope.notificationData).then(function (response) {
             if (angular.fromJson(response.body).meta.type === 'SUCCESS') {
                 $scope.resetNotifications();
             }
