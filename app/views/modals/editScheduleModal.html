@@ -70,8 +70,8 @@
           <timepicker ng-model="schedule.scheduledPostingEnd" hour-step="1" minute-step="1" show-meridian="true" date-as-timestamp></timepicker>
         </div>
 
-        <div class="col-xs-6">
-          <span ng-if="modalData.type === 'service'">
+        <div ng-if="modalData.type === 'service'" class="col-xs-6">
+          <span>
             <label>Status </label>
             <select class="form-control" ng-model="schedule.scheduleData.nextStatus" name="Status">
               <option ng-repeat="s in modalData.options" value="{{s}}">{{s}}</option>
@@ -83,8 +83,8 @@
           <label>Confirm </label>
           <p class="input-group">
             <button type="button" ng-show="schedule.editing" class="btn btn-primary" ng-click="confirmSchedule(schedule)" ng-class="{'disabled': invalidSchedule(schedule)}">
-              <span ng-if="schedule.isNew">Add Schedule</span>
-              <span ng-if="!schedule.isNew">Update Update</span>
+              <span ng-if="isNew(schedule)">Add Schedule</span>
+              <span ng-if="!isNew(schedule)">Update Update</span>
             </button>
           </p>
         </div>
@@ -102,7 +102,7 @@
   </div>
 
   <div class="modal-footer">
-    <button type="button" class="btn btn-warning" ng-click="cancel(); resetSchedule()">Cancel</button>
+    <button type="button" class="btn btn-default" ng-click="cancel(); resetSchedule()">Cancel</button>
     <button id="schedule-update" type="submit" class="btn btn-primary" ng-class="{'disabled': !isValid()}">Save</button>
   </div>
   </div>

@@ -60,7 +60,13 @@ app.controller("AbstractScheduleController", function ($controller, $scope) {
             delete $scope.schedule.scheduleData;
         }
         $scope.editing = $scope.schedule.editing = true;
-        $scope.schedule.isNew = true;
+    };
+
+    $scope.isNew = function (schedule) {
+        if ($scope.data === undefined) {
+            return false;
+        }
+        return $scope.data.schedules.indexOf(schedule) < 0;
     };
 
     $scope.updateSchedule = function (schedule) {
@@ -70,7 +76,7 @@ app.controller("AbstractScheduleController", function ($controller, $scope) {
 
     $scope.confirmSchedule = function (schedule) {
         $scope.editing = schedule.editing = false;
-        if (schedule.isNew) {
+        if ($scope.isNew(schedule)) {
             $scope.data.schedules.push($scope.schedule);
         }
         $scope.reset();
@@ -80,7 +86,17 @@ app.controller("AbstractScheduleController", function ($controller, $scope) {
     $scope.invalidSchedule = function (schedule) {
         var invalid = false;
         if (schedule.editing) {
-            if ($scope.data !== undefined) {
+            if (new Date(schedule.scheduledPostingStart) < new Date()) {
+                invalid = true;
+                $scope.message = "Start date and time can not be in the past.";
+            }
+
+            if (!invalid && new Date(schedule.scheduledPostingStart) >= new Date(schedule.scheduledPostingEnd)) {
+                invalid = true;
+                $scope.message = "End date and time must be later than start date and time.";
+            }
+
+            if (!invalid && $scope.data !== undefined) {
                 for (var i in $scope.data.schedules) {
                     if ($scope.data.schedules[i] !== schedule && new Date($scope.data.schedules[i].scheduledPostingStart) < new Date(schedule.scheduledPostingEnd) && new Date($scope.data.schedules[i].scheduledPostingEnd) > new Date(schedule.scheduledPostingStart)) {
                         $scope.message = "Conflicts with another schedule.";
@@ -88,10 +104,8 @@ app.controller("AbstractScheduleController", function ($controller, $scope) {
                     }
                 }
             }
-            invalid = new Date(schedule.scheduledPostingStart) >= new Date(schedule.scheduledPostingEnd);
-            if (invalid) {
-                $scope.message = "End date and time must be later than start date and time.";
-            } else {
+
+            if (!invalid) {
                 delete $scope.message;
             }
         }
