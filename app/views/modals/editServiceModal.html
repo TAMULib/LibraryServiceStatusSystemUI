@@ -8,7 +8,7 @@
 <form ng-submit="updateService()" name="forms.update" novalidate>
 
   <div class="modal-body">
-    <validatedinput model="serviceData" property="name" label="Name" placeholder="Name of the Service" form="forms.update" validations="serviceRepo.getValidations()" results="serviceData.getValidationResults()">
+    <validatedinput model="serviceData" property="name" label="Name" placeholder="Name of the Service" form="forms.update" validations="serviceData.getValidations()" results="serviceRepo.ValidationResults">
     </validatedinput>
 
     <label>Description</label>
