@@ -56,7 +56,7 @@
               <button type="button" class="btn btn-default" ng-click="openStart($event)"><i class="glyphicon glyphicon-calendar"></i></button>
             </span>
           </p>
-          <timepicker ng-model="schedule.scheduledPostingStart" hour-step="1" minute-step="1" show-meridian="true" date-as-timestamp></timepicker>
+          <timepicker ng-model="schedule.scheduledPostingStart" hour-step="1" minute-step="5" show-meridian="true" date-as-timestamp></timepicker>
         </div>
 
         <div class="col-xs-6">
@@ -67,7 +67,7 @@
               <button type="button" class="btn btn-default" ng-click="openEnd($event)"><i class="glyphicon glyphicon-calendar"></i></button>
             </span>
           </p>
-          <timepicker ng-model="schedule.scheduledPostingEnd" hour-step="1" minute-step="1" show-meridian="true" date-as-timestamp></timepicker>
+          <timepicker ng-model="schedule.scheduledPostingEnd" hour-step="1" minute-step="5" show-meridian="true" date-as-timestamp></timepicker>
         </div>
 
         <div ng-if="modalData.type === 'service'" class="col-xs-6">
