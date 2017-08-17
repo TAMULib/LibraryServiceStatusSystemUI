@@ -22,10 +22,10 @@
     </tr>
   </tbody>
 </table>
-<button class="btn btn-info" ng-if="showShortList" ng-click="showHideShortList()">Show All Services</button>
-<button class="btn btn-info" ng-if="!showShortList" ng-click="showHideShortList()">Collapse</button>
+<button class="btn btn-primary" ng-if="showShortList" ng-click="showHideShortList()">Show All Services</button>
+<button class="btn btn-primary" ng-if="!showShortList" ng-click="showHideShortList()">Collapse</button>
 <br /><br /><br />
-<h4>Recent Notes</h4>
+<h4>Notes</h4>
 <hr />
 <div class="container-fluid notes-container">
   <table ng-table="tableParams" template-pagination="views/notePaginationControls.html" show-filter="false" class="table borderless notes-table">

@@ -6,16 +6,18 @@
 </div>
 
 <form ng-submit="createNotification()" name="forms.create" novalidate>
+
+  <validationmessage results="notificationRepo.getValidationResults()"></validationmessage>
+
   <div class="modal-body">
+    <validatedinput model="notificationData" property="name" label="Name" placeholder="Name of the Notification" form="forms.create" validations="notificationRepo.getValidations()" results="notificationRepo.getValidationResults()"></validatedinput>
 
-    <validatedinput model="notificationData" property="name" label="Name" placeholder="Name of the Notification" form="forms.create" validations="notificationData.getValidations()" results="notificationRepo.ValidationResults">
-    </validatedinput>
-
-    <validatedtextarea model="notificationData" property="body" label="Notification Body" form="forms.create" validations="notificationData.getValidations()" results="notificationRepo.ValidationResults">
-    </validatedtextarea>
+    <label>Notification Body</label>
+    <textarea ui-tinymce="tinymceOptions" ng-model="notificationData.body"></textarea>
+    <br />
 
     <label for="locationSelect">Locations</label>
-    <br>
+    <br />
     <select class="form-control" ng-model="notificationData.locations" name="Locations" multiple>
       <option ng-repeat="(key, location) in locations" value="{{key}}">{{location}}</option>
     </select>

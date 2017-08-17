@@ -7,16 +7,17 @@
 
 <form ng-submit="createService()" name="forms.create" novalidate>
 
+  <validationmessage results="serviceRepo.getValidationResults()"></validationmessage>
+
   <div class="modal-body">
-    <validatedinput model="serviceData" property="name" label="Name" placeholder="Name of the new Service" form="forms.create" validations="serviceData.getValidations()" results="serviceRepo.ValidationResults">
-    </validatedinput>
+
+    <validatedinput model="serviceData" property="name" label="Name" placeholder="Name of the Service" form="forms.update" validations="serviceRepo.getValidations()" results="serviceRepo.getValidationResults()"></validatedinput>
 
     <label>Description</label>
     <textarea ui-tinymce="tinymceOptions" ng-model="serviceData.description"></textarea>
-    <br>
+    <br />
 
-    <service-status model="serviceData">
-    </service-status>
+    <service-status model="serviceData"></service-status>
 
     <div class="checkbox">
       <label><input type="checkbox" value="false" ng-model="serviceData.isPublic">Is the Service Public?</label>

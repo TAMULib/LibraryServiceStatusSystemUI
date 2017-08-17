@@ -105,9 +105,10 @@ app.controller('ServiceController', function ($controller, $scope, Service, Serv
     };
 
     $scope.tinymceOptions = {
-        toolbar1: "formatselect,bold,italic,separator,bullist,numlist,undo,redo",
+        selector: 'textarea',
         theme: "modern",
-        plugins: "link",
-        selector: 'textarea'
+        plugins: "link lists textcolor",
+        toolbar: "undo redo | formatselect bold italic separator | alignleft aligncenter alignright | bullist numlist | forecolor backcolor"
     };
+
 });
