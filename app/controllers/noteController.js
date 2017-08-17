@@ -1,4 +1,4 @@
-app.controller('NoteController', function ($controller, $scope, $timeout, Note, NoteRepo, ServiceRepo) {
+app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, ServiceRepo) {
 
     angular.extend(this, $controller('AbstractScheduleController', {
         $scope: $scope
@@ -16,7 +16,7 @@ app.controller('NoteController', function ($controller, $scope, $timeout, Note, 
     $scope.noteRepo = NoteRepo;
 
     $scope.modalData = {
-        title: "Edit Note Schedule",
+        title: "Edit",
         type: "note"
     };
 
@@ -48,9 +48,6 @@ app.controller('NoteController', function ($controller, $scope, $timeout, Note, 
                 noteType: 'ENHANCEMENT'
             });
             $scope.closeModal();
-            $timeout(function () {
-                NoteRepo.reset();
-            }, 250);
         };
 
         $scope.resetNotes();

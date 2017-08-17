@@ -9,7 +9,7 @@
       <span class="label {{note.noteType | serviceLabel}}"> {{note.noteType | replaceUnderscore}}</span>
     </p>
     <p>
-      <label>Service:</label><span> {{note.service.name}}</span>
+      <label>Service:</label><span> <a href="{{'service/' + note.service.id + '/detail/'}}">{{note.service.name}}</a></span>
     </p>
     <p>
       <label>Message:</label><span> {{note.body}}</span>

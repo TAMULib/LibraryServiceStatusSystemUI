@@ -1,11 +1,11 @@
-app.controller('ServiceController', function ($controller, $scope, $timeout, Service, ServiceRepo, NgTableParams) {
+app.controller('ServiceController', function ($controller, $scope, Service, ServiceRepo, NgTableParams) {
 
     angular.extend(this, $controller('AbstractScheduleController', {
         $scope: $scope
     }));
 
     $scope.modalData = {
-        title: "Edit Service Schedule",
+        title: "Edit",
         type: "service",
         options: ['UP', 'DOWN', 'MAINTENANCE']
     };
@@ -36,9 +36,6 @@ app.controller('ServiceController', function ($controller, $scope, $timeout, Ser
             description: ''
         });
         $scope.closeModal();
-        $timeout(function () {
-            ServiceRepo.reset();
-        }, 250);
     };
 
     $scope.resetServices();
@@ -108,9 +105,10 @@ app.controller('ServiceController', function ($controller, $scope, $timeout, Ser
     };
 
     $scope.tinymceOptions = {
-        toolbar1: "formatselect,bold,italic,separator,bullist,numlist,undo,redo",
+        selector: 'textarea',
         theme: "modern",
-        plugins: "link",
-        selector: 'textarea'
+        plugins: "link lists textcolor",
+        toolbar: "undo redo | formatselect bold italic separator | alignleft aligncenter alignright | bullist numlist | forecolor backcolor"
     };
+
 });

@@ -52,7 +52,7 @@ app.repo("ServiceRepo", function ServiceRepo(WsApi) {
     };
 
     WsApi.listen(serviceRepo.mapping.createListen).then(null, null, function (response) {
-        serviceRepo.add(angular.fromJson(response.body).payload.Service);
+        serviceRepo.unshift(angular.fromJson(response.body).payload.Service);
     });
 
     WsApi.listen(serviceRepo.mapping.updateListen).then(null, null, function (response) {
