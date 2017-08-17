@@ -104,4 +104,11 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
         $scope.tableParams.reload();
     });
 
+    $scope.tinymceOptions = {
+        selector: 'textarea',
+        theme: "modern",
+        plugins: "link lists textcolor",
+        toolbar: "undo redo | formatselect bold italic separator | alignleft aligncenter alignright | numlist bullist | forecolor backcolor"
+    };
+
 });
