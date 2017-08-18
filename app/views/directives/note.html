@@ -9,11 +9,10 @@
         <span class="label {{note.noteType | serviceLabel}}">{{note.noteType | replaceUnderscore}}</span>
       </span>
     </div>
-    <br>
-    <div class="note-body">
-      {{note.body}}
-    </div>
-    <br>
+    <br />
+    <!-- <div class="note-body" ng-bind-html="note.body"></div> -->
+    <div class="note-body">{{note.body}}</div>
+    <br />
     <div>
       <span><em>Posted by {{note.author.firstName}} {{note.author.lastName}} on {{note.lastModified | date : 'medium'}}</em></span>
     </div>

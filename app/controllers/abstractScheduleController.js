@@ -4,32 +4,7 @@ app.controller("AbstractScheduleController", function ($controller, $scope) {
         $scope: $scope
     }));
 
-    $scope.reset = function () {
-        var date = new Date();
-        var coeff = 600000;
-        var rounded = new Date(Math.round(date.getTime() / coeff) * coeff);
-        $scope.changed = false;
-        $scope.editing = false;
-        delete $scope.message;
-        $scope.schedule = {
-            scheduledPostingStart: rounded.getTime(),
-            scheduledPostingEnd: rounded.getTime(),
-            scheduleData: {
-                nextStatus: 'DOWN'
-            },
-            editing: false
-        };
-
-    };
-
-    $scope.cancel = function () {
-        $scope.reset();
-        if ($scope.data !== undefined) {
-            $scope.data.refresh();
-        }
-    };
-
-    $scope.reset();
+    $scope.changed = false;
 
     $scope.dateOptions = {};
 
@@ -40,6 +15,32 @@ app.controller("AbstractScheduleController", function ($controller, $scope) {
     $scope.popupEnd = {
         opened: false
     };
+
+    $scope.reset = function () {
+        var date = new Date();
+        var coeff = 600000;
+        var rounded = new Date(Math.ceil(date.getTime() / coeff) * coeff);
+        $scope.editing = false;
+        delete $scope.message;
+        $scope.schedule = {
+            scheduledPostingStart: rounded.getTime(),
+            scheduledPostingEnd: rounded.getTime(),
+            scheduleData: {
+                nextStatus: 'DOWN'
+            },
+            editing: false
+        };
+    };
+
+    $scope.cancel = function () {
+        $scope.reset();
+        $scope.changed = false;
+        if ($scope.data !== undefined) {
+            $scope.data.refresh();
+        }
+    };
+
+    $scope.reset();
 
     $scope.openStart = function ($event) {
         $event.preventDefault();
@@ -81,6 +82,10 @@ app.controller("AbstractScheduleController", function ($controller, $scope) {
         }
         $scope.reset();
         $scope.changed = true;
+    };
+
+    $scope.cancelSchedule = function (schedule) {
+        $scope.reset();
     };
 
     $scope.invalidSchedule = function (schedule) {
