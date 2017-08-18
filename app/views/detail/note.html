@@ -12,7 +12,9 @@
       <label>Service:</label><span> <a href="{{'service/' + note.service.id + '/detail/'}}">{{note.service.name}}</a></span>
     </p>
     <p>
-      <label>Message:</label><span ng-bind-html="note.body"></span>
+      <label>Message:</label>
+      <!-- <span ng-bind-html="note.body"></span> -->
+      <span>{{note.body}}</span>
     </p>
     <p>
       <span><em>Posted by {{note.author.firstName}} {{note.author.lastName}} on {{note.lastModified | date : 'medium'}}</em></span>

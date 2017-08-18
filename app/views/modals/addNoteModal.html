@@ -10,18 +10,16 @@
 
   <div class="modal-body">
 
-    <validatedinput model="noteData" property="title" label="Title" placeholder="Title of the Note" form="forms.edit" validations="noteRepo.getValidations()" results="noteRepo.getValidationResults()">
-    </validatedinput>
+    <validatedinput model="noteData" property="title" label="Title" placeholder="Title of the Note" form="forms.create" validations="noteRepo.getValidations()" results="noteRepo.getValidationResults()"></validatedinput>
 
-    <validatedselect model="noteData" property="service" label="Services" form="forms.edit" validations="noteRepo.getValidations()" results="noteRepo.getValidationResults()" options="services" optionProperty="name">
-    </validatedselect>
+    <validatedselect model="noteData" property="service" label="Services" form="forms.create" validations="noteRepo.getValidations()" results="noteRepo.getValidationResults()" options="services" optionProperty="name"></validatedselect>
 
-    <validatedselect model="noteData" property="noteType" label="Note Type" form="forms.edit" validations="noteRepo.getValidations()" results="noteRepo.getValidationResults()" options="noteTypes">
-    </validatedselect>
+    <validatedselect model="noteData" property="noteType" label="Note Type" form="forms.create" validations="noteRepo.getValidations()" results="noteRepo.getValidationResults()" options="noteTypes"></validatedselect>
 
-    <label>Note Body</label>
+    <validatedtextarea model="noteData" property="body" label="Note Message" form="forms.create" validations="noteData.getValidations()" results="noteRepo.getValidationResults()"></validatedtextarea>
+    <!-- <label>Note Body</label>
     <textarea ui-tinymce="tinymceOptions" ng-model="noteData.body"></textarea>
-    <br />
+    <br /> -->
 
     <div class="checkbox">
       <label><input type="checkbox" value="false" ng-model="noteData.pinned">Is the Note pinned?</label>
