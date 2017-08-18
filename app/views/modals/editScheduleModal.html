@@ -79,13 +79,15 @@
           </span>
         </div>
 
-        <div ng-if="!invalidSchedule(schedule)" class="col-xs-6">
-          <label>Confirm </label>
-          <p class="input-group">
-            <button type="button" ng-show="schedule.editing" class="btn btn-primary" ng-click="confirmSchedule(schedule)" ng-class="{'disabled': invalidSchedule(schedule)}">
+        <div ng-if="schedule.editing" class="col-xs-6">
+          <label>Action </label>
+          <p class="input-group" >
+            <button type="button" class="btn btn-primary" ng-click="confirmSchedule(schedule)" ng-class="{'disabled': invalidSchedule(schedule)}">
               <span ng-if="isNew(schedule)">Add Schedule</span>
               <span ng-if="!isNew(schedule)">Update Schedule</span>
             </button>
+            <span>&nbsp;</span>
+            <button type="button" class="btn btn-default" ng-click="cancelSchedule(schedule)">Cancel</button>
           </p>
         </div>
 
