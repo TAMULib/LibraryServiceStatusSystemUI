@@ -40,11 +40,11 @@ app.factory('TableFactory', function (NgTableParams) {
             setPage: function (pageNumber) {
                 pageSettings.pageNumber = pageNumber;
                 tableParams.page(pageSettings.pageNumber);
-                sessionStorage.setItem('page', pageSettings.pageNumber);
+                sessionStorage.setItem(tableConfig.name + '-page', pageSettings.pageNumber);
             },
             setSize: function (pageSize) {
                 pageSettings.pageSize = pageSize;
-                sessionStorage.setItem('size', pageSettings.pageSize);
+                sessionStorage.setItem(tableConfig.name + '-size', pageSettings.pageSize);
             }
         };
 
