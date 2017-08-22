@@ -1,4 +1,4 @@
-app.factory('TableFactory', function ($location, NgTableParams) {
+app.factory('TableFactory', function (NgTableParams) {
 
     this.buildTable = function (tableConfig) {
 
@@ -40,11 +40,11 @@ app.factory('TableFactory', function ($location, NgTableParams) {
             setPage: function (pageNumber) {
                 pageSettings.pageNumber = pageNumber;
                 tableParams.page(pageSettings.pageNumber);
-                $location.search('page', pageSettings.pageNumber);
+                sessionStorage.setItem('page', pageSettings.pageNumber);
             },
             setSize: function (pageSize) {
                 pageSettings.pageSize = pageSize;
-                $location.search('size', pageSettings.pageSize);
+                sessionStorage.setItem('size', pageSettings.pageSize);
             }
         };
 

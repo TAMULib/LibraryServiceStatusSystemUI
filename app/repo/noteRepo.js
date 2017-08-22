@@ -1,4 +1,4 @@
-app.repo("NoteRepo", function NoteRepo($location, $q, $timeout, WsApi, Note, ServiceRepo, TableFactory) {
+app.repo("NoteRepo", function NoteRepo($q, $timeout, WsApi, Note, ServiceRepo, TableFactory) {
 
     var noteRepo = this;
 
@@ -59,8 +59,8 @@ app.repo("NoteRepo", function NoteRepo($location, $q, $timeout, WsApi, Note, Ser
     };
 
     var table = TableFactory.buildTable({
-        pageNumber: $location.search().page ? $location.search().page : 1,
-        pageSize: $location.search().size ? $location.search().size : 10,
+        pageNumber: sessionStorage.getItem('page') ? sessionStorage.getItem('page') : 1,
+        pageSize: sessionStorage.getItem('size') ? sessionStorage.getItem('size') : 10,
         direction: 'DESC',
         properties: ['title'],
         filters: {},
