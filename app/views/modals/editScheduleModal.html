@@ -26,8 +26,8 @@
             <th ng-class="{'text-primary': schedule.editing}">{{schedule.scheduledPostingEnd | date: 'MM/dd/yyyy h:mm a'}}</th>
             <th ng-if="modalData.type === 'service'">{{schedule.scheduleData.nextStatus}}</th>
             <th class="actions-column">
-              <span ng-show="!schedule.editing && !editing" class="glyphicon glyphicon-pencil text-default" ng-click="updateSchedule(schedule)"></span>
-              <span class="glyphicon glyphicon-remove text-danger" ng-click="removeSchedule(schedule)"></span>
+              <span ng-show="!schedule.editing && !editing" class="glyphicon glyphicon-pencil text-default" title="edit" ng-click="updateSchedule(schedule)"></span>
+              <span class="glyphicon glyphicon-remove text-danger" title="remove" ng-click="removeSchedule(schedule)"></span>
             </th>
           </tr>
         </tbody>

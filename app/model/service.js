@@ -1,4 +1,4 @@
-app.model("Service", function Service($location, $q, $timeout, NoteRepo, Note, TableFactory) {
+app.model("Service", function Service($q, $timeout, NoteRepo, Note, TableFactory) {
 
     return function Service() {
         var service = this;
@@ -63,14 +63,15 @@ app.model("Service", function Service($location, $q, $timeout, NoteRepo, Note, T
         var pinned = false;
 
         var table = TableFactory.buildTable({
-            pageNumber: $location.search().page ? $location.search().page : 1,
-            pageSize: $location.search().size ? $location.search().size : 10,
+            pageNumber: sessionStorage.getItem('service-notes-page') ? sessionStorage.getItem('service-notes-page') : 1,
+            pageSize: sessionStorage.getItem('service-notes-size') ? sessionStorage.getItem('service-notes-size') : 10,
             direction: 'DESC',
             properties: ['title'],
             filters: {},
             counts: [5, 10, 25, 50, 100],
             page: service.page,
-            data: service.notes
+            data: service.notes,
+            name: 'service-notes'
         });
 
         var addAllNotes = function (notes) {

@@ -29,6 +29,9 @@
 <hr />
 <div class="container-fluid notes-container">
   <table ng-table="tableParams" template-pagination="views/notePaginationControls.html" show-filter="false" class="table borderless notes-table">
+    <thead>
+      <th>Note</th>
+    </thead>
     <tbody>
       <tr ng-repeat="note in $data">
         <td>
