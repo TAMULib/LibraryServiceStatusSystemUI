@@ -7,10 +7,10 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
     $scope.noteTypes = {
         ENHANCEMENT: 'Enhancement',
         ISSUE: 'Issue',
-        RESOLUTION: 'Resolution',
+        MAINTENANCE: 'Maintenance',
         REPORT: 'Report',
-        SCHEDULED_DOWNTIME: 'Scheduled Downtime',
-        MAINTENANCE: 'Maintenance'
+        RESOLUTION: 'Resolution',
+        SCHEDULED_DOWNTIME: 'Scheduled Downtime'
     };
 
     $scope.noteRepo = NoteRepo;

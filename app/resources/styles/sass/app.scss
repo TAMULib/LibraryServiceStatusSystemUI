@@ -1,7 +1,7 @@
 $primary: #500000;
 $secondary: #3c0000;
 $baseFontSize: 14pt;
-$linkColor: #337ab7;
+$linkColor: #00569f;
 @import "node_modules/weaver-ui-core/app/resources/styles/sass/main";
 @import "node_modules/weaver-ui-core/app/resources/styles/sass/theme-base";
 @import "directives/all";
@@ -18,10 +18,6 @@ main {
 main footer {
   display: block;
   margin-bottom: 75px;
-}
-
-a {
-  color: $primary;
 }
 
 .appContent {
@@ -280,4 +276,27 @@ a {
 
 .pagination {
   margin: 0;
+}
+
+.pagination > .disabled > a,
+.pagination > .disabled > a:focus,
+.pagination > .disabled > a:hover,
+.pagination > .disabled > span,
+.pagination > .disabled > span:focus,
+.pagination > .disabled > span:hover {
+  color: $secondary;
+}
+
+.pagination > li > a,
+.pagination > li > span {
+  color: $primary;
+}
+
+.pagination > .active > a,
+.pagination > .active > a:focus,
+.pagination > .active > a:hover,
+.pagination > .active > span,
+.pagination > .active > span:focus,
+.pagination > .active > span:hover {
+  color: #fff;
 }

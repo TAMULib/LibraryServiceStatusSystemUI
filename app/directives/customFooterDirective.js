@@ -9,9 +9,7 @@ app.directive('customFooter', function ($controller) {
             anonymous: '='
         },
         link: function ($scope, element, attr) {
-            $scope.loginuser = function () {
-                $scope.login({});
-            };
+
         }
     };
 });
