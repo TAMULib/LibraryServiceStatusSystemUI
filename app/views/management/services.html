@@ -12,9 +12,9 @@
       <td title="'Short List'">{{service.onShortList}}</td>
       <td title="'URL'">{{service.serviceUrl}}</td>
       <td class="actions-column" title="'Actions'">
-        <span class="glyphicon glyphicon-pencil" ng-click="editService(service)"></span>
-        <span class="glyphicon glyphicon-time" ng-click="editSchedule(service)"></span>
-        <span class="glyphicon glyphicon-trash" ng-click="confirmDelete(service)"></span>
+        <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editService(service)"></span>
+        <span class="glyphicon glyphicon-time" title="schedule" ng-click="editSchedule(service)"></span>
+        <span class="glyphicon glyphicon-trash" title="delete" ng-click="confirmDelete(service)"></span>
       </td>
     </tr>
   </table>

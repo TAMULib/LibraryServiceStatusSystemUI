@@ -10,9 +10,9 @@
       <td title="'Locations'">{{notification.locations.join(', ')}}</td>
       <td title="'Active'">{{notification.active}}</td>
       <td class="actions-column" title="'Actions'">
-        <span class="glyphicon glyphicon-pencil" ng-click="editNotification(notification)"></span>
-        <span class="glyphicon glyphicon-time" ng-click="editSchedule(notification)"></span>
-        <span class="glyphicon glyphicon-trash" ng-click="confirmDelete(notification)"></span>
+        <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editNotification(notification)"></span>
+        <span class="glyphicon glyphicon-time" title="schedule" ng-click="editSchedule(notification)"></span>
+        <span class="glyphicon glyphicon-trash" title="delete" ng-click="confirmDelete(notification)"></span>
       </td>
   </table>
 
