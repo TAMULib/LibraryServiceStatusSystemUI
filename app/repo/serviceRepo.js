@@ -1,4 +1,4 @@
-app.repo("ServiceRepo", function ServiceRepo(WsApi) {
+app.repo("ServiceRepo", function ServiceRepo($timeout, WsApi) {
 
     var serviceRepo = this;
 
@@ -52,17 +52,26 @@ app.repo("ServiceRepo", function ServiceRepo(WsApi) {
     };
 
     WsApi.listen(serviceRepo.mapping.createListen).then(null, null, function (response) {
-        serviceRepo.unshift(angular.fromJson(response.body).payload.Service);
+        // serviceRepo.unshift(angular.fromJson(response.body).payload.Service);
+        $timeout(function () {
+            serviceRepo.reset();
+        }, 250);
     });
 
     WsApi.listen(serviceRepo.mapping.updateListen).then(null, null, function (response) {
-        var updatedService = angular.fromJson(response.body).payload.Service;
-        var service = serviceRepo.findById(updatedService.id);
-        angular.extend(service, updatedService);
+        // var updatedService = angular.fromJson(response.body).payload.Service;
+        // var service = serviceRepo.findById(updatedService.id);
+        // angular.extend(service, updatedService);
+        $timeout(function () {
+            serviceRepo.reset();
+        }, 250);
     });
 
     WsApi.listen(serviceRepo.mapping.deleteListen).then(null, null, function (response) {
-        serviceRepo.remove(serviceRepo.findById(angular.fromJson(response.body).payload.Long));
+        // serviceRepo.remove(serviceRepo.findById(angular.fromJson(response.body).payload.Long));
+        $timeout(function () {
+            serviceRepo.reset();
+        }, 250);
     });
 
     return serviceRepo;
