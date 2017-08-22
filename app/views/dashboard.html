@@ -16,7 +16,7 @@
       <td class="serviceName"><a href="{{'service/' + service.id + '/detail/'}}">{{service.name}}</a></td>
       <td class="serviceNotes">
         <div class="note-label" ng-repeat="note in service.notes | orderBy: lastModified">
-          <span><strong><span class="label {{note.noteType | serviceLabel}}">{{note.noteType | replaceUnderscore}}</span> <a href="{{'note/' + note.id + '/detail/'}}">{{note.title}}</a>:</strong> {{note.body}}</span>
+          <span><strong><span class="label {{note.noteType | serviceLabel}}">{{note.noteType | replaceUnderscore}}</span> <a href="{{'note/' + note.id + '/detail/'}}">{{note.title}}</a></strong></span>
         </div>
       </td>
     </tr>
