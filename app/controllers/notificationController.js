@@ -5,7 +5,8 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
     }));
 
     $scope.locations = {
-        MAIN: 'Main Campus Libraries (Evans/Annex)',
+        MAIN: 'Main Campus Libraries',
+        EVANS: 'Evans/Annex',
         CUSHING: 'Cushing',
         MSL: 'Medical Sciences Library',
         WCL: 'West Campus Library',

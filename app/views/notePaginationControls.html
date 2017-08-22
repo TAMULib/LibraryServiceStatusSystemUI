@@ -1,9 +1,10 @@
 <div ng-table-pagination="tableParams">
   <div ng-show="pages.length" class="ng-cloak ng-table-pager">
     <div ng-if="params.settings().counts.length" class="form-group pull-right">
-      <select ng-model="count" ng-change="params.count(count)" class="form-control">
-          <option id="count" ng-repeat="count in params.settings().counts">{{count}}</option>
-        </select>
+      <label for="page-count" class="hidden">Count</label>
+      <select id="page-count" name="page-count" ng-model="count" ng-change="params.count(count)" class="form-control">
+        <option id="count" ng-repeat="count in params.settings().counts">{{count}}</option>
+      </select>
     </div>
     <ul class="pagination ng-table-pagination">
       <li ng-class="{'disabled': !page.active, 'active': page.current}" ng-repeat="page in pages" ng-switch="page.type">
