@@ -5,8 +5,7 @@ app.config(function ($routeProvider) {
     }).
     when('/management/:tab', {
         templateUrl: 'views/management.html',
-        access: ["ROLE_ADMIN", "ROLE_MANGER"],
-        reloadOnSearch: false
+        access: ["ROLE_ADMIN", "ROLE_MANGER"]
     }).
     when('/users', {
         templateUrl: 'views/users.html',
@@ -22,21 +21,18 @@ app.config(function ($routeProvider) {
     }).
     when('/service/:serviceId/detail', {
         templateUrl: 'views/detail/service.html',
-        controller: 'ServiceDetailController',
-        reloadOnSearch: false
+        controller: 'ServiceDetailController'
     }).
     when('/note/:noteId/detail', {
         templateUrl: 'views/detail/note.html',
-        controller: 'NoteDetailController',
-        reloadOnSearch: false
+        controller: 'NoteDetailController'
     }).
     when('/home', {
         redirectTo: '/'
     }).
     when('/', {
         templateUrl: 'views/dashboard.html',
-        controller: 'DashboardController',
-        reloadOnSearch: false
+        controller: 'DashboardController'
     }).
     when('/users', {
         templateUrl: 'views/users.html',
