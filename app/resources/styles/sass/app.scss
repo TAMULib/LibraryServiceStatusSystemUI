@@ -1,7 +1,7 @@
 $primary: #500000;
 $secondary: #3c0000;
 $baseFontSize: 14pt;
-$linkColor: #337ab7;
+$linkColor: #00569f;
 @import "main";
 @import "directives/all";
 @import "details/all";
@@ -19,10 +19,6 @@ main {
 main footer {
   display: block;
   margin-bottom: 75px;
-}
-
-a {
-  color: $primary;
 }
 
 .appContent {
