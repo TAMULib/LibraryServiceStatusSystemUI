@@ -63,8 +63,8 @@ app.model("Service", function Service($q, $timeout, NoteRepo, Note, TableFactory
         var pinned = false;
 
         var table = TableFactory.buildTable({
-            pageNumber: sessionStorage.getItem('service-notes-page') !== undefined ? sessionStorage.getItem('service-notes-page') : 1,
-            pageSize: sessionStorage.getItem('service-notes-size') !== undefined ? sessionStorage.getItem('service-notes-size') : 10,
+            pageNumber: sessionStorage.getItem('service-notes-page') ? sessionStorage.getItem('service-notes-page') : 1,
+            pageSize: sessionStorage.getItem('service-notes-size') ? sessionStorage.getItem('service-notes-size') : 10,
             direction: 'DESC',
             properties: ['title'],
             filters: {},

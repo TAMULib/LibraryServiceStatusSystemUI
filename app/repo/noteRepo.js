@@ -59,8 +59,8 @@ app.repo("NoteRepo", function NoteRepo($q, $timeout, WsApi, Note, ServiceRepo, T
     };
 
     var table = TableFactory.buildTable({
-        pageNumber: sessionStorage.getItem('notes-page') !== undefined ? sessionStorage.getItem('notes-page') : 1,
-        pageSize: sessionStorage.getItem('notes-size') !== undefined ? sessionStorage.getItem('notes-size') : 10,
+        pageNumber: sessionStorage.getItem('notes-page') ? sessionStorage.getItem('notes-page') : 1,
+        pageSize: sessionStorage.getItem('notes-size') ? sessionStorage.getItem('notes-size') : 10,
         direction: 'DESC',
         properties: ['title'],
         filters: {},
