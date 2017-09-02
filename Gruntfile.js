@@ -98,10 +98,10 @@ module.exports = function (grunt) {
         },
 
         sass: {
+        	options: {
+                sourceMap: false
+            },
             dist: {
-                options: {
-                    loadPath: 'node_modules/weaver-ui-core/app/resources/styles/sass'
-                },
                 files: [{
                     expand: true,
                     cwd: 'app/resources/styles/sass',
@@ -121,12 +121,12 @@ module.exports = function (grunt) {
 
     });
 
-    grunt.loadNpmTasks('grunt-contrib-symlink');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-usemin');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-symlink');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('default', ['jshint', 'sass', 'symlink']);
