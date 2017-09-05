@@ -189,6 +189,21 @@ module.exports = function (grunt) {
             }
         },
 
+        copy: {
+            tinymce: {
+                files: [{
+                    cwd: 'node_modules/tinymce/',
+                    src: [
+                        'themes/**/*',
+                        'skins/**/*'
+                    ],
+                    dest: '<%= build.app %>/resources/scripts/',
+                    expand: true
+                }]
+            }
+        },
+
+
         watch: {
             css: {
                 files: '**/*.scss',
@@ -200,18 +215,17 @@ module.exports = function (grunt) {
 
     grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-usemin');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-symlink');
-    grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-symlink');
 
     grunt.registerTask('default', ['jshint', 'sass', 'symlink']);
 
     grunt.registerTask('watch', ['watch']);
 
-    grunt.registerTask('develop', ['jshint', 'concat', 'usemin', 'watch']);
-
-    grunt.registerTask('deploy', ['jshint', 'concat', 'uglify', 'usemin', 'sass', 'symlink']);
+    grunt.registerTask('deploy', ['jshint', 'concat', 'uglify', 'usemin', 'sass', 'symlink', 'copy']);
 
 };
