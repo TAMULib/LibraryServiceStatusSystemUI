@@ -65,17 +65,24 @@ module.exports = function (grunt) {
                     'node_modules/tinymce/tinymce.min.js',
                     'node_modules/angular-ui-tinymce/dist/tinymce.min.js',
 
-                    'node_modules/angular-bootstrap-ui-/dist/ui-bootstrap-tpls.js'
+                    'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js'
                 ],
                 dest: '<%= build.app %>/resources/scripts/vendor_concat.js'
             },
-            weaver: {
+            core: {
                 src: [
                     'node_modules/weaver-ui-core/app/config/coreConfig.js',
 
                     'node_modules/weaver-ui-core/app/components/version/version.js',
                     'node_modules/weaver-ui-core/app/components/version/version-directive.js',
                     'node_modules/weaver-ui-core/app/components/version/interpolate-filter.js',
+
+                    '<%= build.app %>/config/appConfig.js',
+                    '<%= build.app %>/config/apiMapping.js',
+
+                    '<%= build.app %>/components/version/version.js',
+                    '<%= build.app %>/components/version/version-directive.js',
+                    '<%= build.app %>/components/version/interpolate-filter.js',
 
                     'node_modules/weaver-ui-core/app/core.js',
                     'node_modules/weaver-ui-core/app/setup.js',
@@ -125,26 +132,25 @@ module.exports = function (grunt) {
                     'node_modules/weaver-ui-core/app/controllers/userController.js',
                     'node_modules/weaver-ui-core/app/controllers/errorpagecontroller.js'
                 ],
-                dest: '<%= build.app %>/resources/scripts/weaver_concat.js'
+                dest: '<%= build.app %>/resources/scripts/core_concat.js'
             },
-            angular: {
+            app: {
                 src: [
                     '<%= build.app %>/**/*.js',
-                    '<%= build.app %>/config/appConfig.js',
-                    '<%= build.app %>/config/apiMapping.js',
-                    '<%= build.app %>/components/version/version.js',
-                    '<%= build.app %>/components/version/version-directive.js',
-                    '<%= build.app %>/components/version/interpolate-filter.js',
-                    '!<%= build.app %>/config/**/*',
+                    '<%= build.app %>/config/routes.js',
+                    '<%= build.app %>/config/runTime.js.js',
+                    '!<%= build.app %>/config/apiMapping.js',
+                    '!<%= build.app %>/config/appConfig_sample.js',
+                    '!<%= build.app %>/config/appConfig.js',
                     '!<%= build.app %>/resources/**/*',
-                    '!<%= build.app %>/components/**/*'
+                    '!<%= build.app %>/components/**/*',
                 ],
                 dest: '<%= build.app %>/resources/scripts/app_concat.js'
             },
             bundle: {
                 src: [
                     '<%= build.app %>/resources/scripts/vendor_concat.js',
-                    '<%= build.app %>/resources/scripts/weaver_concat.js',
+                    '<%= build.app %>/resources/scripts/core_concat.js',
                     '<%= build.app %>/resources/scripts/app_concat.js'
                 ],
                 dest: '<%= build.app %>/resources/scripts/bundle.js'
@@ -206,6 +212,6 @@ module.exports = function (grunt) {
 
     grunt.registerTask('develop', ['jshint', 'concat', 'usemin', 'watch']);
 
-    grunt.registerTask('deploy', ['jshint', 'concat', 'uglify', 'usemin', 'sass']);
+    grunt.registerTask('deploy', ['jshint', 'concat', 'uglify', 'usemin', 'sass', 'symlink']);
 
 };
