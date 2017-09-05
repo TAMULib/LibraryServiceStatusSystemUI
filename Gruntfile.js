@@ -1,11 +1,8 @@
 module.exports = function (grunt) {
 
-    // Configurable paths
     var build = {
-        app: 'app',
-        dist: 'dist'
+        app: 'app'
     };
-
 
     grunt.initConfig({
 
@@ -68,7 +65,7 @@ module.exports = function (grunt) {
                     'node_modules/tinymce/tinymce.min.js',
                     'node_modules/angular-ui-tinymce/dist/tinymce.min.js',
 
-                    'node_modules/angular-bootstrap/ui-bootstrap-tpls.min.js'
+                    'node_modules/angular-bootstrap-ui-/dist/ui-bootstrap-tpls.js'
                 ],
                 dest: '<%= build.app %>/resources/scripts/vendor_concat.js'
             },
