@@ -194,6 +194,7 @@ module.exports = function (grunt) {
                 files: [{
                     cwd: 'node_modules/tinymce/',
                     src: [
+                        'plugins/**/*',
                         'themes/**/*',
                         'skins/**/*'
                     ],
