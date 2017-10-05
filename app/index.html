@@ -19,14 +19,14 @@
 
   <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon" />
 
-  <link rel="stylesheet" href="node_modules/html5-boilerplate/css/normalize.css">
+  <link rel="stylesheet" href="node_modules/html5-boilerplate/dist/css/normalize.css">
 
   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
 
   <!-- Change this to the domain of your webservice -->
   <link rel="stylesheet" type='text/css' href="resources/styles/app.css">
 
-  <script src="node_modules/html5-boilerplate/src/js/vendor/modernizr-2.8.3.min.js"></script>
+  <script src="node_modules/html5-boilerplate/dist/js/vendor/modernizr-3.5.0.min.js"></script>
 
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 
@@ -91,32 +91,35 @@
     <custom-footer login="login()" anonymous="isAnonymous()"></custom-footer>
   </div>
 
-  <!-- In production use: <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script> -->
+  <!-- build:js resources/scripts/bundle.js -->
 
-  <!-- Node modules -->
-  <script src="node_modules/jquery/dist/jquery.js"></script>
-  <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+  <!--  Vendor Libraries -->
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
   <script src="node_modules/sockjs-client/dist/sockjs.min.js"></script>
   <script src="node_modules/stompjs/lib/stomp.min.js"></script>
 
-  <script src="node_modules/angular/angular.js"></script>
-  <script src="node_modules/angular-route/angular-route.js"></script>
-  <script src="node_modules/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-  <script src="node_modules/angular-loader/angular-loader.js"></script>
-  <script src="node_modules/angular-mocks/angular-mocks.js"></script>
+  <script src="node_modules/angular/angular.min.js"></script>
+
+  <script src="node_modules/angular-route/angular-route.min.js"></script>
+  <script src="node_modules/angular-loader/angular-loader.min.js"></script>
   <script src="node_modules/angular-sanitize/angular-sanitize.min.js"></script>
+  <script src="node_modules/angular-messages/angular-messages.min.js"></script>
+  <script src="node_modules/angular-mocks/angular-mocks.js"></script>
+
+  <script src="node_modules/ng-file-upload/dist/ng-file-upload-shim.min.js"></script>
+  <script src="node_modules/ng-file-upload/dist/ng-file-upload.min.js"></script>
+
+  <script src="node_modules/ng-table/bundles/ng-table.min.js"></script>
 
   <script src="node_modules/tinymce/tinymce.min.js"></script>
   <script src="node_modules/angular-ui-tinymce/dist/tinymce.min.js"></script>
 
-  <script src="node_modules/ng-file-upload/dist/ng-file-upload-shim.min.js"></script>
-  <script src="node_modules/ng-file-upload/dist/ng-file-upload.min.js"></script>
-  <script src="node_modules/ng-table/bundles/ng-table.min.js"></script>
+  <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
 
-  <!--  Core libraries -->
 
-  <!-- build:js resources/scripts/core_concat.js -->
+  <!--  Core Libraries -->
 
   <!-- Core Configuration -->
   <script src="node_modules/weaver-ui-core/app/config/coreConfig.js"></script>
@@ -182,12 +185,8 @@
   <script src="node_modules/weaver-ui-core/app/controllers/userController.js"></script>
   <script src="node_modules/weaver-ui-core/app/controllers/errorpagecontroller.js"></script>
 
-  <!-- endbuild -->
 
-  <!--  App libraries -->
-
-
-  <!-- build:js resources/scripts/app_concat.js -->
+  <!-- App Libraries -->
 
   <!-- App Configuration -->
   <script src="config/appConfig.js"></script>

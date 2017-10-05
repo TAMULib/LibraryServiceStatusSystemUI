@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "angular-ui-tinymce": "0.0.19",
-    "core": "git+https://github.com/TAMULib/Weaver-UI-Core.git#2.0.x",
+    "weaver-ui-core": "git+https://github.com/TAMULib/Weaver-UI-Core.git#2.0.x",
     "ng-csv": "0.3.6",
     "ng-table": "3.0.1",
     "tinymce": "4.6.6"
@@ -26,6 +26,7 @@
   "devDependencies": {
     "grunt": "1.0.1",
     "grunt-contrib-concat": "1.0.1",
+    "grunt-contrib-copy": "1.0.0",
     "grunt-contrib-jshint": "1.1.0",
     "grunt-contrib-symlink": "1.0.0",
     "grunt-contrib-uglify": "3.0.1",
