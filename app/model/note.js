@@ -1,8 +1,5 @@
-app.model("Note", function Note(Service, ServiceRepo) {
-
+app.model("Note", function Note() {
     return function Note() {
-
         return this;
     };
-
 });

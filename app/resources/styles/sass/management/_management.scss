@@ -1,0 +1,54 @@
+.note-table .glyphicon,
+.notification-table .glyphicon,
+.schedule-table .glyphicon,
+.service-table .glyphicon {
+  font-size: 16px;
+  margin: 0 5px;
+}
+
+.note-table .glyphicon:hover,
+.notification-table .glyphicon:hover,
+.schedule-table .glyphicon:hover,
+.service-table .glyphicon:hover {
+  cursor: pointer;
+  color: $primary;
+}
+
+.actions-column {
+  white-space: nowrap;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.disabled:hover {
+  cursor: not-allowed;
+}
+
+.actions-column > button.glyphicon {
+  border: none;
+  padding: 0;
+  background-color: transparent;
+}
+
+.edit-control {
+  overflow: hidden;
+  display: block;
+}
+
+.set-schedule {
+  opacity: 0;
+  display: inline-block;
+  margin-top: -215px;
+  -webkit-transition: all 0.5s ease-out;
+  -moz-transition: all 0.5s ease-out;
+  -o-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
+}
+
+.set-schedule.display {
+  opacity: 1;
+  margin-top: 0;
+}

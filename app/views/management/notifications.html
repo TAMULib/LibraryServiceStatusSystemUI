@@ -1,0 +1,23 @@
+<div class="management-table" ng-controller="NotificationController">
+
+  <button class="btn btn-default view-action-button" ng-click="openModal('#addNotificationModal')">Add Notification</button>
+  <hr />
+
+  <table ng-table="tableParams" show-filter="false" class="table table-bordered table-striped notification-table">
+    <tr ng-repeat="notification in notifications track by notification.id">
+      <td title="'Name'">{{notification.name}} <span ng-if="notification.schedules.length > 0">(scheduled)</span></td>
+      <td title="'Body'">{{notification.body}}</td>
+      <td title="'Locations'">{{notification.locations.join(', ')}}</td>
+      <td title="'Active'">{{notification.active}}</td>
+      <td class="actions-column" title="'Actions'">
+        <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editNotification(notification)"></span>
+        <span class="glyphicon glyphicon-time" title="schedule" ng-click="editSchedule(notification)"></span>
+        <span class="glyphicon glyphicon-trash" title="delete" ng-click="confirmDelete(notification)"></span>
+      </td>
+  </table>
+
+  <modal modal-id="addNotificationModal" modal-view="views/modals/addNotificationModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+  <modal modal-id="deleteNotificationModal" modal-view="views/modals/deleteNotificationModal.html" modal-header-class="modal-header-danger" wvr-modal-backdrop="static"></modal>
+  <modal modal-id="editNotificationModal" modal-view="views/modals/editNotificationModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+  <modal modal-id="editScheduleModal" modal-view="views/modals/editScheduleModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+</div>

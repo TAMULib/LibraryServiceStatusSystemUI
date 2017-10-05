@@ -1,67 +1,37 @@
 <div class="modal-header {{attr.modalHeaderClass}}">
-  <button
-    type="button"
-    class="close"
-    ng-click="resetNotes()"
-    aria-label="Close">
+  <button type="button" class="close" ng-click="resetNotes()" aria-label="Close">
     <span class="modal-close" aria-hidden="true">&times;</span>
   </button>
   <h3 class="modal-title">Edit Note</h3>
 </div>
 
 <form ng-submit="updateNote()" name="forms.edit" novalidate>
+
+  <validationmessage results="noteRepo.getValidationResults()"></validationmessage>
+
   <div class="modal-body">
 
-    <validatedinput
-      model="noteData"
-      property="title"
-      label="Title"
-      placeholder="Title of the Note"
-      form="forms.edit"
-      validations="noteData.getValidations()"
-      results="noteData.ValidationResults">
-    </validatedinput>
+    <validatedinput model="noteData" property="title" label="Title" placeholder="Title of the Note" form="forms.edit" validations="noteRepo.getValidations()" results="noteRepo.getValidationResults()"></validatedinput>
 
-    <validatedselect
-      model="noteData"
-      property="service"
-      label="Services"
-      form="forms.edit"
-      validations="noteData.getValidations()"
-      results="noteData.ValidationResults"
-      options="services"
-      optionProperty="name">
-    </validatedselect>
+    <validatedselect model="noteData" property="service" label="Services" form="forms.edit" validations="noteRepo.getValidations()" results="noteRepo.getValidationResults()" options="services" optionProperty="name"></validatedselect>
 
-    <validatedselect
-      model="noteData"
-      property="noteType"
-      label="Note Type"
-      form="forms.edit"
-      validations="noteData.getValidations()"
-      results="noteData.ValidationResults"
-      options="noteTypes">
-    </validatedselect>
+    <validatedselect model="noteData" property="noteType" label="Note Type" form="forms.edit" validations="noteRepo.getValidations()" results="noteRepo.getValidationResults()" options="noteTypes"></validatedselect>
 
-    <validatedtextarea
-      model="noteData"
-      property="body"
-      label="Message Body"
-      form="forms.edit"
-      validations="noteData.getValidations()"
-      results="noteData.ValidationResults">
-    </validatedtextarea>
+    <label>Note Body</label>
+    <textarea ui-tinymce="tinymceOptions" ng-model="noteData.body"></textarea>
+    <br />
+
+    <div class="checkbox">
+      <label><input type="checkbox" value="false" ng-model="noteData.pinned">Is the Note pinned?</label>
+    </div>
+
+    <div class="checkbox">
+      <label><input type="checkbox" value="false" ng-model="noteData.active">Is the Note active?</label>
+    </div>
 
     <div class="modal-footer">
-      <button
-        type="button"
-        class="btn btn-warning"
-        ng-click="resetNotes()">Cancel</button>
-      <button
-        id="notes-update"
-        type="submit"
-        class="btn btn-primary"
-        ng-disabled="forms.edit.$invalid">Update</button>
+      <button type="button" class="btn btn-default" ng-click="resetNotes()">Cancel</button>
+      <button id="notes-update" type="submit" class="btn btn-primary" ng-disabled="forms.edit.$invalid">Update</button>
     </div>
   </div>
 </form>

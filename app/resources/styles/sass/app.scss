@@ -1,9 +1,16 @@
 $primary: #500000;
 $secondary: #3c0000;
 $baseFontSize: 14pt;
-$linkColor: #337ab7;
-@import "main";
-@import "theme-base";
+$linkColor: #00569f;
+
+@import "node_modules/weaver-ui-core/app/resources/styles/sass/main";
+
+@import "directives/all";
+@import "details/all";
+@import "management/all";
+@import "dashboard/all";
+
+@import "node_modules/weaver-ui-core/app/resources/styles/sass/theme-base";
 
 main {
   display: block;
@@ -15,6 +22,20 @@ main {
 main footer {
   display: block;
   margin-bottom: 75px;
+}
+
+header .navbar-default .navbar-link {
+  color: #fff;
+}
+
+header .navbar-toggle {
+    margin-top: 6px;
+    margin-bottom: 4px;
+    border: none;
+}
+
+.footer {
+  margin-top: 65px;
 }
 
 .appContent {
@@ -35,15 +56,6 @@ main footer {
 
 .tab-pane .well {
   min-height: 600px;
-}
-
-.notesWarning {
-  margin-top: 15px;
-  padding: 15px;
-}
-
-.notesText {
-  font-weight: bold;
 }
 
 .btn-default.active,
@@ -243,20 +255,19 @@ main footer {
   margin-top: 50px;
 }
 
-.serviceName {
-  font-size: 1.5em;
-}
-
-.serviceIndicator {
+.serviceUp {
+  color: #5cb85c;
   font-size: 2em;
 }
 
-.serviceUp {
-  color: #3c763d;
+.serviceDown {
+  color: #d9534f;
+  font-size: 2em;
 }
 
-.serviceDown {
-  color: #a94442;
+.serviceMaintenance {
+  color: #F8CF66;
+  font-size: 2em;
 }
 
 .management-table {
@@ -274,107 +285,35 @@ main footer {
 .service-notes {
   margin-bottom: 70px;
 }
-@media (min-width: 767px) {
-  .serviceName {
-    min-width: 225px;
-  }
+
+.label {
+  padding: 0.5em;
+  border-radius: 0;
 }
-/*********** header **********/
-header {
-  div.tamu-header-nav-bar {
-    background-color: #3c0000;
-    border: 0;
-  }
 
-  div.tamu-header-title-bar {
-    background-color: #500000;
-    border: 0;
-    border-top: 1px solid #8d8d8d;
-    border-radius: 0;
-    padding: 20px 0;
-    margin-bottom: 0;
-  }
+.pagination {
+  margin: 0;
+}
 
-  .tamu-header-title {
-    font-family: 'Lato', sans-serif;
-    font-size: 30px;
-    font-style: normal;
-    font-variant: normal;
-    color: white;
-  }
+.pagination > .disabled > a,
+.pagination > .disabled > a:focus,
+.pagination > .disabled > a:hover,
+.pagination > .disabled > span,
+.pagination > .disabled > span:focus,
+.pagination > .disabled > span:hover {
+  color: $secondary;
+}
 
-  .tamu-header-title a {
-    color: white;
-    text-decoration: none;
-  }
+.pagination > li > a,
+.pagination > li > span {
+  color: $primary;
+}
 
-  .tamu-header-title a:hover {
-    color: white;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  .tamu-header-brand {
-    margin-top: 0;
-  }
-
-  .tamu-header-brand-text {
-    margin-left: 10px;
-    font-family: 'Lato', sans-serif;
-    font-size: 18px;
-    font-style: normal;
-    font-variant: normal;
-    color: white;
-  }
-  @media only screen and (max-width: 520px) {
-    .tamu-header-display {
-      display: none;
-    }
-
-    .tamu-header-display-mobile {
-      display: inline;
-    }
-  }
-  @media only screen and (max-width: 767px) {
-    .tamu-header-title {
-      padding-left: 15px;
-    }
-  }
-  @media only screen and (min-width: 520px) {
-    .tamu-header-display {
-      display: inline;
-    }
-
-    .tamu-header-display-mobile {
-      display: none;
-    }
-  }
-
-  .navbar-default .navbar-nav > li > a {
-    color: white;
-  }
-
-  .navbar-static-top {
-    margin-bottom: 0;
-  }
-
-  .navbar-brand {
-    padding-top: 10px;
-  }
-
-  .navbar-header a:hover {
-    text-decoration: none;
-  }
-
-  .navbar-header li:hover {
-    background-color: black;
-
-    a span {
-      color: white;
-    }
-  }
-
-  .navbar-header b {
-    color: white;
-  }
+.pagination > .active > a,
+.pagination > .active > a:focus,
+.pagination > .active > a:hover,
+.pagination > .active > span,
+.pagination > .active > span:focus,
+.pagination > .active > span:hover {
+  color: #fff;
 }

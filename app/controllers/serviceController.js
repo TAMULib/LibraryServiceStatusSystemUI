@@ -1,16 +1,22 @@
 app.controller('ServiceController', function ($controller, $scope, Service, ServiceRepo, NgTableParams) {
 
-    angular.extend(this, $controller('AppAbstractController', {
+    angular.extend(this, $controller('AbstractScheduleController', {
         $scope: $scope
     }));
+
+    $scope.modalData = {
+        title: "Edit",
+        type: "service",
+        options: ['UP', 'DOWN', 'MAINTENANCE']
+    };
 
     $scope.serviceRepo = ServiceRepo;
 
     $scope.services = ServiceRepo.getAll();
 
-    $scope.serviceToDelete = {};
-
     $scope.forms = {};
+
+    $scope.serviceToDelete = {};
 
     $scope.resetServices = function () {
         if ($scope.serviceData) {
@@ -22,15 +28,14 @@ app.controller('ServiceController', function ($controller, $scope, Service, Serv
             }
         }
         $scope.serviceData = new Service({
-            'name': '',
-            'isPublic': false,
-            'onShortList': false,
-            'isAuto': false,
-            'status': 'UP',
-            'description': ''
+            name: '',
+            isPublic: false,
+            onShortList: false,
+            isAuto: false,
+            status: 'UP',
+            description: ''
         });
         $scope.closeModal();
-        $scope.serviceRepo.reset();
     };
 
     $scope.resetServices();
@@ -41,7 +46,7 @@ app.controller('ServiceController', function ($controller, $scope, Service, Serv
         } else {
             $scope.serviceData.isAuto = false;
         }
-        $scope.serviceRepo.create($scope.serviceData).then(function (res) {
+        ServiceRepo.create($scope.serviceData).then(function (res) {
             if (angular.fromJson(res.body).meta.type === 'SUCCESS') {
                 $scope.resetServices();
             }
@@ -54,11 +59,20 @@ app.controller('ServiceController', function ($controller, $scope, Service, Serv
     };
 
     $scope.updateService = function () {
-        $scope.serviceRepo.update($scope.serviceData).then(function (res) {
+        ServiceRepo.update($scope.serviceData).then(function (res) {
             if (angular.fromJson(res.body).meta.type === 'SUCCESS') {
                 $scope.resetServices();
             }
         });
+    };
+
+    $scope.editSchedule = function (service) {
+        $scope.data = service;
+        $scope.openModal('#editScheduleModal');
+    };
+
+    $scope.resetSchedule = function () {
+        $scope.resetServices();
     };
 
     var buildTable = function () {
@@ -91,9 +105,10 @@ app.controller('ServiceController', function ($controller, $scope, Service, Serv
     };
 
     $scope.tinymceOptions = {
-        toolbar1: "formatselect,bold,italic,separator,bullist,numlist,undo,redo",
+        selector: 'textarea',
         theme: "modern",
-        plugins: "link",
-        selector: 'textarea'
+        plugins: "link lists textcolor",
+        toolbar: "undo redo | formatselect bold italic separator | alignleft aligncenter alignright | bullist numlist | forecolor backcolor"
     };
+
 });

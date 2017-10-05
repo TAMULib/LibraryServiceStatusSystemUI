@@ -1,27 +1,13 @@
 <div>
   <label>Status</label>
-  <br>
-  <input
-    type="radio"
-    name="status"
-    value="AUTO"
-    ng-model="display"
-    ng-click="updateModel()"/> Auto
-  <input
-    type="text"
-    ng-if="display === 'AUTO'"
-    ng-model="model.serviceUrl"/>
-  <br>
-  <input
-    type="radio"
-    name="status"
-    value="UP"
-    ng-model="display"
-    ng-click="updateModel()"> Up<br>
-  <input
-    type="radio"
-    name="status"
-    value="DOWN"
-    ng-model="display"
-    ng-click="updateModel()"> Down<br>
+  <br />
+  <input type="radio" name="status" value="AUTO" ng-model="display" ng-click="updateModel()" /> Auto
+  <input type="text" ng-if="display === 'AUTO'" ng-model="model.serviceUrl" />
+  <br />
+  <input type="radio" name="status" value="UP" ng-model="display" ng-click="updateModel()"> Up
+  <br />
+  <input type="radio" name="status" value="DOWN" ng-model="display" ng-click="updateModel()"> Down
+  <br />
+  <input type="radio" name="status" value="MAINTENANCE" ng-model="display" ng-click="updateModel()"> Maintenance
+  <br />
 </div>

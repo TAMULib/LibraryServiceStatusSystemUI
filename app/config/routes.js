@@ -23,6 +23,10 @@ app.config(function ($routeProvider) {
         templateUrl: 'views/detail/service.html',
         controller: 'ServiceDetailController'
     }).
+    when('/note/:noteId/detail', {
+        templateUrl: 'views/detail/note.html',
+        controller: 'NoteDetailController'
+    }).
     when('/home', {
         redirectTo: '/'
     }).

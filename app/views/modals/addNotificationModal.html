@@ -1,0 +1,34 @@
+<div class="modal-header {{attr.modalHeaderClass}}">
+  <button type="button" class="close" ng-click="resetNotifications()" aria-label="Close">
+    <span class="modal-close" aria-hidden="true">&times;</span>
+  </button>
+  <h3 class="modal-title">Add Notification</h3>
+</div>
+
+<form ng-submit="createNotification()" name="forms.create" novalidate>
+
+  <validationmessage results="notificationRepo.getValidationResults()"></validationmessage>
+
+  <div class="modal-body">
+    <validatedinput model="notificationData" property="name" label="Name" placeholder="Name of the Notification" form="forms.create" validations="notificationRepo.getValidations()" results="notificationRepo.getValidationResults()"></validatedinput>
+
+    <label>Notification Body</label>
+    <textarea ui-tinymce="tinymceOptions" ng-model="notificationData.body"></textarea>
+    <br />
+
+    <label for="locationSelect">Locations</label>
+    <br />
+    <select class="form-control" ng-model="notificationData.locations" name="Locations" multiple>
+      <option ng-repeat="(key, location) in locations" value="{{key}}">{{location}}</option>
+    </select>
+
+    <div class="checkbox">
+      <label><input type="checkbox" value="false" ng-model="notificationData.active">Is the Notification active?</label>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" ng-click="resetNotifications()">Cancel</button>
+      <button id="notifications-save" type="submit" class="btn btn-primary" ng-disabled="forms.create.$invalid">Create</button>
+    </div>
+  </div>
+</form>
