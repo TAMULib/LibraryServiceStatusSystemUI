@@ -76,10 +76,13 @@ app.controller('ServiceController', function ($controller, $scope, Service, Serv
     };
 
     var buildTable = function () {
-        $scope.tableParams = new NgTableParams({}, {
+        var allServices = ServiceRepo.getAll();
+        $scope.tableParams = new NgTableParams({
+            count: allServices.length
+        }, {
             counts: [],
             filterDelay: 0,
-            dataset: ServiceRepo.getAll()
+            dataset: allServices
         });
     };
 
