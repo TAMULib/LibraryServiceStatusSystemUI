@@ -45,29 +45,29 @@
       </p>
     </div>
 
-    <div class="col-xs-12 edit-control">
+    <div class="col-xs-12 edit-control" ng-class="{'hideoverflow': !schedule.editing}">
 
       <div class="set-schedule" ng-class="{'display': schedule.editing}">
         <div class="col-xs-6">
           <label>Start </label>
           <p class="input-group">
-            <input type="text" class="form-control" datepicker-popup ng-model="schedule.scheduledPostingStart" is-open="popupStart.opened" datepicker-options="dateOptions" close-text="Close" date-as-timestamp/>
+            <input type="text" class="form-control" uib-datepicker-popup ng-model="schedule.scheduledPostingStart" is-open="popupStart.opened" datepicker-options="dateOptions" close-text="Close" date-as-timestamp/>
             <span class="input-group-btn">
               <button type="button" class="btn btn-default" ng-click="openStart($event)"><i class="glyphicon glyphicon-calendar"></i></button>
             </span>
           </p>
-          <timepicker ng-model="schedule.scheduledPostingStart" hour-step="1" minute-step="5" show-meridian="true" date-as-timestamp></timepicker>
+          <div uib-timepicker ng-model="schedule.scheduledPostingStart" hour-step="1" minute-step="5" show-meridian="true" date-as-timestamp></div>
         </div>
 
         <div class="col-xs-6">
           <label>End </label>
           <p class="input-group">
-            <input type="text" class="form-control" datepicker-popup ng-model="schedule.scheduledPostingEnd" is-open="popupEnd.opened" datepicker-options="dateOptions" close-text="Close" date-as-timestamp/>
+            <input type="text" class="form-control" uib-datepicker-popup popup-placement="auto bottom" ng-model="schedule.scheduledPostingEnd" is-open="popupEnd.opened" datepicker-options="dateOptions" close-text="Close" date-as-timestamp/>
             <span class="input-group-btn">
               <button type="button" class="btn btn-default" ng-click="openEnd($event)"><i class="glyphicon glyphicon-calendar"></i></button>
             </span>
           </p>
-          <timepicker ng-model="schedule.scheduledPostingEnd" hour-step="1" minute-step="5" show-meridian="true" date-as-timestamp></timepicker>
+          <div uib-timepicker ng-model="schedule.scheduledPostingEnd" hour-step="1" minute-step="5" show-meridian="true" date-as-timestamp></div>
         </div>
 
         <div ng-if="modalData.type === 'service'" class="col-xs-6">
