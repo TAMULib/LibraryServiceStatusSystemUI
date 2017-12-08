@@ -93,10 +93,13 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
     };
 
     var buildTable = function () {
-        $scope.tableParams = new NgTableParams({}, {
+        var allNotifications = NotificationRepo.getAll();
+        $scope.tableParams = new NgTableParams({
+            count: allNotifications.length
+        }, {
             counts: [],
             filterDelay: 0,
-            dataset: NotificationRepo.getAll()
+            dataset: allNotifications
         });
     };
 
