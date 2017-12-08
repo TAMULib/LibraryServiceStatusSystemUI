@@ -34,18 +34,21 @@
 }
 
 .edit-control {
-  overflow: hidden;
   display: block;
+}
+
+.edit-control.hideoverflow {
+  overflow: hidden;
+}
+
+.add-schedule {
+  z-index: 999999;
 }
 
 .set-schedule {
   opacity: 0;
   display: inline-block;
   margin-top: -215px;
-  -webkit-transition: all 0.5s ease-out;
-  -moz-transition: all 0.5s ease-out;
-  -o-transition: all 0.5s ease-out;
-  transition: all 0.5s ease-out;
 }
 
 .set-schedule.display {
