@@ -5,17 +5,14 @@ app.factory('TableFactory', function (NgTableParams) {
         var pageSettings = {
             pageNumber: tableConfig.pageNumber,
             pageSize: tableConfig.pageSize,
-            direction: tableConfig.direction,
-            properties: tableConfig.properties,
+            sort: tableConfig.sort,
             filters: tableConfig.filters
         };
 
         var tableParams = new NgTableParams({
             page: pageSettings.pageNumber,
             count: pageSettings.pageSize,
-            sorting: {
-                name: pageSettings.direction
-            },
+            sorting: {},
             filters: {}
         }, {
             counts: tableConfig.counts,

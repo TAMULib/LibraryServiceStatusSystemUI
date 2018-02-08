@@ -30,6 +30,15 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
 
         $scope.tableParams = NoteRepo.getTableParams();
 
+        NoteRepo.getPageSettings().filters = {};
+        NoteRepo.getPageSettings().sort = [{
+          property: 'service.name',
+          direction: 'ASC'
+        }, {
+          property: 'lastModified',
+          direction: 'DESC'
+        }];
+
         $scope.resetNotes = function () {
             if ($scope.noteData) {
                 $scope.noteData.clearValidationResults();

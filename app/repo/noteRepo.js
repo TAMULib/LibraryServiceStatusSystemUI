@@ -19,17 +19,9 @@ app.repo("NoteRepo", function NoteRepo($q, $timeout, WsApi, Note, ServiceRepo, T
         return table.getTableParams();
     };
 
-    noteRepo.getNotesByService = function (pageSettings) {
-        angular.extend(noteRepo.mapping.query, {
-            'data': pageSettings
-        });
-        return WsApi.fetch(noteRepo.mapping.query);
-    };
-
-    noteRepo.fetchPage = function () {
-        table.getPageSettings().filters = {};
+    noteRepo.fetchPage = function (pageSettings) {
         angular.extend(noteRepo.mapping.page, {
-            'data': table.getPageSettings()
+            'data': pageSettings ? pageSettings : table.getPageSettings()
         });
         return WsApi.fetch(noteRepo.mapping.page);
     };
@@ -61,8 +53,10 @@ app.repo("NoteRepo", function NoteRepo($q, $timeout, WsApi, Note, ServiceRepo, T
     var table = TableFactory.buildTable({
         pageNumber: sessionStorage.getItem('notes-page') ? sessionStorage.getItem('notes-page') : 1,
         pageSize: sessionStorage.getItem('notes-size') ? sessionStorage.getItem('notes-size') : 10,
-        direction: 'DESC',
-        properties: ['title'],
+        sort: {
+          propertiy: 'title',
+          direction: 'DESC'
+        },
         filters: {},
         counts: [5, 10, 25, 50, 100],
         page: noteRepo.page,
