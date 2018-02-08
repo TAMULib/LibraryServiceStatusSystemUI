@@ -10,10 +10,6 @@ app.controller("DashboardController", function ($controller, $scope, UserService
 
     $scope.showShortList = true;
 
-    $scope.notes = NoteRepo.getContents();
-
-    NoteRepo.page();
-
     $scope.showPublic = function () {
         var user = UserService.getCurrentUser();
         var publicView = false;
@@ -28,5 +24,18 @@ app.controller("DashboardController", function ($controller, $scope, UserService
     };
 
     $scope.tableParams = NoteRepo.getTableParams();
+
+    NoteRepo.getPageSettings().filters = {
+        active: [true]
+    };
+    NoteRepo.getPageSettings().sort = [{
+      property: 'service.name',
+      direction: 'ASC'
+    }, {
+      property: 'lastModified',
+      direction: 'DESC'
+    }];
+
+    NoteRepo.page();
 
 });

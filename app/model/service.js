@@ -17,7 +17,7 @@ app.model("Service", function Service($q, $timeout, NoteRepo, Note, TableFactory
             table.getPageSettings().filters = {
                 service: [service.id]
             };
-            return NoteRepo.getNotesByService(table.getPageSettings());
+            return NoteRepo.fetchPage(table.getPageSettings());
         };
 
         service.page = function () {
@@ -51,7 +51,7 @@ app.model("Service", function Service($q, $timeout, NoteRepo, Note, TableFactory
                 active: [active],
                 service: [service.id]
             };
-            NoteRepo.getNotesByService(table.getPageSettings()).then(function (response) {
+            NoteRepo.fetchPage(table.getPageSettings()).then(function (response) {
                 var page = angular.fromJson(response.body).payload.PageImpl;
                 var notes = page.content;
                 for (var i in notes) {
