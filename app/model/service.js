@@ -15,6 +15,7 @@ app.model("Service", function Service($q, $timeout, NoteRepo, Note, TableFactory
 
         service.fetchNotePage = function () {
             table.getPageSettings().filters = {
+                active: [true],
                 service: [service.id]
             };
             return NoteRepo.fetchPage(table.getPageSettings());
