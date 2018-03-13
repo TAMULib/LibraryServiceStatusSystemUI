@@ -25,6 +25,7 @@ var apiMapping = {
         }
     },
     User: {
+        lazy: true,
         modelListeners: true,
         instantiate: {
             'endpoint': '/private/queue',

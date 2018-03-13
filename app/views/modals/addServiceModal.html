@@ -11,7 +11,7 @@
 
   <div class="modal-body">
 
-    <validatedinput model="serviceData" property="name" label="Name" placeholder="Name of the Service" form="forms.update" validations="serviceRepo.getValidations()" results="serviceRepo.getValidationResults()"></validatedinput>
+    <validatedinput model="serviceData" property="name" label="Name" placeholder="Name of the Service" form="forms.create" validations="serviceRepo.getValidations()" results="serviceRepo.getValidationResults()"></validatedinput>
 
     <label>Description</label>
     <textarea ui-tinymce="tinymceOptions" ng-model="serviceData.description"></textarea>

@@ -14,7 +14,7 @@
 
     <validatedselect model="noteData" property="service" label="Services" form="forms.create" validations="noteRepo.getValidations()" results="noteRepo.getValidationResults()" options="services" optionProperty="name"></validatedselect>
 
-    <validatedselect model="noteData" property="noteType" label="Note Type" form="forms.create" validations="noteRepo.getValidations()" results="noteRepo.getValidationResults()" options="noteTypes"></validatedselect>
+    <validatedselect model="noteData" property="noteType" label="Note Type" form="forms.create" validations="noteRepo.getValidations()" results="noteRepo.getValidationResults()" options="noteTypes" optionProperty="gloss" optionValue="value"></validatedselect>
 
     <label>Note Body</label>
     <textarea ui-tinymce="tinymceOptions" ng-model="noteData.body"></textarea>

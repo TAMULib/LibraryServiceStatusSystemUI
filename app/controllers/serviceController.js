@@ -47,7 +47,7 @@ app.controller('ServiceController', function ($controller, $scope, Service, Serv
             $scope.serviceData.isAuto = false;
         }
         ServiceRepo.create($scope.serviceData).then(function (res) {
-            if (angular.fromJson(res.body).meta.type === 'SUCCESS') {
+            if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                 $scope.resetServices();
             }
         });
@@ -60,7 +60,7 @@ app.controller('ServiceController', function ($controller, $scope, Service, Serv
 
     $scope.updateService = function () {
         ServiceRepo.update($scope.serviceData).then(function (res) {
-            if (angular.fromJson(res.body).meta.type === 'SUCCESS') {
+            if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                 $scope.resetServices();
             }
         });

@@ -1,31 +1,34 @@
 app.config(function ($routeProvider) {
     $routeProvider.
     when('/management', {
-        redirectTo: '/management/services'
+        redirectTo: '/management/services',
+        access: ["ROLE_ADMIN", "ROLE_WEB_MANAGER", "ROLE_SERVICE_MANAGER"]
     }).
     when('/management/:tab', {
         templateUrl: 'views/management.html',
-        access: ["ROLE_ADMIN", "ROLE_MANGER"]
+        access: ["ROLE_ADMIN", "ROLE_WEB_MANAGER", "ROLE_SERVICE_MANAGER"]
     }).
     when('/users', {
         templateUrl: 'views/users.html',
-        access: ["ROLE_ADMIN", "ROLE_MANGER"]
+        access: ["ROLE_ADMIN", "ROLE_WEB_MANAGER", "ROLE_SERVICE_MANAGER"]
     }).
     when('/services', {
         templateUrl: 'views/management/services.html',
-        access: ["ROLE_ADMIN", "ROLE_MANGER"]
+        access: ["ROLE_ADMIN", "ROLE_WEB_MANAGER", "ROLE_SERVICE_MANAGER"]
     }).
     when('/notes', {
         templateUrl: 'views/management/notes.html',
-        access: ["ROLE_ADMIN", "ROLE_MANGER"]
+        access: ["ROLE_ADMIN", "ROLE_WEB_MANAGER", "ROLE_SERVICE_MANAGER"]
     }).
     when('/service/:serviceId/detail', {
         templateUrl: 'views/detail/service.html',
-        controller: 'ServiceDetailController'
+        controller: 'ServiceDetailController',
+        access: ["ROLE_ADMIN", "ROLE_WEB_MANAGER", "ROLE_SERVICE_MANAGER"]
     }).
     when('/note/:noteId/detail', {
         templateUrl: 'views/detail/note.html',
-        controller: 'NoteDetailController'
+        controller: 'NoteDetailController',
+        access: ["ROLE_ADMIN", "ROLE_WEB_MANAGER", "ROLE_SERVICE_MANAGER"]
     }).
     when('/home', {
         redirectTo: '/'

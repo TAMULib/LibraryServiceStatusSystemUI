@@ -22,8 +22,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="thisUser in userRepo track by thisUser.uin">
-              <td>{{thisUser.uin}}</td>
+            <tr ng-repeat="thisUser in users track by thisUser.username">
+              <td>{{thisUser.username}}</td>
               <td>{{thisUser.email}}</td>
               <td>{{thisUser.firstName}}</td>
               <td>{{thisUser.lastName}}</td>
