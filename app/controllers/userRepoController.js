@@ -21,10 +21,8 @@ app.controller('UserRepoController', function ($controller, $location, $injector
     
                 user.save();
     
-                if ($scope.user.uin == user.uin) {
-                    if (user.role == 'ROLE_ANNOTATOR') {
-                        $location.path('/assignments');
-                    } else if (user.role == 'ROLE_USER') {
+                if ($scope.user.username == user.username) {
+                    if (user.role == 'ROLE_USER') {
                         $location.path('/myview');
                     } else {}
                 }
@@ -45,7 +43,7 @@ app.controller('UserRepoController', function ($controller, $location, $injector
     
     
             UserRepo.listen(function (response) {
-                if ($scope.userUpdated.uin == $scope.user.uin) {
+                if ($scope.userUpdated.username == $scope.user.username) {
                     $scope.userUpdated = {};
                     $route.reload();
                 }
