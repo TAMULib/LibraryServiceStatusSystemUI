@@ -6,7 +6,7 @@ app.controller("AppAbstractController", function ($controller, $scope) {
 
     $scope.isManager = function() {
         return $scope.isServiceManager() || $scope.isWebManager();
-    }
+    };
 
     $scope.isWebManager = function () {
         return (sessionStorage.role === "ROLE_WEB_MANAGER");
