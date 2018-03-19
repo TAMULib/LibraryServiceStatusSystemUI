@@ -49,7 +49,8 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
 
     $scope.createNotification = function () {
         NotificationRepo.create($scope.notificationData).then(function (response) {
-            if (angular.fromJson(response.body).meta.type === 'SUCCESS') {
+            var apiRes = angular.fromJson(response.body);
+            if (apiRes.meta.status === 'SUCCESS') {
                 $scope.resetNotifications();
             }
         });
@@ -62,7 +63,8 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
 
     $scope.updateNotification = function () {
         NotificationRepo.update($scope.notificationData).then(function (response) {
-            if (angular.fromJson(response.body).meta.type === 'SUCCESS') {
+            var apiRes = angular.fromJson(response.body);
+            if (apiRes.meta.status === 'SUCCESS') {
                 $scope.resetNotifications();
             }
         });

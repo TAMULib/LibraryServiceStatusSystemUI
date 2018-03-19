@@ -4,14 +4,32 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
         $scope: $scope
     }));
 
-    $scope.noteTypes = {
-        ENHANCEMENT: 'Enhancement',
-        ISSUE: 'Issue',
-        MAINTENANCE: 'Maintenance',
-        REPORT: 'Report',
-        RESOLUTION: 'Resolution',
-        SCHEDULED_DOWNTIME: 'Scheduled Downtime'
-    };
+    $scope.noteTypes = [
+        {
+            value: "ENHANCEMENT",
+            gloss: 'Enhancement'
+        },
+        {
+            value: "ISSUE",
+            gloss: 'Issue'
+        },
+        {
+            value: "MAINTENANCE",
+            gloss: 'Maintenance'
+        },
+        {
+            value: "REPORT",
+            gloss: 'Report'
+        },
+        {
+            value: "RESOLUTION",
+            gloss: 'Resolution'
+        },
+        {
+            value: "SCHEDULED_DOWNTIME",
+            gloss: 'Scheduled Downtime'
+        },
+    ];
 
     $scope.noteRepo = NoteRepo;
 
@@ -63,7 +81,7 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
 
         $scope.createNote = function () {
             NoteRepo.create($scope.noteData).then(function (res) {
-                if (angular.fromJson(res.body).meta.type === 'SUCCESS') {
+                if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                     $scope.resetNotes();
                 }
             });
@@ -76,7 +94,7 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
 
         $scope.updateNote = function () {
             NoteRepo.update($scope.noteData).then(function (res) {
-                if (angular.fromJson(res.body).meta.type === 'SUCCESS') {
+                if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                     $scope.resetNotes();
                 }
             });

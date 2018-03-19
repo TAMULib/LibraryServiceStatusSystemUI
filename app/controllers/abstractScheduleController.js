@@ -130,8 +130,10 @@ app.controller("AbstractScheduleController", function ($controller, $scope) {
     };
 
     $scope.saveSchedule = function () {
+        $scope.data.dirty(true);
+        $scope.data.updateRequested = true;
         $scope.data.save().then(function (response) {
-            if (angular.fromJson(response.body).meta.type === 'SUCCESS') {
+            if (angular.fromJson(response.body).meta.status === 'SUCCESS') {
                 $scope.closeModal();
                 $scope.reset();
             }
