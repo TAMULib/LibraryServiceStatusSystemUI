@@ -194,6 +194,10 @@ var apiMapping = {
         getById: {
             'endpoint': '/private/queue',
             'controller': 'projects'
+        },
+        submitRequest: {
+            'endpoint': '/private/queue',
+            'controller': 'projects'
         }
     }
 };

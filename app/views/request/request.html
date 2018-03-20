@@ -1,0 +1,46 @@
+<div ng-controller="RequestController">
+  <br />
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2" ng-hide="request.type">
+      <center>
+        <h3>What kind of feedback would you like to provide today?</h3>
+        <hr />
+      </center>
+      <div class="col-sm-6">
+        <button class="btn btn-primary btn-lg btn-block btn-huge" ng-click="request.type = 'FEATURE'">NEW FEATURE / IDEA</button>
+      </div>
+      <div class="col-sm-6">
+        <button class="btn btn-warning btn-lg btn-block btn-huge" ng-click="request.type = 'ISSUE'">REPORT ISSUE / BUG</button>
+      </div>
+    </div>
+    <div class="col-sm-8 col-sm-offset-2" ng-show="request.type">
+      <center>
+        <h3>Please provide a title and a description for
+          <span>{{request.type === 'FEATURE' ? 'feature or idea' : 'issue or bug'}}</span>.</h3>
+        <hr />
+      </center>
+      <form novalidate>
+        <div class="form-group">
+          <label for="title">Title:</label>
+          <input type="title" class="form-control" id="title" aria-describedby="title" ng-model="request.title">
+        </div>
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea class="form-control" id="description" aria-describedby="description" ng-model="request.description"></textarea>
+        </div>
+        <div class="form-group" ng-if="request.type === 'FEATURE'">
+          <label for="project">Project:</label>
+          <select class="form-control" ng-model="request.project" name="project" id="project">
+            <option value="" ng-selected="!request.project">None</option>
+            <option ng-repeat="project in projects" value="{{project.id}}" ng-selected="project.id === request.project">{{project.name}}</option>
+          </select>
+        </div>
+        <div class="pull-right">
+          <button type="button" class="btn btn-default" ng-click="reset()">Back</button>
+          <button type="button" class="btn btn-warning" ng-click="clear()">Clear</button>
+          <button type="submit" class="btn btn-primary" ng-click="submit()">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

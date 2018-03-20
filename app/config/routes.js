@@ -30,6 +30,9 @@ app.config(function ($routeProvider) {
         controller: 'NoteDetailController',
         access: ["ROLE_ADMIN", "ROLE_WEB_MANAGER", "ROLE_SERVICE_MANAGER"]
     }).
+    when('/request', {
+        templateUrl: 'views/request/request.html',
+    }).
     when('/home', {
         redirectTo: '/'
     }).
