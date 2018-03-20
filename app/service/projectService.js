@@ -20,7 +20,7 @@ app.service('ProjectService', function($q, WsApi) {
     WsApi.fetch(apiMapping.Project.getById).then(function(response) {
       var apiRes = angular.fromJson(response.body);
       if(apiRes.meta.status === 'SUCCESS') {
-        angular.extend(project, apiRes.payload['ObjectNode']);
+        angular.extend(project, apiRes.payload.ObjectNode);
       }
     });
     return project;
