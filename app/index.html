@@ -58,12 +58,18 @@
               <span class="glyphicon glyphicon-user"></span>
 
               <a class="dropdown-toggle hover-pointer" data-toggle="dropdown" aria-expanded="false">
-                <username></username> <span class="caret"></span></a>
+                <username></username>
+                <span class="caret"></span>
+              </a>
 
               <ul class="dropdown-menu" role="menu">
                 <li ng-if="isAdmin() || isAssuming() == 'true'" role="presentation" class="dropdown-header">Manager Actions</li>
-                <li ng-if="isAdmin() || isManager()"><a href="management">Management Dashboard</a></li>
-                <li ng-if="isAdmin() || isManager()"><a href="users">Manage Users</a></li>
+                <li ng-if="isAdmin() || isManager()">
+                  <a href="management">Management Dashboard</a>
+                </li>
+                <li ng-if="isAdmin() || isManager()">
+                  <a href="users">Manage Users</a>
+                </li>
                 <li ng-if="isAdmin() || isAssuming() == 'true'" role="presentation" class="divider"></li>
                 <li ng-if="isAdmin() || isAssuming() == 'true'" role="presentation" class="dropdown-header">Admin Actions</li>
                 <li ng-if="isAdmin() || isAssuming() == 'true'" ng-controller="AdminController">
@@ -71,14 +77,17 @@
                   <a href ng-if="isAssuming() == 'true'" ng-click="assumeUser()">{{assumedControl.button}}</a>
                 </li>
                 <li role="presentation" class="divider"></li>
-                <li><a href ng-click="logout()">Logout</a></li>
+                <li>
+                  <a href ng-click="logout()">Logout</a>
+                </li>
               </ul>
             </div>
 
           </nav>
 
           <div ng-controller="AdminController">
-            <modal modal-id="assumeUserModal" modal-view="node_modules/weaver-ui-core/app/views/modals/assumeUserModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+            <modal modal-id="assumeUserModal" modal-view="node_modules/weaver-ui-core/app/views/modals/assumeUserModal.html" modal-header-class="modal-header-primary"
+              wvr-modal-backdrop="static"></modal>
           </div>
 
           <div ng-view class="view" autoscroll="true"></div>
@@ -239,7 +248,7 @@
   <script src="model/notification.js"></script>
 
   <!-- Services -->
-  <script src="service/projectService.js"></script>
+  <script src="services/projectService.js"></script>
 
   <!-- Controllers -->
   <script src="controllers/abstractScheduleController.js"></script>

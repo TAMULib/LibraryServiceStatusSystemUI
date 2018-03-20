@@ -1,4 +1,4 @@
-describe('controller: AdminController', function () {
+describe('controller: ServiceController', function () {
 
   var controller, scope;
 

@@ -18,16 +18,23 @@ app.controller('ServiceController', function ($controller, $route, $scope, Proje
 
     $scope.serviceToDelete = {};
 
-    $scope.projects = ProjectService.getAll();
+    ProjectService.getAll().then(function (projects) {
+        $scope.projects = projects;
 
-    $scope.getProject = function(service) {
-        if(service.projectId && !service.project) {
-            service.project = {};
-            angular.extend(service, { project: ProjectService.getById(service.projectId) });
+        $scope.getProject = function (service) {
+            if (service.projectId && !service.project) {
+                service.project = {};
+                ProjectService.getById(service.projectId).then(function (project) {
+                    angular.extend(service, {
+                        project: project
+                    });
+                });
+                return service.project;
+            }
             return service.project;
-        }
-        return service.project;
-    };
+        };
+
+    });
 
     $scope.resetServices = function () {
         if ($scope.serviceData) {
