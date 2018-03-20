@@ -1,4 +1,4 @@
-app.controller('ServiceController', function ($controller, $scope, Service, ServiceRepo, NgTableParams) {
+app.controller('ServiceController', function ($controller, $route, $scope, ProjectService, Service, ServiceRepo, NgTableParams) {
 
     angular.extend(this, $controller('AbstractScheduleController', {
         $scope: $scope
@@ -18,6 +18,17 @@ app.controller('ServiceController', function ($controller, $scope, Service, Serv
 
     $scope.serviceToDelete = {};
 
+    $scope.projects = ProjectService.getAll();
+
+    $scope.getProject = function(service) {
+        if(service.projectId && !service.project) {
+            service.project = {};
+            angular.extend(service, { project: ProjectService.getById(service.projectId) });
+            return service.project;
+        }
+        return service.project;
+    };
+
     $scope.resetServices = function () {
         if ($scope.serviceData) {
             $scope.serviceData.clearValidationResults();
@@ -29,11 +40,11 @@ app.controller('ServiceController', function ($controller, $scope, Service, Serv
         }
         $scope.serviceData = new Service({
             name: '',
+            description: '',
             isPublic: false,
             onShortList: false,
             isAuto: false,
-            status: 'UP',
-            description: ''
+            status: 'UP'
         });
         $scope.closeModal();
     };

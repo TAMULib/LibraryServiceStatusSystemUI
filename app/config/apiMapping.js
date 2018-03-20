@@ -184,5 +184,16 @@ var apiMapping = {
             'controller': 'notification',
             'method': 'remove'
         }
+    },
+    Project: {
+        all: {
+            'endpoint': '/private/queue',
+            'controller': 'projects',
+            'method': 'all'
+        },
+        getById: {
+            'endpoint': '/private/queue',
+            'controller': 'projects'
+        }
     }
 };
