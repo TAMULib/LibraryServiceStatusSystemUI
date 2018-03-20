@@ -188,8 +188,7 @@ var apiMapping = {
     Project: {
         all: {
             'endpoint': '/private/queue',
-            'controller': 'projects',
-            'method': 'all'
+            'controller': 'projects'
         },
         getById: {
             'endpoint': '/private/queue',

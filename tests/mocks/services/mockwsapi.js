@@ -17,28 +17,26 @@ angular.module('mock.wsApi', []).service('WsApi', function ($q) {
     var defer = $q.defer();
     switch (apiReq.controller) {
       case 'projects':
-        switch (apiReq.method) {
-          case 'all':
+        if (isNaN(apiReq.method)) {
+          if (apiReq.data) {} else {
             defer.resolve(responsify({
               'ArrayList<ObjectNode>': mockProjects
             }));
-            break;
-          default:
-            var id = apiReq.method;
-            for (var i in mockProjects) {
-              if (mockProjects[i].id == id) {
-                defer.resolve(responsify({
-                  'ObjectNode': mockProjects[i]
-                }));
-                break;
-              }
+          }
+        } else {
+          var id = apiReq.method;
+          for (var i in mockProjects) {
+            if (mockProjects[i].id == id) {
+              defer.resolve(responsify({
+                'ObjectNode': mockProjects[i]
+              }));
+              break;
             }
+          }
         }
         break;
       default:
     }
-
-
     return defer.promise;
   }
 
