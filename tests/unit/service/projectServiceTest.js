@@ -1,6 +1,6 @@
 describe('service: ProjectService', function () {
 
-  var timeout, WsApi, ProjectService;
+  var WsApi, ProjectService;
 
   beforeEach(module('core'));
 
@@ -10,10 +10,9 @@ describe('service: ProjectService', function () {
 
   beforeEach(module('mock.wsApi'));
 
-  beforeEach(inject(function ($q, _WsApi_, $injector, $timeout) {
+  beforeEach(inject(function ($q, _WsApi_, $injector) {
     ProjectService = $injector.get('ProjectService');
     WsApi = _WsApi_;
-    timeout = $timeout;
     installPromiseMatchers();
   }));
 

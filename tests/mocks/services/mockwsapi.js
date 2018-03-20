@@ -11,7 +11,7 @@ angular.module('mock.wsApi', []).service('WsApi', function ($q) {
         payload: payload
       })
     };
-  }
+  };
 
   WsApi.fetch = function (apiReq) {
     var defer = $q.defer();
