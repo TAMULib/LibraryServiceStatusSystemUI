@@ -54,44 +54,38 @@ describe('controller: RequestController', function () {
 
   describe('Do the scope methods work as expected', function () {
     it('submit should submit a feature request', function () {
-      scope.request = {
-        type: 'FEATURE',
-        title: 'Test feature request',
-        description: 'This is a test feature request on project 1',
-        project: 1
-      };
+      scope.type = 'FEATURE',
+      scope.title = 'Test feature request',
+      scope.description = 'This is a test feature request on project 1',
+      scope.project = 1
       scope.submit();
     });
     it('submit should submit a issue request', function () {
-      scope.request = {
-        type: 'ISSUE',
-        title: 'Test issue request',
-        description: 'This is a test issue request on project 1',
-        project: 1
-      };
+      scope.type = 'ISSUE',
+      scope.title = 'Test issue request',
+      scope.description = 'This is a test issue request',
       scope.submit();
     });
     it('reset should reset request', function () {
-      scope.request = {
-        type: 'ISSUE',
-        title: 'Test issue request',
-        description: 'This is a test issue request on project 1',
-        project: 1
-      };
+      scope.type = 'FEATURE',
+      scope.title = 'Test feature request',
+      scope.description = 'This is a test feature request on project 1',
+      scope.project = 1
       scope.reset();
-      expect(scope.request).toEqual({});
+      expect(scope.type).toEqual();
+      expect(scope.title).toEqual();
+      expect(scope.description).toEqual();
+      expect(scope.project).toEqual();
     });
     it('clear should clear request', function () {
-      scope.request = {
-        type: 'ISSUE',
-        title: 'Test issue request',
-        description: 'This is a test issue request on project 1',
-        project: 1
-      };
+      scope.type = 'ISSUE',
+      scope.title = 'Test issue request',
+      scope.description = 'This is a test issue request',
       scope.clear();
-      expect(scope.request).toEqual({
-        type: 'ISSUE'
-      });
+      expect(scope.type).toEqual('ISSUE');
+      expect(scope.title).toEqual();
+      expect(scope.description).toEqual();
+      expect(scope.project).toEqual();
     });
   });
 

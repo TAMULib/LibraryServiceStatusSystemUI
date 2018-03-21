@@ -8,25 +8,45 @@ app.controller('RequestController', function ($controller, $scope, ProjectServic
         $scope.login();
     } else {
 
-        $scope.reset = function () {
-            $scope.request = {
+        $scope.requestForm = undefined;
 
-            };
+        var clear = function(type) {
+            delete $scope.type;
+            delete $scope.title;
+            delete $scope.description;
+            delete $scope.project;
+            if($scope.requestForm) {
+                $scope.requestForm.$setPristine();
+                $scope.requestForm.$setUntouched();
+            }
+            if(type) {
+                $scope.type = type;
+            }
+        };
+
+        $scope.reset = function () {
+            clear();
         };
 
         $scope.clear = function () {
-            $scope.request = {
-                type: $scope.request.type
-            };
+            clear($scope.type);
         };
 
         $scope.submit = function () {
-            ProjectService.submitRequest($scope.request).then(function (message) {
-                $scope.reset();
+            var request = {
+                type: $scope.type,
+                title: $scope.title,
+                description: $scope.description
+            };
+            if($scope.project) {
+                request.project = $scope.project;
+            }
+            ProjectService.submitRequest(request).then(function (message) {
+                clear();
             });
         };
 
-        $scope.reset();
+        clear();
 
         ProjectService.getAll().then(function (projects) {
             $scope.projects = projects;
