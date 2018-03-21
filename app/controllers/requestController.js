@@ -10,16 +10,16 @@ app.controller('RequestController', function ($controller, $scope, ProjectServic
 
         $scope.requestForm = undefined;
 
-        var clear = function(type) {
+        var clear = function (type) {
             delete $scope.type;
             delete $scope.title;
             delete $scope.description;
             delete $scope.project;
-            if($scope.requestForm) {
+            if ($scope.requestForm) {
                 $scope.requestForm.$setPristine();
                 $scope.requestForm.$setUntouched();
             }
-            if(type) {
+            if (type) {
                 $scope.type = type;
             }
         };
@@ -38,7 +38,7 @@ app.controller('RequestController', function ($controller, $scope, ProjectServic
                 title: $scope.title,
                 description: $scope.description
             };
-            if($scope.project) {
+            if ($scope.project) {
                 request.project = $scope.project;
             }
             ProjectService.submitRequest(request).then(function (message) {

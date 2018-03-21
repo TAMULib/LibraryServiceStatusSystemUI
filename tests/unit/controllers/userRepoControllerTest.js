@@ -1,9 +1,9 @@
 describe('controller: UserRepoController', function () {
 
-  var controller, scope;
+    var controller, scope;
 
-  beforeEach(module('core'));
+    beforeEach(module('core'));
 
-  beforeEach(module('app'));
+    beforeEach(module('app'));
 
 });

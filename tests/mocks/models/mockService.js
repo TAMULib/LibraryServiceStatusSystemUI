@@ -1,7 +1,7 @@
 var mockService = function () {
-  return this;
+    return this;
 };
 
 angular.module('mock.service', []).service('Service', function () {
-  return mockService;
+    return mockService;
 });

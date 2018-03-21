@@ -4,8 +4,7 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
         $scope: $scope
     }));
 
-    $scope.noteTypes = [
-        {
+    $scope.noteTypes = [{
             value: "ENHANCEMENT",
             gloss: 'Enhancement'
         },
@@ -50,11 +49,11 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
 
         NoteRepo.getPageSettings().filters = {};
         NoteRepo.getPageSettings().sort = [{
-          property: 'service.name',
-          direction: 'ASC'
+            property: 'service.name',
+            direction: 'ASC'
         }, {
-          property: 'lastModified',
-          direction: 'DESC'
+            property: 'lastModified',
+            direction: 'DESC'
         }];
 
         $scope.resetNotes = function () {

@@ -1,16 +1,15 @@
 describe('model: AssumedControl', function () {
 
-  var AssumedControl;
+    var AssumedControl;
 
-  beforeEach(module('core'));
+    beforeEach(module('core'));
 
-  beforeEach(module('app'));
+    beforeEach(module('app'));
 
-  beforeEach(module('AssumedControl'));
+    beforeEach(module('AssumedControl'));
 
-  beforeEach(inject(function (_AssumedControl_) {
-    AssumedControl = _AssumedControl_;
-
-  }));
+    beforeEach(inject(function (_AssumedControl_) {
+        AssumedControl = _AssumedControl_;
+    }));
 
 });

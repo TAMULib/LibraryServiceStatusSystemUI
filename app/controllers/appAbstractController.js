@@ -4,7 +4,7 @@ app.controller("AppAbstractController", function ($controller, $scope) {
         $scope: $scope
     }));
 
-    $scope.isManager = function() {
+    $scope.isManager = function () {
         return $scope.isServiceManager() || $scope.isWebManager();
     };
 

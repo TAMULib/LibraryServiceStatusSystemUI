@@ -6,28 +6,28 @@ app.controller('UserRepoController', function ($controller, $location, $injector
 
     $scope.user = UserService.getCurrentUser();
 
-    UserService.userReady().then(function() {
+    UserService.userReady().then(function () {
         if ($scope.isAdmin() || $scope.isManager()) {
 
             var UserRepo = $injector.get("UserRepo");
-    
+
             $scope.userUpdated = {};
-    
+
             $scope.users = UserRepo.getAll();
-    
+
             $scope.updateRole = function (user) {
-    
+
                 angular.extend($scope.userUpdated, user);
-    
+
                 user.save();
-    
+
                 if ($scope.user.username == user.username) {
                     if (user.role == 'ROLE_USER') {
                         $location.path('/myview');
                     } else {}
                 }
             };
-    
+
             $scope.allowableRoles = function (userRole) {
                 if (StorageService.get('role') == 'ROLE_ADMIN') {
                     return ['ROLE_ADMIN', 'ROLE_WEB_MANAGER', 'ROLE_SERVICE_MANAGER', 'ROLE_STAFF', 'ROLE_USER'];
@@ -40,18 +40,18 @@ app.controller('UserRepoController', function ($controller, $location, $injector
                     return [userRole];
                 }
             };
-    
-    
+
+
             UserRepo.listen(function (response) {
                 if ($scope.userUpdated.username == $scope.user.username) {
                     $scope.userUpdated = {};
                     $route.reload();
                 }
             });
-    
+
         }
 
     });
 
-    
+
 });
