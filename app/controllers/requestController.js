@@ -1,10 +1,10 @@
-app.controller('RequestController', function ($controller, $scope, ProjectService) {
+app.controller('RequestController', function ($controller, $scope, ProjectService, StorageService) {
 
     angular.extend(this, $controller('AuthenticationController', {
         $scope: $scope
     }));
 
-    if (sessionStorage.role === 'ROLE_ANONYMOUS') {
+    if (StorageService.get('role') === 'ROLE_ANONYMOUS') {
         $scope.login();
     } else {
 

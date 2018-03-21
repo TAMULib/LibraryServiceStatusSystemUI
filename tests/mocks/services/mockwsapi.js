@@ -1,8 +1,6 @@
 angular.module('mock.wsApi', []).service('WsApi', function ($q) {
 
-  var WsApi = this;
-
-  var responsify = function (payload) {
+  var payloadResponse = function (payload) {
     return {
       body: angular.toJson({
         meta: {
@@ -13,21 +11,39 @@ angular.module('mock.wsApi', []).service('WsApi', function ($q) {
     };
   };
 
-  WsApi.fetch = function (apiReq) {
+  var messageResponse = function (message) {
+    return {
+      body: angular.toJson({
+        meta: {
+          status: 'SUCCESS',
+          message: message
+        }
+      })
+    };
+  };
+
+  this.fetch = function (apiReq) {
     var defer = $q.defer();
     switch (apiReq.controller) {
       case 'projects':
         if (isNaN(apiReq.method)) {
-          if (apiReq.data) {} else {
-            defer.resolve(responsify({
-              'ArrayList<ObjectNode>': mockProjects
-            }));
+          switch (apiReq.method) {
+            case 'feature':
+              defer.resolve(messageResponse('Successfully submitted feature request!'));
+              break;
+            case 'issue':
+              defer.resolve(messageResponse('Successfully submitted issue request!'));
+              break;
+            default:
+              defer.resolve(payloadResponse({
+                'ArrayList<ObjectNode>': mockProjects
+              }));
           }
         } else {
           var id = apiReq.method;
           for (var i in mockProjects) {
             if (mockProjects[i].id == id) {
-              defer.resolve(responsify({
+              defer.resolve(payloadResponse({
                 'ObjectNode': mockProjects[i]
               }));
               break;
@@ -40,7 +56,7 @@ angular.module('mock.wsApi', []).service('WsApi', function ($q) {
     return defer.promise;
   }
 
-  WsApi.listen = function (apiReq) {
+  this.listen = function (apiReq) {
     var defer = $q.defer();
     return defer.promise;
   }

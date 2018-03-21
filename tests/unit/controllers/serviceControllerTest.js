@@ -43,25 +43,25 @@ describe('controller: ServiceController', function () {
     it('createService should created a new project', function () {
       var id = mockServices.length + 1;
       var newService = {
-        "notes":[
-    
+        "notes": [
+
         ],
-        "schedules":[
-    
+        "schedules": [
+
         ],
-        "withinSchedule":false,
-        "name":"Test 4",
-        "aliases":[
-    
+        "withinSchedule": false,
+        "name": "Test 4",
+        "aliases": [
+
         ],
-        "status":"MAINTENANCE",
-        "isAuto":false,
-        "isPublic":true,
-        "onShortList":true,
-        "serviceUrl":null,
-        "description":"<p>Hello, Test 4!</p>",
-        "projectId":null,
-        "type":"service"
+        "status": "MAINTENANCE",
+        "isAuto": false,
+        "isPublic": true,
+        "onShortList": true,
+        "serviceUrl": null,
+        "description": "<p>Hello, Test 4!</p>",
+        "projectId": null,
+        "type": "service"
       };
       scope.serviceData = newService;
       scope.createService();
@@ -71,26 +71,26 @@ describe('controller: ServiceController', function () {
     it('updateService should update a project', function () {
       var id = 1;
       var updatedService = {
-        "notes":[
-    
+        "notes": [
+
         ],
-        "id":id,
-        "schedules":[
-    
+        "id": id,
+        "schedules": [
+
         ],
-        "withinSchedule":false,
-        "name":"Test 1 Updated",
-        "aliases":[
-    
+        "withinSchedule": false,
+        "name": "Test 1 Updated",
+        "aliases": [
+
         ],
-        "status":"MAINTENANCE",
-        "isAuto":true,
-        "isPublic":true,
-        "onShortList":true,
-        "serviceUrl":null,
-        "description":"<p>Hello, Test 1 Update!</p>",
-        "projectId":null,
-        "type":"service"
+        "status": "MAINTENANCE",
+        "isAuto": true,
+        "isPublic": true,
+        "onShortList": true,
+        "serviceUrl": null,
+        "description": "<p>Hello, Test 1 Update!</p>",
+        "projectId": null,
+        "type": "service"
       };
       scope.serviceData = updatedService;
       scope.updateService();

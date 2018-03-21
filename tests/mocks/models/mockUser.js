@@ -29,5 +29,10 @@ var mockUser3 = {
 };
 
 angular.module('mock.user', []).service('User', function ($q) {
-  return User;
+  return function () {
+    this.clearValidationResults = function () {
+
+    };
+    return this;
+  };
 });
