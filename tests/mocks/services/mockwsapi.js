@@ -36,7 +36,7 @@ angular.module('mock.wsApi', []).service('WsApi', function ($q) {
                             break;
                         default:
                             defer.resolve(payloadResponse({
-                                'ArrayList<ObjectNode>': mockProjects
+                                'ArrayList<Project>': mockProjects
                             }));
                     }
                 } else {
@@ -44,7 +44,7 @@ angular.module('mock.wsApi', []).service('WsApi', function ($q) {
                     for (var i in mockProjects) {
                         if (mockProjects[i].id == id) {
                             defer.resolve(payloadResponse({
-                                'ObjectNode': mockProjects[i]
+                                'Project': mockProjects[i]
                             }));
                             break;
                         }
