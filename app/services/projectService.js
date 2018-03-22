@@ -5,7 +5,7 @@ app.service('ProjectService', function ($q, WsApi) {
             WsApi.fetch(apiMapping.Project.all).then(function (response) {
                 var apiRes = angular.fromJson(response.body);
                 if (apiRes.meta.status === 'SUCCESS') {
-                    resolve(apiRes.payload['ArrayList<ObjectNode>']);
+                    resolve(apiRes.payload['ArrayList<Project>']);
                 } else {
                     reject();
                 }
@@ -21,7 +21,7 @@ app.service('ProjectService', function ($q, WsApi) {
             WsApi.fetch(apiMapping.Project.getById).then(function (response) {
                 var apiRes = angular.fromJson(response.body);
                 if (apiRes.meta.status === 'SUCCESS') {
-                    resolve(apiRes.payload.ObjectNode);
+                    resolve(apiRes.payload.Project);
                 } else {
                     reject();
                 }
