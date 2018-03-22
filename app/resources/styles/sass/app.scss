@@ -9,6 +9,7 @@ $linkColor: #00569f;
 @import "details/all";
 @import "management/all";
 @import "dashboard/all";
+@import "request/all";
 
 @import "node_modules/weaver-ui-core/app/resources/styles/sass/theme-base";
 
@@ -39,7 +40,7 @@ header .navbar-toggle {
 }
 
 .appContent {
-  padding-top: 25px;
+  padding-top: 10px;
 }
 
 .error-page {

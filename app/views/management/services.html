@@ -11,6 +11,7 @@
       <td title="'Public'">{{service.isPublic}}</td>
       <td title="'Short List'">{{service.onShortList}}</td>
       <td title="'URL'">{{service.serviceUrl}}</td>
+      <td title="'Project'">{{getProject(service).name}}</td>
       <td class="actions-column" title="'Actions'">
         <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editService(service)"></span>
         <span class="glyphicon glyphicon-time" title="schedule" ng-click="editSchedule(service)"></span>

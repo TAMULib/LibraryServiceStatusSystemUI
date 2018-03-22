@@ -1,4 +1,4 @@
-describe('controller: UserRepoController', function () {
+describe('controller: NotificationController', function () {
 
     var controller, scope;
 

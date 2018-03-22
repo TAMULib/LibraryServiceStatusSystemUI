@@ -17,6 +17,14 @@
     <textarea ui-tinymce="tinymceOptions" ng-model="serviceData.description"></textarea>
     <br />
 
+    <label for="project">Associate Project</label>
+    <br />
+    <select class="form-control" ng-model="serviceData.projectId" name="project">
+      <option value="" selected>None</option>
+      <option ng-repeat="project in projects" value="{{project.id}}">{{project.name}}</option>
+    </select>
+    <br />
+
     <service-status model="serviceData"></service-status>
 
     <div class="checkbox">

@@ -54,8 +54,8 @@ app.repo("NoteRepo", function NoteRepo($q, $timeout, WsApi, Note, ServiceRepo, T
         pageNumber: sessionStorage.getItem('notes-page') ? sessionStorage.getItem('notes-page') : 1,
         pageSize: sessionStorage.getItem('notes-size') ? sessionStorage.getItem('notes-size') : 10,
         sort: {
-          propertiy: 'title',
-          direction: 'DESC'
+            propertiy: 'title',
+            direction: 'DESC'
         },
         filters: {},
         counts: [5, 10, 25, 50, 100],
