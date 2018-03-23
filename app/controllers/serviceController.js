@@ -38,6 +38,7 @@ app.controller('ServiceController', function ($controller, $route, $scope, Proje
 
     $scope.resetServices = function () {
         if ($scope.serviceData) {
+            $scope.serviceData.refresh();
             $scope.serviceData.clearValidationResults();
         }
         for (var key in $scope.forms) {
