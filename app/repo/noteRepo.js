@@ -53,10 +53,8 @@ app.repo("NoteRepo", function NoteRepo($q, $timeout, WsApi, Note, ServiceRepo, T
     var table = TableFactory.buildTable({
         pageNumber: sessionStorage.getItem('notes-page') ? sessionStorage.getItem('notes-page') : 1,
         pageSize: sessionStorage.getItem('notes-size') ? sessionStorage.getItem('notes-size') : 10,
-        sort: {
-            propertiy: 'title',
-            direction: 'DESC'
-        },
+        direction: 'DESC',
+        properties: ['title'],
         filters: {},
         counts: [5, 10, 25, 50, 100],
         page: noteRepo.page,

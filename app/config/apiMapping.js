@@ -46,6 +46,51 @@ var apiMapping = {
             'method': 'update'
         }
     },
+    Idea: {
+        lazy: true,
+        validations: true,
+        modelListeners: false,
+        listen: {
+            'endpoint': '/channel',
+            'controller': 'ideas',
+        },
+        instantiate: {
+            'endpoint': '/private/queue',
+            'controller': 'ideas'
+        },
+        create: {
+            'endpoint': '/private/queue',
+            'controller': 'ideas',
+            'method': 'create'
+        },
+        createListen: {
+            'endpoint': '/channel',
+            'controller': 'ideas/create'
+        },
+        updateListen: {
+            'endpoint': '/channel',
+            'controller': 'ideas/update'
+        },
+        deleteListen: {
+            'endpoint': '/channel',
+            'controller': 'ideas/delete'
+        },
+        update: {
+            'endpoint': '/private/queue',
+            'controller': 'ideas',
+            'method': 'update'
+        },
+        remove: {
+            'endpoint': '/private/queue',
+            'controller': 'ideas',
+            'method': 'remove'
+        },
+        page: {
+            'endpoint': '/private/queue',
+            'controller': 'ideas',
+            'method': 'page'
+        }
+    },
     Note: {
         lazy: true,
         validations: true,

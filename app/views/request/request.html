@@ -42,8 +42,8 @@
         </div>
         <div class="form-group">
           <label for="service">Service:</label>
-          <select class="form-control" id="project" name="service" ng-model="service">
-            <option value="" ng-selected="!service">None</option>
+          <select class="form-control" id="project" name="service" ng-model="service" required>
+            <option value="" ng-selected="!service">Select A Service</option>
             <option ng-repeat="s in services" value="{{s.id}}" ng-selected="s.id === service">{{s.name}}</option>
           </select>
         </div>
