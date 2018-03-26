@@ -29,6 +29,12 @@ header .navbar-default .navbar-link {
   color: #fff;
 }
 
+header .navbar-header li:hover {
+  background: #ffc222;
+  color: #000;
+  text-decoration: none;
+}
+
 header .navbar-toggle {
     margin-top: 6px;
     margin-bottom: 4px;
