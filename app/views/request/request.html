@@ -41,10 +41,10 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="project">Project:</label>
-          <select class="form-control" id="project" name="project" ng-model="project">
-            <option value="" ng-selected="!request.project">None</option>
-            <option ng-repeat="project in projects" value="{{project.id}}" ng-selected="project.id === request.project">{{project.name}}</option>
+          <label for="service">Service:</label>
+          <select class="form-control" id="project" name="service" ng-model="service">
+            <option value="" ng-selected="!service">None</option>
+            <option ng-repeat="s in services" value="{{s.id}}" ng-selected="s.id === service">{{s.name}}</option>
           </select>
         </div>
         <div class="pull-right">
