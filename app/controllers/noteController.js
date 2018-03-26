@@ -58,6 +58,7 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
 
         $scope.resetNotes = function () {
             if ($scope.noteData) {
+                $scope.noteData.refresh();
                 $scope.noteData.clearValidationResults();
             }
             for (var key in $scope.forms) {

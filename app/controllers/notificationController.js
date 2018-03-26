@@ -29,6 +29,7 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
 
     $scope.resetNotifications = function () {
         if ($scope.notificationData) {
+            $scope.notificationData.refresh();
             $scope.notificationData.clearValidationResults();
         }
         for (var key in $scope.forms) {
