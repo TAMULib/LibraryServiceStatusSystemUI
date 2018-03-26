@@ -1,4 +1,4 @@
-app.repo("ServiceRepo", function ServiceRepo($timeout, WsApi) {
+app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi) {
 
     var serviceRepo = this;
 
@@ -49,6 +49,23 @@ app.repo("ServiceRepo", function ServiceRepo($timeout, WsApi) {
                 }
             }
         }
+    };
+
+    serviceRepo.submitRequest = function (request) {
+        angular.extend(serviceRepo.mapping.submitRequest, {
+            'method': request.type === 'FEATURE' ? 'feature' : 'issue',
+            'data': request
+        });
+        return $q(function (resolve, reject) {
+            WsApi.fetch(serviceRepo.mapping.submitRequest).then(function (response) {
+                var apiRes = angular.fromJson(response.body);
+                if (apiRes.meta.status === 'SUCCESS') {
+                    resolve(apiRes.meta.message);
+                } else {
+                    reject();
+                }
+            });
+        });
     };
 
     WsApi.listen(serviceRepo.mapping.createListen).then(null, null, function (response) {

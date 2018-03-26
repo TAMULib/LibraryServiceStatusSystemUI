@@ -29,21 +29,20 @@ var apiMapping = {
         modelListeners: true,
         instantiate: {
             'endpoint': '/private/queue',
-            'controller': 'user',
+            'controller': 'users',
             'method': 'credentials'
         },
         all: {
             'endpoint': '/private/queue',
-            'controller': 'user',
-            'method': 'all'
+            'controller': 'users'
         },
         listen: {
             'endpoint': '/channel',
-            'controller': 'user'
+            'controller': 'users'
         },
         update: {
             'endpoint': '/private/queue',
-            'controller': 'user',
+            'controller': 'users',
             'method': 'update'
         }
     },
@@ -53,42 +52,42 @@ var apiMapping = {
         modelListeners: false,
         listen: {
             'endpoint': '/channel',
-            'controller': 'note',
+            'controller': 'notes',
         },
         instantiate: {
             'endpoint': '/private/queue',
-            'controller': 'note'
+            'controller': 'notes'
         },
         create: {
             'endpoint': '/private/queue',
-            'controller': 'note',
+            'controller': 'notes',
             'method': 'create'
         },
         createListen: {
             'endpoint': '/channel',
-            'controller': 'note/create'
+            'controller': 'notes/create'
         },
         updateListen: {
             'endpoint': '/channel',
-            'controller': 'note/update'
+            'controller': 'notes/update'
         },
         deleteListen: {
             'endpoint': '/channel',
-            'controller': 'note/delete'
+            'controller': 'notes/delete'
         },
         update: {
             'endpoint': '/private/queue',
-            'controller': 'note',
+            'controller': 'notes',
             'method': 'update'
         },
         remove: {
             'endpoint': '/private/queue',
-            'controller': 'note',
+            'controller': 'notes',
             'method': 'remove'
         },
         page: {
             'endpoint': '/private/queue',
-            'controller': 'note',
+            'controller': 'notes',
             'method': 'page'
         }
     },
@@ -97,48 +96,51 @@ var apiMapping = {
         modelListeners: false,
         all: {
             'endpoint': '/private/queue',
-            'controller': 'service',
-            'method': 'all'
+            'controller': 'services'
         },
         public: {
             'endpoint': '/private/queue',
-            'controller': 'service',
+            'controller': 'services',
             'method': 'public'
         },
         get: {
             'endpoint': '/private/queue',
-            'controller': 'service'
+            'controller': 'services'
         },
         create: {
             'endpoint': '/private/queue',
-            'controller': 'service',
+            'controller': 'services',
             'method': 'create'
         },
         listen: {
             'endpoint': '/channel',
-            'controller': 'service'
+            'controller': 'services'
         },
         createListen: {
             'endpoint': '/channel',
-            'controller': 'service/create'
+            'controller': 'services/create'
         },
         updateListen: {
             'endpoint': '/channel',
-            'controller': 'service/update'
+            'controller': 'services/update'
         },
         deleteListen: {
             'endpoint': '/channel',
-            'controller': 'service/delete'
+            'controller': 'services/delete'
         },
         update: {
             'endpoint': '/private/queue',
-            'controller': 'service',
+            'controller': 'services',
             'method': 'update'
         },
         remove: {
             'endpoint': '/private/queue',
-            'controller': 'service',
+            'controller': 'services',
             'method': 'remove'
+        },
+        submitRequest: {
+            'endpoint': '/private/queue',
+            'controller': 'services'
         }
     },
     Notification: {
@@ -146,42 +148,41 @@ var apiMapping = {
         modelListeners: false,
         all: {
             'endpoint': '/private/queue',
-            'controller': 'notification',
-            'method': 'all'
+            'controller': 'notifications'
         },
         get: {
             'endpoint': '/private/queue',
-            'controller': 'notification'
+            'controller': 'notifications'
         },
         create: {
             'endpoint': '/private/queue',
-            'controller': 'notification',
+            'controller': 'notifications',
             'method': 'create'
         },
         listen: {
             'endpoint': '/channel',
-            'controller': 'notification'
+            'controller': 'notifications'
         },
         createListen: {
             'endpoint': '/channel',
-            'controller': 'notification/create'
+            'controller': 'notifications/create'
         },
         updateListen: {
             'endpoint': '/channel',
-            'controller': 'notification/update'
+            'controller': 'notifications/update'
         },
         deleteListen: {
             'endpoint': '/channel',
-            'controller': 'notification/delete'
+            'controller': 'notifications/delete'
         },
         update: {
             'endpoint': '/private/queue',
-            'controller': 'notification',
+            'controller': 'notifications',
             'method': 'update'
         },
         remove: {
             'endpoint': '/private/queue',
-            'controller': 'notification',
+            'controller': 'notifications',
             'method': 'remove'
         }
     },
@@ -191,10 +192,6 @@ var apiMapping = {
             'controller': 'projects'
         },
         getById: {
-            'endpoint': '/private/queue',
-            'controller': 'projects'
-        },
-        submitRequest: {
             'endpoint': '/private/queue',
             'controller': 'projects'
         }

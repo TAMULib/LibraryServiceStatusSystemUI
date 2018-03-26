@@ -1,4 +1,4 @@
-app.controller('RequestController', function ($controller, $scope, ProjectService, StorageService) {
+app.controller('RequestController', function ($controller, $scope, ServiceRepo, StorageService) {
 
     angular.extend(this, $controller('AuthenticationController', {
         $scope: $scope
@@ -10,11 +10,13 @@ app.controller('RequestController', function ($controller, $scope, ProjectServic
 
         $scope.requestForm = undefined;
 
+        $scope.services = ServiceRepo.getAll();
+
         var clear = function (type) {
             delete $scope.type;
             delete $scope.title;
             delete $scope.description;
-            delete $scope.project;
+            delete $scope.service;
             if ($scope.requestForm) {
                 $scope.requestForm.$setPristine();
                 $scope.requestForm.$setUntouched();
@@ -38,31 +40,15 @@ app.controller('RequestController', function ($controller, $scope, ProjectServic
                 title: $scope.title,
                 description: $scope.description
             };
-            if ($scope.project) {
-                request.project = $scope.project;
+            if ($scope.service) {
+                request.service = $scope.service;
             }
-            ProjectService.submitRequest(request).then(function (message) {
+            ServiceRepo.submitRequest(request).then(function (message) {
                 clear();
             });
         };
 
         clear();
-
-        ProjectService.getAll().then(function (projects) {
-            $scope.projects = projects;
-            $scope.getProject = function (service) {
-                if (service.projectId && !service.project) {
-                    service.project = {};
-                    ProjectService.getById(service.projectId).then(function (project) {
-                        angular.extend(service, {
-                            project: project
-                        });
-                    });
-                    return service.project;
-                }
-                return service.project;
-            };
-        });
     }
 
 });
