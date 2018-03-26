@@ -2,7 +2,7 @@
   <br />
   <div class="row">
     <div class="col-sm-8 col-sm-offset-2" ng-hide="type">
-      <alerts seconds="45" channels="projects/feature,projects/issue" types="SUCCESS"></alerts>
+      <alerts seconds="45" channels="services/feature,services/issue" types="SUCCESS"></alerts>
       <center>
         <h3>What kind of feedback would you like to provide today?</h3>
         <hr />
@@ -44,7 +44,7 @@
           <label for="service">Service:</label>
           <select class="form-control" id="project" name="service" ng-model="service" required>
             <option value="" ng-selected="!service">Select A Service</option>
-            <option ng-repeat="s in services" value="{{s.id}}" ng-selected="s.id === service">{{s.name}}</option>
+            <option ng-repeat="s in services | filter:{isPublic:true}" value="{{s.id}}" ng-selected="s.id === service">{{s.name}}</option>
           </select>
         </div>
         <div class="pull-right">
