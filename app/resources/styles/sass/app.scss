@@ -35,6 +35,10 @@ header .navbar-header li:hover {
   text-decoration: none;
 }
 
+header .navbar-header li:hover > a > span {
+  color: #000;
+}
+
 header .navbar-toggle {
     margin-top: 6px;
     margin-bottom: 4px;
