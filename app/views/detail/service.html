@@ -40,3 +40,17 @@
     </tbody>
   </table>
 </div>
+
+<div class="container feature-proposal-container">
+  <h2>Feature Proposal</h2>
+  <hr />
+  <table ng-table="featureProposalsTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table borderless feature-proposal-table">
+    <tbody>
+      <tr ng-repeat="featureProposal in $data">
+        <td>
+          <feature-proposal feature-proposal="featureProposal" link="false"></feature-proposal>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

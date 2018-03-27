@@ -94,6 +94,48 @@ app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi) {
     };
 
 
+    var checkCreateFeatureProposals = function (service) {
+        if (service.featureProposals === undefined) {
+            service.featureProposals = [];
+        }
+    };
+
+    var getFeatureProposalsService = function (featureProposal) {
+        var service = serviceRepo.findById(featureProposal.service.id);
+        checkCreateFeatureProposals(service);
+        return service;
+    };
+
+    serviceRepo.addFeatureProposal = function (featureProposal) {
+        var service = getFeatureProposalsService(featureProposal);
+        service.featureProposals.push(featureProposal);
+    };
+
+    serviceRepo.updateFeatureProposal = function (featureProposal) {
+        var service = getFeatureProposalsService(featureProposal);
+        for (var i in service.featureProposals) {
+            if (service.featureProposals[i].id === featureProposal.id) {
+                angular.extend(service.featureProposals[i], featureProposal);
+                return;
+            }
+        }
+        service.featureProposals.push(featureProposal);
+    };
+
+    serviceRepo.removeFeatureProposalById = function (id) {
+        var services = serviceRepo.getAll();
+        for (var i in services) {
+            checkCreateFeatureProposals(services[i]);
+            for (var j in services[i].featureProposals) {
+                if (services[i].featureProposals[j].id === id) {
+                    services[i].featureProposals.splice(j, 1);
+                    return;
+                }
+            }
+        }
+    };
+
+
     serviceRepo.submitRequest = function (request) {
         angular.extend(serviceRepo.mapping.submitRequest, {
             'method': request.type === 'FEATURE' ? 'feature' : 'issue',

@@ -1,4 +1,4 @@
-app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, Note, NoteRepo, TableFactory) {
+app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, FeatureProposal, FeatureProposalRepo, Note, NoteRepo, TableFactory) {
 
     return function Service() {
         var service = this;
@@ -154,6 +154,82 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, Note, NoteRe
                 service.ideas.push(new Idea(ideas[i]));
             }
         };
+
+
+        service.featureProposals = [];
+
+        service.getFeatureProposalsPageSettings = function () {
+            return featureProposalsTable.getPageSettings();
+        };
+
+        service.getFeatureProposalsTableParams = function () {
+            return featureProposalsTable.getTableParams();
+        };
+
+        service.fetchFeatureProposalPage = function () {
+            featureProposalsTable.getPageSettings().filters = {
+                service: [service.id]
+            };
+            return FeatureProposalRepo.fetchPage(featureProposalsTable.getPageSettings());
+        };
+
+        service.featureProposalsPage = function () {
+            var pagePromise = $q(function (resolve) {
+                $timeout(function () {
+                    service.fetchFeatureProposalPage().then(function (response) {
+                        var page = angular.fromJson(response.body).payload.PageImpl;
+                        addAllFeatureProposals(page.content);
+                        resolve(page);
+                    });
+                }, 100);
+            });
+            pagePromise.then(function (page) {
+                if (featureProposalsTable.getPageSettings().pageNumber > 1 && featureProposalsTable.getPageSettings().pageNumber > page.totalPages) {
+                    featureProposalsTable.setPage(page.totalPages);
+                    service.fetchFeatureProposalPage().then(function (response) {
+                        var page = angular.fromJson(response.body).payload.PageImpl;
+                        addAllFeatureProposals(page.content);
+                    });
+                }
+            });
+            return pagePromise;
+        };
+
+        service.getFeatureProposals = function () {
+            service.featureProposals.length = 0;
+            featureProposalsTable.getPageSettings().pageNumber = 1;
+            featureProposalsTable.getPageSettings().pageSize = 1000;
+            featureProposalsTable.getPageSettings().filters = {
+                service: [service.id]
+            };
+            FeatureProposalRepo.fetchPage(featureProposalsTable.getPageSettings()).then(function (response) {
+                var page = angular.fromJson(response.body).payload.PageImpl;
+                var featureProposals = page.content;
+                for (var i in featureProposals) {
+                    service.featureProposals.push(new FeatureProposal(featureProposals[i]));
+                }
+            });
+        };
+
+        var featureProposalsTable = TableFactory.buildTable({
+            pageNumber: sessionStorage.getItem('service-feature-proposals-page') ? sessionStorage.getItem('service-feature-proposals-page') : 1,
+            pageSize: sessionStorage.getItem('service-feature-proposals-size') ? sessionStorage.getItem('service-feature-proposals-size') : 10,
+            direction: 'DESC',
+            properties: ['title'],
+            filters: {},
+            counts: [5, 10, 25, 50, 100],
+            page: service.featureProposalsPage,
+            data: service.featureProposals,
+            name: 'service-feature-proposals'
+        });
+
+        var addAllFeatureProposals = function (featureProposals) {
+            service.featureProposals.length = 0;
+            for (var i in featureProposals) {
+                service.featureProposals.push(new FeatureProposal(featureProposals[i]));
+            }
+        };
+
 
         return service;
     };
