@@ -27,7 +27,7 @@
   </table>
 </div>
 
-<div class="container ideas-container">
+<div class="container ideas-container" ng-if="isAdmin() || isManager()">
   <h2>Ideas</h2>
   <hr />
   <table ng-table="ideasTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table borderless ideas-table">
