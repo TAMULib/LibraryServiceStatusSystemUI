@@ -8,10 +8,6 @@ app.config(function ($routeProvider) {
         templateUrl: 'views/management.html',
         access: ["ROLE_ADMIN", "ROLE_WEB_MANAGER", "ROLE_SERVICE_MANAGER"]
     }).
-    when('/users', {
-        templateUrl: 'views/users.html',
-        access: ["ROLE_ADMIN", "ROLE_WEB_MANAGER", "ROLE_SERVICE_MANAGER"]
-    }).
     when('/services', {
         templateUrl: 'views/management/services.html',
         access: ["ROLE_ADMIN", "ROLE_WEB_MANAGER", "ROLE_SERVICE_MANAGER"]
