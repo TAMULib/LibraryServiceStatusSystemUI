@@ -24,6 +24,10 @@
     </select>
     <br />
 
+    <validatedinput model="serviceData" property="website" label="Website" placeholder="Service Website" form="forms.update" validations="serviceRepo.getValidations()" results="serviceRepo.getValidationResults()"></validatedinput>
+
+    <validatedinput model="serviceData" property="software" label="Software" placeholder="Service Software" form="forms.update" validations="serviceRepo.getValidations()" results="serviceRepo.getValidationResults()"></validatedinput>
+
     <service-status model="serviceData"></service-status>
 
     <div class="checkbox">

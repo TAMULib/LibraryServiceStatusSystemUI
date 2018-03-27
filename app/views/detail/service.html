@@ -8,6 +8,8 @@
   <hr />
   <div>
     <span ng-bind-html="service.description | decode"></span>
+    <p ng-if="service.software"><label>Software: </label><span>&nbsp{{service.software}}</span></p>
+    <p ng-if="service.website"><label>Website: </label><a href="{{service.website}}"><span>&nbsp{{service.website}}</span></a></p>
   </div>
 </div>
 
