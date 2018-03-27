@@ -1,0 +1,27 @@
+<div class="modal-header {{attr.modalHeaderClass}}">
+  <button type="button" class="close" ng-click="resetIdeas()" aria-label="Close">
+    <span class="modal-close" aria-hidden="true">&times;</span>
+  </button>
+  <h3 class="modal-title">Edit Idea</h3>
+</div>
+
+<form ng-submit="updateIdea()" name="forms.update" novalidate>
+
+  <validationmessage results="ideaRepo.getValidationResults()"></validationmessage>
+
+  <div class="modal-body">
+
+    <validatedinput model="ideaData" property="title" label="Title" placeholder="Title of the Idea" form="forms.update" validations="ideaRepo.getValidations()" results="ideaRepo.getValidationResults()"></validatedinput>
+
+    <validatedselect model="ideaData" property="service" label="Services" form="forms.update" validations="ideaRepo.getValidations()" results="ideaRepo.getValidationResults()" options="services" optionProperty="name"></validatedselect>
+
+    <label>Idea Description</label>
+    <textarea ui-tinymce="tinymceOptions" ng-model="ideaData.description"></textarea>
+    <br />
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" ng-click="resetIdeas()">Cancel</button>
+      <button id="idea-update" type="submit" class="btn btn-primary" ng-disabled="forms.update.$invalid">Update</button>
+    </div>
+  </div>
+</form>

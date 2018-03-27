@@ -51,6 +51,49 @@ app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi) {
         }
     };
 
+
+    var checkCreateIdeas = function (service) {
+        if (service.ideas === undefined) {
+            service.ideas = [];
+        }
+    };
+
+    var getIdeasService = function (idea) {
+        var service = serviceRepo.findById(idea.service.id);
+        checkCreateIdeas(service);
+        return service;
+    };
+
+    serviceRepo.addIdea = function (idea) {
+        var service = getIdeasService(idea);
+        service.ideas.push(idea);
+    };
+
+    serviceRepo.updateIdea = function (idea) {
+        var service = getIdeasService(idea);
+        for (var i in service.ideas) {
+            if (service.ideas[i].id === idea.id) {
+                angular.extend(service.ideas[i], idea);
+                return;
+            }
+        }
+        service.ideas.push(idea);
+    };
+
+    serviceRepo.removeIdeaById = function (id) {
+        var services = serviceRepo.getAll();
+        for (var i in services) {
+            checkCreateIdeas(services[i]);
+            for (var j in services[i].ideas) {
+                if (services[i].ideas[j].id === id) {
+                    services[i].ideas.splice(j, 1);
+                    return;
+                }
+            }
+        }
+    };
+
+
     serviceRepo.submitRequest = function (request) {
         angular.extend(serviceRepo.mapping.submitRequest, {
             'method': request.type === 'FEATURE' ? 'feature' : 'issue',
