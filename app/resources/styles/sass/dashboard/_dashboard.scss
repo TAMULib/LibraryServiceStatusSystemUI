@@ -19,3 +19,15 @@
     min-width: 225px;
   }
 }
+
+.dashboard-notes-table {
+  margin-bottom: 0;
+}
+
+.dashboard-notes-table thead {
+  display: none;
+}
+
+.dashboard-notes-table tbody tr td {
+  border-top: none;
+}
