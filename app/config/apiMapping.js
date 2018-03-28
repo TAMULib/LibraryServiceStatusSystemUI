@@ -95,6 +95,11 @@ var apiMapping = {
         lazy: true,
         validations: true,
         modelListeners: false,
+        page: {
+            'endpoint': '/private/queue',
+            'controller': 'feature-proposals',
+            'method': 'page'
+        },
         listen: {
             'endpoint': '/channel',
             'controller': 'feature-proposals',
@@ -103,10 +108,35 @@ var apiMapping = {
             'endpoint': '/private/queue',
             'controller': 'feature-proposals'
         },
+        getById: {
+            'endpoint': '/private/queue',
+            'controller': 'feature-proposals',
+            'method': ':id/'
+        },
         create: {
             'endpoint': '/private/queue',
             'controller': 'feature-proposals',
             'method': 'create'
+        },
+        elevate: {
+            'endpoint': '/private/queue',
+            'controller': 'feature-proposals',
+            'method': 'elevate'
+        },
+        update: {
+            'endpoint': '/private/queue',
+            'controller': 'feature-proposals',
+            'method': 'update'
+        },
+        remove: {
+            'endpoint': '/private/queue',
+            'controller': 'feature-proposals',
+            'method': 'remove'
+        },
+        vote: {
+            'endpoint': '/private/queue',
+            'controller': 'feature-proposals',
+            'method': ':id/vote'
         },
         createListen: {
             'endpoint': '/channel',
@@ -119,21 +149,6 @@ var apiMapping = {
         deleteListen: {
             'endpoint': '/channel',
             'controller': 'feature-proposals/delete'
-        },
-        update: {
-            'endpoint': '/private/queue',
-            'controller': 'feature-proposals',
-            'method': 'update'
-        },
-        remove: {
-            'endpoint': '/private/queue',
-            'controller': 'feature-proposals',
-            'method': 'remove'
-        },
-        page: {
-            'endpoint': '/private/queue',
-            'controller': 'feature-proposals',
-            'method': 'page'
         }
     },
     Note: {

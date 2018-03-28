@@ -1,6 +1,6 @@
-app.controller('IdeaController', function ($controller, $scope, Idea, IdeaRepo, ServiceRepo) {
+app.controller('IdeaController', function ($controller, $routeParams, $scope, FeatureProposal, Idea, IdeaRepo, ServiceRepo) {
 
-    angular.extend(this, $controller('AbstractController', {
+    angular.extend(this, $controller('FeatureProposalController', {
         $scope: $scope
     }));
 
@@ -11,11 +11,7 @@ app.controller('IdeaController', function ($controller, $scope, Idea, IdeaRepo, 
         description: '',
     };
 
-    $scope.forms = {};
-
     $scope.ideaToDelete = {};
-
-    $scope.services = ServiceRepo.getAll();
 
     ServiceRepo.ready().then(function () {
 
@@ -29,27 +25,6 @@ app.controller('IdeaController', function ($controller, $scope, Idea, IdeaRepo, 
             property: 'lastModified',
             direction: 'DESC'
         }];
-
-        $scope.resetIdeas = function () {
-            if ($scope.ideaData) {
-                $scope.ideaData.refresh();
-                $scope.ideaData.clearValidationResults();
-            }
-            for (var key in $scope.forms) {
-                if (!$scope.forms[key].$pristine) {
-                    $scope.forms[key].$setPristine();
-                    $scope.forms[key].$setUntouched();
-                }
-            }
-            $scope.ideaData = new Idea({
-                title: '',
-                description: '',
-                service: $scope.services[0]
-            });
-            $scope.closeModal();
-        };
-
-        $scope.resetIdeas();
 
         $scope.createIdea = function () {
             IdeaRepo.create($scope.ideaData).then(function (res) {
