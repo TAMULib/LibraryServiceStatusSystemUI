@@ -26,7 +26,7 @@ app.repo("NoteRepo", function NoteRepo($q, $timeout, WsApi, Note, ServiceRepo, T
         return WsApi.fetch(noteRepo.mapping.page);
     };
 
-    noteRepo.page = function () {
+    noteRepo.page = function () {    	
         var pagePromise = $q(function (resolve) {
             $timeout(function () {
                 noteRepo.fetchPage().then(function (response) {

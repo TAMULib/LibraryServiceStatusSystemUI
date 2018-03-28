@@ -91,6 +91,51 @@ var apiMapping = {
             'method': 'page'
         }
     },
+    FeatureProposal: {
+        lazy: true,
+        validations: true,
+        modelListeners: false,
+        listen: {
+            'endpoint': '/channel',
+            'controller': 'feature-proposals',
+        },
+        instantiate: {
+            'endpoint': '/private/queue',
+            'controller': 'feature-proposals'
+        },
+        create: {
+            'endpoint': '/private/queue',
+            'controller': 'feature-proposals',
+            'method': 'create'
+        },
+        createListen: {
+            'endpoint': '/channel',
+            'controller': 'feature-proposals/create'
+        },
+        updateListen: {
+            'endpoint': '/channel',
+            'controller': 'feature-proposals/update'
+        },
+        deleteListen: {
+            'endpoint': '/channel',
+            'controller': 'feature-proposals/delete'
+        },
+        update: {
+            'endpoint': '/private/queue',
+            'controller': 'feature-proposals',
+            'method': 'update'
+        },
+        remove: {
+            'endpoint': '/private/queue',
+            'controller': 'feature-proposals',
+            'method': 'remove'
+        },
+        page: {
+            'endpoint': '/private/queue',
+            'controller': 'feature-proposals',
+            'method': 'page'
+        }
+    },
     Note: {
         lazy: true,
         validations: true,
