@@ -16,7 +16,7 @@
 <div class="container notes-container">
   <h2>Notes</h2>
   <hr />
-  <table ng-table="notesTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table borderless notes-table">
+  <table ng-table="notesTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table borderless service-notes-table">
     <tbody>
       <tr ng-repeat="note in $data">
         <td>
@@ -30,7 +30,7 @@
 <div class="container ideas-container" ng-if="isAdmin() || isManager()">
   <h2>Ideas</h2>
   <hr />
-  <table ng-table="ideasTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table borderless ideas-table">
+  <table ng-table="ideasTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table borderless service-ideas-table">
     <tbody>
       <tr ng-repeat="idea in $data">
         <td>
@@ -41,10 +41,10 @@
   </table>
 </div>
 
-<div class="container feature-proposal-container">
+<div class="container feature-proposals-container">
   <h2>Feature Proposal</h2>
   <hr />
-  <table ng-table="featureProposalsTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table borderless feature-proposal-table">
+  <table ng-table="featureProposalsTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table borderless service-feature-proposals-table">
     <tbody>
       <tr ng-repeat="featureProposal in $data">
         <td>
