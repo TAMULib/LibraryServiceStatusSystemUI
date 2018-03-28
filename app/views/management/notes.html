@@ -1,4 +1,4 @@
-<div class="management-table container" ng-controller="NoteController">
+<div class="management-table" ng-controller="NoteController">
 
   <div class="management-control">
     <div class="row">
@@ -55,7 +55,7 @@
         <td>{{note.lastModified | date : 'medium'}}</td>
         <td>{{note.pinned}}</td>
         <td>{{note.active}}</td>
-        <td class="actions-column">
+        <td class="actions-column text-center">
           <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editNote(note)"></span>
           <span class="glyphicon glyphicon-time" title="schedule" ng-click="editSchedule(note)"></span>
           <span class="glyphicon glyphicon-trash" title="delte" ng-click="confirmDelete(note)"></span>

@@ -1,7 +1,12 @@
 <div class="management-table" ng-controller="NotificationController">
 
-  <button class="btn btn-default view-action-button" ng-click="openModal('#addNotificationModal')">Add Notification</button>
-  <hr />
+  <div class="management-control clearfix">
+    <div class="row">
+      <div class="col-md-12">
+        <button class="btn btn-default view-action-button pull-right" ng-click="openModal('#addNotificationModal')">Add Notification</button>
+      </div>
+    </div>
+  </div>
 
   <table ng-table="tableParams" show-filter="false" class="table table-bordered table-striped notification-table">
     <tr ng-repeat="notification in notifications track by notification.id">
@@ -9,7 +14,7 @@
       <td title="'Body'">{{notification.body}}</td>
       <td title="'Locations'">{{notification.locations.join(', ')}}</td>
       <td title="'Active'">{{notification.active}}</td>
-      <td class="actions-column" title="'Actions'">
+      <td class="actions-column text-center" title="'Actions'">
         <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editNotification(notification)"></span>
         <span class="glyphicon glyphicon-time" title="schedule" ng-click="editSchedule(notification)"></span>
         <span class="glyphicon glyphicon-trash" title="delete" ng-click="confirmDelete(notification)"></span>
