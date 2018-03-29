@@ -1,6 +1,6 @@
-app.controller('IdeaController', function ($controller, $scope, Idea, IdeaRepo, ServiceRepo) {
+app.controller('IdeaController', function ($controller, $scope, FeatureProposalRepo, Idea, IdeaRepo, ServiceRepo) {
 
-    angular.extend(this, $controller('AbstractController', {
+    angular.extend(this, $controller('AbstractIdeaController', {
         $scope: $scope
     }));
 
@@ -35,7 +35,7 @@ app.controller('IdeaController', function ($controller, $scope, Idea, IdeaRepo, 
             property: 'lastModified'
         }
     ];
-    
+
     $scope.filter = $scope.filters[0];
 
     $scope.activeFilters = IdeaRepo.getPageSettings().filters;
@@ -51,7 +51,7 @@ app.controller('IdeaController', function ($controller, $scope, Idea, IdeaRepo, 
     $scope.selectFilter = function(filter) {
         $scope.filter = filter;
     };
-    
+
     $scope.removeFilter = function (prop, v) {
         $scope.activeFilters[prop].splice($scope.activeFilters[prop].indexOf(v), 1);
         if($scope.activeFilters[prop].length === 0) {
@@ -59,7 +59,7 @@ app.controller('IdeaController', function ($controller, $scope, Idea, IdeaRepo, 
         }
         IdeaRepo.getTableParams().reload();
     };
-    
+
     $scope.applyFilter = function(filter) {
         if($scope.activeFilters[filter.property]) {
             $scope.activeFilters[filter.property].push(filter.value);
@@ -78,7 +78,7 @@ app.controller('IdeaController', function ($controller, $scope, Idea, IdeaRepo, 
             }
         }
     };
-    
+
     $scope.unsorted = function(prop) {
         for(var i in activeSort) {
             var sort = activeSort[i];
@@ -88,7 +88,7 @@ app.controller('IdeaController', function ($controller, $scope, Idea, IdeaRepo, 
         }
         return true;
     };
-    
+
     $scope.asc = function(prop) {
         for(var i in activeSort) {
             var sort = activeSort[i];
@@ -98,7 +98,7 @@ app.controller('IdeaController', function ($controller, $scope, Idea, IdeaRepo, 
         }
         return false;
     };
-    
+
     $scope.desc = function(prop) {
         for(var i in activeSort) {
             var sort = activeSort[i];
@@ -108,7 +108,7 @@ app.controller('IdeaController', function ($controller, $scope, Idea, IdeaRepo, 
         }
         return false;
     };
-    
+
     $scope.toggleSort = function(prop) {
         var asc = true;
         for(var i in activeSort) {
@@ -155,44 +155,68 @@ app.controller('IdeaController', function ($controller, $scope, Idea, IdeaRepo, 
             $scope.closeModal();
         };
 
-        $scope.resetIdeas();
-
-        $scope.createIdea = function () {
-            IdeaRepo.create($scope.ideaData).then(function (res) {
-                if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
-                    $scope.resetIdeas();
-                }
-            });
-        };
-
-        $scope.editIdea = function (idea) {
-            $scope.ideaData = idea;
-            $scope.openModal('#editIdeaModal');
-        };
-
-        $scope.updateIdea = function () {
-            IdeaRepo.update($scope.ideaData).then(function (res) {
-                if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
-                    $scope.resetIdeas();
-                }
-            });
-        };
-
-        $scope.confirmDelete = function (idea) {
-            $scope.openModal('#deleteIdeaModal');
-            $scope.ideaToDelete = idea;
-        };
-
-        $scope.deleteIdea = function () {
-            $scope.deleting = true;
-            $scope.ideaToDelete.delete().then(function () {
-                $scope.closeModal();
-                $scope.deleting = false;
-                $scope.ideaToDelete = {};
-            });
-        };
-
     });
+
+    $scope.resetIdeas = function () {
+        $scope.resetForms($scope.ideaData);
+        $scope.ideaData = new Idea({
+        title: '',
+        description: '',
+        service: $scope.services[0]
+        });
+        $scope.closeModal();
+    };
+
+    $scope.resetIdeas();
+    
+    $scope.createIdea = function () {
+        IdeaRepo.create($scope.ideaData).then(function (res) {
+        if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
+            $scope.resetIdeas();
+        }
+        });
+    };
+
+    $scope.editIdea = function (idea) {
+        $scope.ideaData = idea;
+        $scope.openModal('#editIdeaModal');
+    };
+
+    $scope.updateIdea = function () {
+        IdeaRepo.update($scope.ideaData).then(function (res) {
+        if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
+            $scope.resetIdeas();
+        }
+        });
+    };
+
+    $scope.confirmDelete = function (idea) {
+        $scope.openModal('#deleteIdeaModal');
+        $scope.ideaToDelete = idea;
+    };
+
+    $scope.deleteIdea = function () {
+        $scope.deleting = true;
+        $scope.ideaToDelete.delete().then(function () {
+        $scope.closeModal();
+        $scope.deleting = false;
+        $scope.ideaToDelete = {};
+        });
+    };
+
+    $scope.confirmElevate = function (idea) {
+        $scope.ideaToElevate = idea;
+        $scope.openModal('#elevateIdeaModal');
+    };
+
+    $scope.elevateIdea = function (idea) {
+        FeatureProposalRepo.elevate(idea).then(function (res) {
+        var message = angular.fromJson(res.body);
+        if (message.meta.status === 'SUCCESS') {
+            angular.extend(FeatureProposalRepo, message.payload);
+        }
+        });
+    };
 
     $scope.tinymceOptions = {
         selector: 'textarea',

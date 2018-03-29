@@ -1,0 +1,34 @@
+<div class="modal-header {{attr.modalHeaderClass}}">
+    <button type="button" class="close" ng-click="resetFeatureProposals()" aria-label="Close">
+      <span class="modal-close" aria-hidden="true">&times;</span>
+    </button>
+    <h3 class="modal-title">Elevate Idea to Feature Proposal</h3>
+  </div>
+  
+  <form ng-submit="elevateIdea()" name="forms.elevate" novalidate>
+  
+    <validationmessage results="featureProposalRepo.getValidationResults()"></validationmessage>
+  
+    <div class="modal-body">
+  
+      <validatedinput model="fpData" property="title" label="Title" placeholder="Title of the Feature Proposal" form="forms.elevate" validations="featureProposalRepo.getValidations()" results="featureProposalRepo.getValidationResults()"></validatedinput>
+  
+      <validatedselect model="fpData" property="service" label="Services" form="forms.elevate" validations="featureProposalRepo.getValidations()" results="featureProposalRepo.getValidationResults()" options="services" optionProperty="name"></validatedselect>
+  
+      <label>Idea Description</label>
+      <textarea ui-tinymce="tinymceOptions" ng-model="fpData.description"></textarea>
+      <br />
+
+      <div class="form-group">
+        <label>Idea</label>
+        <input class="form-control" type="text" value="{{fpData.ideas[0].title}}" disabled/>
+      </div>
+      
+        
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="resetFeatureProposals()">Cancel</button>
+        <button id="feature-proposal-update" type="submit" class="btn btn-primary" ng-disabled="forms.elevate.$invalid">Elevate</button>
+      </div>
+    </div>
+  </form>
+  
