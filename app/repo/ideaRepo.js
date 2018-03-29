@@ -1,4 +1,4 @@
-app.repo("IdeaRepo", function IdeaRepo($q, $timeout, WsApi, Idea, ServiceRepo, TableFactory) {
+app.repo("IdeaRepo", function IdeaRepo($q, WsApi, Idea, ServiceRepo, TableFactory) {
 
     var ideaRepo = this;
 
@@ -27,27 +27,14 @@ app.repo("IdeaRepo", function IdeaRepo($q, $timeout, WsApi, Idea, ServiceRepo, T
     };
 
     ideaRepo.page = function () {
-        var pagePromise = $q(function (resolve) {
-            $timeout(function () {
-                ideaRepo.fetchPage().then(function (response) {
-                    var page = angular.fromJson(response.body).payload.PageImpl;
-                    ideaRepo.empty();
-                    ideaRepo.addAll(page.content);
-                    resolve(page);
-                });
-            }, 100);
+        return $q(function (resolve) {
+            ideaRepo.fetchPage().then(function (response) {
+                var page = angular.fromJson(response.body).payload.PageImpl;
+                ideaRepo.empty();
+                ideaRepo.addAll(page.content);
+                resolve(page);
+            });
         });
-        pagePromise.then(function (page) {
-            if (table.getPageSettings().pageNumber > 1 && table.getPageSettings().pageNumber > page.totalPages) {
-                table.setPage(page.totalPages);
-                ideaRepo.fetchPage().then(function (response) {
-                    var page = angular.fromJson(response.body).payload.PageImpl;
-                    ideaRepo.empty();
-                    ideaRepo.addAll(page.content);
-                });
-            }
-        });
-        return pagePromise;
     };
 
     var table = TableFactory.buildTable({

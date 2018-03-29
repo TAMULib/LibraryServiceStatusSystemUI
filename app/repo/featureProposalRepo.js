@@ -1,4 +1,4 @@
-app.repo("FeatureProposalRepo", function FeatureProposalRepo($q, $timeout, WsApi, FeatureProposal, ServiceRepo, TableFactory) {
+app.repo("FeatureProposalRepo", function FeatureProposalRepo($q, WsApi, FeatureProposal, ServiceRepo, TableFactory) {
 
     var featureProposalRepo = this;
 
@@ -27,27 +27,14 @@ app.repo("FeatureProposalRepo", function FeatureProposalRepo($q, $timeout, WsApi
     };
 
     featureProposalRepo.page = function () {
-        var pagePromise = $q(function (resolve) {
-            $timeout(function () {
-                featureProposalRepo.fetchPage().then(function (response) {
-                    var page = angular.fromJson(response.body).payload.PageImpl;
-                    featureProposalRepo.empty();
-                    featureProposalRepo.addAll(page.content);
-                    resolve(page);
-                });
-            }, 100);
+        return $q(function (resolve) {
+            featureProposalRepo.fetchPage().then(function (response) {
+                var page = angular.fromJson(response.body).payload.PageImpl;
+                featureProposalRepo.empty();
+                featureProposalRepo.addAll(page.content);
+                resolve(page);
+            });
         });
-        pagePromise.then(function (page) {
-            if (table.getPageSettings().pageNumber > 1 && table.getPageSettings().pageNumber > page.totalPages) {
-                table.setPage(page.totalPages);
-                featureProposalRepo.fetchPage().then(function (response) {
-                    var page = angular.fromJson(response.body).payload.PageImpl;
-                    featureProposalRepo.empty();
-                    featureProposalRepo.addAll(page.content);
-                });
-            }
-        });
-        return pagePromise;
     };
 
     var table = TableFactory.buildTable({

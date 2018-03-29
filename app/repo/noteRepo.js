@@ -1,4 +1,4 @@
-app.repo("NoteRepo", function NoteRepo($q, $timeout, WsApi, Note, ServiceRepo, TableFactory) {
+app.repo("NoteRepo", function NoteRepo($q, WsApi, Note, ServiceRepo, TableFactory) {
 
     var noteRepo = this;
 
@@ -27,27 +27,14 @@ app.repo("NoteRepo", function NoteRepo($q, $timeout, WsApi, Note, ServiceRepo, T
     };
 
     noteRepo.page = function () {    	
-        var pagePromise = $q(function (resolve) {
-            $timeout(function () {
-                noteRepo.fetchPage().then(function (response) {
-                    var page = angular.fromJson(response.body).payload.PageImpl;
-                    noteRepo.empty();
-                    noteRepo.addAll(page.content);
-                    resolve(page);
-                });
-            }, 100);
+        return $q(function (resolve) {
+            noteRepo.fetchPage().then(function (response) {
+                var page = angular.fromJson(response.body).payload.PageImpl;
+                noteRepo.empty();
+                noteRepo.addAll(page.content);
+                resolve(page);
+            });
         });
-        pagePromise.then(function (page) {
-            if (table.getPageSettings().pageNumber > 1 && table.getPageSettings().pageNumber > page.totalPages) {
-                table.setPage(page.totalPages);
-                noteRepo.fetchPage().then(function (response) {
-                    var page = angular.fromJson(response.body).payload.PageImpl;
-                    noteRepo.empty();
-                    noteRepo.addAll(page.content);
-                });
-            }
-        });
-        return pagePromise;
     };
 
     var table = TableFactory.buildTable({

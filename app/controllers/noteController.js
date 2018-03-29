@@ -95,7 +95,7 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
         if($scope.activeFilters[prop].length === 0) {
             delete $scope.activeFilters[prop];
         }
-        NoteRepo.page();
+        NoteRepo.getTableParams().reload();
     };
     
     $scope.applyFilter = function(filter) {
@@ -104,7 +104,7 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
         } else {
             $scope.activeFilters[filter.property] = [filter.value];
         }
-        NoteRepo.page();
+        NoteRepo.getTableParams().reload();
         delete $scope.filter.value;
     };
 
@@ -167,7 +167,7 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
                 direction: 'ASC'
             });
         }
-        NoteRepo.page();
+        NoteRepo.getTableParams().reload();
     };
 
     ServiceRepo.ready().then(function () {
