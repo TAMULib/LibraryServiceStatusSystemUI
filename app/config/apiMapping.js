@@ -40,6 +40,11 @@ var apiMapping = {
             'endpoint': '/channel',
             'controller': 'users'
         },
+        getUser: {
+            'endpoint': '/private/queue',
+            'controller': 'users',
+            'method': 'user'
+        },
         update: {
             'endpoint': '/private/queue',
             'controller': 'users',
@@ -95,6 +100,11 @@ var apiMapping = {
         lazy: true,
         validations: true,
         modelListeners: false,
+        page: {
+            'endpoint': '/private/queue',
+            'controller': 'feature-proposals',
+            'method': 'page'
+        },
         listen: {
             'endpoint': '/channel',
             'controller': 'feature-proposals',
@@ -103,10 +113,35 @@ var apiMapping = {
             'endpoint': '/private/queue',
             'controller': 'feature-proposals'
         },
+        getById: {
+            'endpoint': '/private/queue',
+            'controller': 'feature-proposals',
+            'method': ':id/'
+        },
         create: {
             'endpoint': '/private/queue',
             'controller': 'feature-proposals',
             'method': 'create'
+        },
+        elevate: {
+            'endpoint': '/private/queue',
+            'controller': 'feature-proposals',
+            'method': 'elevate'
+        },
+        update: {
+            'endpoint': '/private/queue',
+            'controller': 'feature-proposals',
+            'method': 'update'
+        },
+        remove: {
+            'endpoint': '/private/queue',
+            'controller': 'feature-proposals',
+            'method': 'remove'
+        },
+        vote: {
+            'endpoint': '/private/queue',
+            'controller': 'feature-proposals',
+            'method': ':id/vote'
         },
         createListen: {
             'endpoint': '/channel',
@@ -119,21 +154,6 @@ var apiMapping = {
         deleteListen: {
             'endpoint': '/channel',
             'controller': 'feature-proposals/delete'
-        },
-        update: {
-            'endpoint': '/private/queue',
-            'controller': 'feature-proposals',
-            'method': 'update'
-        },
-        remove: {
-            'endpoint': '/private/queue',
-            'controller': 'feature-proposals',
-            'method': 'remove'
-        },
-        page: {
-            'endpoint': '/private/queue',
-            'controller': 'feature-proposals',
-            'method': 'page'
         }
     },
     Note: {
@@ -284,6 +304,11 @@ var apiMapping = {
         getById: {
             'endpoint': '/private/queue',
             'controller': 'projects'
+        },
+        submitFeatureProposal: {
+            'endpoint': '/private/queue',
+            'controller': 'projects',
+            'method': 'feature'
         }
     }
 };

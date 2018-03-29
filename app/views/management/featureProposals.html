@@ -1,0 +1,26 @@
+<div class="management-table" ng-controller="FeatureProposalController">
+
+    <button class="btn btn-default view-action-button" ng-click="openModal('#addFeatureProposalModal')">Add Feature Proposal</button>
+    <hr />
+  
+    <table ng-table="fpTableParams = $scope.service.getIdeasTableParams();" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped feature-proposal-table">
+      <tr ng-repeat="fp in $data">
+        <td width="30" header="'views/ng-table/checkbox.html'">
+          <input type="checkbox" />
+        </td>
+        <td title="'Service'"><a href="{{'service/' + idea.service.id + '/detail/'}}">{{idea.service.name}}</a> <span ng-if="idea.schedules.length > 0">(scheduled)</span></td>
+        <td title="'Title'"><a href="{{'idea/' + idea.id + '/detail/'}}">{{idea.title}}</a></td>
+        <td title="'Description'">{{idea.description}}</td>
+        <td title="'Last Modified'">{{idea.lastModified | date : 'medium'}}</td>
+        <td class="actions-column" title="'Actions'">
+          <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editIdea(idea)"></span>
+          <span class="glyphicon glyphicon-trash" title="delete" ng-click="confirmDelete(idea)"></span>
+        </td>
+      </tr>
+    </table>
+  
+    <modal modal-id="addIdeaModal" modal-view="views/modals/addIdeaModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+    <modal modal-id="deleteIdeaModal" modal-view="views/modals/deleteIdeaModal.html" modal-header-class="modal-header-danger" wvr-modal-backdrop="static"></modal>
+    <modal modal-id="editIdeaModal" modal-view="views/modals/editIdeaModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+  </div>
+  

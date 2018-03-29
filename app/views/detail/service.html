@@ -27,7 +27,8 @@
   </table>
 </div>
 
-<div class="container ideas-container" ng-if="isAdmin() || isManager()">
+<!-- NOTE: may be used when wanting to display users ideas per service
+<div class="container ideas-container">
   <h2>Ideas</h2>
   <hr />
   <table ng-table="ideasTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table borderless service-ideas-table">
@@ -40,11 +41,22 @@
     </tbody>
   </table>
 </div>
+-->
+
+<div class="container" ng-if="isAdmin() || isManager()">
+  <div class="tabs">
+    <span ng-click="setActiveTab('ideas')" ng-class="{'active': activeTab === 'ideas'}" class="tab">Ideas</span>
+    <span ng-click="setActiveTab('featureProposals')" ng-class="{'active': activeTab === 'featureProposals'}" class="tab">Feature Proposals</span>
+    <hr />
+  </div>
+  <div ng-include="'views/detail/service/' + activeTab + '.html'"></div>
+</div>
 
 <div class="container feature-proposals-container">
-  <h2>Feature Proposal</h2>
+  <h2 class="inline-h2">Feature Proposal</h2>
+  <button ng-if="isAnonymous()" class="btn btn-primary pull-right" ng-click="login()">Login To Vote</button>
   <hr />
-  <table ng-table="featureProposalsTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table borderless service-feature-proposals-table">
+    <table ng-table="featureProposalsTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table borderless service-feature-proposals-table">
     <tbody>
       <tr ng-repeat="featureProposal in $data">
         <td>
