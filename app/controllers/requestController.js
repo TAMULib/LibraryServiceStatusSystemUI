@@ -4,7 +4,7 @@ app.controller('RequestController', function ($controller, $scope, ServiceRepo, 
         $scope: $scope
     }));
 
-    if ($scope.isAnonymous()) {
+    if (StorageService.get('role') === 'ROLE_ANONYMOUS') {
         $scope.login();
     } else {
 
