@@ -299,6 +299,11 @@ var apiMapping = {
         getById: {
             'endpoint': '/private/queue',
             'controller': 'projects'
+        },
+        submitFeatureProposal: {
+            'endpoint': '/private/queue',
+            'controller': 'projects',
+            'method': 'feature'
         }
     }
 };

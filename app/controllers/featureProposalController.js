@@ -1,4 +1,4 @@
-app.controller('FeatureProposalController', function ($controller, $scope, FeatureProposal, FeatureProposalRepo) {
+app.controller('FeatureProposalController', function ($controller, $scope, FeatureProposal, FeatureProposalRepo, ProjectService) {
 
   angular.extend(this, $controller('AbstractIdeaController', {
     $scope: $scope
@@ -21,6 +21,20 @@ app.controller('FeatureProposalController', function ($controller, $scope, Featu
       if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
         $scope.resetFeatureProposals();
       }
+    });
+  };
+
+  $scope.select = function(fp, modal) {
+    $scope.fpData = fp;
+    $scope.openModal(modal);
+  };
+
+  $scope.submitFeatureProposal = function(fp) {
+    $scope.submitting = true;
+    ProjectService.submitFeatureProposal(fp).then(function() {
+      fp.submitted = true;
+      $scope.submitting = false;
+      $scope.resetFeatureProposals();
     });
   };
 

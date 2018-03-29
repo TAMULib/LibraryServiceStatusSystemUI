@@ -4,12 +4,13 @@
   <hr />
 
   <table ng-table="featureProposalsTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped feature-proposal-table">
-    <tr ng-repeat="fp in $data">
+    <tr ng-repeat="fp in $data | filter:{submitted:false}">
       <td title="'Service'">{{fp.service.name}}</td>
       <td title="'Title'">{{fp.title}}</td>
       <td title="'Description'">{{fp.description}}</td>
       <td title="'Last Modified'">{{fp.lastModified | date : 'medium'}}</td>
       <td class="actions-column" title="'Actions'">
+        <span class="glyphicon glyphicon-upload" title="submit" ng-click="select(fp, '#submitFpModal');"></span>
         <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editFp(fp)"></span>
         <span class="glyphicon glyphicon-trash" title="delete" ng-click="confirmDeleteFp(fp)"></span>
       </td>
@@ -17,6 +18,7 @@
   </table>
 
   <modal modal-id="addFpModal" modal-view="views/modals/detail/service/addFpModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+  <modal modal-id="submitFpModal" modal-view="views/modals/detail/service/submitFpModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
   <modal modal-id="deleteFpModal" modal-view="views/modals/detail/service/deleteFpModal.html" modal-header-class="modal-header-danger" wvr-modal-backdrop="static"></modal>
   <modal modal-id="editFpModal" modal-view="views/modals/detail/service/editFpModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
 </div>
