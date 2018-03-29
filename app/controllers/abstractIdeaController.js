@@ -1,4 +1,4 @@
-app.controller('AbstractIdeaController', function ($controller, $scope, FeatureProposalRepo, IdeaRepo, ServiceRepo) {
+app.controller('AbstractIdeaController', function ($controller, $scope, FeatureProposal, FeatureProposalRepo, IdeaRepo, ServiceRepo) {
 
   angular.extend(this, $controller('AbstractController', {
       $scope: $scope
@@ -23,6 +23,26 @@ app.controller('AbstractIdeaController', function ($controller, $scope, FeatureP
             $scope.forms[key].$setUntouched();
         }
     }
+  };
+
+  $scope.resetFeatureProposals = function () {
+    $scope.resetForms($scope.fpData);
+    $scope.fpData = new FeatureProposal({
+      title: '',
+      description: '',
+      services: null,
+    });
+    $scope.closeModal();
+  };
+
+  $scope.resetFeatureProposals();
+
+  $scope.createFeatureProposal = function () {
+    FeatureProposalRepo.create($scope.fpData).then(function (res) {
+      if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
+        $scope.resetFeatureProposals();
+      }
+    });
   };
 
 });
