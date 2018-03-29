@@ -26,14 +26,23 @@ app.repo("FeatureProposalRepo", function FeatureProposalRepo($q, WsApi, FeatureP
         return WsApi.fetch(featureProposalRepo.mapping.page);
     };
 
-    featureProposalRepo.page = function () {
-        return $q(function (resolve) {
-            featureProposalRepo.fetchPage().then(function (response) {
-                var page = angular.fromJson(response.body).payload.PageImpl;
-                featureProposalRepo.empty();
-                featureProposalRepo.addAll(page.content);
+    var safePage = function(resolve) {
+        featureProposalRepo.fetchPage().then(function (response) {
+            var page = angular.fromJson(response.body).payload.PageImpl;
+            featureProposalRepo.empty();
+            featureProposalRepo.addAll(page.content);
+            if (table.getPageSettings().pageNumber > 1 && table.getPageSettings().pageNumber > page.totalPages) {
+                table.setPage(page.totalPages);
+                safePage(resolve);
+            } else {
                 resolve(page);
-            });
+            }
+        });
+    };
+
+    featureProposalRepo.page = function () {    	
+        return $q(function (resolve) {
+            safePage(resolve);
         });
     };
 

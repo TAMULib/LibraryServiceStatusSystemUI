@@ -26,14 +26,23 @@ app.repo("IdeaRepo", function IdeaRepo($q, WsApi, Idea, ServiceRepo, TableFactor
         return WsApi.fetch(ideaRepo.mapping.page);
     };
 
-    ideaRepo.page = function () {
-        return $q(function (resolve) {
-            ideaRepo.fetchPage().then(function (response) {
-                var page = angular.fromJson(response.body).payload.PageImpl;
-                ideaRepo.empty();
-                ideaRepo.addAll(page.content);
+    var safePage = function(resolve) {
+        ideaRepo.fetchPage().then(function (response) {
+            var page = angular.fromJson(response.body).payload.PageImpl;
+            ideaRepo.empty();
+            ideaRepo.addAll(page.content);
+            if (table.getPageSettings().pageNumber > 1 && table.getPageSettings().pageNumber > page.totalPages) {
+                table.setPage(page.totalPages);
+                safePage(resolve);
+            } else {
                 resolve(page);
-            });
+            }
+        });
+    };
+
+    ideaRepo.page = function () {    	
+        return $q(function (resolve) {
+            safePage(resolve);
         });
     };
 
