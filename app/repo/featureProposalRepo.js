@@ -1,4 +1,4 @@
-app.repo("FeatureProposalRepo", function FeatureProposalRepo($q, $timeout, WsApi, FeatureProposal, ServiceRepo, TableFactory) {
+app.repo("FeatureProposalRepo", function FeatureProposalRepo($q, WsApi, FeatureProposal, ServiceRepo, TableFactory) {
 
     var featureProposalRepo = this;
 
@@ -26,28 +26,24 @@ app.repo("FeatureProposalRepo", function FeatureProposalRepo($q, $timeout, WsApi
         return WsApi.fetch(featureProposalRepo.mapping.page);
     };
 
-    featureProposalRepo.page = function () {
-        var pagePromise = $q(function (resolve) {
-            $timeout(function () {
-                featureProposalRepo.fetchPage().then(function (response) {
-                    var page = angular.fromJson(response.body).payload.PageImpl;
-                    featureProposalRepo.empty();
-                    featureProposalRepo.addAll(page.content);
-                    resolve(page);
-                });
-            }, 100);
-        });
-        pagePromise.then(function (page) {
+    var safePage = function(resolve) {
+        featureProposalRepo.fetchPage().then(function (response) {
+            var page = angular.fromJson(response.body).payload.PageImpl;
+            featureProposalRepo.empty();
+            featureProposalRepo.addAll(page.content);
             if (table.getPageSettings().pageNumber > 1 && table.getPageSettings().pageNumber > page.totalPages) {
                 table.setPage(page.totalPages);
-                featureProposalRepo.fetchPage().then(function (response) {
-                    var page = angular.fromJson(response.body).payload.PageImpl;
-                    featureProposalRepo.empty();
-                    featureProposalRepo.addAll(page.content);
-                });
+                safePage(resolve);
+            } else {
+                resolve(page);
             }
         });
-        return pagePromise;
+    };
+
+    featureProposalRepo.page = function () {    	
+        return $q(function (resolve) {
+            safePage(resolve);
+        });
     };
 
     var table = TableFactory.buildTable({

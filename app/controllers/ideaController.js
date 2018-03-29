@@ -57,7 +57,7 @@ app.controller('IdeaController', function ($controller, $scope, Idea, IdeaRepo, 
         if($scope.activeFilters[prop].length === 0) {
             delete $scope.activeFilters[prop];
         }
-        IdeaRepo.page();
+        IdeaRepo.getTableParams().reload();
     };
     
     $scope.applyFilter = function(filter) {
@@ -66,7 +66,7 @@ app.controller('IdeaController', function ($controller, $scope, Idea, IdeaRepo, 
         } else {
             $scope.activeFilters[filter.property] = [filter.value];
         }
-        IdeaRepo.page();
+        IdeaRepo.getTableParams().reload();
         delete $scope.filter.value;
     };
 
@@ -129,7 +129,7 @@ app.controller('IdeaController', function ($controller, $scope, Idea, IdeaRepo, 
                 direction: 'ASC'
             });
         }
-        IdeaRepo.page();
+        IdeaRepo.getTableParams().reload();
     };
 
     ServiceRepo.ready().then(function () {

@@ -1,4 +1,4 @@
-app.repo("IdeaRepo", function IdeaRepo($q, $timeout, WsApi, Idea, ServiceRepo, TableFactory) {
+app.repo("IdeaRepo", function IdeaRepo($q, WsApi, Idea, ServiceRepo, TableFactory) {
 
     var ideaRepo = this;
 
@@ -26,28 +26,24 @@ app.repo("IdeaRepo", function IdeaRepo($q, $timeout, WsApi, Idea, ServiceRepo, T
         return WsApi.fetch(ideaRepo.mapping.page);
     };
 
-    ideaRepo.page = function () {
-        var pagePromise = $q(function (resolve) {
-            $timeout(function () {
-                ideaRepo.fetchPage().then(function (response) {
-                    var page = angular.fromJson(response.body).payload.PageImpl;
-                    ideaRepo.empty();
-                    ideaRepo.addAll(page.content);
-                    resolve(page);
-                });
-            }, 100);
-        });
-        pagePromise.then(function (page) {
+    var safePage = function(resolve) {
+        ideaRepo.fetchPage().then(function (response) {
+            var page = angular.fromJson(response.body).payload.PageImpl;
+            ideaRepo.empty();
+            ideaRepo.addAll(page.content);
             if (table.getPageSettings().pageNumber > 1 && table.getPageSettings().pageNumber > page.totalPages) {
                 table.setPage(page.totalPages);
-                ideaRepo.fetchPage().then(function (response) {
-                    var page = angular.fromJson(response.body).payload.PageImpl;
-                    ideaRepo.empty();
-                    ideaRepo.addAll(page.content);
-                });
+                safePage(resolve);
+            } else {
+                resolve(page);
             }
         });
-        return pagePromise;
+    };
+
+    ideaRepo.page = function () {    	
+        return $q(function (resolve) {
+            safePage(resolve);
+        });
     };
 
     var table = TableFactory.buildTable({
