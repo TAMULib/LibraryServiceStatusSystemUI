@@ -18,6 +18,7 @@ app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi) {
         if (note.pinned || note.active) {
             var service = getNotesService(note);
             service.notes.push(note);
+            service.getFeatureProposalsTableParams().reload();
         }
     };
 
@@ -27,14 +28,17 @@ app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi) {
             if (service.notes[i].id === note.id) {
                 if (note.pinned || note.active) {
                     angular.extend(service.notes[i], note);
+                    service.getFeatureProposalsTableParams().reload();
                 } else {
                     service.notes.splice(i, 1);
+                    service.getFeatureProposalsTableParams().reload();
                 }
                 return;
             }
         }
         if (note.pinned || note.active) {
             service.notes.push(note);
+            service.getFeatureProposalsTableParams().reload();
         }
     };
 
@@ -45,6 +49,7 @@ app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi) {
             for (var j in services[i].notes) {
                 if (services[i].notes[j].id === id) {
                     services[i].notes.splice(j, 1);
+                    service[i].getFeatureProposalsTableParams().reload();
                     return;
                 }
             }
@@ -67,6 +72,7 @@ app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi) {
     serviceRepo.addIdea = function (idea) {
         var service = getIdeasService(idea);
         service.ideas.push(idea);
+        service.getFeatureProposalsTableParams().reload();
     };
 
     serviceRepo.updateIdea = function (idea) {
@@ -74,10 +80,12 @@ app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi) {
         for (var i in service.ideas) {
             if (service.ideas[i].id === idea.id) {
                 angular.extend(service.ideas[i], idea);
+                service.getFeatureProposalsTableParams().reload();
                 return;
             }
         }
         service.ideas.push(idea);
+        service.getFeatureProposalsTableParams().reload();
     };
 
     serviceRepo.removeIdeaById = function (id) {
@@ -87,6 +95,7 @@ app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi) {
             for (var j in services[i].ideas) {
                 if (services[i].ideas[j].id === id) {
                     services[i].ideas.splice(j, 1);
+                    service[i].getFeatureProposalsTableParams().reload();
                     return;
                 }
             }
@@ -109,6 +118,7 @@ app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi) {
     serviceRepo.addFeatureProposal = function (featureProposal) {
         var service = getFeatureProposalsService(featureProposal);
         service.featureProposals.push(featureProposal);
+        service.getFeatureProposalsTableParams().reload();
     };
 
     serviceRepo.updateFeatureProposal = function (featureProposal) {
@@ -116,10 +126,12 @@ app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi) {
         for (var i in service.featureProposals) {
             if (service.featureProposals[i].id === featureProposal.id) {
                 angular.extend(service.featureProposals[i], featureProposal);
+                service.getFeatureProposalsTableParams().reload();
                 return;
             }
         }
         service.featureProposals.push(featureProposal);
+        service.getFeatureProposalsTableParams().reload();
     };
 
     serviceRepo.removeFeatureProposalById = function (id) {
@@ -129,6 +141,7 @@ app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi) {
             for (var j in services[i].featureProposals) {
                 if (services[i].featureProposals[j].id === id) {
                     services[i].featureProposals.splice(j, 1);
+                    services[i].getFeatureProposalsTableParams().reload();
                     return;
                 }
             }

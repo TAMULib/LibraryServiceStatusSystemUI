@@ -4,13 +4,14 @@
   <hr />
 
   <table ng-table="featureProposalsTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped feature-proposal-table">
-    <tr ng-repeat="fp in $data | filter:{submitted:false}">
+    <tr ng-repeat="fp in $data">
       <td title="'Service'">{{fp.service.name}}</td>
       <td title="'Title'">{{fp.title}}</td>
       <td title="'Description'">{{fp.description}}</td>
+      <td title="'Submitted'">{{fp.submitted}}</td>
       <td title="'Last Modified'">{{fp.lastModified | date : 'medium'}}</td>
       <td class="actions-column" title="'Actions'">
-        <span class="glyphicon glyphicon-upload" title="submit" ng-click="select(fp, '#submitFpModal');"></span>
+        <span ng-if="!fp.submitted" class="glyphicon glyphicon-upload" title="submit" ng-click="select(fp, '#submitFpModal');"></span>
         <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editFp(fp)"></span>
         <span class="glyphicon glyphicon-trash" title="delete" ng-click="confirmDeleteFp(fp)"></span>
       </td>
