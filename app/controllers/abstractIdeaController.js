@@ -7,6 +7,7 @@ app.controller('AbstractIdeaController', function ($controller, $scope, FeatureP
   $scope.forms = {};
 
   $scope.fpRepo = FeatureProposalRepo;
+
   $scope.ideaRepo = IdeaRepo;
 
   $scope.services = ServiceRepo.getAll();

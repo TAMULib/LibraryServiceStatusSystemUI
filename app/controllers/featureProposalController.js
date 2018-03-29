@@ -1,20 +1,8 @@
-app.controller('FeatureProposalController', function ($controller, $scope, ServiceRepo, FeatureProposal, FeatureProposalRepo) {
+app.controller('FeatureProposalController', function ($controller, $scope, FeatureProposal, FeatureProposalRepo) {
 
   angular.extend(this, $controller('AbstractIdeaController', {
     $scope: $scope
   }));
-
-  ServiceRepo.ready().then(function () {
-    $scope.tableParams = FeatureProposalRepo.getTableParams();
-    $scope.tableParams.filters = {};
-    $scope.tableParams.sort = [{
-      property: 'featureProposal.name',
-      direction: 'ASC'
-    }, {
-      property: 'lastModified',
-      direction: 'DESC'
-    }];
-  });
 
   $scope.resetFeatureProposals = function () {
     $scope.resetForms($scope.fpData);

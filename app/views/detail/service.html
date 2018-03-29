@@ -27,8 +27,8 @@
   </table>
 </div>
 
-<!--
-<div class="container ideas-container" ng-if="isAdmin() || isManager()">
+<!-- NOTE: may be used when wanting to display users ideas per service
+<div class="container ideas-container">
   <h2>Ideas</h2>
   <hr />
   <table ng-table="ideasTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table borderless service-ideas-table">
@@ -36,20 +36,6 @@
       <tr ng-repeat="idea in $data">
         <td>
           <idea idea="idea" link="false"></idea>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<div class="container feature-proposals-container">
-  <h2>Feature Proposal</h2>
-  <hr />
-  <table ng-table="featureProposalsTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table borderless service-feature-proposals-table">
-    <tbody>
-      <tr ng-repeat="featureProposal in $data">
-        <td>
-          <feature-proposal feature-proposal="featureProposal" link="false"></feature-proposal>
         </td>
       </tr>
     </tbody>
@@ -66,18 +52,16 @@
   <div ng-include="'views/detail/service/' + activeTab + '.html'"></div>
 </div>
 
-<div ng-if="!isAdmin() && !isManager()">
-  <div class="container feature-proposal-container">
-    <h2>Feature Proposal</h2>
-    <hr />
-    <table ng-table="featureProposalsTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table borderless feature-proposal-table">
-      <tbody>
-        <tr ng-repeat="featureProposal in $data">
-          <td>
-            <feature-proposal feature-proposal="featureProposal" link="false"></feature-proposal>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<div class="container feature-proposals-container" ng-if="!isAdmin() && !isManager()">
+  <h2>Feature Proposal</h2>
+  <hr />
+  <table ng-table="featureProposalsTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table borderless service-feature-proposals-table">
+    <tbody>
+      <tr ng-repeat="featureProposal in $data">
+        <td>
+          <feature-proposal feature-proposal="featureProposal" link="false"></feature-proposal>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
