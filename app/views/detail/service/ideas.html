@@ -5,7 +5,7 @@
   <hr />
 
   <table ng-table="ideasTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped idea-table">
-    <tr ng-repeat="idea in $data | filter:{elevated:false}">
+    <tr ng-repeat="idea in $data">
       <td width="30" header="'views/ng-table/checkbox.html'">
         <input type="checkbox" />
       </td>

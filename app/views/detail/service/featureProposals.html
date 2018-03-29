@@ -10,12 +10,12 @@
       <td title="'Service'">{{fp.service.name}}</td>
       <td title="'Title'">{{fp.title}}</td>
       <td title="'Description'">{{fp.description}}</td>
-      <td title="'Submitted'">{{fp.submitted}}</td>
+      <td title="'Votes'">{{fp.votes}}</td>
       <td title="'Last Modified'">{{fp.lastModified | date : 'medium'}}</td>
       <td class="actions-column" title="'Actions'">
-        <span ng-if="!fp.submitted" class="glyphicon glyphicon-upload" title="submit" ng-click="select(fp, '#submitFpModal');"></span>
-        <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editFp(fp)"></span>
-        <span class="glyphicon glyphicon-trash" title="delete" ng-click="confirmDeleteFp(fp)"></span>
+        <span ng-if="!fp.submitted" class="toggle-href glyphicon glyphicon-upload" title="submit" ng-click="select(fp, '#submitFpModal');"></span>
+        <span class="toggle-href glyphicon glyphicon-pencil" title="edit" ng-click="editFp(fp)"></span>
+        <span class="toggle-href glyphicon glyphicon-trash" title="delete" ng-click="confirmDeleteFp(fp)"></span>
       </td>
     </tr>
   </table>
