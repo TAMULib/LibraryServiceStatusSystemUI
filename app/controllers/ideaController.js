@@ -160,9 +160,9 @@ app.controller('IdeaController', function ($controller, $scope, FeatureProposalR
     $scope.resetIdeas = function () {
         $scope.resetForms($scope.ideaData);
         $scope.ideaData = new Idea({
-        title: '',
-        description: '',
-        service: $scope.services[0]
+            title: '',
+            description: '',
+            service: $scope.services[0]
         });
         $scope.closeModal();
     };
@@ -171,9 +171,9 @@ app.controller('IdeaController', function ($controller, $scope, FeatureProposalR
     
     $scope.createIdea = function () {
         IdeaRepo.create($scope.ideaData).then(function (res) {
-        if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
-            $scope.resetIdeas();
-        }
+            if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
+                $scope.resetIdeas();
+            }
         });
     };
 
@@ -184,9 +184,9 @@ app.controller('IdeaController', function ($controller, $scope, FeatureProposalR
 
     $scope.updateIdea = function () {
         IdeaRepo.update($scope.ideaData).then(function (res) {
-        if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
-            $scope.resetIdeas();
-        }
+            if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
+                $scope.resetIdeas();
+            }
         });
     };
 
@@ -198,9 +198,9 @@ app.controller('IdeaController', function ($controller, $scope, FeatureProposalR
     $scope.deleteIdea = function () {
         $scope.deleting = true;
         $scope.ideaToDelete.delete().then(function () {
-        $scope.closeModal();
-        $scope.deleting = false;
-        $scope.ideaToDelete = {};
+            $scope.closeModal();
+            $scope.deleting = false;
+            $scope.ideaToDelete = {};
         });
     };
 
@@ -210,11 +210,10 @@ app.controller('IdeaController', function ($controller, $scope, FeatureProposalR
     };
 
     $scope.elevateIdea = function (idea) {
-        FeatureProposalRepo.elevate(idea).then(function (res) {
-        var message = angular.fromJson(res.body);
-        if (message.meta.status === 'SUCCESS') {
-            angular.extend(FeatureProposalRepo, message.payload);
-        }
+        FeatureProposalRepo.elevate(idea).then(function(res) {
+            if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
+                $scope.resetIdeas();
+            }
         });
     };
 
