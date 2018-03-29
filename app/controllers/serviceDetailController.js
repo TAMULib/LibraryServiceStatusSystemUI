@@ -18,7 +18,7 @@ app.controller('ServiceDetailController', function ($controller, $routeParams, $
                     return fp.voters.indexOf($scope.user.id) >= 0;
                 };
             }
-        })
+        });
     }
 
     $scope.activeTab = 'ideas';
