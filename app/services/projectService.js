@@ -36,7 +36,6 @@ app.service('ProjectService', function ($q, WsApi) {
         return $q(function (resolve, reject) {
             WsApi.fetch(apiMapping.Project.submitFeatureProposal).then(function (response) {
                 var apiRes = angular.fromJson(response.body);
-                console.log(apiRes);
                 if (apiRes.meta.status === 'SUCCESS') {
                     resolve();
                 } else {
