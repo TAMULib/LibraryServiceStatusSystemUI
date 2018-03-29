@@ -32,7 +32,6 @@ app.controller('FeatureProposalController', function ($controller, $scope, Featu
   $scope.submitFeatureProposal = function(fp) {
     $scope.submitting = true;
     ProjectService.submitFeatureProposal(fp).then(function() {
-      fp.submitted = true;
       $scope.submitting = false;
       $scope.resetFeatureProposals();
     });
