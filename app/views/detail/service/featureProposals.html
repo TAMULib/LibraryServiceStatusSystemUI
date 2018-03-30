@@ -1,5 +1,7 @@
 <div class="management-table" ng-controller="FeatureProposalController">
 
+  <alerts seconds="45" channels="projects/feature" types="SUCCESS"></alerts>
+
   <button class="btn btn-default view-action-button" ng-click="openModal('#addFpModal')">Add Feature Proposal</button>
   <hr />
 
@@ -7,15 +9,18 @@
     <tr ng-repeat="fp in $data">
       <td title="'Title'">{{fp.title}}</td>
       <td title="'Description'">{{fp.description}}</td>
+      <td title="'Votes'">{{fp.votes}}</td>
       <td title="'Last Modified'">{{fp.lastModified | date : 'medium'}}</td>
       <td class="actions-column" title="'Actions'">
-        <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editFeatureProposal(fp)"></span>
-        <span class="glyphicon glyphicon-trash" title="delete" ng-click="confirmDelete(fp)"></span>
+        <span ng-if="!fp.submitted" class="toggle-href glyphicon glyphicon-upload" title="submit" ng-click="select(fp, '#submitFpModal');"></span>
+        <span class="toggle-href glyphicon glyphicon-pencil" title="edit" ng-click="editFeatureProposal(fp)"></span>
+        <span class="toggle-href glyphicon glyphicon-trash" title="delete" ng-click="confirmDeleteFp(fp)"></span>
       </td>
     </tr>
   </table>
 
   <modal modal-id="addFpModal" modal-view="views/modals/detail/service/addFpModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+  <modal modal-id="submitFpModal" modal-view="views/modals/detail/service/submitFpModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
   <modal modal-id="deleteFpModal" modal-view="views/modals/detail/service/deleteFpModal.html" modal-header-class="modal-header-danger" wvr-modal-backdrop="static"></modal>
   <modal modal-id="editFpModal" modal-view="views/modals/detail/service/editFpModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
 </div>

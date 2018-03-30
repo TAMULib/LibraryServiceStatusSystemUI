@@ -40,6 +40,11 @@ var apiMapping = {
             'endpoint': '/channel',
             'controller': 'users'
         },
+        getUser: {
+            'endpoint': '/private/queue',
+            'controller': 'users',
+            'method': 'user'
+        },
         update: {
             'endpoint': '/private/queue',
             'controller': 'users',
@@ -299,6 +304,11 @@ var apiMapping = {
         getById: {
             'endpoint': '/private/queue',
             'controller': 'projects'
+        },
+        submitFeatureProposal: {
+            'endpoint': '/private/queue',
+            'controller': 'projects',
+            'method': 'feature'
         }
     }
 };

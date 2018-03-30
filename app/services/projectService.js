@@ -29,4 +29,20 @@ app.service('ProjectService', function ($q, WsApi) {
         });
     };
 
+    this.submitFeatureProposal = function(fp) {
+        angular.extend(apiMapping.Project.submitFeatureProposal, {
+            'data': fp
+        });
+        return $q(function (resolve, reject) {
+            WsApi.fetch(apiMapping.Project.submitFeatureProposal).then(function (response) {
+                var apiRes = angular.fromJson(response.body);
+                if (apiRes.meta.status === 'SUCCESS') {
+                    resolve();
+                } else {
+                    reject();
+                }
+            });
+        });
+    };
+
 });

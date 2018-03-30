@@ -52,10 +52,11 @@
   <div ng-include="'views/detail/service/' + activeTab + '.html'"></div>
 </div>
 
-<div class="container feature-proposals-container" ng-if="!isAdmin() && !isManager()">
-  <h2>Feature Proposal</h2>
+<div class="container feature-proposals-container">
+  <h2 class="inline-h2">Feature Proposal</h2>
+  <button ng-if="isAnonymous()" class="btn btn-primary pull-right" ng-click="login()">Login To Vote</button>
   <hr />
-  <table ng-table="featureProposalsTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table borderless service-feature-proposals-table">
+    <table ng-table="featureProposalsTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table borderless service-feature-proposals-table">
     <tbody>
       <tr ng-repeat="featureProposal in $data">
         <td>

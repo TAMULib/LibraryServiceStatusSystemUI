@@ -162,9 +162,9 @@ app.controller('IdeaController', function ($controller, $scope, $timeout, Featur
     $scope.resetIdeas = function () {
         $scope.resetForms($scope.ideaData);
         $scope.ideaData = new Idea({
-        title: '',
-        description: '',
-        service: $scope.services[0]
+            title: '',
+            description: '',
+            service: $scope.services[0]
         });
         $scope.closeModal();
     };
@@ -173,9 +173,9 @@ app.controller('IdeaController', function ($controller, $scope, $timeout, Featur
     
     $scope.createIdea = function () {
         IdeaRepo.create($scope.ideaData).then(function (res) {
-        if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
-            $scope.resetIdeas();
-        }
+            if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
+                $scope.resetIdeas();
+            }
         });
     };
 
@@ -186,9 +186,9 @@ app.controller('IdeaController', function ($controller, $scope, $timeout, Featur
 
     $scope.updateIdea = function () {
         IdeaRepo.update($scope.ideaData).then(function (res) {
-        if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
-            $scope.resetIdeas();
-        }
+            if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
+                $scope.resetIdeas();
+            }
         });
     };
 
@@ -200,9 +200,9 @@ app.controller('IdeaController', function ($controller, $scope, $timeout, Featur
     $scope.deleteIdea = function () {
         $scope.deleting = true;
         $scope.ideaToDelete.delete().then(function () {
-        $scope.closeModal();
-        $scope.deleting = false;
-        $scope.ideaToDelete = {};
+            $scope.closeModal();
+            $scope.deleting = false;
+            $scope.ideaToDelete = {};
         });
     };
 
@@ -213,11 +213,10 @@ app.controller('IdeaController', function ($controller, $scope, $timeout, Featur
 
     $scope.elevateIdea = function (idea) {
         FeatureProposalRepo.elevate(idea).then(function (res) {
-            var message = angular.fromJson(res.body);
-            if (message.meta.status === 'SUCCESS') {
-                angular.extend(FeatureProposalRepo, message.payload);
+            var apiRes = angular.fromJson(res.body);
+            if (apiRes.meta.status === 'SUCCESS') {
+                $scope.resetIdeas();
             }
-            $scope.resetIdeas();
         });
     };
 
@@ -263,15 +262,15 @@ app.controller('IdeaController', function ($controller, $scope, $timeout, Featur
                 angular.forEach(checkboxes, function(elem) {
                     elem.click();
                 });
-            })
+            });
         } else {
             $timeout(function() {
                 angular.forEach(checkboxes, function(elem) {
                     if (!elem.checked) {
-                        elem.click()
+                        elem.click();
                     }
                 });
-            })
+            });
         }
     };
 

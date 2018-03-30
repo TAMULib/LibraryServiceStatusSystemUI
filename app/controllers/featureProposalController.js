@@ -1,4 +1,4 @@
-app.controller('FeatureProposalController', function ($controller, $scope, FeatureProposal, FeatureProposalRepo) {
+app.controller('FeatureProposalController', function ($controller, $scope, FeatureProposal, FeatureProposalRepo, ProjectService) {
 
   angular.extend(this, $controller('AbstractIdeaController', {
     $scope: $scope
@@ -25,6 +25,19 @@ app.controller('FeatureProposalController', function ($controller, $scope, Featu
     })) {
       $scope.fpData.ideas.splice($scope.fpData.ideas.indexOf(idea), 1);
     }
+  };
+
+  $scope.select = function(fp, modal) {
+    $scope.fpData = fp;
+    $scope.openModal(modal);
+  };
+
+  $scope.submitFeatureProposal = function(fp) {
+    $scope.submitting = true;
+    ProjectService.submitFeatureProposal(fp).then(function() {
+      $scope.submitting = false;
+      $scope.resetFeatureProposals();
+    });
   };
 
   $scope.confirmDelete = function (fp) {
