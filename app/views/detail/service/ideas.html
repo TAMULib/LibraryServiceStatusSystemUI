@@ -1,21 +1,20 @@
 <div class="management-table" ng-controller="IdeaController">
-
   <button class="btn btn-default view-action-button" ng-click="openModal('#addIdeaModal')">Add Idea</button>
-  <button class="btn btn-default view-action-button pull-right" ng-click="openModal('#elevateIdeasModal')">Elevate Selected Ideas</button>
+  <button class="btn btn-default view-action-button pull-right" ng-click="confimrElevateMultiple(selectedIdeas)" ng-disabled="selectedIdeas.length === 0">Elevate Selected Ideas</button>
   <hr />
 
   <table ng-table="ideasTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped idea-table">
     <tr ng-repeat="idea in $data">
       <td width="30" header="'views/ng-table/checkbox.html'">
-        <input type="checkbox" />
+        <input class="idea-checkbox" type="checkbox" ng-click="toggleSelectIdea(idea)"/>
       </td>
       <td title="'Service'">{{idea.service.name}}</td>
       <td title="'Title'">{{idea.title}}</td>
       <td title="'Description'">{{idea.description | removeHtmlTags}}</td>
       <td title="'Last Modified'">{{idea.lastModified | date : 'medium'}}</td>
       <td class="actions-column" title="'Actions'">
-        <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editIdea(idea)"></span>
         <span class="glyphicon glyphicon glyphicon-triangle-top" title="elevate" ng-click="confirmElevate(idea)"></span>
+        <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editIdea(idea)"></span>
         <span class="glyphicon glyphicon-trash" title="delete" ng-click="confirmDelete(idea)"></span>
       </td>
     </tr>
@@ -25,4 +24,5 @@
   <modal modal-id="deleteIdeaModal" modal-view="views/modals/deleteIdeaModal.html" modal-header-class="modal-header-danger" wvr-modal-backdrop="static"></modal>
   <modal modal-id="editIdeaModal" modal-view="views/modals/editIdeaModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
   <modal modal-id="elevateIdeaModal" modal-view="views/modals/elevateIdeaModal.html" modal-header-class="modal-header-warning" wvr-modal-backdrop="static"></modal>
+  <modal modal-id="elevateMultipleModal" modal-view="views/modals/detail/service/elevateMultipleModal.html" modal-header-class="modal-header-warning" wvr-modal-backdrop="static"></modal>
 </div>

@@ -1,0 +1,35 @@
+<div class="modal-header {{attr.modalHeaderClass}}">
+  <button type="button" class="close" ng-click="resetFeatureProposals()" aria-label="Close">
+    <span class="modal-close" aria-hidden="true">&times;</span>
+  </button>
+  <h3 class="modal-title">Edit Feature Proposal</h3>
+</div>
+
+<form ng-submit="updateFeatureProposal()" name="forms.update" novalidate>
+
+  <validationmessage results="fpRepo.getValidationResults()"></validationmessage>
+
+  <div class="modal-body">
+
+    <validatedinput model="fpData" property="title" label="Title" placeholder="Title of the Feature Proposal" form="forms.update" validations="fpRepo.getValidations()" results="fpRepo.getValidationResults()"></validatedinput>
+
+    <validatedselect model="fpData" property="service" label="Services" form="forms.update" validations="fpRepo.getValidations()" results="fpRepo.getValidationResults()" options="services" optionProperty="name"></validatedselect>
+
+    <label>Feature Proposal Description</label>
+    <textarea ui-tinymce="tinymceOptions" ng-model="fpData.description"></textarea>
+    <br />
+
+    <label>Ideas</label>
+    <div class="input-group ideas-list" ng-repeat="idea in fpData.ideas">
+        <input type="text" class="form-control" disabled value="{{idea.title}}" disabled>
+        <span class="input-group-btn">
+          <button ng-click="removeIdea(idea)" class="btn btn-danger" type="button"><span class="glyphicon glyphicon-remove"></span></button>
+        </span>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" ng-click="resetFeatureProposals()">Cancel</button>
+      <button id="idea-update" type="submit" class="btn btn-primary" ng-disabled="forms.update.$invalid">Update</button>
+    </div>
+  </div>
+</form>

@@ -4,24 +4,27 @@ app.controller('FeatureProposalController', function ($controller, $scope, Featu
     $scope: $scope
   }));
 
-  $scope.resetFeatureProposals = function () {
-    $scope.resetForms($scope.fpData);
-    $scope.fpData = new FeatureProposal({
-      title: '',
-      description: '',
-      services: null,
-    });
-    $scope.closeModal();
+  $scope.fpToDelete = {};
+
+  $scope.editFeatureProposal = function(fp) {
+    $scope.fpData = fp;
+    $scope.openModal('#editFpModal');
   };
 
-  $scope.resetFeatureProposals();
-
-  $scope.createFeatureProposal = function () {
-    FeatureProposalRepo.create($scope.fpData).then(function (res) {
+  $scope.updateFeatureProposal = function(fp) {
+    FeatureProposalRepo.update($scope.fpData).then(function (res) {
       if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
-        $scope.resetFeatureProposals();
+          $scope.resetFeatureProposals();
       }
     });
+  };
+
+  $scope.removeIdea = function(idea) {
+    if ($scope.fpData.ideas.some(function(i) {
+      return i.id === idea.id;
+    })) {
+      $scope.fpData.ideas.splice($scope.fpData.ideas.indexOf(idea), 1);
+    }
   };
 
   $scope.select = function(fp, modal) {
@@ -37,12 +40,18 @@ app.controller('FeatureProposalController', function ($controller, $scope, Featu
     });
   };
 
-  $scope.editFeatureProposal = function(fp) {
-
+  $scope.confirmDelete = function (fp) {
+    $scope.openModal('#deleteFpModal');
+    $scope.fpToDelete = fp;
   };
 
-  $scope.updateFeatureProposal = function(fp) {
-
+  $scope.deleteFp = function () {
+    $scope.deleting = true;
+    $scope.fpToDelete.delete().then(function () {
+      $scope.closeModal();
+      $scope.deleting = false;
+      $scope.fpToDelete = {};
+    });
   };
 
 });
