@@ -8,6 +8,8 @@ app.controller('FeatureProposalController', function ($controller, $scope, Featu
 
   $scope.fpToDelete = {};
 
+  $scope.ideaToAdd = {};
+
   $scope.filters = [{
       gloss: 'Service',
       property: 'service.name'
@@ -131,20 +133,20 @@ app.controller('FeatureProposalController', function ($controller, $scope, Featu
     $scope.openModal('#editFpModal');
   };
 
+  $scope.removeIdea = function(idea) {
+    if ($scope.fpData.ideas.some(function(i) {
+      return i.id === idea.id;
+    })) {
+      $scope.fpData.ideas.splice($scope.fpData.ideas.indexOf(idea), 1);
+    }
+  };
+
   $scope.updateFeatureProposal = function (fp) {
     FeatureProposalRepo.update($scope.fpData).then(function (res) {
       if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
         $scope.resetFeatureProposals();
       }
     });
-  };
-
-  $scope.removeIdea = function (idea) {
-    if ($scope.fpData.ideas.some(function (i) {
-        return i.id === idea.id;
-      })) {
-      $scope.fpData.ideas.splice($scope.fpData.ideas.indexOf(idea), 1);
-    }
   };
 
   $scope.select = function (fp, modal) {

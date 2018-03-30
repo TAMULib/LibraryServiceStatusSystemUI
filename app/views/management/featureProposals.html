@@ -46,7 +46,7 @@
     </thead>
     <tbody>
       <tr ng-repeat="fp in $data">
-        <td title="'Service'"><a href="{{'service/' + fp.service.id + '/detail/'}}"></a>{{fp.service.name}}</a></td>
+        <td title="'Service'"><a href="{{'service/' + fp.service.id + '/detail/'}}">{{fp.service.name}}</a></td>
         <td title="'Title'">{{fp.title}}</a></td>
         <td title="'Description'">{{fp.description}}</td>
         <td title="'Last Modified'">{{fp.lastModified | date : 'medium'}}</td>

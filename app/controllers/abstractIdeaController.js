@@ -46,4 +46,12 @@ app.controller('AbstractIdeaController', function ($controller, $scope, FeatureP
     });
   };
 
+  $scope.updateFeatureProposal = function(fp) {
+    FeatureProposalRepo.update(fp).then(function (res) {
+      if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
+          $scope.resetFeatureProposals();
+      }
+    });
+  };
+
 });

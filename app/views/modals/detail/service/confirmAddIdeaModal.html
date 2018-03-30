@@ -1,0 +1,33 @@
+<div class="modal-header {{attr.modalHeaderClass}}">
+    <button type="button" class="close" ng-click="closeModal()" aria-label="Close">
+      <span class="modal-close" aria-hidden="true">&times;</span>
+    </button>
+    <h3 class="modal-title">Choose a Feature Proposal</h3>
+  </div>
+
+  <form novalidate>
+    {{featureProposals}}
+    <div class="modal-body">
+      <table ng-table="featureProposalsTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped feature-proposal-table">
+        <tr ng-repeat="fp in $data">
+          <td title="'Selected'">
+            <input ng-checked="fp.id === selectedFp.id" name="fp-checkbox" type="radio" ng-click="setSelectedFp(fp)"/>
+          </td>
+          <td title="'Title'">{{fp.title}}</td>
+          <td title="'Description'">{{fp.description}}</td>
+          <td title="'Votes'">{{fp.votes}}</td>
+          <td title="'Last Modified'">{{fp.lastModified | date : 'medium'}}</td>
+        </tr>
+      </table>
+    </div>
+  
+    <div class="modal-footer">
+      <button ng-disabled="adding" type="button" class="btn btn-default" ng-click="closeModal()">Cancel</button>
+      <button ng-disabled="adding" type="button" class="btn btn-primary" ng-click="addIdea(selectedFp)">
+        <span ng-if="!adding">Confirm</span>
+        <span ng-if="adding">Adding
+          <span class="glyphicon glyphicon-refresh spinning"></span>
+        </span>
+      </button>
+    </div>
+  </form>
