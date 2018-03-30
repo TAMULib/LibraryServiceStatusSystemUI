@@ -5,8 +5,7 @@
   <button class="btn btn-default view-action-button" ng-click="openModal('#addFpModal')">Add Feature Proposal</button>
   <hr />
 
-  <table ng-table="featureProposalsTableParams" template-pagination="views/customPaginationControls.html" show-filter="false"
-    class="table table-bordered table-striped feature-proposal-table">
+  <table ng-table="featureProposalsTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped feature-proposal-table">
     <tr ng-repeat="fp in $data">
       <td title="'Title'">{{fp.title}}</td>
       <td title="'Description'">{{fp.description}}</td>
@@ -20,12 +19,8 @@
     </tr>
   </table>
 
-  <modal modal-id="addFpModal" modal-view="views/modals/detail/service/addFpModal.html" modal-header-class="modal-header-primary"
-    wvr-modal-backdrop="static"></modal>
-  <modal modal-id="submitFpModal" modal-view="views/modals/detail/service/submitFpModal.html" modal-header-class="modal-header-primary"
-    wvr-modal-backdrop="static"></modal>
-  <modal modal-id="deleteFpModal" modal-view="views/modals/detail/service/deleteFpModal.html" modal-header-class="modal-header-danger"
-    wvr-modal-backdrop="static"></modal>
-  <modal modal-id="editFpModal" modal-view="views/modals/detail/service/editFpModal.html" modal-header-class="modal-header-primary"
-    wvr-modal-backdrop="static"></modal>
+  <modal modal-id="addFpModal" modal-view="views/modals/detail/service/addFpModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+  <modal modal-id="submitFpModal" modal-view="views/modals/detail/service/submitFpModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+  <modal modal-id="deleteFpModal" modal-view="views/modals/detail/service/deleteFpModal.html" modal-header-class="modal-header-danger" wvr-modal-backdrop="static"></modal>
+  <modal modal-id="editFpModal" modal-view="views/modals/detail/service/editFpModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
 </div>
