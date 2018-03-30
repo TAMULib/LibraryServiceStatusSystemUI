@@ -33,6 +33,7 @@ app.controller('AbstractIdeaController', function ($controller, $scope, FeatureP
       services: null,
     });
     $scope.closeModal();
+    FeatureProposalRepo.getTableParams().reload();
   };
 
   $scope.resetFeatureProposals();

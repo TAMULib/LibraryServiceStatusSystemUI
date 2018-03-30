@@ -1,26 +1,67 @@
 <div class="management-table" ng-controller="FeatureProposalController">
 
-    <button class="btn btn-default view-action-button" ng-click="openModal('#addFeatureProposalModal')">Add Feature Proposal</button>
-    <hr />
-  
-    <table ng-table="fpTableParams = $scope.service.getIdeasTableParams();" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped feature-proposal-table">
-      <tr ng-repeat="fp in $data">
-        <td width="30" header="'views/ng-table/checkbox.html'">
-          <input type="checkbox" />
-        </td>
-        <td title="'Service'"><a href="{{'service/' + idea.service.id + '/detail/'}}">{{idea.service.name}}</a> <span ng-if="idea.schedules.length > 0">(scheduled)</span></td>
-        <td title="'Title'"><a href="{{'idea/' + idea.id + '/detail/'}}">{{idea.title}}</a></td>
-        <td title="'Description'">{{idea.description}}</td>
-        <td title="'Last Modified'">{{idea.lastModified | date : 'medium'}}</td>
-        <td class="actions-column" title="'Actions'">
-          <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editIdea(idea)"></span>
-          <span class="glyphicon glyphicon-trash" title="delete" ng-click="confirmDelete(idea)"></span>
-        </td>
-      </tr>
-    </table>
-  
-    <modal modal-id="addIdeaModal" modal-view="views/modals/addIdeaModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
-    <modal modal-id="deleteIdeaModal" modal-view="views/modals/deleteIdeaModal.html" modal-header-class="modal-header-danger" wvr-modal-backdrop="static"></modal>
-    <modal modal-id="editIdeaModal" modal-view="views/modals/editIdeaModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+  <div class="management-control">
+    <div class="row">
+      <div class="col-md-9">
+        <form ng-submit="applyFilter(filter)" novalidate>
+          <div class="input-group">
+            <div class="input-group-btn">
+              <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">{{filter.gloss}} <span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <li><a ng-repeat="f in filters" ng-value="f.property" ng-click="selectFilter(f)">{{f.gloss}}</a></li>
+              </ul>
+            </div>
+            <input type="text" class="form-control" placeholder="Filter by {{filter.gloss}}" ng-model="filter.value" aria-describedby="filters-input">		
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="submit" ng-disabled="!filter.value">Filter</button>
+            </span>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-2 col-md-offset-1">
+        <button class="btn btn-default view-action-button pull-right" ng-click="openModal('#addFeatureProposalModal')">Add Feature Proposal</button>
+      </div>
+    </div>
   </div>
   
+  <div class="management-control">
+    <span ng-repeat="(prop, value) in activeFilters">
+      <span class="label label-default filter-label" ng-repeat="v in value">
+          <span>{{lookupGloss(prop)}}: {{v}}</span>
+          <span class="glyphicon glyphicon-remove filter-remove" ng-click="removeFilter(prop, v)"></span>
+      </span>
+    </span>
+  </div>
+
+  <table ng-table="tableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped notes-table">
+    <thead>
+      <tr>
+        <th><span>Service</span><span ng-click="toggleSort('service.name')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('service.name'), 'asc': asc('service.name'), 'desc': desc('service.name')}"></span></th>
+        <th><span>Title</span><span ng-click="toggleSort('title')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('title'), 'asc': asc('title'), 'desc': desc('title')}"></span></th>
+        <th><span>Description</span></th>
+        <th><span>Last Modified</span><span ng-click="toggleSort('lastModified')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('lastModified'), 'asc': asc('lastModified'), 'desc': desc('lastModified')}"></span></th>
+        <th><span>Submitted</span><span ng-click="toggleSort('submitted')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('submitted'), 'asc': asc('submitted'), 'desc': desc('submitted')}"></span></th>
+        <th><span>Actions</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="fp in $data">
+        <td title="'Service'"><a href="{{'service/' + fp.service.id + '/detail/'}}"></a>{{fp.service.name}}</a></td>
+        <td title="'Title'">{{fp.title}}</a></td>
+        <td title="'Description'">{{fp.description}}</td>
+        <td title="'Last Modified'">{{fp.lastModified | date : 'medium'}}</td>
+        <td title="'Submitted'">{{fp.submitted}}</td>
+        <td class="actions-column text-center" title="'Actions'">
+          <span ng-if="!fp.submitted" class="toggle-href glyphicon glyphicon-upload" title="submit" ng-click="select(fp, '#submitFpModal');"></span>
+          <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editFeatureProposal(fp)"></span>
+          <span class="glyphicon glyphicon-trash" title="delete" ng-click="confirmDelete(fp)"></span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <modal modal-id="addFpModal" modal-view="views/modals/detail/service/addFpModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+  <modal modal-id="submitFpModal" modal-view="views/modals/detail/service/submitFpModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+  <modal modal-id="deleteFpModal" modal-view="views/modals/detail/service/deleteFpModal.html" modal-header-class="modal-header-danger" wvr-modal-backdrop="static"></modal>
+  <modal modal-id="editFpModal" modal-view="views/modals/detail/service/editFpModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+</div>
