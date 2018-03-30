@@ -6,8 +6,6 @@ app.controller('IdeaController', function ($controller, $scope, $timeout, Featur
 
     $scope.ideaRepo = IdeaRepo;
 
-    $scope.services = ServiceRepo.getAll();
-
     $scope.modalData = {
         title: '',
         description: '',
@@ -277,6 +275,24 @@ app.controller('IdeaController', function ($controller, $scope, $timeout, Featur
     $scope.confimrElevateMultiple = function(ideas) {
         $scope.fpData.ideas = ideas;
         $scope.openModal('#elevateMultipleModal');
+    };
+
+    $scope.confirmAddIdea = function(idea) {
+        $scope.ideaToAdd = idea;
+        $scope.openModal('#confirmAddIdeaModal');
+      };
+    
+    $scope.addIdea = function(fp) {
+        fp.ideas.push($scope.ideaToAdd);
+        fp.dirty(true);
+        $scope.updateFeatureProposal(fp);
+        $scope.closeModal();
+        $scope.selectedFp = {};
+        $scope.ideaToAdd = {};
+    };
+
+    $scope.setSelectedFp = function(fp) {
+        $scope.selectedFp = fp;
     };
 
     $scope.tinymceOptions = {

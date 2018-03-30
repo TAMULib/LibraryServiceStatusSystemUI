@@ -14,6 +14,7 @@
       <td title="'Last Modified'">{{idea.lastModified | date : 'medium'}}</td>
       <td class="actions-column" title="'Actions'">
         <span class="glyphicon glyphicon glyphicon-triangle-top" title="elevate" ng-click="confirmElevate(idea)"></span>
+        <span class="glyphicon glyphicon-plus" title="add to proposal" ng-click="confirmAddIdea(idea)"></span>
         <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editIdea(idea)"></span>
         <span class="glyphicon glyphicon-trash" title="delete" ng-click="confirmDelete(idea)"></span>
       </td>
@@ -25,4 +26,5 @@
   <modal modal-id="editIdeaModal" modal-view="views/modals/editIdeaModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
   <modal modal-id="elevateIdeaModal" modal-view="views/modals/elevateIdeaModal.html" modal-header-class="modal-header-warning" wvr-modal-backdrop="static"></modal>
   <modal modal-id="elevateMultipleModal" modal-view="views/modals/detail/service/elevateMultipleModal.html" modal-header-class="modal-header-warning" wvr-modal-backdrop="static"></modal>
+  <modal modal-id="confirmAddIdeaModal" modal-view="views/modals/detail/service/confirmAddIdeaModal.html" modal-header-class="modal-header-primary" modal-fullscreen="true" wvr-modal-backdrop="static"></modal>
 </div>

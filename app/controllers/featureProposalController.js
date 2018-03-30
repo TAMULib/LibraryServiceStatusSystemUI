@@ -6,17 +6,11 @@ app.controller('FeatureProposalController', function ($controller, $scope, Featu
 
   $scope.fpToDelete = {};
 
+  $scope.ideaToAdd = {};
+
   $scope.editFeatureProposal = function(fp) {
     $scope.fpData = fp;
     $scope.openModal('#editFpModal');
-  };
-
-  $scope.updateFeatureProposal = function(fp) {
-    FeatureProposalRepo.update($scope.fpData).then(function (res) {
-      if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
-          $scope.resetFeatureProposals();
-      }
-    });
   };
 
   $scope.removeIdea = function(idea) {
