@@ -21,7 +21,7 @@
 
     <div class="modal-footer">
       <button type="button" class="btn btn-default" ng-click="resetIdeas()">Cancel</button>
-      <button id="idea-update" type="submit" class="btn btn-primary" ng-disabled="forms.update.$invalid">Update</button>
+      <button id="idea-update" type="submit" class="btn btn-primary" ng-disabled="forms.update.$invalid || forms.update.$pristine">Update</button>
     </div>
   </div>
 </form>

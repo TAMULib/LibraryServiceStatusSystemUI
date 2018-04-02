@@ -2,15 +2,14 @@
     <button type="button" class="close" ng-click="closeModal()" aria-label="Close">
       <span class="modal-close" aria-hidden="true">&times;</span>
     </button>
-    <h3 class="modal-title">Choose a Feature Proposal</h3>
+    <h3 class="modal-title">Select a Feature Proposal to add this Idea to</h3>
   </div>
 
   <form novalidate>
-    {{featureProposals}}
     <div class="modal-body">
       <table ng-table="featureProposalsTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped feature-proposal-table">
         <tr ng-repeat="fp in $data">
-          <td title="'Selected'">
+          <td title="'Selected'" class="text-center">
             <input ng-checked="fp.id === selectedFp.id" name="fp-checkbox" type="radio" ng-click="setSelectedFp(fp)"/>
           </td>
           <td title="'Title'">{{fp.title}}</td>
