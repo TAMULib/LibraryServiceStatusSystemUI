@@ -10,11 +10,11 @@
       <table ng-table="tableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped idea-table">
         <thead>
           <tr>
-            <th><span>Service</span><span ng-click="toggleSort('service.name')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('service.name'), 'asc': asc('service.name'), 'desc': desc('service.name')}"></span></th>
-            <th><span>Title</span><span ng-click="toggleSort('title')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('title'), 'asc': asc('title'), 'desc': desc('title')}"></span></th>
+            <th><span>Service<span ng-click="toggleSort('service.name')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('service.name'), 'asc': asc('service.name'), 'desc': desc('service.name')}"></span></span></th>
+            <th><span>Title<span ng-click="toggleSort('title')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('title'), 'asc': asc('title'), 'desc': desc('title')}"></span></span></th>
             <th><span>Description</span></th>
-            <th><span>Last Modified</span><span ng-click="toggleSort('lastModified')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('lastModified'), 'asc': asc('lastModified'), 'desc': desc('lastModified')}"></span></th>
-            <th><span>Elevated</span><span ng-click="toggleSort('elevated')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('elevated'), 'asc': asc('elevated'), 'desc': desc('elevated')}"></span></th>
+            <th><span>Last Modified<span ng-click="toggleSort('lastModified')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('lastModified'), 'asc': asc('lastModified'), 'desc': desc('lastModified')}"></span></span></th>
+            <th><span>Elevated<span ng-click="toggleSort('elevated')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('elevated'), 'asc': asc('elevated'), 'desc': desc('elevated')}"></span></span></th>
             <th><span>Actions</span></th>
           </tr>
         </thead>
