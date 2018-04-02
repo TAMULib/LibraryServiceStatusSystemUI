@@ -19,7 +19,7 @@
         </form>
       </div>
       <div class="col-md-2 col-md-offset-1">
-        <button class="btn btn-default view-action-button pull-right" ng-click="openModal('#addFeatureProposalModal')">Add Feature Proposal</button>
+        <button class="btn btn-default view-action-button pull-right" ng-click="openModal('#addFpModal')">Add Feature Proposal</button>
       </div>
     </div>
   </div>
@@ -33,7 +33,7 @@
     </span>
   </div>
 
-  <table ng-table="tableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped notes-table">
+  <table ng-table="tableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped fp-table">
     <thead>
       <tr>
         <th><span>Service</span><span ng-click="toggleSort('service.name')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('service.name'), 'asc': asc('service.name'), 'desc': desc('service.name')}"></span></th>
