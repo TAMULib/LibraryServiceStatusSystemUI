@@ -1,71 +1,47 @@
 <div class="management-table" ng-controller="NoteController">
 
-  <div class="management-control">
-    <div class="row">
-      <div class="col-md-9">
-        <form ng-submit="applyFilter(filter)" novalidate>
-          <div class="input-group">
-            <div class="input-group-btn">
-              <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">{{filter.gloss}} <span class="caret"></span></button>
-              <ul class="dropdown-menu">
-                <li><a ng-repeat="f in filters" ng-value="f.property" ng-click="selectFilter(f)">{{f.gloss}}</a></li>
-              </ul>
-            </div>
-            <input type="text" class="form-control" placeholder="Filter by {{filter.gloss}}" ng-model="filter.value" aria-describedby="filters-input">		
-            <span class="input-group-btn">
-              <button class="btn btn-default" type="submit" ng-disabled="!filter.value">Filter</button>
-            </span>
-          </div>
-        </form>
-      </div>
-      <div class="col-md-2 col-md-offset-1">
-        <button class="btn btn-default view-action-button pull-right" ng-click="openModal('#addNoteModal')">Add Note</button>
-      </div>
-    </div>
-  </div>
-  
-  <div class="management-control">
-    <span ng-repeat="(prop, value) in activeFilters">
-      <span class="label label-default filter-label" ng-repeat="v in value">
-          <span>{{lookupGloss(prop)}}: {{v}}</span>
-          <span class="glyphicon glyphicon-remove filter-remove" ng-click="removeFilter(prop, v)"></span>
-      </span>
-    </span>
-  </div>
+  <weaver-table>
 
-  <table ng-table="tableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped note-table">
-    <thead>
-      <tr>
-        <th><span>Service</span><span ng-click="toggleSort('service.name')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('service.name'), 'asc': asc('service.name'), 'desc': desc('service.name')}"></span></th>
-        <th><span>Title</span><span ng-click="toggleSort('title')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('title'), 'asc': asc('title'), 'desc': desc('title')}"></span></th>
-        <th><span>Body</span></th>
-        <th><span>Type</span><span ng-click="toggleSort('noteType')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('noteType'), 'asc': asc('noteType'), 'desc': desc('noteType')}"></span></th>
-        <th><span>Last Modified</span><span ng-click="toggleSort('lastModified')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('lastModified'), 'asc': asc('lastModified'), 'desc': desc('lastModified')}"></span></th>
-        <th><span>Pinned</span><span ng-click="toggleSort('pinned')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('pinned'), 'asc': asc('pinned'), 'desc': desc('pinned')}"></span></th>
-        <th><span>Active</span><span ng-click="toggleSort('active')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('active'), 'asc': asc('active'), 'desc': desc('active')}"></span></th>
-        <th><span>Actions</span></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="note in $data">
-        <td><a href="{{'service/' + note.service.id + '/detail/'}}">{{note.service.name}}</a> <span ng-if="note.schedules.length > 0">(scheduled)</span></td>
-        <td><a href="{{'note/' + note.id + '/detail/'}}">{{note.title}}</a></td>
-        <td>{{note.body}}</td>
-        <td>{{note.noteType}}</td>
-        <td>{{note.lastModified | date : 'medium'}}</td>
-        <td>{{note.pinned}}</td>
-        <td>{{note.active}}</td>
-        <td class="actions-column text-center">
-          <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editNote(note)"></span>
-          <span class="glyphicon glyphicon-time" title="schedule" ng-click="editSchedule(note)"></span>
-          <span class="glyphicon glyphicon-trash" title="delte" ng-click="confirmDelete(note)"></span>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    <weaver-table-element>
+      <table ng-table="tableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped note-table">
+        <thead>
+          <tr>
+            <th><span>Service</span><span ng-click="toggleSort('service.name')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('service.name'), 'asc': asc('service.name'), 'desc': desc('service.name')}"></span></th>
+            <th><span>Title</span><span ng-click="toggleSort('title')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('title'), 'asc': asc('title'), 'desc': desc('title')}"></span></th>
+            <th><span>Body</span></th>
+            <th><span>Type</span><span ng-click="toggleSort('noteType')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('noteType'), 'asc': asc('noteType'), 'desc': desc('noteType')}"></span></th>
+            <th><span>Last Modified</span><span ng-click="toggleSort('lastModified')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('lastModified'), 'asc': asc('lastModified'), 'desc': desc('lastModified')}"></span></th>
+            <th><span>Pinned</span><span ng-click="toggleSort('pinned')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('pinned'), 'asc': asc('pinned'), 'desc': desc('pinned')}"></span></th>
+            <th><span>Active</span><span ng-click="toggleSort('active')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('active'), 'asc': asc('active'), 'desc': desc('active')}"></span></th>
+            <th><span>Actions</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="note in $data">
+            <td><a href="{{'service/' + note.service.id + '/detail/'}}">{{note.service.name}}</a> <span ng-if="note.schedules.length > 0">(scheduled)</span></td>
+            <td><a href="{{'note/' + note.id + '/detail/'}}">{{note.title}}</a></td>
+            <td>{{note.body}}</td>
+            <td>{{note.noteType}}</td>
+            <td>{{note.lastModified | date : 'medium'}}</td>
+            <td>{{note.pinned}}</td>
+            <td>{{note.active}}</td>
+            <td class="actions-column text-center">
+              <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editNote(note)"></span>
+              <span class="glyphicon glyphicon-time" title="schedule" ng-click="editSchedule(note)"></span>
+              <span class="glyphicon glyphicon-trash" title="delte" ng-click="confirmDelete(note)"></span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </weaver-table-element>
 
-  <modal modal-id="addNoteModal" modal-view="views/modals/addNoteModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
-  <modal modal-id="deleteNoteModal" modal-view="views/modals/deleteNoteModal.html" modal-header-class="modal-header-danger" wvr-modal-backdrop="static"></modal>
-  <modal modal-id="editNoteModal" modal-view="views/modals/editNoteModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
-  <modal modal-id="editScheduleModal" modal-view="views/modals/editScheduleModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+    <weaver-table-modals>
+        <modal modal-id="addNoteModal" modal-view="views/modals/addNoteModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+        <modal modal-id="deleteNoteModal" modal-view="views/modals/deleteNoteModal.html" modal-header-class="modal-header-danger" wvr-modal-backdrop="static"></modal>
+        <modal modal-id="editNoteModal" modal-view="views/modals/editNoteModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+        <modal modal-id="editScheduleModal" modal-view="views/modals/editScheduleModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+    </weaver-table-modals>
+
+  </weaver-table>
+
 </div>
