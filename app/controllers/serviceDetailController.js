@@ -38,4 +38,12 @@ app.controller('ServiceDetailController', function ($controller, $routeParams, $
         FeatureProposalRepo.vote(fp);
     };
 
+    $scope.getServiceWebsite = function(service) {
+        var link = service.website;
+        if(link.indexOf('//') === -1) {
+            link = '//' + link;
+        }
+        return link;
+    };
+
 });
