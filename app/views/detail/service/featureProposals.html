@@ -5,7 +5,7 @@
   <button class="btn btn-default view-action-button" ng-click="openModal('#addFpModal')">Add Feature Proposal</button>
   <hr />
 
-  <table ng-table="featureProposalsTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped feature-proposal-table">
+  <table ng-table="featureProposalsTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped fp-table">
     <tr ng-repeat="fp in $data">
       <td title="'Title'">{{fp.title}}</td>
       <td title="'Description'">{{fp.description}}</td>

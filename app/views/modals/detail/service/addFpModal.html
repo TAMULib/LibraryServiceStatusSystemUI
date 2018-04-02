@@ -12,7 +12,7 @@
   
       <validatedinput model="fpData" property="title" label="Title" placeholder="Title of the Feature Proposal" form="forms.create" validations="fpRepo.getValidations()" results="fpRepo.getValidationResults()"></validatedinput>
   
-      <validatedselect model="fpData" property="service" label="Services" form="forms.create" validations="fpRepo.getValidations()" results="fpRepo.getValidationResults()" options="services" optionProperty="name"></validatedselect>
+      <validatedselect model="fpData" property="service" label="Service" form="forms.create" validations="fpRepo.getValidations()" results="fpRepo.getValidationResults()" options="services" optionProperty="name"></validatedselect>
   
       <label>Feature Proposal Description</label>
       <textarea ui-tinymce="tinymceOptions" ng-model="fpData.description"></textarea>

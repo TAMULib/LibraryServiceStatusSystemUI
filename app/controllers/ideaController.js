@@ -4,8 +4,6 @@ app.controller('IdeaController', function ($controller, $scope, $timeout, Featur
         $scope: $scope
     }));
 
-    $scope.ideaRepo = IdeaRepo;
-
     $scope.modalData = {
         title: '',
         description: '',
