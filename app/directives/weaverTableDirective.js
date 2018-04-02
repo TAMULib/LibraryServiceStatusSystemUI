@@ -5,6 +5,7 @@ app.directive('weaverTable', function ($controller) {
       replace: false,
       transclude: {
         table: 'weaverTableElement',
+        controls: 'weaverTableControls',
         modals: 'weaverTableModals'
       },
       scope: false,

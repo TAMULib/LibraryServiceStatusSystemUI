@@ -2,6 +2,10 @@
 
   <weaver-table>
 
+    <weaver-table-controls>
+      <button class="btn btn-default view-action-button pull-right" ng-click="openModal('#addIdeaModal')">Add Idea</button>
+    </weaver-table-controls>
+
     <weaver-table-element>
       <table ng-table="tableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped idea-table">
         <thead>
