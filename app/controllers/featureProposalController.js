@@ -137,6 +137,7 @@ app.controller('FeatureProposalController', function ($controller, $scope, Featu
         if ($scope.fpData.ideas.some(function (i) {
             return i.id === idea.id;
         })) {
+            $scope.fpData.dirty(true);
             $scope.fpData.ideas.splice($scope.fpData.ideas.indexOf(idea), 1);
         }
     };
