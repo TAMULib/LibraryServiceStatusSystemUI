@@ -6,7 +6,7 @@
   <table ng-table="ideasTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped idea-table">
     <tr ng-repeat="idea in $data">
       <td width="30" header="'views/ng-table/checkbox.html'">
-        <input class="idea-checkbox" type="checkbox" ng-click="toggleSelectIdea(idea)"/>
+        <input class="idea-checkbox" type="checkbox" ng-click="toggleSelectIdea(idea)" ng-checked="isSelectedIdea(idea)"/>
       </td>
       <td title="'Title'">{{idea.title}}</td>
       <td title="'Description'">{{idea.description}}</td>

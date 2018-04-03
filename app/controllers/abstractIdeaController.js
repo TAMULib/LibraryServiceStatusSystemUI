@@ -44,6 +44,12 @@ app.controller('AbstractIdeaController', function ($controller, $scope, FeatureP
 
     });
 
+    $scope.clearOverallCheckbox = function () {
+        var overallCheckbox = angular.element('#overallCheckbox')[0];
+        overallCheckbox.indeterminate = false;
+        overallCheckbox.checked = false;
+    };
+
     $scope.createFeatureProposal = function () {
         $scope.creating = true;
         FeatureProposalRepo.create($scope.fpData).then(function (res) {
@@ -51,6 +57,7 @@ app.controller('AbstractIdeaController', function ($controller, $scope, FeatureP
                 $scope.creating = false;
                 $scope.resetFeatureProposals();
                 $scope.selectedIdeas.length = 0;
+                $scope.clearOverallCheckbox();
             }
         });
     };

@@ -8,8 +8,7 @@ app.controller('IdeaController', function ($controller, $scope, $timeout, Featur
 
     $scope.ideaToDelete = {};
 
-    $scope.filters = [
-        {
+    $scope.filters = [{
             gloss: 'Service',
             property: 'service.name'
         },
@@ -97,59 +96,79 @@ app.controller('IdeaController', function ($controller, $scope, $timeout, Featur
 
     $scope.setOverallCheckbox = function () {
         var overallCheckbox = angular.element('#overallCheckbox')[0];
-        var unchecked = 0;
-        angular.forEach($scope.ideasTableParams.data, function(idea) {
-            if ($scope.selectedIdeas.some(function(checkIdea) {
-                return idea.id === checkIdea.id;
-            })) {
-                unchecked++;
-            }
-        });
-        if (unchecked === $scope.ideasTableParams.data.length) {
-            $scope.overallCheckboxValue = true;
+        if ($scope.selectedIdeas.length === 0) {
             overallCheckbox.indeterminate = false;
-        } else if (unchecked === 0) {
-            $scope.overallCheckboxValue = false;
+            overallCheckbox.checked = false;
+        } else if ($scope.selectedIdeas.length === $scope.ideasTableParams._settings.total) {
             overallCheckbox.indeterminate = false;
+            overallCheckbox.checked = true;
         } else {
-            $scope.overallCheckboxValue = false;
             overallCheckbox.indeterminate = true;
+            overallCheckbox.checked = false;
         }
     };
 
-    $scope.toggleSelectIdea = function(idea) {
-        var foundIdea = $scope.selectedIdeas.some(function(i) {
-            return i.id === idea.id;
-        });
-        if (foundIdea) {
-            $scope.selectedIdeas.splice($scope.selectedIdeas.indexOf(idea), 1);
+    $scope.toggleSelectIdea = function (idea) {
+        if ($scope.isSelectedIdea(idea)) {
+            $scope.removeIdeaFromSelected(idea);
         } else {
             $scope.selectedIdeas.push(idea);
         }
         $scope.setOverallCheckbox();
     };
 
-    $scope.toggleAll = function() {
-        var checkboxes = angular.element('.idea-checkbox');
-
-        if ($scope.overallCheckboxValue) {
-            $timeout(function() {
-                angular.forEach(checkboxes, function(elem) {
-                    elem.click();
-                });
-            });
+    $scope.toggleAll = function () {
+        if ($scope.overallCheckboxValue || $scope.anyOnPageSelected()) {
+            for (var i in $scope.ideasTableParams.data) {
+                var idea = $scope.ideasTableParams.data[i];
+                if (i !== 'visibleColumnCount' && $scope.isSelectedIdea(idea)) {
+                    $scope.removeIdeaFromSelected(idea)
+                }
+            }
         } else {
-            $timeout(function() {
-                angular.forEach(checkboxes, function(elem) {
-                    if (!elem.checked) {
-                        elem.click();
-                    }
-                });
-            });
+            for (var i in $scope.ideasTableParams.data) {
+                var idea = $scope.ideasTableParams.data[i];
+                if (i !== 'visibleColumnCount' && !$scope.isSelectedIdea(idea)) {
+                    $scope.selectedIdeas.push(idea);
+                }
+            }
+        }
+        $scope.setOverallCheckbox();
+    };
+
+    $scope.anyOnPageSelected = function () {
+        var anySelected = false;
+        for (var i in $scope.ideasTableParams.data) {
+            var idea = $scope.ideasTableParams.data[i];
+            if (i !== 'visibleColumnCount' && $scope.isSelectedIdea(idea)) {
+                anySelected = true;
+                break;
+            }
+        }
+        return anySelected;
+    };
+
+    $scope.isSelectedIdea = function (idea) {
+        var selected = false;
+        for (var i in $scope.selectedIdeas) {
+            if (idea.id === $scope.selectedIdeas[i].id) {
+                selected = true;
+                break;
+            }
+        }
+        return selected;
+    };
+
+    $scope.removeIdeaFromSelected = function (idea) {
+        for (var i in $scope.selectedIdeas) {
+            if (idea.id === $scope.selectedIdeas[i].id) {
+                $scope.selectedIdeas.splice(i, 1);
+                break;
+            }
         }
     };
 
-    $scope.confirmElevateMultiple = function(ideas) {
+    $scope.confirmElevateMultiple = function (ideas) {
         $scope.fpData.ideas = ideas;
         $scope.fpData.title = ideas[0].title;
         $scope.fpData.description = ideas[0].description;
@@ -157,12 +176,12 @@ app.controller('IdeaController', function ($controller, $scope, $timeout, Featur
         $scope.openModal('#elevateMultipleModal');
     };
 
-    $scope.confirmAddIdea = function(idea) {
+    $scope.confirmAddIdea = function (idea) {
         $scope.ideaToAdd = idea;
         $scope.openModal('#confirmAddIdeaModal');
-      };
-    
-    $scope.addIdea = function(fp) {
+    };
+
+    $scope.addIdea = function (fp) {
         fp.ideas.push($scope.ideaToAdd);
         fp.dirty(true);
         $scope.updateFeatureProposal(fp);
@@ -171,7 +190,7 @@ app.controller('IdeaController', function ($controller, $scope, $timeout, Featur
         $scope.ideaToAdd = {};
     };
 
-    $scope.setSelectedFp = function(fp) {
+    $scope.setSelectedFp = function (fp) {
         $scope.selectedFp = fp;
     };
 
