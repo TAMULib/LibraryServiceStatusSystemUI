@@ -1,4 +1,4 @@
-app.controller('FeatureProposalController', function ($controller, $scope, FeatureProposal, FeatureProposalRepo, ProjectService) {
+app.controller('FeatureProposalController', function ($controller, $scope, Idea, FeatureProposal, FeatureProposalRepo, ProjectService) {
 
     angular.extend(this, $controller('AbstractIdeaController', {
         $scope: $scope
@@ -33,6 +33,8 @@ app.controller('FeatureProposalController', function ($controller, $scope, Featu
         }
     ];
 
+    $scope.removedIdeas = [];
+
     $scope.tableParams = FeatureProposalRepo.getTableParams();
 
     $scope.editFeatureProposal = function (fp) {
@@ -44,6 +46,7 @@ app.controller('FeatureProposalController', function ($controller, $scope, Featu
         if ($scope.fpData.ideas.some(function (i) {
             return i.id === idea.id;
         })) {
+            $scope.removedIdeas.push(new Idea(idea));
             $scope.forms.updateFp.$setDirty();
             $scope.fpData.dirty(true);
             $scope.fpData.ideas.splice($scope.fpData.ideas.indexOf(idea), 1);
@@ -54,6 +57,12 @@ app.controller('FeatureProposalController', function ($controller, $scope, Featu
         FeatureProposalRepo.update($scope.fpData).then(function (res) {
             if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                 $scope.resetFeatureProposals();
+                for(var i in $scope.removedIdeas) {
+                    var idea = $scope.removedIdeas[i];
+                    idea.elevated = false;
+                    idea.save();
+                }
+                $scope.removedIdeas.length = 0;
             }
         });
     };

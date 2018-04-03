@@ -8,8 +8,6 @@ app.controller('IdeaController', function ($controller, $scope, $timeout, Featur
 
     $scope.ideaToDelete = {};
 
-    $scope.selectedIdeas = [];
-
     $scope.filters = [
         {
             gloss: 'Service',
@@ -86,11 +84,6 @@ app.controller('IdeaController', function ($controller, $scope, $timeout, Featur
         });
     };
 
-    $scope.confirmElevate = function (idea) {
-        $scope.ideaToElevate = idea;
-        $scope.openModal('#elevateIdeaModal');
-    };
-
     $scope.elevateIdea = function (idea) {
         $scope.elevating = true;
         FeatureProposalRepo.elevate(idea).then(function (res) {
@@ -156,8 +149,11 @@ app.controller('IdeaController', function ($controller, $scope, $timeout, Featur
         }
     };
 
-    $scope.confimrElevateMultiple = function(ideas) {
+    $scope.confirmElevateMultiple = function(ideas) {
         $scope.fpData.ideas = ideas;
+        $scope.fpData.title = ideas[0].title;
+        $scope.fpData.description = ideas[0].description;
+        $scope.fpData.service = ideas[0].service;
         $scope.openModal('#elevateMultipleModal');
     };
 

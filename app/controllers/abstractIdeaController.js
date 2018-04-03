@@ -4,6 +4,8 @@ app.controller('AbstractIdeaController', function ($controller, $scope, FeatureP
         $scope: $scope
     }));
 
+    $scope.selectedIdeas = [];
+
     $scope.forms = {};
 
     $scope.fpRepo = FeatureProposalRepo;
@@ -48,6 +50,7 @@ app.controller('AbstractIdeaController', function ($controller, $scope, FeatureP
             if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                 $scope.creating = false;
                 $scope.resetFeatureProposals();
+                $scope.selectedIdeas.length = 0;
             }
         });
     };

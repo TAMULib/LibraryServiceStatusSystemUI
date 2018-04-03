@@ -1,6 +1,6 @@
 <div class="management-table" ng-controller="IdeaController">
   <button class="btn btn-default view-action-button" ng-click="openModal('#addIdeaModal')">Add Idea</button>
-  <button class="btn btn-default view-action-button pull-right" ng-click="confimrElevateMultiple(selectedIdeas)" ng-disabled="selectedIdeas.length === 0">Elevate Selected Ideas</button>
+  <button class="btn btn-default view-action-button pull-right" ng-click="confirmElevateMultiple(selectedIdeas)" ng-disabled="selectedIdeas.length === 0">Elevate Selected Ideas</button>
   <hr />
 
   <table ng-table="ideasTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped idea-table">
@@ -12,10 +12,10 @@
       <td title="'Description'">{{idea.description}}</td>
       <td title="'Last Modified'">{{idea.lastModified | date : 'medium'}}</td>
       <td class="actions-column text-center" title="'Actions'">
-        <span class="glyphicon glyphicon glyphicon-triangle-top" title="elevate" ng-click="confirmElevate(idea)"></span>
+        <span class="glyphicon glyphicon glyphicon-triangle-top" title="elevate" ng-click="confirmElevateMultiple([idea])"></span>
         <span class="glyphicon glyphicon-plus" title="add to proposal" ng-click="confirmAddIdea(idea)"></span>
-        <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editIdea(idea)"></span>
-        <span class="glyphicon glyphicon-trash" title="delete" ng-click="confirmDelete(idea)"></span>
+        <!-- <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editIdea(idea)"></span> -->
+        <!-- <span class="glyphicon glyphicon-trash" title="delete" ng-click="confirmDelete(idea)"></span> -->
       </td>
     </tr>
   </table>
@@ -23,7 +23,6 @@
   <modal modal-id="addIdeaModal" modal-view="views/modals/detail/service/addIdeaModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
   <modal modal-id="deleteIdeaModal" modal-view="views/modals/detail/service/deleteIdeaModal.html" modal-header-class="modal-header-danger" wvr-modal-backdrop="static"></modal>
   <modal modal-id="editIdeaModal" modal-view="views/modals/detail/service/editIdeaModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
-  <modal modal-id="elevateIdeaModal" modal-view="views/modals/detail/service/elevateIdeaModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
   <modal modal-id="elevateMultipleModal" modal-view="views/modals/detail/service/elevateMultipleModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
   <modal modal-id="confirmAddIdeaModal" modal-view="views/modals/detail/service/confirmAddIdeaModal.html" modal-header-class="modal-header-primary" modal-fullscreen="true" wvr-modal-backdrop="static"></modal>
 </div>
