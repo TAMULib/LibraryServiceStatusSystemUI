@@ -5,15 +5,15 @@
   <h3 class="modal-title">Edit Feature Proposal</h3>
 </div>
 
-<form ng-submit="updateFeatureProposal(fpData)" name="forms.update" novalidate>
+<form ng-submit="updateFeatureProposal(fpData)" name="forms.updateFp" novalidate>
 
   <validationmessage results="fpRepo.getValidationResults()"></validationmessage>
 
   <div class="modal-body">
 
-    <validatedinput model="fpData" property="title" label="Title" placeholder="Title of the Feature Proposal" form="forms.update" validations="fpRepo.getValidations()" results="fpRepo.getValidationResults()"></validatedinput>
+    <validatedinput model="fpData" property="title" label="Title" placeholder="Title of the Feature Proposal" form="forms.updateFp" validations="fpRepo.getValidations()" results="fpRepo.getValidationResults()"></validatedinput>
 
-    <validatedselect model="fpData" property="service" label="Services" form="forms.update" validations="fpRepo.getValidations()" results="fpRepo.getValidationResults()" options="services" optionProperty="name" disabled="serviceDisabled"></validatedselect>
+    <validatedselect model="fpData" property="service" label="Services" form="forms.updateFp" validations="fpRepo.getValidations()" results="fpRepo.getValidationResults()" options="services" optionProperty="name" disabled="serviceDisabled"></validatedselect>
 
     <label>Feature Proposal Description</label>
     <textarea class="form-control" ng-model="fpData.description"></textarea>
@@ -29,7 +29,7 @@
 
     <div class="modal-footer">
       <button ng-disabled="updating" type="button" class="btn btn-default" ng-click="resetFeatureProposals()">Cancel</button>
-      <button ng-disabled="forms.update.$invalid || forms.update.$pristine || updating" id="idea-update" type="submit" class="btn btn-primary">
+      <button ng-disabled="forms.updateFp.$invalid || forms.updateFp.$pristine || updating" id="idea-update" type="submit" class="btn btn-primary">
         <span ng-if="!updating">Update</span>
         <span ng-if="updating">updating
           <span class="glyphicon glyphicon-refresh spinning"></span>

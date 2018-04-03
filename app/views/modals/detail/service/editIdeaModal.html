@@ -5,15 +5,15 @@
   <h3 class="modal-title">Edit Idea</h3>
 </div>
 
-<form ng-submit="updateIdea()" name="forms.update" novalidate>
+<form ng-submit="updateIdea()" name="forms.updateIdea" novalidate>
 
   <validationmessage results="ideaRepo.getValidationResults()"></validationmessage>
 
   <div class="modal-body">
 
-    <validatedinput model="ideaData" property="title" label="Title" placeholder="Title of the Idea" form="forms.update" validations="ideaRepo.getValidations()" results="ideaRepo.getValidationResults()"></validatedinput>
+    <validatedinput model="ideaData" property="title" label="Title" placeholder="Title of the Idea" form="forms.updateIdea" validations="ideaRepo.getValidations()" results="ideaRepo.getValidationResults()"></validatedinput>
 
-    <validatedselect model="ideaData" property="service" label="Services" form="forms.update" validations="ideaRepo.getValidations()" results="ideaRepo.getValidationResults()" options="services" optionProperty="name" disabled="serviceDisabled"></validatedselect>
+    <validatedselect model="ideaData" property="service" label="Services" form="forms.updateIdea" validations="ideaRepo.getValidations()" results="ideaRepo.getValidationResults()" options="services" optionProperty="name" disabled="serviceDisabled"></validatedselect>
 
     <label>Idea Description</label>
     <textarea class="form-control" ng-model="ideaData.description"></textarea>
@@ -21,7 +21,7 @@
 
     <div class="modal-footer">
       <button ng-disabled="updating" type="button" class="btn btn-default" ng-click="resetIdeas()">Cancel</button>
-      <button ng-disabled="forms.update.$invalid || forms.update.$pristine || updating" id="idea-update" type="submit" class="btn btn-primary">
+      <button ng-disabled="forms.updateIdea.$invalid || forms.updateIdea.$pristine || updating" id="idea-update" type="submit" class="btn btn-primary">
         <span ng-if="!updating">Update</span>
         <span ng-if="updating">Updating
           <span class="glyphicon glyphicon-refresh spinning"></span>

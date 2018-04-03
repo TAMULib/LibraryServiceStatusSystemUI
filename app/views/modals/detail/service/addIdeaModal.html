@@ -5,14 +5,14 @@
   <h3 class="modal-title">Add Idea</h3>
 </div>
 
-<form ng-submit="createIdea()" name="forms.create" novalidate>
+<form ng-submit="createIdea()" name="forms.createIdea" novalidate>
   <validationmessage results="ideaRepo.getValidationResults()"></validationmessage>
 
   <div class="modal-body">
     
-    <validatedinput model="ideaData" property="title" label="Title" placeholder="Title of the Idea" form="forms.create" validations="ideaRepo.getValidations()" results="ideaRepo.getValidationResults()"></validatedinput>
+    <validatedinput model="ideaData" property="title" label="Title" placeholder="Title of the Idea" form="forms.createIdea" validations="ideaRepo.getValidations()" results="ideaRepo.getValidationResults()"></validatedinput>
 
-    <validatedselect model="ideaData" property="service" label="Services" form="forms.create" validations="ideaRepo.getValidations()" results="ideaRepo.getValidationResults()" options="services" optionProperty="name" disabled="serviceDisabled"></validatedselect>
+    <validatedselect model="ideaData" property="service" label="Services" form="forms.createIdea" validations="ideaRepo.getValidations()" results="ideaRepo.getValidationResults()" options="services" optionProperty="name" disabled="serviceDisabled"></validatedselect>
 
     <label>Idea Description</label>
     <textarea class="form-control" ng-model="ideaData.description"></textarea>
@@ -20,7 +20,7 @@
 
     <div class="modal-footer">
       <button type="button" class="btn btn-default" ng-click="resetIdeas()" ng-disabled="creating">Cancel</button>
-      <button id="ideas-save" type="submit" class="btn btn-primary" ng-disabled="forms.create.$invalid || creating">
+      <button id="ideas-save" type="submit" class="btn btn-primary" ng-disabled="forms.createIdea.$invalid || creating">
         <span ng-if="!creating">Create</span>
         <span ng-if="creating">Adding
           <span class="glyphicon glyphicon-refresh spinning"></span>
