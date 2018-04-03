@@ -15,7 +15,7 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, FeaturePropo
 
         service.fetchNotePage = function () {
             notesTable.getPageSettings().filters = {
-                active: [true],
+                active: ['true'],
                 service: [service.id]
             };
             return NoteRepo.fetchPage(notesTable.getPageSettings());
@@ -93,7 +93,7 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, FeaturePropo
 
         service.fetchIdeaPage = function () {
             ideasTable.getPageSettings().filters = {
-                elevated: [false],
+                elevated: ['false'],
                 service: [service.id]
             };
             return IdeaRepo.fetchPage(ideasTable.getPageSettings());
@@ -203,6 +203,7 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, FeaturePropo
             featureProposalsTable.getPageSettings().pageNumber = 1;
             featureProposalsTable.getPageSettings().pageSize = 1000;
             featureProposalsTable.getPageSettings().filters = {
+                submitted: ['false'],
                 service: [service.id]
             };
             FeatureProposalRepo.fetchPage(featureProposalsTable.getPageSettings()).then(function (response) {
@@ -232,7 +233,6 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, FeaturePropo
                 service.featureProposals.push(new FeatureProposal(featureProposals[i]));
             }
         };
-
 
         return service;
     };

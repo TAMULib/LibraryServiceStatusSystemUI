@@ -6,13 +6,6 @@ app.controller('IdeaController', function ($controller, $scope, $timeout, Featur
 
     $scope.repo = IdeaRepo;
 
-    $scope.modalData = {
-        title: '',
-        description: '',
-    };
-
-    $scope.forms = {};
-
     $scope.ideaToDelete = {};
 
     $scope.selectedIdeas = [];
@@ -41,38 +34,19 @@ app.controller('IdeaController', function ($controller, $scope, $timeout, Featur
         $scope.tableParams = IdeaRepo.getTableParams();
 
         $scope.resetIdeas = function () {
-            if ($scope.ideaData) {
-                $scope.ideaData.refresh();
-                $scope.ideaData.clearValidationResults();
-            }
-            for (var key in $scope.forms) {
-                if (!$scope.forms[key].$pristine) {
-                    $scope.forms[key].$setPristine();
-                    $scope.forms[key].$setUntouched();
-                }
-            }
+            $scope.resetForms($scope.ideaData);
             $scope.ideaData = new Idea({
                 title: '',
                 description: '',
-                service: $scope.services[0]
+                service: $scope.service ? $scope.service : $scope.services[0]
             });
             $scope.closeModal();
         };
 
+        $scope.resetIdeas();
+
     });
 
-    $scope.resetIdeas = function () {
-        $scope.resetForms($scope.ideaData);
-        $scope.ideaData = new Idea({
-            title: '',
-            description: '',
-            service: $scope.services[0]
-        });
-        $scope.closeModal();
-    };
-
-    $scope.resetIdeas();
-    
     $scope.createIdea = function () {
         IdeaRepo.create($scope.ideaData).then(function (res) {
             if (angular.fromJson(res.body).meta.status === 'SUCCESS') {

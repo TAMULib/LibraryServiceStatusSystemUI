@@ -25,18 +25,22 @@ app.controller('AbstractIdeaController', function ($controller, $scope, FeatureP
         }
     };
 
-    $scope.resetFeatureProposals = function () {
-        $scope.resetForms($scope.fpData);
-        $scope.fpData = new FeatureProposal({
-            title: '',
-            description: '',
-            services: null,
-        });
-        $scope.closeModal();
-        FeatureProposalRepo.getTableParams().reload();
-    };
+    ServiceRepo.ready().then(function () {
 
-    $scope.resetFeatureProposals();
+        $scope.resetFeatureProposals = function () {
+            $scope.resetForms($scope.fpData);
+            $scope.fpData = new FeatureProposal({
+                title: '',
+                description: '',
+                service: $scope.service ? $scope.service : $scope.services[0],
+            });
+            $scope.closeModal();
+            FeatureProposalRepo.getTableParams().reload();
+        };
+
+        $scope.resetFeatureProposals();
+
+    });
 
     $scope.createFeatureProposal = function () {
         FeatureProposalRepo.create($scope.fpData).then(function (res) {
