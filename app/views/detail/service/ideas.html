@@ -9,7 +9,7 @@
         <input class="idea-checkbox" type="checkbox" ng-click="toggleSelectIdea(idea)"/>
       </td>
       <td title="'Title'">{{idea.title}}</td>
-      <td title="'Description'">{{idea.description | removeHtmlTags}}</td>
+      <td title="'Description'">{{idea.description}}</td>
       <td title="'Last Modified'">{{idea.lastModified | date : 'medium'}}</td>
       <td class="actions-column" title="'Actions'">
         <span class="glyphicon glyphicon glyphicon-triangle-top" title="elevate" ng-click="confirmElevate(idea)"></span>

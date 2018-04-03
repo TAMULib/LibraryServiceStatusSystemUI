@@ -15,7 +15,7 @@
     <validatedselect model="ideaData" property="service" label="Services" form="forms.create" validations="ideaRepo.getValidations()" results="ideaRepo.getValidationResults()" options="services" optionProperty="name" disabled="serviceDisabled"></validatedselect>
 
     <label>Idea Description</label>
-    <textarea ui-tinymce="tinymceOptions" ng-model="ideaData.description"></textarea>
+    <textarea class="form-control" ng-model="ideaData.description"></textarea>
     <br />
 
     <div class="modal-footer">

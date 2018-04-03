@@ -15,7 +15,7 @@
       <validatedselect model="fpData" property="service" label="Service" form="forms.create" validations="fpRepo.getValidations()" results="fpRepo.getValidationResults()" options="services" optionProperty="name" disabled="serviceDisabled"></validatedselect>
   
       <label>Feature Proposal Description</label>
-      <textarea ui-tinymce="tinymceOptions" ng-model="fpData.description"></textarea>
+      <textarea class="form-control" ng-model="fpData.description"></textarea>
       <br />
   
       <div class="modal-footer">
