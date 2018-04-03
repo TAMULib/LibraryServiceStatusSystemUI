@@ -48,8 +48,10 @@ app.controller('IdeaController', function ($controller, $scope, $timeout, Featur
     });
 
     $scope.createIdea = function () {
+        $scope.creating = true;
         IdeaRepo.create($scope.ideaData).then(function (res) {
             if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
+                $scope.creating = false;
                 $scope.resetIdeas();
             }
         });
@@ -61,8 +63,10 @@ app.controller('IdeaController', function ($controller, $scope, $timeout, Featur
     };
 
     $scope.updateIdea = function () {
+        $scope.updating = true;
         IdeaRepo.update($scope.ideaData).then(function (res) {
             if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
+                $scope.updating = false;
                 $scope.resetIdeas();
             }
         });
@@ -88,9 +92,11 @@ app.controller('IdeaController', function ($controller, $scope, $timeout, Featur
     };
 
     $scope.elevateIdea = function (idea) {
+        $scope.elevating = true;
         FeatureProposalRepo.elevate(idea).then(function (res) {
             var apiRes = angular.fromJson(res.body);
             if (apiRes.meta.status === 'SUCCESS') {
+                $scope.elevating = false;
                 $scope.resetIdeas();
             }
         });

@@ -19,8 +19,13 @@
       <br />
   
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" ng-click="resetFeatureProposals()">Cancel</button>
-        <button id="feature-proposal-save" type="submit" class="btn btn-primary" ng-disabled="forms.create.$invalid">Create</button>
+        <button type="button" class="btn btn-default" ng-click="resetFeatureProposals()" ng-disabled="creating">Cancel</button>
+        <button id="feature-proposal-save" type="submit" class="btn btn-primary" ng-disabled="forms.create.$invalid || creating">
+          <span ng-if="!creating">Create</span>
+          <span ng-if="creating">Creating
+              <span class="glyphicon glyphicon-refresh spinning"></span>
+          </span>
+        </button>
       </div>
     </div>
   </form>

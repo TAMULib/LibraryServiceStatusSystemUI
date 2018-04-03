@@ -70,7 +70,7 @@ app.controller('FeatureProposalController', function ($controller, $scope, Featu
         });
     };
 
-    $scope.confirmDelete = function (fp) {
+    $scope.confirmDeleteFp = function (fp) {
         $scope.openModal('#deleteFpModal');
         $scope.fpToDelete = fp;
     };

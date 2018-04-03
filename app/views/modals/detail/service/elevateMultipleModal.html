@@ -5,7 +5,7 @@
   <h3 class="modal-title">Elevate selected Ideas to a Feature Proposal</h3>
 </div>
 
-<form novalidate>
+<form ng-submit="createFeatureProposal()" name="forms.create" novalidate>
 
   <validationmessage results="fpData.ValidationResults"></validationmessage>
 
@@ -16,7 +16,7 @@
     <validatedselect model="fpData" property="service" label="Services" form="forms.create" validations="fpRepo.getValidations()" results="fpRepo.getValidationResults()" options="services" optionProperty="name" disabled="serviceDisabled"></validatedselect>
 
     <label>Feature Proposal Description</label>
-    <textarea ui-tinymce="tinymceOptions" ng-model="fpData.description"></textarea>
+    <textarea class="form-control" ng-model="fpData.description"></textarea>
     <br />
     
     <label>Selected Ideas</label>
@@ -26,9 +26,10 @@
     </div>
 
   </div>
+  
   <div class="modal-footer">
-    <button ng-disabled="deleting" type="button" class="btn btn-warning" ng-click="resetFeatureProposals()">Cancel</button>
-    <button ng-disabled="deleting" type="button" class="btn btn-danger" ng-click="createFeatureProposal(fpData)">
+    <button ng-disabled="elevating" type="button" class="btn btn-default" ng-click="resetFeatureProposals()">Cancel</button>
+    <button ng-disabled="elevating" type="button" class="btn btn-primary" ng-click="createFeatureProposal(fpData)">
       <span ng-if="!elevating">Confirm</span>
       <span ng-if="elevating">Elevating
         <span class="glyphicon glyphicon-refresh spinning"></span>
