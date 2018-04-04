@@ -7,10 +7,19 @@
   </h1>
   <hr />
   <div>
-    <span ng-bind-html="service.description | decode"></span>
+    <p ng-bind-html="service.description | decode"></p>
     <p ng-if="service.software"><label>Software: </label><span>&nbsp{{service.software}}</span></p>
-    <p ng-if="service.website"><label>Website: </label><a href="{{getServiceWebsite(service)}}"><span>&nbsp{{service.website}}</span></a></p>
+    <p ng-if="service.website"><label>Website: </label><a href="{{getServiceWebsite(service)}}"><span>&nbsp{{service.website}}</span></a></p>   
   </div>
+</div>
+
+<div class="container" ng-if="isAdmin() || isManager()">
+  <div class="tabs">
+    <span ng-click="setActiveTab('ideas')" ng-class="{'active': activeTab === 'ideas'}" class="tab">Ideas</span>
+    <span ng-click="setActiveTab('featureProposals')" ng-class="{'active': activeTab === 'featureProposals'}" class="tab">Feature Proposals</span>
+    <hr />
+  </div>
+  <div ng-include="'views/detail/service/' + activeTab + '.html'"></div>
 </div>
 
 <div class="container notes-container">
@@ -42,15 +51,6 @@
   </table>
 </div>
 -->
-
-<div class="container" ng-if="isAdmin() || isManager()">
-  <div class="tabs">
-    <span ng-click="setActiveTab('ideas')" ng-class="{'active': activeTab === 'ideas'}" class="tab">Ideas</span>
-    <span ng-click="setActiveTab('featureProposals')" ng-class="{'active': activeTab === 'featureProposals'}" class="tab">Feature Proposals</span>
-    <hr />
-  </div>
-  <div ng-include="'views/detail/service/' + activeTab + '.html'"></div>
-</div>
 
 <div class="container feature-proposals-container">
   <h2 class="inline-h2">Feature Proposal</h2>
