@@ -1,0 +1,47 @@
+<div class="management-table" ng-controller="FeatureProposalController">
+
+  <weaver-table>
+
+    <weaver-table-controls>
+      <button class="btn btn-default view-action-button pull-right" ng-click="openModal('#addFpModal')">Add Feature Proposal</button>
+    </weaver-table-controls>
+
+    <weaver-table-element>
+      <table ng-table="tableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped fp-table">
+        <thead>
+          <tr>
+            <th><span>Service<span ng-click="toggleSort('service.name')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('service.name'), 'asc': asc('service.name'), 'desc': desc('service.name')}"></span></span></th>
+            <th><span>Title<span ng-click="toggleSort('title')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('title'), 'asc': asc('title'), 'desc': desc('title')}"></span></span></th>
+            <th><span>Description</span></th>
+            <th><span>Last Modified<span ng-click="toggleSort('lastModified')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('lastModified'), 'asc': asc('lastModified'), 'desc': desc('lastModified')}"></span></span></th>
+            <th><span>Submitted<span ng-click="toggleSort('submitted')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('submitted'), 'asc': asc('submitted'), 'desc': desc('submitted')}"></span></span></th>
+            <th><span>Actions</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="fp in $data">
+            <td title="'Service'"><a href="{{'service/' + fp.service.id + '/detail/'}}">{{fp.service.name}}</a></td>
+            <td title="'Title'">{{fp.title}}</a></td>
+            <td title="'Description'">{{fp.description}}</td>
+            <td title="'Last Modified'">{{fp.lastModified | date : 'medium'}}</td>
+            <td title="'Submitted'">{{fp.submitted}}</td>
+            <td class="actions-column text-center" title="'Actions'">
+              <span ng-if="!fp.submitted" class="toggle-href glyphicon glyphicon-upload" title="submit" ng-click="select(fp, '#submitFpModal');"></span>
+              <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editFeatureProposal(fp)"></span>
+              <span class="glyphicon glyphicon-trash" title="delete" ng-click="confirmDeleteFp(fp)"></span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </weaver-table-element>
+
+    <weaver-table-modals>
+      <modal modal-id="addFpModal" modal-view="views/modals/detail/service/addFpModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+      <modal modal-id="submitFpModal" modal-view="views/modals/detail/service/submitFpModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+      <modal modal-id="deleteFpModal" modal-view="views/modals/detail/service/deleteFpModal.html" modal-header-class="modal-header-danger" wvr-modal-backdrop="static"></modal>
+      <modal modal-id="editFpModal" modal-view="views/modals/detail/service/editFpModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+    </weaver-table-modals>
+
+  </weaver-table>
+
+</div>

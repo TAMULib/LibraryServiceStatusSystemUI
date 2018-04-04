@@ -1,23 +1,20 @@
 app.config(function ($routeProvider) {
     $routeProvider.
     when('/management', {
-        redirectTo: '/management/services'
+        redirectTo: '/management/services',
+        access: ["ROLE_ADMIN", "ROLE_WEB_MANAGER", "ROLE_SERVICE_MANAGER"]
     }).
     when('/management/:tab', {
         templateUrl: 'views/management.html',
-        access: ["ROLE_ADMIN", "ROLE_MANGER"]
-    }).
-    when('/users', {
-        templateUrl: 'views/users.html',
-        access: ["ROLE_ADMIN", "ROLE_MANGER"]
+        access: ["ROLE_ADMIN", "ROLE_WEB_MANAGER", "ROLE_SERVICE_MANAGER"]
     }).
     when('/services', {
         templateUrl: 'views/management/services.html',
-        access: ["ROLE_ADMIN", "ROLE_MANGER"]
+        access: ["ROLE_ADMIN", "ROLE_WEB_MANAGER", "ROLE_SERVICE_MANAGER"]
     }).
     when('/notes', {
         templateUrl: 'views/management/notes.html',
-        access: ["ROLE_ADMIN", "ROLE_MANGER"]
+        access: ["ROLE_ADMIN", "ROLE_WEB_MANAGER", "ROLE_SERVICE_MANAGER"]
     }).
     when('/service/:serviceId/detail', {
         templateUrl: 'views/detail/service.html',
@@ -25,7 +22,11 @@ app.config(function ($routeProvider) {
     }).
     when('/note/:noteId/detail', {
         templateUrl: 'views/detail/note.html',
-        controller: 'NoteDetailController'
+        controller: 'NoteDetailController',
+        access: ["ROLE_ADMIN", "ROLE_WEB_MANAGER", "ROLE_SERVICE_MANAGER"]
+    }).
+    when('/request', {
+        templateUrl: 'views/request/request.html',
     }).
     when('/home', {
         redirectTo: '/'

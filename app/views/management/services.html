@@ -1,7 +1,12 @@
 <div class="management-table" ng-controller="ServiceController">
 
-  <button class="btn btn-default view-action-button" ng-click="openModal('#addServiceModal')">Add Service</button>
-  <hr />
+  <div class="management-control clearfix">
+    <div class="row">
+      <div class="col-md-12">
+        <button class="btn btn-default view-action-button pull-right" ng-click="openModal('#addServiceModal')">Add Service</button>
+      </div>
+    </div>
+  </div>
 
   <table ng-table="tableParams" show-filter="false" class="table table-bordered table-striped service-table">
     <tr ng-repeat="service in services track by service.id">
@@ -11,7 +16,8 @@
       <td title="'Public'">{{service.isPublic}}</td>
       <td title="'Short List'">{{service.onShortList}}</td>
       <td title="'URL'">{{service.serviceUrl}}</td>
-      <td class="actions-column" title="'Actions'">
+      <td title="'Project'">{{getProject(service).name}}</td>
+      <td class="actions-column text-center" title="'Actions'">
         <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editService(service)"></span>
         <span class="glyphicon glyphicon-time" title="schedule" ng-click="editSchedule(service)"></span>
         <span class="glyphicon glyphicon-trash" title="delete" ng-click="confirmDelete(service)"></span>

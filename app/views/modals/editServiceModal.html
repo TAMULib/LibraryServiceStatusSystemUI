@@ -16,6 +16,18 @@
     <textarea ui-tinymce="tinymceOptions" ng-model="serviceData.description"></textarea>
     <br />
 
+    <label for="project">Associate Project</label>
+    <br />
+    <select class="form-control" ng-model="serviceData.projectId" name="project">
+      <option value="" ng-selected="!serviceData.projectId">None</option>
+      <option ng-repeat="project in projects" value="{{project.id}}" ng-selected="project.id === serviceData.projectId">{{project.name}}</option>
+    </select>
+    <br />
+
+    <validatedinput model="serviceData" property="website" label="Website" placeholder="Service Website" form="forms.update" validations="serviceRepo.getValidations()" results="serviceRepo.getValidationResults()"></validatedinput>
+
+    <validatedinput model="serviceData" property="software" label="Software" placeholder="Service Software" form="forms.update" validations="serviceRepo.getValidations()" results="serviceRepo.getValidationResults()"></validatedinput>
+
     <service-status model="serviceData"></service-status>
 
     <div class="checkbox">
@@ -28,7 +40,7 @@
 
     <div class="modal-footer">
       <button type="button" class="btn btn-default" ng-click="resetServices()">Cancel</button>
-      <button id="services-update" type="submit" class="btn btn-primary" ng-disabled="forms.create.$invalid">Update</button>
+      <button id="service-update" type="submit" class="btn btn-primary" ng-disabled="forms.update.$invalid">Update</button>
     </div>
   </div>
 </form>

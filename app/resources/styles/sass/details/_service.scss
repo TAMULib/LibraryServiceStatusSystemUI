@@ -2,3 +2,29 @@
   font-size: 1em;
   vertical-align: bottom;
 }
+
+.service-notes-table,
+.service-ideas-table,
+.service-feature-proposals-table {
+  margin-bottom: 0;
+}
+
+.service-notes-table thead,
+.service-ideas-table thead,
+.service-feature-proposals-table thead {
+  display: none;
+}
+
+.service-notes-table tbody tr td,
+.service-ideas-table tbody tr td,
+.service-feature-proposals-table tbody tr td {
+  border-top: none;
+}
+
+.ideas-list {
+  padding-bottom: 22px;
+}
+
+.inline-h2 {
+  display: inline;
+}

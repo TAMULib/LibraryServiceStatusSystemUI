@@ -1,0 +1,32 @@
+<div class="modal-header {{attr.modalHeaderClass}}">
+    <button type="button" class="close" ng-click="resetFeatureProposals()" aria-label="Close">
+      <span class="modal-close" aria-hidden="true">&times;</span>
+    </button>
+    <h3 class="modal-title">Add Feature Proposal</h3>
+  </div>
+  
+  <form ng-submit="createFeatureProposal()" name="forms.createFp" novalidate>
+    <validationmessage results="ideaRepo.getValidationResults()"></validationmessage>
+  
+    <div class="modal-body">
+  
+      <validatedinput model="fpData" property="title" label="Title" placeholder="Title of the Feature Proposal" form="forms.createFp" validations="fpRepo.getValidations()" results="fpRepo.getValidationResults()"></validatedinput>
+  
+      <validatedselect model="fpData" property="service" label="Service" form="forms.createFp" validations="fpRepo.getValidations()" results="fpRepo.getValidationResults()" options="services" optionProperty="name" disabled="serviceDisabled"></validatedselect>
+  
+      <label>Feature Proposal Description</label>
+      <textarea class="form-control" ng-model="fpData.description"></textarea>
+      <br />
+  
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="resetFeatureProposals()" ng-disabled="creating">Cancel</button>
+        <button id="feature-proposal-save" type="submit" class="btn btn-primary" ng-disabled="forms.createFp.$invalid || creating">
+          <span ng-if="!creating">Create</span>
+          <span ng-if="creating">Creating
+              <span class="glyphicon glyphicon-refresh spinning"></span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </form>
+  

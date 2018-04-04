@@ -48,7 +48,7 @@
     <alerts types="WARNING, ERROR"></alerts>
     <alerts seconds="45" channels="auth/register" types="SUCCESS"></alerts>
 
-    <div class="container-fluid">
+    <div class="container-fluid" ng-controller="AppAbstractController">
       <div class="container">
         <div class="col-md-12 appContent">
 
@@ -58,12 +58,15 @@
               <span class="glyphicon glyphicon-user"></span>
 
               <a class="dropdown-toggle hover-pointer" data-toggle="dropdown" aria-expanded="false">
-                <username></username> <span class="caret"></span></a>
+                <username></username>
+                <span class="caret"></span>
+              </a>
 
               <ul class="dropdown-menu" role="menu">
                 <li ng-if="isAdmin() || isAssuming() == 'true'" role="presentation" class="dropdown-header">Manager Actions</li>
-                <li ng-if="isAdmin() || isManager()"><a href="management">Management Dashboard</a></li>
-                <li ng-if="isAdmin() || isManager()"><a href="users">Manage Users</a></li>
+                <li ng-if="isAdmin() || isManager()">
+                  <a href="management">Management Dashboard</a>
+                </li>
                 <li ng-if="isAdmin() || isAssuming() == 'true'" role="presentation" class="divider"></li>
                 <li ng-if="isAdmin() || isAssuming() == 'true'" role="presentation" class="dropdown-header">Admin Actions</li>
                 <li ng-if="isAdmin() || isAssuming() == 'true'" ng-controller="AdminController">
@@ -71,14 +74,17 @@
                   <a href ng-if="isAssuming() == 'true'" ng-click="assumeUser()">{{assumedControl.button}}</a>
                 </li>
                 <li role="presentation" class="divider"></li>
-                <li><a href ng-click="logout()">Logout</a></li>
+                <li>
+                  <a href ng-click="logout()">Logout</a>
+                </li>
               </ul>
             </div>
 
           </nav>
 
           <div ng-controller="AdminController">
-            <modal modal-id="assumeUserModal" modal-view="node_modules/weaver-ui-core/app/views/modals/assumeUserModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+            <modal modal-id="assumeUserModal" modal-view="node_modules/weaver-ui-core/app/views/modals/assumeUserModal.html" modal-header-class="modal-header-primary"
+              wvr-modal-backdrop="static"></modal>
           </div>
 
           <div ng-view class="view" autoscroll="true"></div>
@@ -136,6 +142,10 @@
   <script src="node_modules/weaver-ui-core/app/config/coreAngularConfig.js"></script>
   <script src="node_modules/weaver-ui-core/app/config/logging.js"></script>
 
+  <!-- Constants -->
+  <script src="node_modules/weaver-ui-core/app/constants/apiResponseActions.js"></script>
+  <script src="node_modules/weaver-ui-core/app/constants/httpMethodVerbs.js"></script>
+
   <!-- Directives -->
   <script src="node_modules/weaver-ui-core/app/directives/headerDirective.js"></script>
   <script src="node_modules/weaver-ui-core/app/directives/footerDirective.js"></script>
@@ -152,19 +162,19 @@
   <script src="node_modules/weaver-ui-core/app/directives/validatedTextAreaDirective.js"></script>
 
   <!-- Services -->
-  <script src="node_modules/weaver-ui-core/app/services/accesscontrollservice.js"></script>
-  <script src="node_modules/weaver-ui-core/app/services/wsservice.js"></script>
-  <script src="node_modules/weaver-ui-core/app/services/wsapi.js"></script>
-  <script src="node_modules/weaver-ui-core/app/services/restapi.js"></script>
-  <script src="node_modules/weaver-ui-core/app/services/authserviceapi.js"></script>
-  <script src="node_modules/weaver-ui-core/app/services/storageservice.js"></script>
-  <script src="node_modules/weaver-ui-core/app/services/utilityservice.js"></script>
-  <script src="node_modules/weaver-ui-core/app/services/alertservice.js"></script>
-  <script src="node_modules/weaver-ui-core/app/services/validationstore.js"></script>
-  <script src="node_modules/weaver-ui-core/app/services/userservice.js"></script>
-  <script src="node_modules/weaver-ui-core/app/services/modalservice.js"></script>
-  <script src="node_modules/weaver-ui-core/app/services/modelcache.js"></script>
-  <script src="node_modules/weaver-ui-core/app/services/modelupdateservice.js"></script>
+  <script src="node_modules/weaver-ui-core/app/services/accessControlService.js"></script>
+  <script src="node_modules/weaver-ui-core/app/services/wsService.js"></script>
+  <script src="node_modules/weaver-ui-core/app/services/wsApi.js"></script>
+  <script src="node_modules/weaver-ui-core/app/services/restApi.js"></script>
+  <script src="node_modules/weaver-ui-core/app/services/authService.js"></script>
+  <script src="node_modules/weaver-ui-core/app/services/storageService.js"></script>
+  <script src="node_modules/weaver-ui-core/app/services/utilityService.js"></script>
+  <script src="node_modules/weaver-ui-core/app/services/alertService.js"></script>
+  <script src="node_modules/weaver-ui-core/app/services/validationStore.js"></script>
+  <script src="node_modules/weaver-ui-core/app/services/userService.js"></script>
+  <script src="node_modules/weaver-ui-core/app/services/modalService.js"></script>
+  <script src="node_modules/weaver-ui-core/app/services/modelCache.js"></script>
+  <script src="node_modules/weaver-ui-core/app/services/modelUpdateService.js"></script>
 
   <!-- Factories -->
 
@@ -183,7 +193,7 @@
   <script src="node_modules/weaver-ui-core/app/controllers/loginController.js"></script>
   <script src="node_modules/weaver-ui-core/app/controllers/registrationController.js"></script>
   <script src="node_modules/weaver-ui-core/app/controllers/userController.js"></script>
-  <script src="node_modules/weaver-ui-core/app/controllers/errorpagecontroller.js"></script>
+  <script src="node_modules/weaver-ui-core/app/controllers/errorPageController.js"></script>
 
 
   <!-- App Libraries -->
@@ -207,7 +217,10 @@
   <script src="directives/customHeaderDirective.js"></script>
   <script src="directives/dateAsTimestampDirective.js"></script>
   <script src="directives/noteDirective.js"></script>
+  <script src="directives/ideaDirective.js"></script>
+  <script src="directives/featureProposalDirective.js"></script>
   <script src="directives/serviceStatusDirective.js"></script>
+  <script src="directives/weaverTableDirective.js"></script>
 
   <!-- Filters -->
   <script src="filters/dashboardServicesFilter.js"></script>
@@ -224,26 +237,37 @@
   <script src="repo/abstractAppRepo.js"></script>
   <script src="repo/userRepo.js"></script>
   <script src="repo/serviceRepo.js"></script>
+  <script src="repo/ideaRepo.js"></script>
   <script src="repo/noteRepo.js"></script>
+  <script src="repo/featureProposalRepo.js"></script>
   <script src="repo/notificationRepo.js"></script>
 
   <!-- Models -->
   <script src="model/abstractAppModel.js"></script>
   <script src="model/overallStatus.js"></script>
   <script src="model/service.js"></script>
+  <script src="model/idea.js"></script>
   <script src="model/note.js"></script>
+  <script src="model/featureProposal.js"></script>
   <script src="model/notification.js"></script>
 
+  <!-- Services -->
+  <script src="services/projectService.js"></script>
+
   <!-- Controllers -->
+  <script src="controllers/abstractIdeaController.js"></script>
   <script src="controllers/abstractScheduleController.js"></script>
   <script src="controllers/adminController.js"></script>
   <script src="controllers/appAbstractController.js"></script>
   <script src="controllers/dashboardController.js"></script>
+  <script src="controllers/featureProposalController.js"></script>
   <script src="controllers/managementController.js"></script>
   <script src="controllers/navigationController.js"></script>
+  <script src="controllers/ideaController.js"></script>
   <script src="controllers/noteController.js"></script>
   <script src="controllers/noteDetailController.js"></script>
   <script src="controllers/notificationController.js"></script>
+  <script src="controllers/requestController.js"></script>
   <script src="controllers/serviceController.js"></script>
   <script src="controllers/serviceDetailController.js"></script>
   <script src="controllers/userRepoController.js"></script>

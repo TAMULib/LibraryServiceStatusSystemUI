@@ -1,0 +1,58 @@
+<div ng-controller="RequestController">
+  <br />
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2" ng-hide="type">
+      <alerts seconds="45" channels="services/feature,services/issue" types="SUCCESS"></alerts>
+      <center>
+        <h3>What kind of feedback would you like to provide today?</h3>
+        <hr />
+      </center>
+      <div class="col-sm-6">
+        <button class="btn btn-primary btn-lg btn-block btn-huge" ng-click="type = 'FEATURE'">NEW FEATURE / IDEA</button>
+      </div>
+      <div class="col-sm-6">
+        <button class="btn btn-warning btn-lg btn-block btn-huge" ng-click="type = 'ISSUE'">REPORT ISSUE / BUG</button>
+      </div>
+    </div>
+    <div class="col-sm-8 col-sm-offset-2" ng-show="type">
+      <center>
+        <h3>Please provide a title and a description for
+          <span>{{type === 'FEATURE' ? 'feature or idea' : 'issue or bug'}}</span>.</h3>
+        <hr />
+      </center>
+      <form novalidate name="requestForm">
+        <input class="form-control" id="type" type="hidden" name="type" ng-model="type" aria-describedby="type" required>
+        <div class="form-group">
+          <label for="title">Title:</label>
+          <input class="form-control" id="title" type="title" name="title" ng-model="title" aria-describedby="title" ng-minlength="4" ng-maxlength="25" required>
+          <div ng-messages="!requestForm.title.$pristine && requestForm.title.$error" class="text-danger" role="alert">
+            <div ng-message="required">Title is required!</div>
+            <div ng-message="minlength">Title must be at least 4 characters!</div>
+            <div ng-message="maxlength">Title can not be more than 25 characters!</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea class="form-control" id="description" name="description" ng-model="description" aria-describedby="description" ng-minlength="5" ng-maxlength="200" required></textarea>
+          <div ng-messages="!requestForm.description.$pristine && requestForm.description.$error" class="text-danger" role="alert">
+            <div ng-message="required">Description is required!</div>
+            <div ng-message="minlength">Description must be at least 5 characters!</div>
+            <div ng-message="maxlength">Description can not be more than 200 characters!</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="service">Service:</label>
+          <select class="form-control" id="project" name="service" ng-model="service" required>
+            <option value="" ng-selected="!service">Select A Service</option>
+            <option ng-repeat="s in services | filter:{isPublic:true}" value="{{s.id}}" ng-selected="s.id === service">{{s.name}}</option>
+          </select>
+        </div>
+        <div class="pull-right">
+          <button type="button" class="btn btn-default" ng-click="reset()">Back</button>
+          <button type="button" class="btn btn-warning" ng-disabled="requestForm.$pristine" ng-click="clear()">Clear</button>
+          <button type="submit" class="btn btn-primary" ng-disabled="requestForm.$pristine || requestForm.$invalid" ng-click="submit()">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

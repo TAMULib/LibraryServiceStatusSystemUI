@@ -11,11 +11,23 @@
 
   <div class="modal-body">
 
-    <validatedinput model="serviceData" property="name" label="Name" placeholder="Name of the Service" form="forms.update" validations="serviceRepo.getValidations()" results="serviceRepo.getValidationResults()"></validatedinput>
+    <validatedinput model="serviceData" property="name" label="Name" placeholder="Name of the Service" form="forms.create" validations="serviceRepo.getValidations()" results="serviceRepo.getValidationResults()"></validatedinput>
 
     <label>Description</label>
     <textarea ui-tinymce="tinymceOptions" ng-model="serviceData.description"></textarea>
     <br />
+
+    <label for="project">Associate Project</label>
+    <br />
+    <select class="form-control" ng-model="serviceData.projectId" name="project">
+      <option value="" selected>None</option>
+      <option ng-repeat="project in projects" value="{{project.id}}">{{project.name}}</option>
+    </select>
+    <br />
+
+    <validatedinput model="serviceData" property="website" label="Website" placeholder="Service Website" form="forms.create" validations="serviceRepo.getValidations()" results="serviceRepo.getValidationResults()"></validatedinput>
+
+    <validatedinput model="serviceData" property="software" label="Software" placeholder="Service Software" form="forms.create" validations="serviceRepo.getValidations()" results="serviceRepo.getValidationResults()"></validatedinput>
 
     <service-status model="serviceData"></service-status>
 

@@ -10,7 +10,7 @@
   <validationmessage results="notificationRepo.getValidationResults()"></validationmessage>
 
   <div class="modal-body">
-    <validatedinput model="notificationData" property="name" label="Name" placeholder="Name of the Notification" form="forms.create" validations="notificationRepo.getValidations()" results="notificationRepo.getValidationResults()"></validatedinput>
+    <validatedinput model="notificationData" property="name" label="Name" placeholder="Name of the Notification" form="forms.update" validations="notificationRepo.getValidations()" results="notificationRepo.getValidationResults()"></validatedinput>
 
     <label>Notification Body</label>
     <textarea ui-tinymce="tinymceOptions" ng-model="notificationData.body"></textarea>
@@ -28,7 +28,7 @@
 
     <div class="modal-footer">
       <button type="button" class="btn btn-default" ng-click="resetNotifications()">Cancel</button>
-      <button id="notification-update" type="submit" class="btn btn-primary" ng-disabled="forms.create.$invalid">Update</button>
+      <button id="notification-update" type="submit" class="btn btn-primary" ng-disabled="forms.update.$invalid">Update</button>
     </div>
   </div>
 </form>

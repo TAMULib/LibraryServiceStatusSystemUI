@@ -13,6 +13,7 @@
     <validatedinput model="notificationData" property="name" label="Name" placeholder="Name of the Notification" form="forms.create" validations="notificationRepo.getValidations()" results="notificationRepo.getValidationResults()"></validatedinput>
 
     <label>Notification Body</label>
+    <div class="alert alert-wrapper alert-danger" ng-if="notificationRepo.getValidationResults().messages.body.minlength">{{ notificationRepo.getValidationResults().messages.body.minlength }}</div>
     <textarea ui-tinymce="tinymceOptions" ng-model="notificationData.body"></textarea>
     <br />
 
@@ -28,7 +29,7 @@
 
     <div class="modal-footer">
       <button type="button" class="btn btn-default" ng-click="resetNotifications()">Cancel</button>
-      <button id="notifications-save" type="submit" class="btn btn-primary" ng-disabled="forms.create.$invalid">Create</button>
+      <button id="notification-create" type="submit" class="btn btn-primary" ng-disabled="forms.create.$invalid">Create</button>
     </div>
   </div>
 </form>

@@ -9,13 +9,14 @@ $linkColor: #00569f;
 @import "details/all";
 @import "management/all";
 @import "dashboard/all";
+@import "request/all";
 
 @import "node_modules/weaver-ui-core/app/resources/styles/sass/theme-base";
 
 main {
   display: block;
   height: auto;
-  min-height: 100%;
+  min-height: 94%;
   margin-bottom: -50px;
 }
 
@@ -26,6 +27,16 @@ main footer {
 
 header .navbar-default .navbar-link {
   color: #fff;
+}
+
+header .navbar-header li:hover {
+  background: #ffc222;
+  color: #000;
+  text-decoration: none;
+}
+
+header .navbar-header li:hover > a > span {
+  color: #000;
 }
 
 header .navbar-toggle {
@@ -39,7 +50,7 @@ header .navbar-toggle {
 }
 
 .appContent {
-  padding-top: 25px;
+  padding-top: 10px;
 }
 
 .error-page {
@@ -274,14 +285,20 @@ header .navbar-toggle {
   margin-bottom: 70px;
 }
 
+.feature-proposals-container,
+.ideas-container,
 .notes-container {
-  margin-bottom: 70px;
+  margin-bottom: 10px;
 }
 
+.feature-proposal-description,
+.idea-description,
 .note-body {
   word-wrap: break-word;
 }
 
+.service-feature-proposals,
+.service-ideas,
 .service-notes {
   margin-bottom: 70px;
 }

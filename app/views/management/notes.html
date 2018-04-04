@@ -1,27 +1,51 @@
 <div class="management-table" ng-controller="NoteController">
 
-  <button class="btn btn-default view-action-button" ng-click="openModal('#addNoteModal')">Add Note</button>
-  <hr />
+  <weaver-table>
 
-  <table ng-table="tableParams" template-pagination="views/notePaginationControls.html" show-filter="false" class="table table-bordered table-striped note-table">
-    <tr ng-repeat="note in $data">
-      <td title="'Service'"><a href="{{'service/' + note.service.id + '/detail/'}}">{{note.service.name}}</a> <span ng-if="note.schedules.length > 0">(scheduled)</span></td>
-      <td title="'Title'"><a href="{{'note/' + note.id + '/detail/'}}">{{note.title}}</a></td>
-      <td title="'Body'">{{note.body}}</td>
-      <td title="'Type'">{{note.noteType}}</td>
-      <td title="'Last Modified'">{{note.lastModified | date : 'medium'}}</td>
-      <td title="'Pinned'">{{note.pinned}}</td>
-      <td title="'Active'">{{note.active}}</td>
-      <td class="actions-column" title="'Actions'">
-        <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editNote(note)"></span>
-        <span class="glyphicon glyphicon-time" title="schedule" ng-click="editSchedule(note)"></span>
-        <span class="glyphicon glyphicon-trash" title="delte" ng-click="confirmDelete(note)"></span>
-      </td>
-    </tr>
-  </table>
+    <weaver-table-controls>
+      <button class="btn btn-default view-action-button pull-right" ng-click="openModal('#addNoteModal')">Add Note</button>
+    </weaver-table-controls>
 
-  <modal modal-id="addNoteModal" modal-view="views/modals/addNoteModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
-  <modal modal-id="deleteNoteModal" modal-view="views/modals/deleteNoteModal.html" modal-header-class="modal-header-danger" wvr-modal-backdrop="static"></modal>
-  <modal modal-id="editNoteModal" modal-view="views/modals/editNoteModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
-  <modal modal-id="editScheduleModal" modal-view="views/modals/editScheduleModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+    <weaver-table-element>
+      <table ng-table="tableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped note-table">
+        <thead>
+          <tr>
+            <th><span>Service<span ng-click="toggleSort('service.name')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('service.name'), 'asc': asc('service.name'), 'desc': desc('service.name')}"></span></span></th>
+            <th><span>Title<span ng-click="toggleSort('title')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('title'), 'asc': asc('title'), 'desc': desc('title')}"></span></span></th>
+            <th><span>Body</span></th>
+            <th><span>Type<span ng-click="toggleSort('noteType')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('noteType'), 'asc': asc('noteType'), 'desc': desc('noteType')}"></span></span></th>
+            <th><span>Last Modified<span ng-click="toggleSort('lastModified')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('lastModified'), 'asc': asc('lastModified'), 'desc': desc('lastModified')}"></span></span></th>
+            <th><span>Pinned<span ng-click="toggleSort('pinned')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('pinned'), 'asc': asc('pinned'), 'desc': desc('pinned')}"></span></span></th>
+            <th><span>Active<span ng-click="toggleSort('active')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('active'), 'asc': asc('active'), 'desc': desc('active')}"></span></span></th>
+            <th><span>Actions</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="note in $data">
+            <td><a href="{{'service/' + note.service.id + '/detail/'}}">{{note.service.name}}</a> <span ng-if="note.schedules.length > 0">(scheduled)</span></td>
+            <td><a href="{{'note/' + note.id + '/detail/'}}">{{note.title}}</a></td>
+            <td>{{note.body}}</td>
+            <td>{{note.noteType}}</td>
+            <td>{{note.lastModified | date : 'medium'}}</td>
+            <td>{{note.pinned}}</td>
+            <td>{{note.active}}</td>
+            <td class="actions-column text-center">
+              <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editNote(note)"></span>
+              <span class="glyphicon glyphicon-time" title="schedule" ng-click="editSchedule(note)"></span>
+              <span class="glyphicon glyphicon-trash" title="delte" ng-click="confirmDelete(note)"></span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </weaver-table-element>
+
+    <weaver-table-modals>
+        <modal modal-id="addNoteModal" modal-view="views/modals/addNoteModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+        <modal modal-id="deleteNoteModal" modal-view="views/modals/deleteNoteModal.html" modal-header-class="modal-header-danger" wvr-modal-backdrop="static"></modal>
+        <modal modal-id="editNoteModal" modal-view="views/modals/editNoteModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+        <modal modal-id="editScheduleModal" modal-view="views/modals/editScheduleModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+    </weaver-table-modals>
+
+  </weaver-table>
+
 </div>

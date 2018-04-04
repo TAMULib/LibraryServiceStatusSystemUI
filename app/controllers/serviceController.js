@@ -1,4 +1,4 @@
-app.controller('ServiceController', function ($controller, $scope, Service, ServiceRepo, NgTableParams) {
+app.controller('ServiceController', function ($controller, $route, $scope, ProjectService, Service, ServiceRepo, NgTableParams) {
 
     angular.extend(this, $controller('AbstractScheduleController', {
         $scope: $scope
@@ -18,8 +18,27 @@ app.controller('ServiceController', function ($controller, $scope, Service, Serv
 
     $scope.serviceToDelete = {};
 
+    ProjectService.getAll().then(function (projects) {
+        $scope.projects = projects;
+
+        $scope.getProject = function (service) {
+            if (service.projectId && !service.project) {
+                service.project = {};
+                ProjectService.getById(service.projectId).then(function (project) {
+                    angular.extend(service, {
+                        project: project
+                    });
+                });
+                return service.project;
+            }
+            return service.project;
+        };
+
+    });
+
     $scope.resetServices = function () {
         if ($scope.serviceData) {
+            $scope.serviceData.refresh();
             $scope.serviceData.clearValidationResults();
         }
         for (var key in $scope.forms) {
@@ -29,11 +48,11 @@ app.controller('ServiceController', function ($controller, $scope, Service, Serv
         }
         $scope.serviceData = new Service({
             name: '',
+            description: '',
             isPublic: false,
             onShortList: false,
             isAuto: false,
-            status: 'UP',
-            description: ''
+            status: 'UP'
         });
         $scope.closeModal();
     };
@@ -47,7 +66,7 @@ app.controller('ServiceController', function ($controller, $scope, Service, Serv
             $scope.serviceData.isAuto = false;
         }
         ServiceRepo.create($scope.serviceData).then(function (res) {
-            if (angular.fromJson(res.body).meta.type === 'SUCCESS') {
+            if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                 $scope.resetServices();
             }
         });
@@ -60,7 +79,7 @@ app.controller('ServiceController', function ($controller, $scope, Service, Serv
 
     $scope.updateService = function () {
         ServiceRepo.update($scope.serviceData).then(function (res) {
-            if (angular.fromJson(res.body).meta.type === 'SUCCESS') {
+            if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                 $scope.resetServices();
             }
         });

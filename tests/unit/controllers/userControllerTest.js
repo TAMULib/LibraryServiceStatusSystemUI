@@ -1,10 +1,9 @@
-describe('controller: UserController', function() {
-	
-	var controller, scope, User;
+describe('controller: UserController', function () {
 
-	beforeEach(module('core'));
+    var controller, scope;
 
-	beforeEach(module('app'));
-	
+    beforeEach(module('core'));
+
+    beforeEach(module('app'));
 
 });

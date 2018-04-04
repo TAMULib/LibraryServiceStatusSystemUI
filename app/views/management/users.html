@@ -1,5 +1,4 @@
-<br/>
-<div class="row" ng-controller="UserRepoController">
+<div ng-controller="UserRepoController">
 
   <!-- ADMINS AND MANAGERS ONLY -->
   <div ng-if="!isManager() && !isAdmin()" class="row" ng-include src="'views/restrictedAccess.html'"></div>
@@ -22,8 +21,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="thisUser in userRepo track by thisUser.uin">
-              <td>{{thisUser.uin}}</td>
+            <tr ng-repeat="thisUser in users track by thisUser.username">
+              <td>{{thisUser.username}}</td>
               <td>{{thisUser.email}}</td>
               <td>{{thisUser.firstName}}</td>
               <td>{{thisUser.lastName}}</td>

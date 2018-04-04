@@ -3,21 +3,64 @@
 <div class="container service-details">
   <h1>
     <span class="glyphicon service-indicator" ng-class="{'glyphicon-ok-sign serviceUp': service.status==='UP', 'glyphicon-remove-sign serviceDown': service.status==='DOWN', 'glyphicon-minus-sign serviceMaintenance': service.status==='MAINTENANCE'}"></span>
-    {{service.name}}</h1>
-  <hr>
+    <span>{{service.name}}</span>
+  </h1>
+  <hr />
   <div>
     <span ng-bind-html="service.description | decode"></span>
+    <p ng-if="service.software"><label>Software: </label><span>&nbsp{{service.software}}</span></p>
+    <p ng-if="service.website"><label>Website: </label><a href="{{getServiceWebsite(service)}}"><span>&nbsp{{service.website}}</span></a></p>
   </div>
 </div>
 
 <div class="container notes-container">
   <h2>Notes</h2>
-  <hr>
-  <table ng-table="tableParams" template-pagination="views/notePaginationControls.html" show-filter="false" class="table borderless notes-table">
+  <hr />
+  <table ng-table="notesTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table borderless service-notes-table">
     <tbody>
       <tr ng-repeat="note in $data">
         <td>
           <note note="note" link="true"></note>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- NOTE: may be used when wanting to display users ideas per service
+<div class="container ideas-container">
+  <h2>Ideas</h2>
+  <hr />
+  <table ng-table="ideasTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table borderless service-ideas-table">
+    <tbody>
+      <tr ng-repeat="idea in $data">
+        <td>
+          <idea idea="idea" link="false"></idea>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+-->
+
+<div class="container" ng-if="isAdmin() || isManager()">
+  <div class="tabs">
+    <span ng-click="setActiveTab('ideas')" ng-class="{'active': activeTab === 'ideas'}" class="tab">Ideas</span>
+    <span ng-click="setActiveTab('featureProposals')" ng-class="{'active': activeTab === 'featureProposals'}" class="tab">Feature Proposals</span>
+    <hr />
+  </div>
+  <div ng-include="'views/detail/service/' + activeTab + '.html'"></div>
+</div>
+
+<div class="container feature-proposals-container">
+  <h2 class="inline-h2">Feature Proposal</h2>
+  <button ng-if="isAnonymous()" class="btn btn-primary pull-right" ng-click="login()">Login To Vote</button>
+  <hr />
+    <table ng-table="featureProposalsTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table borderless service-feature-proposals-table">
+    <tbody>
+      <tr ng-repeat="featureProposal in $data">
+        <td>
+          <feature-proposal feature-proposal="featureProposal" link="false"></feature-proposal>
         </td>
       </tr>
     </tbody>
