@@ -120,16 +120,16 @@ app.controller('IdeaController', function ($controller, $scope, $timeout, Featur
     $scope.toggleAll = function () {
         if ($scope.overallCheckboxValue || $scope.anyOnPageSelected()) {
             for (var i in $scope.ideasTableParams.data) {
-                var idea = $scope.ideasTableParams.data[i];
-                if (i !== 'visibleColumnCount' && $scope.isSelectedIdea(idea)) {
-                    $scope.removeIdeaFromSelected(idea)
+                var ii = $scope.ideasTableParams.data[i];
+                if (i !== 'visibleColumnCount' && $scope.isSelectedIdea(ii)) {
+                    $scope.removeIdeaFromSelected(ii);
                 }
             }
         } else {
-            for (var i in $scope.ideasTableParams.data) {
-                var idea = $scope.ideasTableParams.data[i];
-                if (i !== 'visibleColumnCount' && !$scope.isSelectedIdea(idea)) {
-                    $scope.selectedIdeas.push(idea);
+            for (var j in $scope.ideasTableParams.data) {
+                var ij = $scope.ideasTableParams.data[j];
+                if (j !== 'visibleColumnCount' && !$scope.isSelectedIdea(ij)) {
+                    $scope.selectedIdeas.push(ij);
                 }
             }
         }
