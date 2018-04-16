@@ -12,7 +12,7 @@ var OverallStatus = function OverallStatus($timeout, AlertService) {
                     class: type === 'ERROR' ? 'danger' : 'success',
                     status: type,
                     message: message
-                })
+                });
             } else {
                 alert = AlertService.add({
                     class: type === 'ERROR' ? 'danger' : 'success',
@@ -20,7 +20,7 @@ var OverallStatus = function OverallStatus($timeout, AlertService) {
                     message: message
                 }, ALERT_CHANNEL);
             }
-        }
+        };
 
         this.listen(function (res) {
             setAlert(this.type, this.message);
