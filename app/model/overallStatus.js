@@ -29,7 +29,7 @@ var OverallStatus = function OverallStatus($timeout, AlertService) {
         this.ready().then(function () {
             $timeout(function () {
                 setAlert(this.type, this.message);
-            }.bind(this), 250);
+            }.bind(this), 500);
         }.bind(this));
 
         return this;
