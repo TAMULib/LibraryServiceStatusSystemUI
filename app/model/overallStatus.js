@@ -5,18 +5,31 @@ var OverallStatus = function OverallStatus($timeout, AlertService) {
         var ALERT_CHANNEL = "status/general";
 
         var alert;
-        this.listen(function () {
+
+        var setAlert = function (type, message) {
             if (alert) {
-                alert.class = this.type === "ERROR" ? "danger" : "success";
-                alert.message = this.message;
+                angular.extend(alert, {
+                    class: type === 'ERROR' ? 'danger' : 'success',
+                    status: type,
+                    message: message
+                });
+            } else {
+                alert = AlertService.add({
+                    class: type === 'ERROR' ? 'danger' : 'success',
+                    status: type,
+                    message: message
+                }, ALERT_CHANNEL);
             }
+        };
+
+        this.listen(function (res) {
+            setAlert(this.type, this.message);
         }.bind(this));
 
         this.ready().then(function () {
-            alert = AlertService.add({
-                type: this.type,
-                message: this.message
-            }, ALERT_CHANNEL);
+            $timeout(function () {
+                setAlert(this.type, this.message);
+            }.bind(this), 500);
         }.bind(this));
 
         return this;
