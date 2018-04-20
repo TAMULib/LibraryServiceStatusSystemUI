@@ -5,14 +5,15 @@
   <hr />
   <div class="well">
     <p>
-      <label>Note Type:</label>
+      <strong>Note Type:</strong>
       <span class="label {{note.noteType | serviceLabel}}"> {{note.noteType | replaceUnderscore}}</span>
     </p>
     <p>
-      <label>Service:</label><span> <a href="{{'service/' + note.service.id + '/detail/'}}">{{note.service.name}}</a></span>
+      <strong>Service:</strong>
+      <span> <a href="{{'service/' + note.service.id + '/detail/'}}">{{note.service.name}}</a></span>
     </p>
     <p>
-      <label>Message:</label>
+      <strong>Message:</strong>
       <span ng-bind-html="note.body"></span>
     </p>
     <p>

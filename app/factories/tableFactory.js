@@ -32,6 +32,7 @@ app.factory('TableFactory', function (NgTableParams) {
                 return pageSettings;
             },
             getTableParams: function () {
+                tableParams.name = tableConfig.name;
                 return tableParams;
             },
             setPage: function (pageNumber) {

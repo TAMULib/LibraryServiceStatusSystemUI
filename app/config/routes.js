@@ -22,8 +22,7 @@ app.config(function ($routeProvider) {
     }).
     when('/note/:noteId/detail', {
         templateUrl: 'views/detail/note.html',
-        controller: 'NoteDetailController',
-        access: ["ROLE_ADMIN", "ROLE_WEB_MANAGER", "ROLE_SERVICE_MANAGER"]
+        controller: 'NoteDetailController'
     }).
     when('/request', {
         templateUrl: 'views/request/request.html',

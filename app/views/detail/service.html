@@ -8,8 +8,8 @@
   <hr />
   <div>
     <p ng-bind-html="service.description | decode"></p>
-    <p ng-if="service.software"><label>Software: </label><span>&nbsp{{service.software}}</span></p>
-    <p ng-if="service.website"><label>Website: </label><a href="{{getServiceWebsite(service)}}"><span>&nbsp{{service.website}}</span></a></p>   
+    <p ng-if="service.software"><strong>Software: </strong><span>&nbsp{{service.software}}</span></p>
+    <p ng-if="service.website"><strong>Website: </strong><a href="{{getServiceWebsite(service)}}"><span>&nbsp{{service.website}}</span></a></p>
   </div>
 </div>
 
@@ -26,6 +26,7 @@
   <h2>Notes</h2>
   <hr />
   <table ng-table="notesTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table borderless service-notes-table">
+    <thead></thead>
     <tbody>
       <tr ng-repeat="note in $data">
         <td>
@@ -57,6 +58,7 @@
   <button ng-if="isAnonymous()" class="btn btn-primary pull-right" ng-click="login()">Login To Vote</button>
   <hr />
     <table ng-table="featureProposalsTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table borderless service-feature-proposals-table">
+    <thead></thead>
     <tbody>
       <tr ng-repeat="featureProposal in $data">
         <td>
