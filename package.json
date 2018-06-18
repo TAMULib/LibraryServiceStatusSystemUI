@@ -41,7 +41,7 @@
     "jasmine-promise-matchers": "2.5.0",
     "http-server": "0.10.0",
     "jshint-stylish": "2.2.1",
-    "karma": "1.7.0",
+    "karma": "1.7.1",
     "karma-chrome-launcher": "2.0.0",
     "karma-coverage": "1.1.1",
     "karma-firefox-launcher": "1.0",
