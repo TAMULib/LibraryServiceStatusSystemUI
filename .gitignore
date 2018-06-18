@@ -1,5 +1,7 @@
 logs/*
 !.gitkeep
+.coveralls.yml
+coverage/
 dist/
 node_modules/
 bower_components/
