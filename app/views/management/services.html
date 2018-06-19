@@ -12,10 +12,10 @@
     <tr ng-repeat="service in services track by service.id">
       <td title="'Service'"><a href="{{'service/' + service.id + '/detail/'}}">{{service.name}}</a> <span ng-if="service.schedules.length > 0">(scheduled)</span></td>
       <td title="'Status'">{{service.status}}</td>
-      <td title="'Auto Updating'">{{service.isAuto}}</td>
+      <td ng-if="service.isAuto" ng-attr-title="{{service.serviceUrl}}"><a href="{{service.serviceUrl}}">{{service.serviceUrl}}</a></td>
+      <td ng-if="!service.isAuto" title="'Auto Updating'">{{service.isAuto}}</td>
       <td title="'Public'">{{service.isPublic}}</td>
       <td title="'Short List'">{{service.onShortList}}</td>
-      <td title="'URL'">{{service.serviceUrl}}</td>
       <td title="'Project'">{{getProject(service).name}}</td>
       <td class="actions-column text-center" title="'Actions'">
         <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editService(service)"></span>
