@@ -4,7 +4,7 @@ app.filter('dashboardServices', function () {
         var resultingArr = [];
         if (condition1) {
             angular.forEach(arr, function (el) {
-                if (el[condition2]) {
+                if (el[condition2] || el.status === 'DOWN') {
                     resultingArr.push(el);
                 }
             });
