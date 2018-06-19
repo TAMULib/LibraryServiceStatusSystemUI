@@ -6,7 +6,7 @@ module.exports = function (config) {
             '**/*.html': ['ng-html2js']
         },
 
-        reporters: ['coverage'],
+        reporters: ['progress', 'coverage'],
 
         basePath: './',
 
@@ -124,9 +124,9 @@ module.exports = function (config) {
 
         autoWatch: true,
 
-        frameworks: ['jasmine'],
-
         failOnEmptyTestSuite: false,
+
+        frameworks: ['jasmine'],
 
         browsers: ['Chrome', 'Firefox'],
 
