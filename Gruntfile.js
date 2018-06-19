@@ -207,11 +207,17 @@ module.exports = function (grunt) {
             }
         },
 
-
         watch: {
             css: {
                 files: '**/*.scss',
                 tasks: ['sass']
+            }
+        },
+
+        coveralls: {
+            options: {
+                debug: true,
+                coverageDir: 'coverage/'
             }
         }
 
@@ -225,8 +231,11 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-symlink');
+    grunt.loadNpmTasks('grunt-karma-coveralls');
 
     grunt.registerTask('default', ['jshint', 'sass', 'symlink']);
+
+    grunt.registerTask('coverage', ['jshint', 'sass', 'symlink', 'coveralls']);
 
     grunt.registerTask('watch', ['watch']);
 

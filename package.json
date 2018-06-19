@@ -6,14 +6,18 @@
   "repository": "https://github.com/TAMULib/LibraryServiceStatusSystemUI.git",
   "license": "MIT",
   "scripts": {
-    "postinstall": "grunt",
     "pretest": "npm install",
+    "postinstall": "grunt",
     "test": "karma start karma.conf.js",
-    "test-single-run": "karma start karma.conf.js  --single-run",
+    "test-single-run": "karma start karma.conf.js --single-run",
+    "test-ci": "karma start karma.conf.js --no-auto-watch --single-run --browsers=Firefox",
     "preupdate-webdriver": "npm install",
     "update-webdriver": "webdriver-manager update",
     "preprotractor": "npm run update-webdriver",
-    "protractor": "protractor e2e-tests/protractor.conf.js"
+    "protractor": "protractor e2e-tests/protractor.conf.js",
+    "stop": "wvr server --stop",
+    "start": "wvr server -b /lsss --prod --uid lsss-webserver",
+    "start-dev": "wvr server -b /lsss --uid lsss-webserver"
   },
   "dependencies": {
     "angular-ui-tinymce": "0.0.19",
@@ -31,15 +35,18 @@
     "grunt-contrib-symlink": "1.0.0",
     "grunt-contrib-uglify": "3.0.1",
     "grunt-contrib-watch": "1.0.0",
+    "grunt-karma-coveralls": "2.5.4",
     "grunt-sass": "2.0.0",
     "grunt-usemin": "3.1.1",
-    "jasmine-promise-matchers": "^2.5.0",
+    "jasmine-promise-matchers": "2.5.0",
     "jshint-stylish": "2.2.1",
     "karma": "1.7.1",
     "karma-chrome-launcher": "2.2.0",
-    "karma-firefox-launcher": "1.0",
+    "karma-coverage": "1.1.1",
+    "karma-firefox-launcher": "1.0.1",
     "karma-jasmine": "1.1.0",
     "karma-junit-reporter": "1.2.0",
+    "karma-ng-html2js-preprocessor": "1.0.0",
     "protractor": "5.1.2"
   }
 }

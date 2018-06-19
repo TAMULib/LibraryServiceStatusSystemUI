@@ -1,5 +1,7 @@
 logs/*
 !.gitkeep
+.coveralls.yml
+coverage/
 dist/
 node_modules/
 bower_components/
@@ -11,7 +13,6 @@ tmp
 npm-debug.log
 .sass-cache/
 app/node_modules
-app/config/appConfig.js
 app/resources/styles/*
 !app/resources/styles/sass/
 app/resources/scripts/*
