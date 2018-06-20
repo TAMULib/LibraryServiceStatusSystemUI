@@ -251,6 +251,11 @@ var apiMapping = {
         submitRequest: {
             'endpoint': '/private/queue',
             'controller': 'services'
+        },
+        page: {
+            'endpoint': '/private/queue',
+            'controller': 'services',
+            'method': 'page'
         }
     },
     Notification: {

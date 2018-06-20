@@ -1,8 +1,13 @@
 app.controller('ServiceController', function ($controller, $route, $scope, ProjectService, Service, ServiceRepo, NgTableParams) {
 
-    angular.extend(this, $controller('AbstractScheduleController', {
-        $scope: $scope
-    }));
+    angular.extend(this, 
+        $controller('AbstractScheduleController', {
+            $scope: $scope
+        }),
+        $controller('AbstractPagedController', {
+            $scope: $scope
+        })
+    );
 
     $scope.modalData = {
         title: "Edit",
@@ -10,13 +15,49 @@ app.controller('ServiceController', function ($controller, $route, $scope, Proje
         options: ['UP', 'DOWN', 'MAINTENANCE']
     };
 
-    $scope.serviceRepo = ServiceRepo;
+    $scope.repo = ServiceRepo;
 
     $scope.services = ServiceRepo.getAll();
 
     $scope.forms = {};
 
     $scope.serviceToDelete = {};
+
+    $scope.filters = [
+        {
+            gloss: 'Service',
+            property: 'name'
+        },
+        {
+            gloss: 'Status',
+            property: 'status'
+        },
+        {
+            gloss: 'Auto Updating',
+            property: 'isAuto'
+        },
+        {
+            gloss: 'Public',
+            property: 'isPublic'
+        },
+        {
+            gloss: 'Short List',
+            property: 'onShortList'
+        },
+        {
+            gloss: 'URL',
+            property: 'serviceUrl'
+        }
+    ];
+
+    $scope.activeSort = $scope.repo.getPageSettings().sort = [
+        {
+            property: 'name',
+            direction: 'ASC'
+        }
+    ];
+
+    $scope.filtersDeferred.resolve();
 
     ProjectService.getAll().then(function (projects) {
         $scope.projects = projects;
@@ -94,20 +135,9 @@ app.controller('ServiceController', function ($controller, $route, $scope, Proje
         $scope.resetServices();
     };
 
-    var buildTable = function () {
-        var allServices = ServiceRepo.getAll();
-        $scope.tableParams = new NgTableParams({
-            count: allServices.length
-        }, {
-            counts: [],
-            filterDelay: 0,
-            dataset: allServices
-        });
-    };
-
     ServiceRepo.ready().then(function () {
-        buildTable();
-        $scope.tableParams.reload();
+        $scope.tableParams = ServiceRepo.getTableParams();
+        $scope.resetServices();
     });
 
     $scope.confirmDelete = function (service) {
