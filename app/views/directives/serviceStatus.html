@@ -2,7 +2,7 @@
   <label>Status</label>
   <br />
   <input type="radio" name="status" value="AUTO" ng-model="display" ng-click="updateModel()" /> Auto
-  <input type="text" ng-if="display === 'AUTO'" ng-model="model.serviceUrl" />
+  <input type="text" ng-if="display === 'AUTO'" ng-model="model.serviceUrl" required />
   <br />
   <input type="radio" name="status" value="UP" ng-model="display" ng-click="updateModel()"> Up
   <br />
