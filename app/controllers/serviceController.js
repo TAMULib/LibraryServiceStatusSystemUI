@@ -1,6 +1,7 @@
 app.controller('ServiceController', function ($controller, $route, $scope, ProjectService, Service, ServiceRepo, NgTableParams) {
 
-    angular.extend(this, $controller('AbstractScheduleController', {
+    angular.extend(this, 
+        $controller('AbstractScheduleController', {
             $scope: $scope
         }),
         $controller('AbstractPagedController', {
@@ -48,10 +49,14 @@ app.controller('ServiceController', function ($controller, $route, $scope, Proje
         }
     ];
 
-    $scope.defaultSorting = {
-        property: 'name',
-        direction: 'ASC'
-      };
+    $scope.activeSort = $scope.repo.getPageSettings().sort = [
+        {
+            property: 'name',
+            direction: 'ASC'
+        }
+    ];
+
+    $scope.filtersDeferred.resolve();
 
     ProjectService.getAll().then(function (projects) {
         $scope.projects = projects;
