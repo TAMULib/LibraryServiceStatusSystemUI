@@ -1,8 +1,13 @@
 app.controller('FeatureProposalController', function ($controller, $scope, Idea, FeatureProposal, FeatureProposalRepo, ProjectService) {
 
-    angular.extend(this, $controller('AbstractIdeaController', {
-        $scope: $scope
-    }));
+    angular.extend(this, 
+        $controller('AbstractIdeaController', {
+            $scope: $scope
+        }),
+        $controller('AbstractPagedController', {
+            $scope: $scope
+        })
+    );
 
     $scope.repo = FeatureProposalRepo;
 
@@ -32,6 +37,18 @@ app.controller('FeatureProposalController', function ($controller, $scope, Idea,
             property: 'lastModified'
         }
     ];
+
+    $scope.activeSort = $scope.repo.getPageSettings().sort = [
+        {
+            property: 'service.name',
+            direction: 'ASC'
+        }, {
+            property: 'lastModified',
+            direction: 'DESC'
+        }
+    ];
+
+    $scope.filtersDeferred.resolve();
 
     $scope.removedIdeas = [];
 

@@ -1,8 +1,13 @@
 app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, ServiceRepo) {
 
-    angular.extend(this, $controller('AbstractScheduleController', {
-        $scope: $scope
-    }));
+    angular.extend(this, 
+        $controller('AbstractScheduleController', {
+            $scope: $scope
+        }),
+        $controller('AbstractPagedController', {
+            $scope: $scope
+        })
+    );
 
     $scope.repo = NoteRepo;
 
@@ -73,6 +78,18 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
             property: 'active'
         }
     ];
+
+    $scope.activeSort = $scope.repo.getPageSettings().sort = [
+        {
+            property: 'service.name',
+            direction: 'ASC'
+        }, {
+            property: 'lastModified',
+            direction: 'DESC'
+        }
+    ];
+
+    $scope.filtersDeferred.resolve();
 
     ServiceRepo.ready().then(function () {
 

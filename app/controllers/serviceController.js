@@ -6,7 +6,8 @@ app.controller('ServiceController', function ($controller, $route, $scope, Proje
         }),
         $controller('AbstractPagedController', {
             $scope: $scope
-        }));
+        })
+    );
 
     $scope.modalData = {
         title: "Edit",

@@ -1,8 +1,13 @@
 app.controller('IdeaController', function ($controller, $scope, $timeout, FeatureProposalRepo, Idea, IdeaRepo, ServiceRepo) {
 
-    angular.extend(this, $controller('AbstractIdeaController', {
-        $scope: $scope
-    }));
+    angular.extend(this, 
+        $controller('AbstractIdeaController', {
+            $scope: $scope
+        }),
+        $controller('AbstractPagedController', {
+            $scope: $scope
+        })
+    );
 
     $scope.repo = IdeaRepo;
 
@@ -25,6 +30,18 @@ app.controller('IdeaController', function ($controller, $scope, $timeout, Featur
             property: 'lastModified'
         }
     ];
+
+    $scope.activeSort = $scope.repo.getPageSettings().sort = [
+        {
+            property: 'service.name',
+            direction: 'ASC'
+        }, {
+            property: 'lastModified',
+            direction: 'DESC'
+        }
+    ];
+
+    $scope.filtersDeferred.resolve();
 
     ServiceRepo.ready().then(function () {
 
