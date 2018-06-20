@@ -1,8 +1,11 @@
 app.controller('ServiceController', function ($controller, $route, $scope, ProjectService, Service, ServiceRepo, NgTableParams) {
 
     angular.extend(this, $controller('AbstractScheduleController', {
-        $scope: $scope
-    }));
+            $scope: $scope
+        }),
+        $controller('AbstractPagedController', {
+            $scope: $scope
+        }));
 
     $scope.modalData = {
         title: "Edit",
@@ -10,7 +13,7 @@ app.controller('ServiceController', function ($controller, $route, $scope, Proje
         options: ['UP', 'DOWN', 'MAINTENANCE']
     };
 
-    $scope.serviceRepo = ServiceRepo;
+    $scope.repo = ServiceRepo;
 
     $scope.services = ServiceRepo.getAll();
 
@@ -21,29 +24,34 @@ app.controller('ServiceController', function ($controller, $route, $scope, Proje
     $scope.filters = [
         {
             gloss: 'Service',
-            property: 'service.name'
+            property: 'name'
         },
         {
             gloss: 'Status',
-            property: 'service.status'
+            property: 'status'
         },
         {
             gloss: 'Auto Updating',
-            property: 'service.isAuto'
+            property: 'isAuto'
         },
         {
             gloss: 'Public',
-            property: 'service.isPublic'
+            property: 'isPublic'
         },
         {
             gloss: 'Short List',
-            property: 'service.onShortList'
+            property: 'onShortList'
         },
         {
             gloss: 'URL',
-            property: 'service.serviceUrl'
+            property: 'serviceUrl'
         }
     ];
+
+    $scope.defaultSorting = {
+        property: 'name',
+        direction: 'ASC'
+      };
 
     ProjectService.getAll().then(function (projects) {
         $scope.projects = projects;

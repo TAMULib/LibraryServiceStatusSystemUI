@@ -41,7 +41,7 @@ app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi, Service, Table
         pageNumber: sessionStorage.getItem('services-page') ? sessionStorage.getItem('services-page') : 1,
         pageSize: sessionStorage.getItem('services-size') ? sessionStorage.getItem('services-size') : 10,
         direction: 'DESC',
-        properties: ['service.name'],
+        properties: ['name'],
         filters: {},
         counts: [5, 10, 25, 50, 100],
         page: serviceRepo.page,

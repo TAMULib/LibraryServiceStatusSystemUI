@@ -1,6 +1,6 @@
 <div class="management-table" ng-controller="ServiceController">
 
-  <weaver-table>
+  <weaver-table default-sorting="defaultSorting" repo="repo">
 
     <weaver-table-controls>
       <button class="btn btn-default view-action-button pull-right" ng-click="openModal('#addServiceModal')">Add Service</button>
@@ -10,7 +10,7 @@
       <table ng-table="tableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped service-table">
         <thead>
           <tr>
-            <th><span>Service<span ng-click="toggleSort('service.name')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('service.name'), 'asc': asc('service.name'), 'desc': desc('service.name')}"></span></span></th>
+            <th><span>Service<span ng-click="toggleSort('name')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('name'), 'asc': asc('name'), 'desc': desc('name')}"></span></span></th>
             <th><span>Status<span ng-click="toggleSort('status')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('status'), 'asc': asc('status'), 'desc': desc('status')}"></span></span></th>
             <th><span>Auto Updating<span ng-click="toggleSort('isAuto')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('isAuto'), 'asc': asc('isAuto'), 'desc': desc('isAuto')}"></span></span></th>
             <th><span>Public<span ng-click="toggleSort('isPublic')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('isPublic'), 'asc': asc('isPublic'), 'desc': desc('isPublic')}"></span></span></th>
