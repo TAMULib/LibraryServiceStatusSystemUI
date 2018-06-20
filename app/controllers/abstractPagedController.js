@@ -1,4 +1,4 @@
-app.controller('AbstractPagedController', function ($controller, $scope, $q, FeatureProposal, FeatureProposalRepo, IdeaRepo, ServiceRepo) {
+app.controller('AbstractPagedController', function ($controller, $scope, $q) {
 
     angular.extend(this, $controller('AbstractController', {
         $scope: $scope
