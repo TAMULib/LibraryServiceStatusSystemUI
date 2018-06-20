@@ -44,7 +44,7 @@ app.controller('AbstractPagedController', function ($controller, $scope, $q, Fea
                 }
             };
     
-        };
+        }
     });
 
     $scope.unsorted = function (prop) {
