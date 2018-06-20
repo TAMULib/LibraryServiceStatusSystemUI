@@ -18,6 +18,33 @@ app.controller('ServiceController', function ($controller, $route, $scope, Proje
 
     $scope.serviceToDelete = {};
 
+    $scope.filters = [
+        {
+            gloss: 'Service',
+            property: 'service.name'
+        },
+        {
+            gloss: 'Status',
+            property: 'service.status'
+        },
+        {
+            gloss: 'Auto Updating',
+            property: 'service.isAuto'
+        },
+        {
+            gloss: 'Public',
+            property: 'service.isPublic'
+        },
+        {
+            gloss: 'Short List',
+            property: 'service.onShortList'
+        },
+        {
+            gloss: 'URL',
+            property: 'service.serviceUrl'
+        }
+    ];
+
     ProjectService.getAll().then(function (projects) {
         $scope.projects = projects;
 
@@ -94,20 +121,9 @@ app.controller('ServiceController', function ($controller, $route, $scope, Proje
         $scope.resetServices();
     };
 
-    var buildTable = function () {
-        var allServices = ServiceRepo.getAll();
-        $scope.tableParams = new NgTableParams({
-            count: allServices.length
-        }, {
-            counts: [],
-            filterDelay: 0,
-            dataset: allServices
-        });
-    };
-
     ServiceRepo.ready().then(function () {
-        buildTable();
-        $scope.tableParams.reload();
+        $scope.tableParams = ServiceRepo.getTableParams();
+        $scope.resetServices();
     });
 
     $scope.confirmDelete = function (service) {
