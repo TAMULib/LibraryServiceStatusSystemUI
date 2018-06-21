@@ -8,23 +8,44 @@ app.controller('IdeaController', function ($controller, $scope, $timeout, Featur
 
     $scope.ideaToDelete = {};
 
-    $scope.filters = [{
-            gloss: 'Service',
-            property: 'service.name'
-        },
-        {
-            gloss: 'Title',
-            property: 'title'
-        },
-        {
-            gloss: 'Description',
-            property: 'description'
-        },
-        {
-            gloss: 'Last Modified',
-            property: 'lastModified'
-        }
-    ];
+    $scope.tableConfig = {
+        properties: [
+            {
+                gloss: 'Service',
+                property: 'service.name',
+                filterable: true,
+                sortable: true
+            },
+            {
+                gloss: 'Title',
+                property: 'title',
+                filterable: true,
+                sortable: true
+            },
+            {
+                gloss: 'Last Modified',
+                property: 'lastModified',
+                filterable: true,
+                sortable: true
+            },
+            {
+                gloss: 'Elevated',
+                property: 'elevated',
+                filterable: true,
+                sortable: true
+            }
+        ],
+        activeSort: [
+            {
+                property: 'service.name',
+                direction: 'ASC'
+            },
+            {
+                property: 'lastModified',
+                direction: 'DESC'
+            }
+        ]
+    };
 
     ServiceRepo.ready().then(function () {
 

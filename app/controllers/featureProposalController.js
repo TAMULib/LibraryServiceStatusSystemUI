@@ -10,28 +10,50 @@ app.controller('FeatureProposalController', function ($controller, $scope, Idea,
 
     $scope.ideaToAdd = {};
 
-    $scope.filters = [
-        {
-            gloss: 'Service',
-            property: 'service.name'
-        },
-        {
-            gloss: 'Title',
-            property: 'title'
-        },
-        {
-            gloss: 'Description',
-            property: 'description'
-        },
-        {
-            gloss: 'Submitted',
-            property: 'submitted'
-        },
-        {
-            gloss: 'Last Modified',
-            property: 'lastModified'
-        }
-    ];
+    $scope.tableConfig = {
+        properties: [
+            {
+                gloss: 'Service',
+                property: 'service.name',
+                filterable: true,
+                sortable: true
+            },
+            {
+                gloss: 'Title',
+                property: 'title',
+                filterable: true,
+                sortable: true
+            },
+            {
+                gloss: 'Description',
+                property: 'description',
+                filterable: true,
+                sortable: true
+            },
+            {
+                gloss: 'Submitted',
+                property: 'submitted',
+                filterable: true,
+                sortable: true
+            },
+            {
+                gloss: 'Last Modified',
+                property: 'lastModified',
+                filterable: true,
+                sortable: true
+            }
+        ],
+        activeSort: [
+            {
+                property: 'service.name',
+                direction: 'ASC'
+            },
+            {
+                property: 'lastModified',
+                direction: 'DESC'
+            }
+        ]
+    };
 
     $scope.removedIdeas = [];
 

@@ -43,36 +43,62 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
         },
     ];
 
-    $scope.filters = [
-        {
-            gloss: 'Service',
-            property: 'service.name'
-        },
-        {
-            gloss: 'Title',
-            property: 'title'
-        },
-        {
-            gloss: 'Body',
-            property: 'body'
-        },
-        {
-            gloss: 'Type',
-            property: 'noteType'
-        },
-        {
-            gloss: 'Last Modified',
-            property: 'lastModified'
-        },
-        {
-            gloss: 'Pinned',
-            property: 'pinned'
-        },
-        {
-            gloss: 'Active',
-            property: 'active'
-        }
-    ];
+    $scope.tableConfig = {
+        properties: [
+            {
+                gloss: 'Service',
+                property: 'service.name',
+                filterable: true,
+                sortable: true
+            },
+            {
+                gloss: 'Title',
+                property: 'title',
+                filterable: true,
+                sortable: true
+            },
+            {
+                gloss: 'Body',
+                property: 'body',
+                filterable: true,
+                sortable: false
+            },
+            {
+                gloss: 'Type',
+                property: 'noteType',
+                filterable: true,
+                sortable: true
+            },
+            {
+                gloss: 'Last Modified',
+                property: 'lastModified',
+                filterable: true,
+                sortable: true
+            },
+            {
+                gloss: 'Pinned',
+                property: 'pinned',
+                filterable: true,
+                sortable: true
+            },
+            {
+                gloss: 'Active',
+                property: 'active',
+                filterable: true,
+                sortable: true
+            }
+        ],
+        activeSort: [
+            {
+                property: 'service.name',
+                direction: 'ASC'
+            },
+            {
+                property: 'lastModified',
+                direction: 'DESC'
+            }
+        ]
+    };
 
     ServiceRepo.ready().then(function () {
 

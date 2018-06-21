@@ -1,6 +1,6 @@
 <div class="management-table" ng-controller="NoteController">
 
-  <weaver-table>
+  <weaver-table weaver-table-config="tableConfig" repo="repo">
 
     <weaver-table-controls>
       <button class="btn btn-default view-action-button pull-right" ng-click="openModal('#addNoteModal')">Add Note</button>
@@ -10,13 +10,13 @@
       <table ng-table="tableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped note-table">
         <thead>
           <tr>
-            <th><span>Service<span ng-click="toggleSort('service.name')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('service.name'), 'asc': asc('service.name'), 'desc': desc('service.name')}"></span></span></th>
-            <th><span>Title<span ng-click="toggleSort('title')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('title'), 'asc': asc('title'), 'desc': desc('title')}"></span></span></th>
+            <th><th-contents property="service.name"></th-contents></th>
+            <th><th-contents property="title"></th-contents></th>
             <th><span>Body</span></th>
-            <th><span>Type<span ng-click="toggleSort('noteType')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('noteType'), 'asc': asc('noteType'), 'desc': desc('noteType')}"></span></span></th>
-            <th><span>Last Modified<span ng-click="toggleSort('lastModified')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('lastModified'), 'asc': asc('lastModified'), 'desc': desc('lastModified')}"></span></span></th>
-            <th><span>Pinned<span ng-click="toggleSort('pinned')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('pinned'), 'asc': asc('pinned'), 'desc': desc('pinned')}"></span></span></th>
-            <th><span>Active<span ng-click="toggleSort('active')" class="sort-control glyphicon" ng-class="{'unsorted': unsorted('active'), 'asc': asc('active'), 'desc': desc('active')}"></span></span></th>
+            <th><th-contents property="noteType"></th-contents></th>
+            <th><th-contents property="lastModified"></th-contents></th>
+            <th><th-contents property="pinned"></th-contents></th>
+            <th><th-contents property="active"></th-contents></th>
             <th><span>Actions</span></th>
           </tr>
         </thead>
