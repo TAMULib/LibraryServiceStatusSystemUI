@@ -18,7 +18,7 @@ app.directive('weaverTable', function () {
 
             if($scope.weaverTableConfig.properties) {
 
-                $scope.filters = $scope.weaverTableConfig.properties.map(prop => {
+                $scope.filters = $scope.weaverTableConfig.properties.map(function(prop) {
                     if (prop.filterable) {
                         return {
                             gloss: prop.gloss,
@@ -123,7 +123,7 @@ app.directive('weaverTable', function () {
 
                 if ($scope.weaverTableConfig.properties) {
                     var result = {};
-                    $scope.weaverTableConfig.properties.map(prop => {
+                    $scope.weaverTableConfig.properties.map(function (prop) {
                         if (prop.sortable) {
                             result[prop.property] = prop.gloss;
                         }
