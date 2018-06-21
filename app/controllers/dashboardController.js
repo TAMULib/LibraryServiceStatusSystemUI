@@ -13,7 +13,9 @@ app.controller("DashboardController", function ($controller, $scope, UserService
     $scope.showPublic = function () {
         var user = UserService.getCurrentUser();
         var publicView = false;
-        if (user.role === 'ROLE_ANONYMOUS' || user.role === 'ROLE_USER') {
+        if (user.role === undefined) {
+            publicView = true;
+        } else if (user.role === 'ROLE_ANONYMOUS' || user.role === 'ROLE_USER') {
             publicView = true;
         }
         return publicView;
