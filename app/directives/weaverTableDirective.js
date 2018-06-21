@@ -50,7 +50,7 @@ app.directive('weaverTable', function ($controller) {
 
         }
 
-        var activeSort = $scope.repo.getPageSettings().sort = [{
+        var activeSort = $scope.repo.getPageSettings().sort = $scope.defaultSort ? $scope.defaultSort : [{
             property: 'service.name',
             direction: 'ASC'
         }, {
