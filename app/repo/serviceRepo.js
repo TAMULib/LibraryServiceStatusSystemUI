@@ -1,6 +1,53 @@
-app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi) {
+app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi, Service, TableFactory) {
 
     var serviceRepo = this;
+
+    serviceRepo.getPageSettings = function () {
+        return table.getPageSettings();
+    };
+
+    serviceRepo.getTableParams = function () {
+        return table.getTableParams();
+    };
+
+    serviceRepo.fetchPage = function (pageSettings) {
+        angular.extend(serviceRepo.mapping.page, {
+            'data': pageSettings ? pageSettings : table.getPageSettings()
+        });
+        return WsApi.fetch(serviceRepo.mapping.page);
+    };
+
+    var safePage = function(resolve) {
+        serviceRepo.fetchPage().then(function (response) {
+            var page = angular.fromJson(response.body).payload.PageImpl;
+            serviceRepo.empty();
+            serviceRepo.addAll(page.content);
+            if (table.getPageSettings().pageNumber > 1 && table.getPageSettings().pageNumber > page.totalPages) {
+                table.setPage(page.totalPages);
+                safePage(resolve);
+            } else {
+                resolve(page);
+            }
+        });
+    };
+
+    serviceRepo.page = function () {
+        return $q(function (resolve) {
+            safePage(resolve);
+        });
+    };
+
+    var table = TableFactory.buildTable({
+        pageNumber: sessionStorage.getItem('services-page') ? sessionStorage.getItem('services-page') : 1,
+        pageSize: sessionStorage.getItem('services-size') ? sessionStorage.getItem('services-size') : 10,
+        direction: 'DESC',
+        properties: ['name'],
+        filters: {},
+        counts: [5, 10, 25, 50, 100],
+        page: serviceRepo.page,
+        data: serviceRepo.getContents(),
+        name: 'services'
+    });
 
     var checkCreateNotes = function (service) {
         if (service.notes === undefined) {
@@ -169,6 +216,7 @@ app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi) {
     WsApi.listen(serviceRepo.mapping.createListen).then(null, null, function (response) {
         $timeout(function () {
             serviceRepo.reset();
+            table.getTableParams().reload();
         }, 250);
     });
 

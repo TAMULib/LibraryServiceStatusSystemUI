@@ -18,6 +18,53 @@ app.controller('ServiceController', function ($controller, $route, $scope, Proje
 
     $scope.serviceToDelete = {};
 
+    $scope.tableConfig = {
+        properties: [
+            {
+                gloss: 'Service',
+                property: 'name',
+                filterable: true,
+                sortable: true
+            },
+            {
+                gloss: 'Status',
+                property: 'status',
+                filterable: true,
+                sortable: true
+            },
+            {
+                gloss: 'Auto Updating',
+                property: 'isAuto',
+                filterable: true,
+                sortable: true
+            },
+            {
+                gloss: 'Public',
+                property: 'isPublic',
+                filterable: true,
+                sortable: true
+            },
+            {
+                gloss: 'Short List',
+                property: 'onShortList',
+                filterable: true,
+                sortable: true
+            },
+            {
+                gloss: 'URL',
+                property: 'serviceUrl',
+                filterable: true,
+                sortable: true
+            }
+        ],
+        activeSort: [
+            {
+                property: 'name',
+                direction: 'ASC'
+            }
+        ]
+    };
+
     ProjectService.getAll().then(function (projects) {
         $scope.projects = projects;
 
@@ -94,20 +141,9 @@ app.controller('ServiceController', function ($controller, $route, $scope, Proje
         $scope.resetServices();
     };
 
-    var buildTable = function () {
-        var allServices = ServiceRepo.getAll();
-        $scope.tableParams = new NgTableParams({
-            count: allServices.length
-        }, {
-            counts: [],
-            filterDelay: 0,
-            dataset: allServices
-        });
-    };
-
     ServiceRepo.ready().then(function () {
-        buildTable();
-        $scope.tableParams.reload();
+        $scope.tableParams = ServiceRepo.getTableParams();
+        $scope.resetServices();
     });
 
     $scope.confirmDelete = function (service) {

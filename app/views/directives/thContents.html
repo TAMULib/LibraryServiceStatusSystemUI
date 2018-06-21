@@ -1,0 +1,7 @@
+<span>{{sortable[property]}}
+  <span
+    ng-click="toggleSort(property)"
+    class="sort-control glyphicon"
+    ng-class="{'unsorted': unsorted(property), 'asc': asc(property), 'desc': desc(property)}">
+  </span>
+</span>
