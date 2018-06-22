@@ -1,3 +1,18 @@
+<script type="text/ng-template" id="customTableHeader">
+<tr>
+  <th ng-repeat="column in weaverTable.columns">
+  	<span>{{column.gloss}}
+  		<span
+  			ng-if="column.sortable"
+			ng-click="weaverTable.toggleSort(column.property)"
+    		class="sort-control glyphicon"
+    		ng-class="{'unsorted': weaverTable.unsorted(column.property), 'asc': weaverTable.asc(column.property), 'desc': weaverTable.desc(column.property)}">
+    	</span>
+  	</span>
+  </th>
+</tr>
+</script>
+
 <div ng-if="filters">
   <div class="management-control">
       <div class="row">
