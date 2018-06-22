@@ -1,23 +1,13 @@
 <div class="management-table" ng-controller="FeatureProposalController">
 
-  <weaver-table weaver-table-config="tableConfig" repo="repo">
+  <weaver-table weaver-table="weaverTable">
 
     <weaver-table-controls>
       <button class="btn btn-default view-action-button pull-right" ng-click="openModal('#addFpModal')">Add Feature Proposal</button>
     </weaver-table-controls>
 
     <weaver-table-element>
-      <table ng-table="tableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped fp-table">
-        <thead>
-          <tr>
-            <th><th-contents property="service.name"></th-contents></th>
-            <th><th-contents property="title"></th-contents></th>
-            <th><span>Description</span></th>
-            <th><th-contents property="lastModified"></th-contents></th>
-            <th><th-contents property="submitted"></th-contents></th>
-            <th><span>Actions</span></th>
-          </tr>
-        </thead>
+      <table ng-table="tableParams" template-header="customTableHeader"  template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped fp-table">
         <tbody>
           <tr ng-repeat="fp in $data">
             <td title="'Service'"><a href="{{'service/' + fp.service.id + '/detail/'}}">{{fp.service.name}}</a></td>

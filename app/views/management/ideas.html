@@ -1,27 +1,17 @@
 <div class="management-table" ng-controller="IdeaController">
 
-  <weaver-table weaver-table-config="tableConfig" repo="repo">
+  <weaver-table weaver-table="weaverTable">
 
     <weaver-table-controls>
       <button class="btn btn-default view-action-button pull-right" ng-click="openModal('#addIdeaModal')">Add Idea</button>
     </weaver-table-controls>
 
     <weaver-table-element>
-      <table ng-table="tableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped idea-table">
-        <thead>
-          <tr>
-            <th><th-contents property="service.name"></th-contents></th>
-            <th><th-contents property="title"></th-contents></th>
-            <th><span>Description</span></th>
-            <th><th-contents property="lastModified"></th-contents></th>
-            <th><th-contents property="elevated"></th-contents></th>
-            <!-- <th><span>Actions</span></th> -->
-          </tr>
-        </thead>
+      <table ng-table="tableParams" template-header="customTableHeader" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped idea-table">
         <tbody>
           <tr ng-repeat="idea in $data">
             <td><a href="{{'service/' + idea.service.id + '/detail/'}}">{{idea.service.name}}</a> <span ng-if="idea.schedules.length > 0">(scheduled)</span></td>
-            <td><a href="{{'idea/' + idea.id + '/detail/'}}">{{idea.title}}</a></td>
+            <td>{{idea.title}}</td>
             <td>{{idea.description}}</td>
             <td>{{idea.lastModified | date : 'medium'}}</td>
             <td>{{idea.elevated}}</td>

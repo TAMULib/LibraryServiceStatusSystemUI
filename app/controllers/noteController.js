@@ -1,10 +1,10 @@
-app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, ServiceRepo) {
+app.controller('NoteController', function($controller, $scope, Note, NoteRepo, ServiceRepo) {
 
     angular.extend(this, $controller('AbstractScheduleController', {
         $scope: $scope
     }));
-
-    $scope.repo = NoteRepo;
+    
+    $scope.noteRepo = NoteRepo;
 
     $scope.services = ServiceRepo.getAll();
 
@@ -43,9 +43,9 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
         },
     ];
 
-    $scope.tableConfig = {
-        properties: [
-            {
+    $scope.weaverTable = {
+        repo: $scope.noteRepo,
+        columns: [{
                 gloss: 'Service',
                 property: 'service.name',
                 filterable: true,
@@ -86,10 +86,14 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
                 property: 'active',
                 filterable: true,
                 sortable: true
+            },
+            {
+                gloss: 'Actions',
+                filterable: false,
+                sortable: false
             }
         ],
-        activeSort: [
-            {
+        activeSort: [{
                 property: 'service.name',
                 direction: 'ASC'
             },
@@ -100,11 +104,11 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
         ]
     };
 
-    ServiceRepo.ready().then(function () {
+    ServiceRepo.ready().then(function() {
 
         $scope.tableParams = NoteRepo.getTableParams();
 
-        $scope.resetNotes = function () {
+        $scope.resetNotes = function() {
             if ($scope.noteData) {
                 $scope.noteData.refresh();
                 $scope.noteData.clearValidationResults();
@@ -127,44 +131,44 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
 
         $scope.resetNotes();
 
-        $scope.createNote = function () {
-            NoteRepo.create($scope.noteData).then(function (res) {
+        $scope.createNote = function() {
+        	$scope.noteRepo.create($scope.noteData).then(function(res) {
                 if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                     $scope.resetNotes();
                 }
             });
         };
 
-        $scope.editNote = function (note) {
+        $scope.editNote = function(note) {
             $scope.noteData = note;
             $scope.openModal('#editNoteModal');
         };
 
-        $scope.updateNote = function () {
-            NoteRepo.update($scope.noteData).then(function (res) {
+        $scope.updateNote = function() {
+        	$scope.noteRepo.update($scope.noteData).then(function(res) {
                 if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                     $scope.resetNotes();
                 }
             });
         };
 
-        $scope.editSchedule = function (note) {
+        $scope.editSchedule = function(note) {
             $scope.data = note;
             $scope.openModal('#editScheduleModal');
         };
 
-        $scope.resetSchedule = function () {
+        $scope.resetSchedule = function() {
             $scope.resetNotes();
         };
 
-        $scope.confirmDelete = function (note) {
+        $scope.confirmDelete = function(note) {
             $scope.openModal('#deleteNoteModal');
             $scope.noteToDelete = note;
         };
 
-        $scope.deleteNote = function () {
+        $scope.deleteNote = function() {
             $scope.deleting = true;
-            $scope.noteToDelete.delete().then(function () {
+            $scope.noteToDelete.delete().then(function() {
                 $scope.closeModal();
                 $scope.deleting = false;
                 $scope.noteToDelete = {};
