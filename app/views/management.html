@@ -1,8 +1,10 @@
-<div class="row">
+<div class="row" ng-controller="ManagementController">
 
-  <div class="row" ng-controller="ManagementController">
+  <div class="row" ng-if="columns.length > 0">
 
     <wvr-tabs target="managementView">
+      <!-- TODO: fix wvr-tabs -->
+      <!-- <wvr-tab ng-repeat="col in columns" path="{{col.path}}" view="views/management/{{col.view}}.html" label="{{col.label}}">{{col.label}}</wvr-tab> -->
       <wvr-tab ng-show="columns[0]" path="{{columns[0].path}}" view="views/management/{{columns[0].view}}.html" label="{{columns[0].label}}">{{columns[0].label}}</wvr-tab>
       <wvr-tab ng-show="columns[1]" path="{{columns[1].path}}" view="views/management/{{columns[1].view}}.html" label="{{columns[1].label}}">{{columns[1].label}}</wvr-tab>
       <wvr-tab ng-show="columns[2]" path="{{columns[2].path}}" view="views/management/{{columns[2].view}}.html" label="{{columns[2].label}}">{{columns[2].label}}</wvr-tab>
@@ -11,7 +13,7 @@
       <wvr-tab ng-show="columns[5]" path="{{columns[5].path}}" view="views/management/{{columns[5].view}}.html" label="{{columns[5].label}}">{{columns[5].label}}</wvr-tab>
     </wvr-tabs>
 
-    <wvr-tabview class="management-vew" for="managementView"></wvr-tabview>
+    <wvr-tabview class="management-view" for="managementView"></wvr-tabview>
 
   </div>
 
