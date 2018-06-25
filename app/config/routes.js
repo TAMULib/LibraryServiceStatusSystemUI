@@ -1,7 +1,15 @@
 app.config(function ($routeProvider) {
     $routeProvider.
     when('/management', {
-        redirectTo: '/management/services',
+        redirectTo: function () {
+            if (sessionStorage.role === 'ROLE_WEB_MANAGER') {
+                return '/management/notes';
+            } else if (sessionStorage.role === 'ROLE_NOTICE_MANAGER') {
+                return '/management/notifications';
+            } else {
+                return '/management/services';
+            }
+        },
         access: ["ROLE_ADMIN", "ROLE_SERVICE_ADMIN", "ROLE_SERVICE_MANAGER", "ROLE_WEB_MANAGER", "ROLE_NOTICE_MANAGER"]
     }).
     when('/management/:tab', {
