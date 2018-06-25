@@ -4,8 +4,17 @@ app.controller("AppAbstractController", function ($controller, $scope) {
         $scope: $scope
     }));
 
-    $scope.isManager = function () {
-        return $scope.isServiceManager() || $scope.isWebManager();
+    $scope.hasAdminAccess = function () {
+        return ($scope.isAdmin() || $scope.isServiceAdmin());
+    };
+
+    // Admins have management access
+    $scope.hasManagementAccess= function () {
+        return ($scope.hasAdminAccess() || $scope.isWebManager() || $scope.isServiceManager() || $scope.isNoticeManager());
+    };
+
+    $scope.isServiceAdmin = function () {
+        return (sessionStorage.role === "ROLE_SERVICE_ADMIN");
     };
 
     $scope.isWebManager = function () {
@@ -14,6 +23,10 @@ app.controller("AppAbstractController", function ($controller, $scope) {
 
     $scope.isServiceManager = function () {
         return (sessionStorage.role === "ROLE_SERVICE_MANAGER");
+    };
+
+    $scope.isNoticeManager = function () {
+        return (sessionStorage.role === "ROLE_NOTICE_MANAGER");
     };
 
     $scope.isStaff = function () {
