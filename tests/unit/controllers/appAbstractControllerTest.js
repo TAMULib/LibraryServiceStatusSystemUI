@@ -61,7 +61,7 @@ describe('controller: AppAbstractController', function () {
         });
     });
 
-    describe('Are the scope methods defined', function () {
+    describe('Are the scope methods working as expected', function () {
         it('hasAdminAccess should return true for admins', function () {
             storageService.set('role', 'ROLE_ADMIN');
             expect(scope.hasAdminAccess()).toEqual(true);
