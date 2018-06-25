@@ -35,9 +35,7 @@ app.controller("AppAbstractController", function ($controller, $scope) {
 
     $scope.isFullServiceConsumer = function () {
         return $scope.isStaff() ||
-            $scope.isServiceManager() ||
-            $scope.isWebManager() ||
-            $scope.isAdmin();
+            $scope.hasManagementAccess();
     };
 
 });
