@@ -90,8 +90,8 @@ app.controller('ManagementController', function ($controller, $scope, UserServic
                 break;
         }
         $scope.columns.length = 0;
-        for (var col of columnDefinitions) {
-            $scope.columns.push(col);
+        for (var index = 0 ; index < columnDefinitions.length; index++) {
+            $scope.columns.push(columnDefinitions[index]);
         }
         return $scope.columns;
     };
