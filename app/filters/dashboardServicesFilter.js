@@ -4,7 +4,7 @@ app.filter('dashboardServices', function () {
         var resultingArr = [];
         if (condition1) {
             angular.forEach(arr, function (el) {
-                if (el[condition2]) {
+                if (el[condition2] || el.status === 'DOWN') {
                     resultingArr.push(el);
                 }
             });
@@ -14,9 +14,30 @@ app.filter('dashboardServices', function () {
         return resultingArr;
     };
 
+    var filterByStatus = function (arr, filterStatus) {
+      var filtered = [];
+      var remaining = [];
+
+      angular.forEach(arr, function (el) {
+          if (el.status === filterStatus) {
+            filtered.push(el);
+          }
+          else {
+            remaining.push(el);
+          }
+        });
+
+      return {
+        'filtered': filtered,
+        'remaining': remaining
+      };
+    };
+
     return function (services, options) {
         var shownServices = reduceArray(services, options.showPublic(), "isPublic");
-        return reduceArray(shownServices, options.showShortList, "onShortList");
+        var byStatus = filterByStatus(shownServices, "MAINTENANCE");
+        var shortList = reduceArray(byStatus.remaining, options.showShortList, "onShortList");
+        return byStatus.filtered.concat(shortList);
     };
 
 });
