@@ -1,9 +1,5 @@
 app.config(function ($routeProvider) {
     $routeProvider.
-    when('/management', {
-        redirectTo: '/management/services',
-        access: ["ROLE_ADMIN", "ROLE_WEB_MANAGER", "ROLE_SERVICE_MANAGER"]
-    }).
     when('/management/:tab', {
         templateUrl: 'views/management.html',
         access: ["ROLE_ADMIN", "ROLE_WEB_MANAGER", "ROLE_SERVICE_MANAGER"]

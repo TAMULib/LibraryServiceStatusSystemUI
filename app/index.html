@@ -64,8 +64,8 @@
 
               <ul class="dropdown-menu" role="menu">
                 <li ng-if="isAdmin() || isAssuming() == 'true'" role="presentation" class="dropdown-header">Manager Actions</li>
-                <li ng-if="isAdmin() || isManager()">
-                  <a href="management">Management Dashboard</a>
+                <li ng-if="isAdmin() || isManager()" ng-controller="ManagementController">
+                  <a href="{{getDefaultManagementTab()}}">Management Dashboard</a>
                 </li>
                 <li ng-if="isAdmin() || isAssuming() == 'true'" role="presentation" class="divider"></li>
                 <li ng-if="isAdmin() || isAssuming() == 'true'" role="presentation" class="dropdown-header">Admin Actions</li>
