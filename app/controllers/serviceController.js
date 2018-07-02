@@ -33,8 +33,8 @@ app.controller('ServiceController', function($controller, $route, $scope, Projec
                 sortable: true
             },
             {
-                gloss: 'Auto Updating',
-                property: 'isAuto',
+                gloss: 'Auto Updating URL',
+                property: 'serviceUrl',
                 filterable: true,
                 sortable: true
             },
@@ -47,12 +47,6 @@ app.controller('ServiceController', function($controller, $route, $scope, Projec
             {
                 gloss: 'Short List',
                 property: 'onShortList',
-                filterable: true,
-                sortable: true
-            },
-            {
-                gloss: 'URL',
-                property: 'serviceUrl',
                 filterable: true,
                 sortable: true
             },
