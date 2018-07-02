@@ -7,7 +7,7 @@ app.controller('UserRepoController', function ($controller, $location, $injector
     $scope.user = UserService.getCurrentUser();
 
     UserService.userReady().then(function () {
-        if ($scope.isAdmin() || $scope.isManager()) {
+        if ($scope.hasManagementAccess()) {
 
             var UserRepo = $injector.get("UserRepo");
 
@@ -30,12 +30,12 @@ app.controller('UserRepoController', function ($controller, $location, $injector
 
             $scope.allowableRoles = function (userRole) {
                 if (StorageService.get('role') == 'ROLE_ADMIN') {
-                    return ['ROLE_ADMIN', 'ROLE_WEB_MANAGER', 'ROLE_SERVICE_MANAGER', 'ROLE_STAFF', 'ROLE_USER'];
-                } else if (StorageService.get('role') == 'ROLE_WEB_MANAGER') {
+                    return ['ROLE_ADMIN', 'ROLE_SERVICE_ADMIN', 'ROLE_SERVICE_MANAGER', 'ROLE_WEB_MANAGER', 'ROLE_NOTICE_MANAGER', 'ROLE_STAFF', 'ROLE_USER'];
+                } else if (StorageService.get('role') == 'ROLE_SERVICE_MANAGER') {
                     if (userRole == 'ROLE_ADMIN') {
                         return ['ROLE_ADMIN'];
                     }
-                    return ['ROLE_WEB_MANAGER', 'ROLE_SERVICE_MANAGER', 'ROLE_STAFF', 'ROLE_USER'];
+                    return ['ROLE_SERVICE_MANAGER', 'ROLE_WEB_MANAGER', 'ROLE_NOTICE_MANAGER', 'ROLE_STAFF', 'ROLE_USER'];
                 } else {
                     return [userRole];
                 }
