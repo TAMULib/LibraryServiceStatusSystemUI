@@ -40,7 +40,7 @@ app.repo("NoteRepo", function NoteRepo($q, WsApi, Note, ServiceRepo, TableFactor
         });
     };
 
-    noteRepo.page = function () {    	
+    noteRepo.page = function () {
         return $q(function (resolve) {
             safePage(resolve);
         });
