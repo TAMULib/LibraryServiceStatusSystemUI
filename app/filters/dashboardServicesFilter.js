@@ -4,7 +4,7 @@ app.filter('dashboardServices', function () {
         var resultingArr = [];
         if (condition1) {
             angular.forEach(arr, function (el) {
-                if (el[condition2] || el.status === 'DOWN') {
+                if (el[condition2]) {
                     resultingArr.push(el);
                 }
             });
@@ -19,7 +19,7 @@ app.filter('dashboardServices', function () {
       var remaining = [];
 
       angular.forEach(arr, function (el) {
-          if (el.status === filterStatus) {
+          if (filterStatus.indexOf(el.status) >= 0) {
             filtered.push(el);
           }
           else {
@@ -35,7 +35,7 @@ app.filter('dashboardServices', function () {
 
     return function (services, options) {
         var shownServices = reduceArray(services, options.showPublic(), "isPublic");
-        var byStatus = filterByStatus(shownServices, "MAINTENANCE");
+        var byStatus = filterByStatus(shownServices, ["MAINTENANCE", "DOWN"]);
         var shortList = reduceArray(byStatus.remaining, options.showShortList, "onShortList");
         return byStatus.filtered.concat(shortList);
     };
