@@ -14,9 +14,30 @@ app.filter('dashboardServices', function () {
         return resultingArr;
     };
 
+    var filterByStatus = function (arr, filterStatus) {
+      var filtered = [];
+      var remaining = [];
+
+      angular.forEach(arr, function (el) {
+          if (filterStatus.indexOf(el.status) >= 0) {
+            filtered.push(el);
+          }
+          else {
+            remaining.push(el);
+          }
+        });
+
+      return {
+        'filtered': filtered,
+        'remaining': remaining
+      };
+    };
+
     return function (services, options) {
         var shownServices = reduceArray(services, options.showPublic(), "isPublic");
-        return reduceArray(shownServices, options.showShortList, "onShortList");
+        var byStatus = filterByStatus(shownServices, ["MAINTENANCE", "DOWN"]);
+        var shortList = reduceArray(byStatus.remaining, options.showShortList, "onShortList");
+        return byStatus.filtered.concat(shortList);
     };
 
 });

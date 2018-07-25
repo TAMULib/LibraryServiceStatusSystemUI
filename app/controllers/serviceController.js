@@ -1,4 +1,4 @@
-app.controller('ServiceController', function ($controller, $route, $scope, ProjectService, Service, ServiceRepo, NgTableParams) {
+app.controller('ServiceController', function($controller, $route, $scope, ProjectService, Service, ServiceRepo, NgTableParams) {
 
     angular.extend(this, $controller('AbstractScheduleController', {
         $scope: $scope
@@ -9,22 +9,71 @@ app.controller('ServiceController', function ($controller, $route, $scope, Proje
         type: "service",
         options: ['UP', 'DOWN', 'MAINTENANCE']
     };
-
+    
     $scope.serviceRepo = ServiceRepo;
 
-    $scope.services = ServiceRepo.getAll();
+    $scope.services = $scope.serviceRepo.getAll();
 
     $scope.forms = {};
 
     $scope.serviceToDelete = {};
 
-    ProjectService.getAll().then(function (projects) {
+    $scope.weaverTable = {
+        repo: $scope.serviceRepo,
+        columns: [{
+                gloss: 'Service',
+                property: 'name',
+                filterable: true,
+                sortable: true
+            },
+            {
+                gloss: 'Status',
+                property: 'status',
+                filterable: true,
+                sortable: true
+            },
+            {
+                gloss: 'Auto Updating URL',
+                property: 'serviceUrl',
+                filterable: true,
+                sortable: true
+            },
+            {
+                gloss: 'Public',
+                property: 'isPublic',
+                filterable: true,
+                sortable: true
+            },
+            {
+                gloss: 'Short List',
+                property: 'onShortList',
+                filterable: true,
+                sortable: true
+            },
+            {
+                gloss: 'Project',
+                filterable: false,
+                sortable: false
+            },
+            {
+                gloss: 'Actions',
+                filterable: false,
+                sortable: false
+            }
+        ],
+        activeSort: [{
+            property: 'name',
+            direction: 'ASC'
+        }]
+    };
+
+    ProjectService.getAll().then(function(projects) {
         $scope.projects = projects;
 
-        $scope.getProject = function (service) {
+        $scope.getProject = function(service) {
             if (service.projectId && !service.project) {
                 service.project = {};
-                ProjectService.getById(service.projectId).then(function (project) {
+                ProjectService.getById(service.projectId).then(function(project) {
                     angular.extend(service, {
                         project: project
                     });
@@ -36,7 +85,7 @@ app.controller('ServiceController', function ($controller, $route, $scope, Proje
 
     });
 
-    $scope.resetServices = function () {
+    $scope.resetServices = function() {
         if ($scope.serviceData) {
             $scope.serviceData.refresh();
             $scope.serviceData.clearValidationResults();
@@ -59,65 +108,54 @@ app.controller('ServiceController', function ($controller, $route, $scope, Proje
 
     $scope.resetServices();
 
-    $scope.createService = function () {
+    $scope.createService = function() {
         if ($scope.serviceData.isAuto) {
             $scope.serviceData.status = 'UP';
         } else {
             $scope.serviceData.isAuto = false;
         }
-        ServiceRepo.create($scope.serviceData).then(function (res) {
+        $scope.serviceRepo.create($scope.serviceData).then(function(res) {
             if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                 $scope.resetServices();
             }
         });
     };
 
-    $scope.editService = function (service) {
+    $scope.editService = function(service) {
         $scope.serviceData = service;
         $scope.openModal('#editServiceModal');
     };
 
-    $scope.updateService = function () {
-        ServiceRepo.update($scope.serviceData).then(function (res) {
+    $scope.updateService = function() {
+    	$scope.serviceRepo.update($scope.serviceData).then(function(res) {
             if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                 $scope.resetServices();
             }
         });
     };
 
-    $scope.editSchedule = function (service) {
+    $scope.editSchedule = function(service) {
         $scope.data = service;
         $scope.openModal('#editScheduleModal');
     };
 
-    $scope.resetSchedule = function () {
+    $scope.resetSchedule = function() {
         $scope.resetServices();
     };
 
-    var buildTable = function () {
-        var allServices = ServiceRepo.getAll();
-        $scope.tableParams = new NgTableParams({
-            count: allServices.length
-        }, {
-            counts: [],
-            filterDelay: 0,
-            dataset: allServices
-        });
-    };
-
-    ServiceRepo.ready().then(function () {
-        buildTable();
-        $scope.tableParams.reload();
+    ServiceRepo.ready().then(function() {
+        $scope.tableParams = ServiceRepo.getTableParams();
+        $scope.resetServices();
     });
 
-    $scope.confirmDelete = function (service) {
+    $scope.confirmDelete = function(service) {
         $scope.openModal('#deleteServiceModal');
         $scope.serviceToDelete = service;
     };
 
-    $scope.deleteService = function () {
+    $scope.deleteService = function() {
         $scope.deleting = true;
-        $scope.serviceToDelete.delete().then(function () {
+        $scope.serviceToDelete.delete().then(function() {
             $scope.closeModal();
             $scope.deleting = false;
             ServiceRepo.remove($scope.serviceToDelete);

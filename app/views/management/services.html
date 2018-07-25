@@ -1,32 +1,38 @@
 <div class="management-table" ng-controller="ServiceController">
 
-  <div class="management-control clearfix">
-    <div class="row">
-      <div class="col-md-12">
-        <button class="btn btn-default view-action-button pull-right" ng-click="openModal('#addServiceModal')">Add Service</button>
-      </div>
-    </div>
-  </div>
+  <weaver-table weaver-table="weaverTable">
 
-  <table ng-table="tableParams" show-filter="false" class="table table-bordered table-striped service-table">
-    <tr ng-repeat="service in services track by service.id">
-      <td title="'Service'"><a href="{{'service/' + service.id + '/detail/'}}">{{service.name}}</a> <span ng-if="service.schedules.length > 0">(scheduled)</span></td>
-      <td title="'Status'">{{service.status}}</td>
-      <td title="'Auto Updating'">{{service.isAuto}}</td>
-      <td title="'Public'">{{service.isPublic}}</td>
-      <td title="'Short List'">{{service.onShortList}}</td>
-      <td title="'URL'">{{service.serviceUrl}}</td>
-      <td title="'Project'">{{getProject(service).name}}</td>
-      <td class="actions-column text-center" title="'Actions'">
-        <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editService(service)"></span>
-        <span class="glyphicon glyphicon-time" title="schedule" ng-click="editSchedule(service)"></span>
-        <span class="glyphicon glyphicon-trash" title="delete" ng-click="confirmDelete(service)"></span>
-      </td>
-    </tr>
-  </table>
+    <weaver-table-controls>
+      <button class="btn btn-default view-action-button pull-right" ng-click="openModal('#addServiceModal')">Add Service</button>
+    </weaver-table-controls>
 
-  <modal modal-id="addServiceModal" modal-view="views/modals/addServiceModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
-  <modal modal-id="deleteServiceModal" modal-view="views/modals/deleteServiceModal.html" modal-header-class="modal-header-danger" wvr-modal-backdrop="static"></modal>
-  <modal modal-id="editServiceModal" modal-view="views/modals/editServiceModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
-  <modal modal-id="editScheduleModal" modal-view="views/modals/editScheduleModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+    <weaver-table-element>
+      <table ng-table="tableParams" template-header="customTableHeader" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped service-table">
+        <tbody>
+          <tr ng-repeat="service in $data">
+            <td title="'Service'"><a href="{{'service/' + service.id + '/detail/'}}">{{service.name}}</a> <span ng-if="service.schedules.length > 0">(scheduled)</span></td>
+            <td title="'Status'">{{service.status}}</td>
+            <td ng-if="service.isAuto" ng-attr-title="{{service.serviceUrl}}"><a href="{{service.serviceUrl}}">{{service.serviceUrl}}</a></td>
+            <td ng-if="!service.isAuto" title="'Auto Updating'">{{service.isAuto}}</td>
+            <td title="'Public'">{{service.isPublic}}</td>
+            <td title="'Short List'">{{service.onShortList}}</td>
+            <td title="'Project'">{{getProject(service).name}}</td>
+            <td class="actions-column text-center" title="'Actions'">
+              <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editService(service)"></span>
+              <span class="glyphicon glyphicon-time" title="schedule" ng-click="editSchedule(service)"></span>
+              <span class="glyphicon glyphicon-trash" title="delete" ng-click="confirmDelete(service)"></span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </weaver-table-element>
+
+    <weaver-table-modals>
+      <modal modal-id="addServiceModal" modal-view="views/modals/addServiceModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+      <modal modal-id="deleteServiceModal" modal-view="views/modals/deleteServiceModal.html" modal-header-class="modal-header-danger" wvr-modal-backdrop="static"></modal>
+      <modal modal-id="editServiceModal" modal-view="views/modals/editServiceModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+      <modal modal-id="editScheduleModal" modal-view="views/modals/editScheduleModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+    </weaver-table-modals>
+  </weaver-table>
+
 </div>
