@@ -23,6 +23,7 @@
     "angular-ui-tinymce": "0.0.19",
     "ng-csv": "0.3.6",
     "ng-table": "3.0.1",
+    "npm": "^6.3.0",
     "tinymce": "4.6.6",
     "weaver-ui-core": "git+https://github.com/TAMULib/Weaver-UI-Core.git#2.x"
   },
