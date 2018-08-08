@@ -1,4 +1,4 @@
-app.controller('FeatureProposalController', function($controller, $scope, Idea, FeatureProposal, ProjectService) {
+app.controller('FeatureProposalController', function($controller, $scope, Idea, IdeaState, ProjectService) {
 
     angular.extend(this, $controller('AbstractIdeaController', {
         $scope: $scope
@@ -83,7 +83,7 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
                 $scope.resetFeatureProposals();
                 for (var i in $scope.removedIdeas) {
                     var idea = $scope.removedIdeas[i];
-                    idea.state = 'WAITING_ON_REVIEW';
+                    idea.state = IdeaState.WAITING_ON_REVIEW.value;
                     idea.save();
                 }
                 $scope.removedIdeas.length = 0;

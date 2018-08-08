@@ -1,4 +1,4 @@
-app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, FeatureProposal, FeatureProposalRepo, Note, NoteRepo, TableFactory) {
+app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, FeatureProposal, FeatureProposalRepo, IdeaState, Note, NoteRepo, TableFactory) {
 
     return function Service() {
         var service = this;
@@ -93,7 +93,7 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, FeaturePropo
 
         service.fetchIdeaPage = function () {
             ideasTable.getPageSettings().filters = {
-                state: ['WAITING_ON_REVIEW'],
+                state: [IdeaState.WAITING_ON_REVIEW.value],
                 service: [service.id]
             };
             return IdeaRepo.fetchPage(ideasTable.getPageSettings());
@@ -126,7 +126,7 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, FeaturePropo
             ideasTable.getPageSettings().pageNumber = 1;
             ideasTable.getPageSettings().pageSize = 1000;
             ideasTable.getPageSettings().filters = {
-                state: ['WAITING_ON_REVIEW'],
+                state: [IdeaState.WAITING_ON_REVIEW.value],
                 service: [service.id]
             };
             IdeaRepo.fetchPage(ideasTable.getPageSettings()).then(function (response) {
