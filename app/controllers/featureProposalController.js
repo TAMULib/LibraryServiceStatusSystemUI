@@ -83,7 +83,7 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
                 $scope.resetFeatureProposals();
                 for (var i in $scope.removedIdeas) {
                     var idea = $scope.removedIdeas[i];
-                    idea.elevated = false;
+                    idea.state = 'WAITING_ON_REVIEW';
                     idea.save();
                 }
                 $scope.removedIdeas.length = 0;

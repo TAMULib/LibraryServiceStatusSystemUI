@@ -14,7 +14,7 @@
             <td>{{idea.title}}</td>
             <td>{{idea.description}}</td>
             <td>{{idea.lastModified | date : 'medium'}}</td>
-            <td>{{idea.elevated}}</td>
+            <td>{{idea.state | ideaState}}</td>
             <!-- <td class="actions-column text-center">
               <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editIdea(idea)"></span>
               <span class="glyphicon glyphicon-trash" title="delte" ng-click="confirmDelete(idea)"></span>
