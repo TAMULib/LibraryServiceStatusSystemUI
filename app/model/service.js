@@ -1,4 +1,4 @@
-app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, FeatureProposal, FeatureProposalRepo, IdeaState, Note, NoteRepo, TableFactory) {
+app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, IdeaState, FeatureProposal, FeatureProposalRepo, FeatureProposalState, Note, NoteRepo, TableFactory) {
 
     return function Service() {
         var service = this;
@@ -170,7 +170,7 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, FeaturePropo
 
         service.fetchFeatureProposalPage = function () {
             featureProposalsTable.getPageSettings().filters = {
-                submitted: ['false'],
+                state: [FeatureProposalState.IN_PROGRESS.value],
                 service: [service.id]
             };
             return FeatureProposalRepo.fetchPage(featureProposalsTable.getPageSettings());
@@ -203,7 +203,7 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, FeaturePropo
             featureProposalsTable.getPageSettings().pageNumber = 1;
             featureProposalsTable.getPageSettings().pageSize = 1000;
             featureProposalsTable.getPageSettings().filters = {
-                submitted: ['false'],
+                submitted: [FeatureProposalState.IN_PROGRESS.value],
                 service: [service.id]
             };
             FeatureProposalRepo.fetchPage(featureProposalsTable.getPageSettings()).then(function (response) {
