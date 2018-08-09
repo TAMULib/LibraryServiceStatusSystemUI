@@ -8,6 +8,8 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
 
     $scope.ideaToAdd = {};
 
+    $scope.state = FeatureProposalState;
+
     $scope.weaverTable = {
         repo: $scope.fpRepo,
         columns: [{
@@ -124,5 +126,10 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
 
     $scope.getStateSummary = function(state) {
         return FeatureProposalState[state] === undefined ? "" : FeatureProposalState[state].summary;
+    };
+
+    $scope.initCreateFeatureProposal = function() {
+        $scope.fpData.state = FeatureProposalState.IN_PROGRESS.value;
+        $scope.openModal('#addFpModal');
     };
 });
