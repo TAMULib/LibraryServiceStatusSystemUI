@@ -1,7 +1,7 @@
 app.constant("FeatureProposalState", {
     IN_PROGRESS: {
         gloss: "In Progress",
-        value: "WAITING_ON_REVIEW",
+        value: "IN_PROGRESS",
         summary: "Still being drafted, hidden from others, no voting."
     },
     ACTIVE: {
