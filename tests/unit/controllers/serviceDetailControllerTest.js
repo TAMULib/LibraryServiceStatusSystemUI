@@ -12,13 +12,18 @@ describe('controller: ServiceDetailController', function () {
 
     beforeEach(module('mock.userRepo'));
 
-    beforeEach(inject(function ($controller, $rootScope, _FeatureProposalRepo_, _ServiceRepo_, _UserRepo_) {
+    beforeEach(module('mock.userService'));
+    beforeEach(module('mock.user'));
+
+    beforeEach(inject(function ($controller, $rootScope, _FeatureProposalRepo_, _ServiceRepo_, _User_, _UserService_, _UserRepo_) {
         installPromiseMatchers();
         scope = $rootScope.$new();
         controller = $controller('ServiceDetailController', {
             $scope: scope,
             FeatureProposalRepo: _FeatureProposalRepo_,
             ServiceRepo: _ServiceRepo_,
+            User: _User_,
+            UserService: _UserService_,
             UserRepo: _UserRepo_
         });
 
