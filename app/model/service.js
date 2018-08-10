@@ -80,7 +80,6 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, IdeaState, F
             }
         };
 
-
         service.ideas = [];
 
         service.getIdeasPageSettings = function () {
@@ -157,6 +156,22 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, IdeaState, F
             }
         };
 
+        var hideInProgress = function () {
+            return sessionStorage.role === "ROLE_STAFF" || sessionStorage.role === "ROLE_USER" || sessionStorage.role === "ROLE_ANONYMOUS";
+        };
+
+        var getStateFilter = function () {
+            var stateFilter = [];
+            if (hideInProgress()) {
+                stateFilter = [
+                    FeatureProposalState.ACTIVE.value,
+                    FeatureProposalState.SUBMITTED.value,
+                    FeatureProposalState.ON_HOLD.value,
+                    FeatureProposalState.REJECTED.value
+                ];
+            }
+            return stateFilter;
+        };
 
         service.featureProposals = [];
 
@@ -170,7 +185,7 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, IdeaState, F
 
         service.fetchFeatureProposalPage = function () {
             featureProposalsTable.getPageSettings().filters = {
-                state: [FeatureProposalState.IN_PROGRESS.value],
+                state: getStateFilter(),
                 service: [service.id]
             };
             return FeatureProposalRepo.fetchPage(featureProposalsTable.getPageSettings());
@@ -203,7 +218,7 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, IdeaState, F
             featureProposalsTable.getPageSettings().pageNumber = 1;
             featureProposalsTable.getPageSettings().pageSize = 1000;
             featureProposalsTable.getPageSettings().filters = {
-                submitted: [FeatureProposalState.IN_PROGRESS.value],
+                state: getStateFilter(),
                 service: [service.id]
             };
             FeatureProposalRepo.fetchPage(featureProposalsTable.getPageSettings()).then(function (response) {
