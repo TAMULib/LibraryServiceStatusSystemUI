@@ -8,18 +8,18 @@
     <p ng-bind-html="service.description | decode"></p>
     <p ng-if="service.software">
       <strong>Software: </strong>
-      <span>&nbsp{{service.software}}</span>
+      <span>&nbsp;{{service.software}}</span>
     </p>
     <p ng-if="service.website">
       <strong>Website: </strong>
       <a href="{{getServiceWebsite(service)}}">
-        <span>&nbsp{{service.website}}</span>
+        <span>&nbsp;{{service.website}}</span>
       </a>
     </p>
   </div>
 </div>
 
-<div class="container" ng-if="hasManagementAccess()">
+<div class="container service-tab-container" ng-if="hasManagementAccess()">
   <div class="tabs">
     <span ng-click="setActiveTab('ideas')" ng-class="{'active': activeTab === 'ideas'}" class="tab">Ideas</span>
     <span ng-click="setActiveTab('featureProposals')" ng-class="{'active': activeTab === 'featureProposals'}" class="tab">Feature Proposals</span>
