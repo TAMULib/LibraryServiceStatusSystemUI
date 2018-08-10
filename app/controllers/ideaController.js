@@ -33,8 +33,8 @@ app.controller('IdeaController', function($controller, $scope, $timeout, Feature
                 sortable: true
             },
             {
-                gloss: 'Elevated',
-                property: 'elevated',
+                gloss: 'Status',
+                property: 'state',
                 filterable: true,
                 sortable: true
             }
