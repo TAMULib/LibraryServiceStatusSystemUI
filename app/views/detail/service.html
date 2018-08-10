@@ -59,7 +59,7 @@
 </div>
 -->
 
-<div class="container feature-proposals-container">
+<div ng-if="hasFeatureProposals()" class="container feature-proposals-container">
   <h2 class="inline-h2">Feature Proposal</h2>
   <button ng-if="isAnonymous() && hasFeatureProposals()" class="btn btn-primary pull-right" ng-click="login()">Login To Vote</button>
   <hr />
