@@ -1,4 +1,4 @@
-app.controller('IdeaController', function($controller, $scope, $timeout, FeatureProposalRepo, Idea, ServiceRepo) {
+app.controller('IdeaController', function($controller, $scope, FeatureProposalRepo, Idea, ServiceRepo) {
 
     angular.extend(this, $controller('AbstractIdeaController', {
         $scope: $scope
@@ -37,6 +37,11 @@ app.controller('IdeaController', function($controller, $scope, $timeout, Feature
                 property: 'elevated',
                 filterable: true,
                 sortable: true
+            },
+            {
+                gloss: 'Actions',
+                filterable: false,
+                sortable: false
             }
         ],
         activeSort: [{
