@@ -1,4 +1,4 @@
-var mockFeatureProposals = [
+var mockIdeas = [
     {
         "author": {
             "lastName": "Daniels",
@@ -10,7 +10,8 @@ var mockFeatureProposals = [
             "netId": "aggieJack",
             "notes": []
         },
-        "description": "<p>This is <strong>Jack's</strong> feature Proposal.</p>",
+        "description": "<p>This is <strong>Jack's</strong> idea.</p>",
+        "elevated": false,
         "id": 123456789,
         "lastModified": 1529618244432,
         "service": {
@@ -30,8 +31,7 @@ var mockFeatureProposals = [
           "projectId": 1,
           "type": "service"
         },
-        "state": "IN_PROGRESS",
-        "title": "Jack's FeatureProposal"
+        "title": "Jack's Idea"
     },
     {
         "author": {
@@ -44,7 +44,8 @@ var mockFeatureProposals = [
             "netId": "aggieJill",
             "notes": []
         },
-        "description": "<p>This is <strong>Jill's</strong> feature Proposal.</p>",
+        "description": "<p>This is <strong>Jill's</strong> idea.</p>",
+        "elevated": false,
         "id": 987654321,
         "lastModified": 1234567890120,
         "service": {
@@ -64,7 +65,6 @@ var mockFeatureProposals = [
           "projectId": 1,
           "type": "service"
         },
-        "state": "SUBMITTED",
         "title": "Jill's Note",
     },
     {
@@ -78,7 +78,8 @@ var mockFeatureProposals = [
             "netId": "jsmith",
             "notes": []
         },
-        "description": "<p>This is <strong>Jacob's</strong> feature Proposal.</p>",
+        "description": "<p>This is <strong>Jacob's</strong> idea.</p>",
+        "elevated": false,
         "id": 192837465,
         "lastModified": 1529679921989,
         "service": {
@@ -98,31 +99,30 @@ var mockFeatureProposals = [
           "projectId": 1,
           "type": "service"
         },
-        "state": "REJECTED",
-        "title": "Jacob's FeatureProposal"
+        "title": "Jacob's Idea"
     }
 ];
 
-angular.module('mock.featureProposalRepo', []).service('FeatureProposalRepo', function ($q) {
+angular.module('mock.ideaRepo', []).service('IdeaRepo', function ($q) {
 
-    var featureProposalRepo = this;
+    var IdeaRepo = this;
 
-    featureProposalRepo.list = mockFeatureProposals;
+    IdeaRepo.list = mockIdeas;
 
-    featureProposalRepo.create = function (note) {
+    IdeaRepo.create = function (note) {
         var defer = $q.defer();
-        note.id = featureProposalRepo.list.length + 1;
-        featureProposalRepo.list.push(note);
+        note.id = IdeaRepo.list.length + 1;
+        IdeaRepo.list.push(note);
         defer.resolve(note);
         return defer.promise;
     };
 
-    featureProposalRepo.update = function (note) {
+    IdeaRepo.update = function (note) {
         var defer = $q.defer();
-        for (var i in featureProposalRepo.list) {
-            if (featureProposalRepo.list[i].id === note.id) {
-                angular.extend(featureProposalRepo.list[i], note);
-                note = featureProposalRepo.list[i];
+        for (var i in IdeaRepo.list) {
+            if (IdeaRepo.list[i].id === note.id) {
+                angular.extend(IdeaRepo.list[i], note);
+                note = IdeaRepo.list[i];
                 break;
             }
         }
@@ -131,27 +131,27 @@ angular.module('mock.featureProposalRepo', []).service('FeatureProposalRepo', fu
     };
 
     var updateNote = function (note) {
-        featureProposalRepo.update(note);
+        IdeaRepo.update(note);
     };
 
-    featureProposalRepo.getAll = function () {
+    IdeaRepo.getAll = function () {
         var defer = $q.defer();
-        defer.resolve(featureProposalRepo.list);
+        defer.resolve(IdeaRepo.list);
         return defer.promise;
     };
 
-    featureProposalRepo.fetchById = function (noteId) {
+    IdeaRepo.fetchById = function (noteId) {
         var note = new Note();
-        for (var i in featureProposalRepo.list) {
-            if (featureProposalRepo.list[i].id === id) {
-                note = featureProposalRepo.list[i];
+        for (var i in IdeaRepo.list) {
+            if (IdeaRepo.list[i].id === id) {
+                note = IdeaRepo.list[i];
                 break;
             }
         }
         return note;
     };
 
-    featureProposalRepo.getPageSettings = function () {
+    IdeaRepo.getPageSettings = function () {
         var mockPageSettings = {
             filters: {
                 active: [true]
@@ -168,12 +168,12 @@ angular.module('mock.featureProposalRepo', []).service('FeatureProposalRepo', fu
         return mockPageSettings;
     };
 
-    featureProposalRepo.getTableParams = function () {
+    IdeaRepo.getTableParams = function () {
         // @todo
         return {};
     };
 
-    featureProposalRepo.fetchPage = function (pageSettings) {
+    IdeaRepo.fetchPage = function (pageSettings) {
         // @todo
         return {};
     };
@@ -182,7 +182,7 @@ angular.module('mock.featureProposalRepo', []).service('FeatureProposalRepo', fu
         // @todo
     };
 
-    featureProposalRepo.page = function () {
+    IdeaRepo.page = function () {
         return $q(function (resolve) {
             safePage(resolve);
         });
@@ -191,6 +191,5 @@ angular.module('mock.featureProposalRepo', []).service('FeatureProposalRepo', fu
     var table = {
         // @todo
     };
-  
-    return featureProposalRepo;
+
 });

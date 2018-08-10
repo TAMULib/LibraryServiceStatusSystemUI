@@ -12,7 +12,7 @@
       <td title="'Votes'">{{fp.votes}}</td>
       <td title="'Last Modified'">{{fp.lastModified | date : 'medium'}}</td>
       <td class="actions-column text-center" title="'Actions'">
-        <span ng-if="!fp.submitted" class="toggle-href glyphicon glyphicon-upload" title="submit" ng-click="select(fp, '#submitFpModal');"></span>
+        <span ng-if="!hasState('SUBMITTED', fp)" class="toggle-href glyphicon glyphicon-upload" title="submit" ng-click="select(fp, '#submitFpModal');"></span>
         <span class="toggle-href glyphicon glyphicon-pencil" title="edit" ng-click="editFeatureProposal(fp)"></span>
         <span class="toggle-href glyphicon glyphicon-trash" title="delete" ng-if="fp.ideas.length === 0" ng-click="confirmDeleteFp(fp)"></span>
       </td>
