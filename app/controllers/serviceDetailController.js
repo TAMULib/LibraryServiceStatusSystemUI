@@ -1,4 +1,4 @@
-app.controller('ServiceDetailController', function ($controller, $routeParams, $scope, FeatureProposalRepo, ServiceRepo, UserRepo) {
+app.controller('ServiceDetailController', function ($controller, $anchorScroll, $routeParams, $scope, $timeout, FeatureProposalRepo, ServiceRepo, UserRepo) {
 
     angular.extend(this, $controller('AppAbstractController', {
         $scope: $scope
@@ -9,11 +9,11 @@ app.controller('ServiceDetailController', function ($controller, $routeParams, $
     }));
 
     if (!$scope.isAnonymous()) {
-        UserRepo.getUser().then(function(response) {
+        UserRepo.getUser().then(function (response) {
             var apiRes = angular.fromJson(response.body);
-            if(apiRes.meta.status === 'SUCCESS') {
+            if (apiRes.meta.status === 'SUCCESS') {
                 $scope.user = apiRes.payload.User;
-                $scope.hasVoted = function(fp) {
+                $scope.hasVoted = function (fp) {
                     return fp.voters.indexOf($scope.user.id) >= 0;
                 };
             }
@@ -29,9 +29,13 @@ app.controller('ServiceDetailController', function ($controller, $routeParams, $
         $scope.notesTableParams = $scope.service.getNotesTableParams();
         $scope.ideasTableParams = $scope.service.getIdeasTableParams();
         $scope.featureProposalsTableParams = $scope.service.getFeatureProposalsTableParams();
+
+        $timeout(function () {
+            $anchorScroll();
+        }, 500);
     });
 
-    $scope.setActiveTab = function(tab) {
+    $scope.setActiveTab = function (tab) {
         $scope.activeTab = tab;
     };
 
@@ -39,9 +43,9 @@ app.controller('ServiceDetailController', function ($controller, $routeParams, $
         FeatureProposalRepo.vote(fp);
     };
 
-    $scope.getServiceWebsite = function(service) {
+    $scope.getServiceWebsite = function (service) {
         var link = service.website;
-        if(link.indexOf('//') === -1) {
+        if (link.indexOf('//') === -1) {
             link = '//' + link;
         }
         return link;
