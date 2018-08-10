@@ -1,4 +1,4 @@
-app.controller('FeatureProposalController', function($controller, $scope, Idea, IdeaState, ProjectService) {
+app.controller('FeatureProposalController', function($controller, $scope, Idea, IdeaState, FeatureProposalState, ProjectService) {
 
     angular.extend(this, $controller('AbstractIdeaController', {
         $scope: $scope
@@ -7,6 +7,8 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
     $scope.fpToDelete = {};
 
     $scope.ideaToAdd = {};
+
+    $scope.state = FeatureProposalState;
 
     $scope.weaverTable = {
         repo: $scope.fpRepo,
@@ -35,8 +37,8 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
                 sortable: true
             },
             {
-                gloss: 'Submitted',
-                property: 'submitted',
+                gloss: 'State',
+                property: 'state',
                 filterable: true,
                 sortable: true
             },
@@ -78,7 +80,7 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
     };
 
     $scope.updateFeatureProposal = function(fp) {
-    	$scope.fpRepo.update($scope.fpData).then(function(res) {
+        $scope.fpRepo.update($scope.fpData).then(function(res) {
             if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                 $scope.resetFeatureProposals();
                 for (var i in $scope.removedIdeas) {
@@ -118,4 +120,16 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
         });
     };
 
+    $scope.hasState = function(state, fp) {
+        return fp.state === FeatureProposalState[state].value;
+    };
+
+    $scope.getStateSummary = function(state) {
+        return FeatureProposalState[state] === undefined ? "" : FeatureProposalState[state].summary;
+    };
+
+    $scope.initCreateFeatureProposal = function() {
+        $scope.fpData.state = FeatureProposalState.IN_PROGRESS.value;
+        $scope.openModal('#addFpModal');
+    };
 });

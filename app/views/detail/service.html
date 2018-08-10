@@ -8,18 +8,18 @@
     <p ng-bind-html="service.description | decode"></p>
     <p ng-if="service.software">
       <strong>Software: </strong>
-      <span>&nbsp{{service.software}}</span>
+      <span>&nbsp;{{service.software}}</span>
     </p>
     <p ng-if="service.website">
       <strong>Website: </strong>
       <a href="{{getServiceWebsite(service)}}">
-        <span>&nbsp{{service.website}}</span>
+        <span>&nbsp;{{service.website}}</span>
       </a>
     </p>
   </div>
 </div>
 
-<div class="container" ng-if="hasManagementAccess()">
+<div class="container service-tab-container" ng-if="hasManagementAccess()">
   <div class="tabs">
     <span ng-click="setActiveTab('ideas')" ng-class="{'active': activeTab === 'ideas'}" class="tab">Ideas</span>
     <span ng-click="setActiveTab('featureProposals')" ng-class="{'active': activeTab === 'featureProposals'}" class="tab">Feature Proposals</span>
@@ -61,7 +61,7 @@
 
 <div class="container feature-proposals-container">
   <h2 class="inline-h2">Feature Proposal</h2>
-  <button ng-if="isAnonymous()" class="btn btn-primary pull-right" ng-click="login()">Login To Vote</button>
+  <button ng-if="isAnonymous() && hasFeatureProposals()" class="btn btn-primary pull-right" ng-click="login()">Login To Vote</button>
   <hr />
   <table ng-table="featureProposalsTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table borderless service-feature-proposals-table">
     <thead></thead>

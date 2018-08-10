@@ -26,6 +26,7 @@ app.controller('ServiceDetailController', function ($controller, $anchorScroll, 
 
     ServiceRepo.ready().then(function () {
         $scope.service = ServiceRepo.findById($routeParams.serviceId);
+
         $scope.notesTableParams = $scope.service.getNotesTableParams();
         $scope.ideasTableParams = $scope.service.getIdeasTableParams();
         $scope.featureProposalsTableParams = $scope.service.getFeatureProposalsTableParams();
@@ -33,6 +34,11 @@ app.controller('ServiceDetailController', function ($controller, $anchorScroll, 
         $timeout(function () {
             $anchorScroll();
         }, 500);
+
+        $scope.hasFeatureProposals = function () {
+            return $scope.featureProposalsTableParams.data.length > 0;
+        };
+
     });
 
     $scope.setActiveTab = function (tab) {
