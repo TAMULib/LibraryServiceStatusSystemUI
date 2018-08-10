@@ -11,7 +11,8 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
         MSL: 'Medical Sciences Library',
         WCL: 'West Campus Library',
         PSEL: 'Policy Sciences & Economics Library',
-        QATAR: 'Qatar Library'
+        QATAR: 'Qatar Library',
+        SCHOLARS: 'SCHOLARS@TAMU'
     };
 
     $scope.modalData = {
