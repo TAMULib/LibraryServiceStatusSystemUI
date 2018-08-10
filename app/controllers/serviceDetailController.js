@@ -33,7 +33,7 @@ app.controller('ServiceDetailController', function ($controller, $routeParams, $
 
         $scope.hasFeatureProposals = function () {
             return $scope.featureProposalsTableParams.data.length > 0;
-        }
+        };
     });
 
     $scope.setActiveTab = function (tab) {
