@@ -10,6 +10,7 @@
       <td title="'Title'">{{fp.title}}</td>
       <td title="'Description'">{{fp.description}}</td>
       <td title="'Votes'">{{fp.votes}}</td>
+      <td title="'State'">{{fp.state | featureProposalState}}</td>
       <td title="'Last Modified'">{{fp.lastModified | date : 'medium'}}</td>
       <td class="actions-column text-center" title="'Actions'">
         <span ng-if="!hasState('SUBMITTED', fp)" class="toggle-href glyphicon glyphicon-upload" title="submit" ng-click="select(fp, '#submitFpModal');"></span>

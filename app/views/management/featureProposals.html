@@ -7,14 +7,19 @@
     </weaver-table-controls>
 
     <weaver-table-element>
-      <table ng-table="tableParams" template-header="customTableHeader"  template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped fp-table">
+      <table ng-table="tableParams" template-header="customTableHeader" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped fp-table">
         <tbody>
           <tr ng-repeat="fp in $data">
-            <td title="'Service'"><a href="{{'service/' + fp.service.id + '/detail/'}}">{{fp.service.name}}</a></td>
-            <td title="'Title'">{{fp.title}}</a></td>
+            <td title="'Service'">
+              <a href="{{'service/' + fp.service.id + '/detail/'}}">{{fp.service.name}}</a>
+            </td>
+            <td title="'Title'">{{fp.title}}</a>
+            </td>
             <td title="'Description'">{{fp.description}}</td>
             <td title="'Last Modified'">{{fp.lastModified | date : 'medium'}}</td>
-            <td title="'State'"><span title="{{getStateSummary(fp.state)}}">{{fp.state}}</span></td>
+            <td title="'State'">
+              <span title="{{getStateSummary(fp.state)}}">{{fp.state | featureProposalState}}</span>
+            </td>
             <td class="actions-column text-center" title="'Actions'">
               <span ng-if="!hasState('SUBMITTED', fp)" class="toggle-href glyphicon glyphicon-upload" title="submit" ng-click="select(fp, '#submitFpModal');"></span>
               <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editFeatureProposal(fp)"></span>

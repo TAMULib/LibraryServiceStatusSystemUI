@@ -1,4 +1,4 @@
-app.controller('ServiceDetailController', function ($controller, $anchorScroll, $routeParams, $scope, $timeout, FeatureProposalRepo, ServiceRepo, UserRepo) {
+app.controller('ServiceDetailController', function ($controller, $anchorScroll, $routeParams, $scope, $timeout, FeatureProposalState, FeatureProposalRepo, ServiceRepo, UserRepo) {
 
     angular.extend(this, $controller('AppAbstractController', {
         $scope: $scope
@@ -19,6 +19,10 @@ app.controller('ServiceDetailController', function ($controller, $anchorScroll, 
             }
         });
     }
+
+    $scope.isVotingOpen = function (featureProposal) {
+        return !$scope.isAnonymous() && featureProposal.state === FeatureProposalState.ACTIVE.value;
+    };
 
     $scope.activeTab = 'ideas';
 
