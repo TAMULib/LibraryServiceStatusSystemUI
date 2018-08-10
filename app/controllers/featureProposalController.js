@@ -40,7 +40,8 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
                 gloss: 'State',
                 property: 'state',
                 filterable: true,
-                sortable: true
+                sortable: true,
+                isConstant: true
             },
             {
                 gloss: 'Actions',
