@@ -73,6 +73,10 @@ describe('controller: FeatureProposalController', function () {
             expect(scope.getStateSummary).toBeDefined();
             expect(typeof scope.getStateSummary).toEqual("function");
         });
+        it('initCreateFeatureProposal should be defined', function () {
+            expect(scope.initCreateFeatureProposal).toBeDefined();
+            expect(typeof scope.initCreateFeatureProposal).toEqual("function");
+        });
     });
 
     describe('Are the scope methods working as expected', function () {
