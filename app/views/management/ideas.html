@@ -19,7 +19,7 @@
             <td>{{idea.lastModified | date : 'medium'}}</td>
             <td>
               <a ng-if="idea.state === 'ELEVATED'" href="{{'service/' + idea.service.id + '/detail#fp-' + idea.featureProposal}}">{{idea.state | ideaState}}</a>
-              <span ng-if="idea.state != 'ELEVATED'">{{idea.state | ideaState}}</span>
+              <span ng-if="idea.state !== 'ELEVATED'">{{idea.state | ideaState}}</span>
             </td>
             <!-- <td class="actions-column text-center">
               <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editIdea(idea)"></span>
