@@ -12,6 +12,7 @@
       <td title="'Votes'">{{fp.votes}}</td>
       <td title="'State'">{{fp.state | featureProposalState}}</td>
       <td title="'Last Modified'">{{fp.lastModified | date : 'medium'}}</td>
+      <td title="'Visible to Anonymous Users'">{{fp.isPublic}}</td>
       <td class="actions-column text-center" title="'Actions'">
         <span ng-if="!hasState('SUBMITTED', fp)" class="toggle-href glyphicon glyphicon-upload" title="submit" ng-click="select(fp, '#submitFpModal');"></span>
         <span class="toggle-href glyphicon glyphicon-pencil" title="edit" ng-click="editFeatureProposal(fp)"></span>

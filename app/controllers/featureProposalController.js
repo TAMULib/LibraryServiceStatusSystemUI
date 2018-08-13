@@ -44,6 +44,13 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
                 isConstant: true
             },
             {
+                gloss: 'Visible to Anonymous Users',
+                property: 'isPublic',
+                filterable: true,
+                sortable: true,
+                isConstant: true
+            },
+            {
                 gloss: 'Actions',
                 filterable: false,
                 sortable: false
