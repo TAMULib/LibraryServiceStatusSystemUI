@@ -138,6 +138,7 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
 
     $scope.initCreateFeatureProposal = function () {
         $scope.fpData.state = FeatureProposalState.IN_PROGRESS.value;
+        $scope.fpData.isPublic = true;
         $scope.openModal('#addFpModal');
     };
 });
