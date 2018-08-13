@@ -9,7 +9,7 @@ app.controller("AppAbstractController", function ($controller, $scope) {
     };
 
     // Admins have management access
-    $scope.hasManagementAccess= function () {
+    $scope.hasManagementAccess = function () {
         return ($scope.hasAdminAccess() || $scope.isWebManager() || $scope.isServiceManager() || $scope.isNoticeManager());
     };
 
@@ -34,8 +34,7 @@ app.controller("AppAbstractController", function ($controller, $scope) {
     };
 
     $scope.isFullServiceConsumer = function () {
-        return $scope.isStaff() ||
-            $scope.hasManagementAccess();
+        return $scope.isStaff() || $scope.hasManagementAccess();
     };
 
 });

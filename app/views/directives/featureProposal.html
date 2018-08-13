@@ -1,19 +1,22 @@
-<div class="well">
+<div class="well" id="fp-{{featureProposal.id}}">
   <div>
     <div class="row">
       <div class="lead col-md-8">
         <span>{{featureProposal.title}}</span>
+        <span> ({{featureProposal.state | featureProposalState}})</span>
       </div>
       <div class="lead col-md-4" ng-if="!isAnonymous()">
-        <span ng-if="hasVoted(featureProposal)" class="glyphicon glyphicon-ok text-success pull-right" ng-click="vote(featureProposal)"></span>
-        <span ng-if="!hasVoted(featureProposal)" class="toggle-href glyphicon glyphicon-thumbs-up pull-right" ng-click="vote(featureProposal)"></span>
+        <span ng-if="hasVoted(featureProposal)" class="glyphicon glyphicon-ok text-success pull-right"></span>
+        <span ng-if="!hasVoted(featureProposal) && isVotingOpen(featureProposal)" class="toggle-href glyphicon glyphicon-thumbs-up pull-right" ng-click="vote(featureProposal)"></span>
       </div>
     </div>
     <div class="feature-proposal-description" ng-bind-html="featureProposal.description"></div>
     <br />
     <div>
       <!-- <span><em>Posted by {{featureProposal.author.firstName}} {{featureProposal.author.lastName}} on {{featureProposal.lastModified | date : 'medium'}}</em></span> -->
-      <span class="pull-right">Votes: <b>{{featureProposal.votes}}</b></span>
+      <span class="pull-right">Votes:
+        <b>{{featureProposal.votes}}</b>
+      </span>
       <br />
     </div>
   </div>

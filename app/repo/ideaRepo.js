@@ -62,7 +62,8 @@ app.repo("IdeaRepo", function IdeaRepo($q, WsApi, Idea, ServiceRepo, TableFactor
         counts: [5, 10, 25, 50, 100],
         page: ideaRepo.page,
         data: ideaRepo.getContents(),
-        name: 'ideas'
+        name: 'ideas',
+        repo: ideaRepo
     });
 
     var updateIdea = function (idea) {

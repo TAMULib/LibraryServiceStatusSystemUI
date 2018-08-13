@@ -1,4 +1,4 @@
-app.directive('weaverTable', function() {
+app.directive('weaverTable', function () {
     return {
         templateUrl: 'views/directives/tableControls.html',
         restrict: 'E',
@@ -11,11 +11,11 @@ app.directive('weaverTable', function() {
         scope: {
             weaverTable: "="
         },
-        controller: ['$scope', function($scope) {
+        controller: ['$scope', function ($scope) {
 
             $scope.weaverTable.repo.getPageSettings().sort = [];
 
-            $scope.filters = $scope.weaverTable.columns.filter(function(column) {
+            $scope.filters = $scope.weaverTable.columns.filter(function (column) {
                 return column.filterable;
             });
 
@@ -23,11 +23,11 @@ app.directive('weaverTable', function() {
 
             $scope.activeFilters = $scope.weaverTable.repo.getPageSettings().filters;
 
-            $scope.selectFilter = function(filter) {
+            $scope.selectFilter = function (filter) {
                 $scope.filter = filter;
             };
 
-            $scope.removeFilter = function(prop, v) {
+            $scope.removeFilter = function (prop, v) {
                 $scope.activeFilters[prop].splice($scope.activeFilters[prop].indexOf(v), 1);
                 if ($scope.activeFilters[prop].length === 0) {
                     delete $scope.activeFilters[prop];
@@ -35,7 +35,10 @@ app.directive('weaverTable', function() {
                 $scope.weaverTable.repo.getTableParams().reload();
             };
 
-            $scope.applyFilter = function(filter) {
+            $scope.applyFilter = function (filter) {
+                if (filter.isConstant) {
+                    filter.value = filter.value.replace(' ', '_');
+                }
                 if ($scope.activeFilters[filter.property]) {
                     $scope.activeFilters[filter.property].push(filter.value);
                 } else {
@@ -45,7 +48,7 @@ app.directive('weaverTable', function() {
                 delete $scope.filter.value;
             };
 
-            $scope.lookupGloss = function(prop) {
+            $scope.lookupGloss = function (prop) {
                 for (var i in $scope.filters) {
                     var filter = angular.copy($scope.filters[i]);
                     if (filter.property === prop) {
@@ -56,7 +59,7 @@ app.directive('weaverTable', function() {
 
             var activeSort = $scope.weaverTable.repo.getPageSettings().sort = $scope.weaverTable.activeSort;
 
-            $scope.weaverTable.unsorted = function(prop) {
+            $scope.weaverTable.unsorted = function (prop) {
                 for (var i in activeSort) {
                     var sort = activeSort[i];
                     if (sort.property === prop) {
@@ -66,7 +69,7 @@ app.directive('weaverTable', function() {
                 return true;
             };
 
-            $scope.weaverTable.asc = function(prop) {
+            $scope.weaverTable.asc = function (prop) {
                 for (var i in activeSort) {
                     var sort = activeSort[i];
                     if (sort.property === prop && sort.direction === 'ASC') {
@@ -76,7 +79,7 @@ app.directive('weaverTable', function() {
                 return false;
             };
 
-            $scope.weaverTable.desc = function(prop) {
+            $scope.weaverTable.desc = function (prop) {
                 for (var i in activeSort) {
                     var sort = activeSort[i];
                     if (sort.property === prop && sort.direction === 'DESC') {
@@ -86,7 +89,7 @@ app.directive('weaverTable', function() {
                 return false;
             };
 
-            $scope.weaverTable.toggleSort = function(prop) {
+            $scope.weaverTable.toggleSort = function (prop) {
                 var asc = true;
                 for (var i in activeSort) {
                     var sort = activeSort[i];
