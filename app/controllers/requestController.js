@@ -1,4 +1,4 @@
-app.controller('RequestController', function ($controller, $scope, ServiceRepo, StorageService) {
+app.controller('RequestController', function ($controller, $scope, ServiceRepo, StorageService, UserService) {
 
     angular.extend(this, $controller('AuthenticationController', {
         $scope: $scope
@@ -7,6 +7,9 @@ app.controller('RequestController', function ($controller, $scope, ServiceRepo, 
     if (StorageService.get('role') === 'ROLE_ANONYMOUS') {
         $scope.login();
     } else {
+        UserService.userReady().then(function () {
+            $scope.email = UserService.getCurrentUser().allCredentials.email;
+        });
 
         $scope.requestForm = undefined;
 
@@ -17,6 +20,7 @@ app.controller('RequestController', function ($controller, $scope, ServiceRepo, 
             delete $scope.title;
             delete $scope.description;
             delete $scope.service;
+            $scope.sendUpdates = true;
             if ($scope.requestForm) {
                 $scope.requestForm.$setPristine();
                 $scope.requestForm.$setUntouched();
@@ -42,6 +46,9 @@ app.controller('RequestController', function ($controller, $scope, ServiceRepo, 
             };
             if ($scope.service) {
                 request.service = $scope.service;
+            }
+            if ($scope.sendUpdates) {
+                request.email = $scope.email;
             }
             ServiceRepo.submitRequest(request).then(function (message) {
                 clear();
