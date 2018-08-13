@@ -22,7 +22,7 @@ app.factory('TableFactory', function (NgTableParams) {
                 return tableConfig.page().then(function (page) {
                     params.total(page.totalElements);
                     angular.element('.ng-table-pager select option[value="' + params.count() + '"]').prop('selected', true);
-                    return tableConfig.data;
+                    return page.content;
                 });
             }
         });

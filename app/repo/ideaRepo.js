@@ -26,7 +26,7 @@ app.repo("IdeaRepo", function IdeaRepo($q, WsApi, Idea, ServiceRepo, TableFactor
         return WsApi.fetch(ideaRepo.mapping.page);
     };
 
-    var safePage = function(resolve) {
+    var safePage = function (resolve) {
         ideaRepo.fetchPage().then(function (response) {
             var page = angular.fromJson(response.body).payload.PageImpl;
             ideaRepo.empty();
@@ -40,7 +40,7 @@ app.repo("IdeaRepo", function IdeaRepo($q, WsApi, Idea, ServiceRepo, TableFactor
         });
     };
 
-    ideaRepo.page = function () {    	
+    ideaRepo.page = function () {
         return $q(function (resolve) {
             safePage(resolve);
         });
