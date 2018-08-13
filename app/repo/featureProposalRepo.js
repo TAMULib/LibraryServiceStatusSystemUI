@@ -26,7 +26,7 @@ app.repo("FeatureProposalRepo", function FeatureProposalRepo($q, WsApi, FeatureP
         return WsApi.fetch(featureProposalRepo.mapping.page);
     };
 
-    var safePage = function(resolve) {
+    var safePage = function (resolve) {
         featureProposalRepo.fetchPage().then(function (response) {
             var page = angular.fromJson(response.body).payload.PageImpl;
             featureProposalRepo.empty();
@@ -40,20 +40,20 @@ app.repo("FeatureProposalRepo", function FeatureProposalRepo($q, WsApi, FeatureP
         });
     };
 
-    featureProposalRepo.page = function () {    	
+    featureProposalRepo.page = function () {
         return $q(function (resolve) {
             safePage(resolve);
         });
     };
 
-    featureProposalRepo.elevate = function(idea) {
+    featureProposalRepo.elevate = function (idea) {
         angular.extend(featureProposalRepo.mapping.elevate, {
             'data': idea
         });
         return WsApi.fetch(featureProposalRepo.mapping.elevate);
     };
 
-    featureProposalRepo.vote = function(fp) {
+    featureProposalRepo.vote = function (fp) {
         angular.extend(featureProposalRepo.mapping.vote, {
             'method': fp.id + "/vote"
         });
@@ -69,7 +69,8 @@ app.repo("FeatureProposalRepo", function FeatureProposalRepo($q, WsApi, FeatureP
         counts: [5, 10, 25, 50, 100],
         page: featureProposalRepo.page,
         data: featureProposalRepo.getContents(),
-        name: 'feature-proposals'
+        name: 'feature-proposals',
+        repo: featureProposalRepo
     });
 
     var updateFeatureProposal = function (featureProposal) {

@@ -17,7 +17,7 @@ app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi, Service, Table
         return WsApi.fetch(serviceRepo.mapping.page);
     };
 
-    var safePage = function(resolve) {
+    var safePage = function (resolve) {
         serviceRepo.fetchPage().then(function (response) {
             var page = angular.fromJson(response.body).payload.PageImpl;
             serviceRepo.empty();
@@ -46,7 +46,8 @@ app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi, Service, Table
         counts: [5, 10, 25, 50, 100],
         page: serviceRepo.page,
         data: serviceRepo.getContents(),
-        name: 'services'
+        name: 'services',
+        repo: serviceRepo
     });
 
     var checkCreateNotes = function (service) {
