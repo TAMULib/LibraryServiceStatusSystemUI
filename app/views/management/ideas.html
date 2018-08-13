@@ -10,11 +10,17 @@
       <table ng-table="tableParams" template-header="customTableHeader" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped idea-table">
         <tbody>
           <tr ng-repeat="idea in $data">
-            <td><a href="{{'service/' + idea.service.id + '/detail/'}}">{{idea.service.name}}</a> <span ng-if="idea.schedules.length > 0">(scheduled)</span></td>
+            <td>
+              <a href="{{'service/' + idea.service.id + '/detail/'}}">{{idea.service.name}}</a>
+              <span ng-if="idea.schedules.length > 0">(scheduled)</span>
+            </td>
             <td>{{idea.title}}</td>
             <td>{{idea.description}}</td>
             <td>{{idea.lastModified | date : 'medium'}}</td>
-            <td>{{idea.state | ideaState}}</td>
+            <td>
+              <a ng-if="idea.state === 'ELEVATED'" href="{{'service/' + idea.service.id + '/detail#fp-' + idea.featureProposal}}">{{idea.state | ideaState}}</a>
+              <span ng-if="idea.state !== 'ELEVATED'">{{idea.state | ideaState}}</span>
+            </td>
             <!-- <td class="actions-column text-center">
               <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editIdea(idea)"></span>
               <span class="glyphicon glyphicon-trash" title="delte" ng-click="confirmDelete(idea)"></span>
