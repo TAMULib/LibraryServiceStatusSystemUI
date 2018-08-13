@@ -1,4 +1,4 @@
-app.controller('IdeaController', function($controller, $scope, $timeout, FeatureProposalRepo, Idea, ServiceRepo) {
+app.controller('IdeaController', function($controller, $scope, FeatureProposalRepo, Idea, ServiceRepo) {
 
     angular.extend(this, $controller('AbstractIdeaController', {
         $scope: $scope
@@ -37,6 +37,11 @@ app.controller('IdeaController', function($controller, $scope, $timeout, Feature
                 property: 'state',
                 filterable: true,
                 sortable: true
+            },
+            {
+                gloss: 'Actions',
+                filterable: false,
+                sortable: false
             }
         ],
         activeSort: [{
@@ -93,7 +98,28 @@ app.controller('IdeaController', function($controller, $scope, $timeout, Feature
         });
     };
 
+    $scope.confirmReject = function(idea) {
+        $scope.resetIdeas();
+        $scope.openModal('#rejectIdeaModal');
+        $scope.ideaToReject = idea;
+    };
+
+    $scope.rejectIdea = function() {
+        $scope.updating = true;
+        $scope.ideaRepo.reject($scope.ideaToReject).then(function(res) {
+            var result = angular.fromJson(res.body);
+            if (result.meta.status === 'SUCCESS') {
+                $scope.resetIdeas();
+                $scope.updating = false;
+                $scope.ideaToReject = {};
+            } else if (result.meta.status === 'INVALID') {
+                $scope.updating = false;
+            }
+        })
+    };
+
     $scope.confirmDelete = function(idea) {
+        $scope.resetIdeas();
         $scope.openModal('#deleteIdeaModal');
         $scope.ideaToDelete = idea;
     };

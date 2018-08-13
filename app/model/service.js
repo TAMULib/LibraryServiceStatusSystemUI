@@ -93,7 +93,11 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, FeaturePropo
 
         service.fetchIdeaPage = function () {
             ideasTable.getPageSettings().filters = {
-                state: [IdeaState.WAITING_ON_REVIEW.value],
+                state: [
+                    IdeaState.WAITING_ON_REVIEW.value,
+                    IdeaState.REJECTED.value,
+                    IdeaState.SENT_TO_HELPDESK.value
+                ],
                 service: [service.id]
             };
             return IdeaRepo.fetchPage(ideasTable.getPageSettings());

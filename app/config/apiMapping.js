@@ -85,6 +85,11 @@ var apiMapping = {
             'controller': 'ideas',
             'method': 'update'
         },
+        reject: {
+            'endpoint': '/private/queue',
+            'controller': 'ideas',
+            'method': 'reject'
+        },
         remove: {
             'endpoint': '/private/queue',
             'controller': 'ideas',
