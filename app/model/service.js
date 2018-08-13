@@ -70,7 +70,8 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, IdeaState, F
             counts: [5, 10, 25, 50, 100],
             page: service.notesPage,
             data: service.notes,
-            name: 'service-notes'
+            name: 'service-notes',
+            repo: NoteRepo
         });
 
         var addAllNotes = function (notes) {
@@ -146,7 +147,8 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, IdeaState, F
             counts: [5, 10, 25, 50, 100],
             page: service.ideasPage,
             data: service.ideas,
-            name: 'service-ideas'
+            name: 'service-ideas',
+            repo: IdeaRepo
         });
 
         var addAllIdeas = function (ideas) {
@@ -239,7 +241,8 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, IdeaState, F
             counts: [5, 10, 25, 50, 100],
             page: service.featureProposalsPage,
             data: service.featureProposals,
-            name: 'service-feature-proposals'
+            name: 'service-feature-proposals',
+            repo: FeatureProposalRepo
         });
 
         var addAllFeatureProposals = function (featureProposals) {
