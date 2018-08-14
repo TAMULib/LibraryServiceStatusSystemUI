@@ -1,4 +1,4 @@
-app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, FeatureProposal, FeatureProposalRepo, Note, NoteRepo, TableFactory) {
+app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, IdeaState, FeatureProposal, FeatureProposalRepo, FeatureProposalState, Note, NoteRepo, TableFactory) {
 
     return function Service() {
         var service = this;
@@ -70,7 +70,8 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, FeaturePropo
             counts: [5, 10, 25, 50, 100],
             page: service.notesPage,
             data: service.notes,
-            name: 'service-notes'
+            name: 'service-notes',
+            repo: NoteRepo
         });
 
         var addAllNotes = function (notes) {
@@ -79,7 +80,6 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, FeaturePropo
                 service.notes.push(new Note(notes[i]));
             }
         };
-
 
         service.ideas = [];
 
@@ -93,7 +93,7 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, FeaturePropo
 
         service.fetchIdeaPage = function () {
             ideasTable.getPageSettings().filters = {
-                elevated: ['false'],
+                state: [IdeaState.WAITING_ON_REVIEW.value],
                 service: [service.id]
             };
             return IdeaRepo.fetchPage(ideasTable.getPageSettings());
@@ -126,7 +126,7 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, FeaturePropo
             ideasTable.getPageSettings().pageNumber = 1;
             ideasTable.getPageSettings().pageSize = 1000;
             ideasTable.getPageSettings().filters = {
-                elevated: ['false'],
+                state: [IdeaState.WAITING_ON_REVIEW.value],
                 service: [service.id]
             };
             IdeaRepo.fetchPage(ideasTable.getPageSettings()).then(function (response) {
@@ -147,7 +147,8 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, FeaturePropo
             counts: [5, 10, 25, 50, 100],
             page: service.ideasPage,
             data: service.ideas,
-            name: 'service-ideas'
+            name: 'service-ideas',
+            repo: IdeaRepo
         });
 
         var addAllIdeas = function (ideas) {
@@ -157,6 +158,22 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, FeaturePropo
             }
         };
 
+        var hideInProgress = function () {
+            return sessionStorage.role === "ROLE_STAFF" || sessionStorage.role === "ROLE_USER" || sessionStorage.role === "ROLE_ANONYMOUS";
+        };
+
+        var getStateFilter = function () {
+            var stateFilter = [];
+            if (hideInProgress()) {
+                stateFilter = [
+                    FeatureProposalState.ACTIVE.value,
+                    FeatureProposalState.SUBMITTED.value,
+                    FeatureProposalState.ON_HOLD.value,
+                    FeatureProposalState.REJECTED.value
+                ];
+            }
+            return stateFilter;
+        };
 
         service.featureProposals = [];
 
@@ -170,7 +187,7 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, FeaturePropo
 
         service.fetchFeatureProposalPage = function () {
             featureProposalsTable.getPageSettings().filters = {
-                submitted: ['false'],
+                state: getStateFilter(),
                 service: [service.id]
             };
             return FeatureProposalRepo.fetchPage(featureProposalsTable.getPageSettings());
@@ -203,7 +220,7 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, FeaturePropo
             featureProposalsTable.getPageSettings().pageNumber = 1;
             featureProposalsTable.getPageSettings().pageSize = 1000;
             featureProposalsTable.getPageSettings().filters = {
-                submitted: ['false'],
+                state: getStateFilter(),
                 service: [service.id]
             };
             FeatureProposalRepo.fetchPage(featureProposalsTable.getPageSettings()).then(function (response) {
@@ -224,7 +241,8 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, FeaturePropo
             counts: [5, 10, 25, 50, 100],
             page: service.featureProposalsPage,
             data: service.featureProposals,
-            name: 'service-feature-proposals'
+            name: 'service-feature-proposals',
+            repo: FeatureProposalRepo
         });
 
         var addAllFeatureProposals = function (featureProposals) {

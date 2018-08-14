@@ -26,7 +26,7 @@ app.repo("NoteRepo", function NoteRepo($q, WsApi, Note, ServiceRepo, TableFactor
         return WsApi.fetch(noteRepo.mapping.page);
     };
 
-    var safePage = function(resolve) {
+    var safePage = function (resolve) {
         noteRepo.fetchPage().then(function (response) {
             var page = angular.fromJson(response.body).payload.PageImpl;
             noteRepo.empty();
@@ -55,7 +55,8 @@ app.repo("NoteRepo", function NoteRepo($q, WsApi, Note, ServiceRepo, TableFactor
         counts: [5, 10, 25, 50, 100],
         page: noteRepo.page,
         data: noteRepo.getContents(),
-        name: 'notes'
+        name: 'notes',
+        repo: noteRepo
     });
 
     var updateNote = function (note) {

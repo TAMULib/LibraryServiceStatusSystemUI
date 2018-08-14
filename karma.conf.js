@@ -106,6 +106,8 @@ module.exports = function (config) {
 
             'app/config/runTime.js',
 
+            'app/constants/**/*.js',
+
             'app/controllers/**/*.js',
 
             'app/directives/**/*.js',

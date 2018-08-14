@@ -1,4 +1,4 @@
-app.controller('FeatureProposalController', function($controller, $scope, Idea, FeatureProposal, ProjectService) {
+app.controller('FeatureProposalController', function($controller, $scope, Idea, IdeaState, FeatureProposalState, ProjectService) {
 
     angular.extend(this, $controller('AbstractIdeaController', {
         $scope: $scope
@@ -7,6 +7,8 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
     $scope.fpToDelete = {};
 
     $scope.ideaToAdd = {};
+
+    $scope.state = FeatureProposalState;
 
     $scope.weaverTable = {
         repo: $scope.fpRepo,
@@ -35,10 +37,11 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
                 sortable: true
             },
             {
-                gloss: 'Submitted',
-                property: 'submitted',
+                gloss: 'State',
+                property: 'state',
                 filterable: true,
-                sortable: true
+                sortable: true,
+                isConstant: true
             },
             {
                 gloss: 'Actions',
@@ -61,13 +64,13 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
 
     $scope.tableParams = $scope.fpRepo.getTableParams();
 
-    $scope.editFeatureProposal = function(fp) {
+    $scope.editFeatureProposal = function (fp) {
         $scope.fpData = fp;
         $scope.openModal('#editFpModal');
     };
 
-    $scope.removeIdea = function(idea) {
-        if ($scope.fpData.ideas.some(function(i) {
+    $scope.removeIdea = function (idea) {
+        if ($scope.fpData.ideas.some(function (i) {
                 return i.id === idea.id;
             })) {
             $scope.removedIdeas.push(new Idea(idea));
@@ -77,13 +80,13 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
         }
     };
 
-    $scope.updateFeatureProposal = function(fp) {
-    	$scope.fpRepo.update($scope.fpData).then(function(res) {
+    $scope.updateFeatureProposal = function (fp) {
+        $scope.fpRepo.update($scope.fpData).then(function (res) {
             if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                 $scope.resetFeatureProposals();
                 for (var i in $scope.removedIdeas) {
                     var idea = $scope.removedIdeas[i];
-                    idea.elevated = false;
+                    idea.state = IdeaState.WAITING_ON_REVIEW.value;
                     idea.save();
                 }
                 $scope.removedIdeas.length = 0;
@@ -91,31 +94,43 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
         });
     };
 
-    $scope.select = function(fp, modal) {
+    $scope.select = function (fp, modal) {
         $scope.fpData = fp;
         $scope.openModal(modal);
     };
 
-    $scope.submitFeatureProposal = function(fp) {
+    $scope.submitFeatureProposal = function (fp) {
         $scope.submitting = true;
-        ProjectService.submitFeatureProposal(fp).then(function() {
+        ProjectService.submitFeatureProposal(fp).then(function () {
             $scope.submitting = false;
             $scope.resetFeatureProposals();
         });
     };
 
-    $scope.confirmDeleteFp = function(fp) {
+    $scope.confirmDeleteFp = function (fp) {
         $scope.openModal('#deleteFpModal');
         $scope.fpToDelete = fp;
     };
 
-    $scope.deleteFp = function() {
+    $scope.deleteFp = function () {
         $scope.deleting = true;
-        $scope.fpToDelete.delete().then(function() {
+        $scope.fpToDelete.delete().then(function () {
             $scope.closeModal();
             $scope.deleting = false;
             $scope.fpToDelete = {};
         });
     };
 
+    $scope.hasState = function (state, fp) {
+        return fp.state === FeatureProposalState[state].value;
+    };
+
+    $scope.getStateSummary = function (state) {
+        return FeatureProposalState[state] === undefined ? "" : FeatureProposalState[state].summary;
+    };
+
+    $scope.initCreateFeatureProposal = function () {
+        $scope.fpData.state = FeatureProposalState.IN_PROGRESS.value;
+        $scope.openModal('#addFpModal');
+    };
 });

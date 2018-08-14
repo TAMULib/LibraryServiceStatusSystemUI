@@ -1,4 +1,4 @@
-app.controller('RequestController', function ($controller, $scope, ServiceRepo, StorageService) {
+app.controller('RequestController', function ($controller, $routeParams, $scope, ServiceRepo, StorageService) {
 
     angular.extend(this, $controller('AuthenticationController', {
         $scope: $scope
@@ -23,6 +23,9 @@ app.controller('RequestController', function ($controller, $scope, ServiceRepo, 
             }
             if (type) {
                 $scope.type = type;
+            }
+            if ($routeParams.service) {
+                $scope.service = $routeParams.service;
             }
         };
 

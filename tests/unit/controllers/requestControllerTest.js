@@ -16,11 +16,14 @@ describe('controller: RequestController', function () {
 
     beforeEach(module('mock.storageService'));
 
-    beforeEach(inject(function ($controller, $location, $rootScope, _WsApi_, _User_, _UserService_, _Service_, _ServiceRepo_, _StorageService_) {
+    beforeEach(inject(function ($controller, $rootScope, _WsApi_, _User_, _UserService_, _Service_, _ServiceRepo_, _StorageService_) {
         scope = $rootScope.$new();
         _StorageService_.set('role', 'ROLE_USER');
         controller = $controller('RequestController', {
             $scope: scope,
+            $routeParams: {
+                service: 2
+            },
             WsApi: _WsApi_,
             User: _User_,
             UserService: _UserService_,
@@ -75,7 +78,7 @@ describe('controller: RequestController', function () {
             expect(scope.type).toEqual();
             expect(scope.title).toEqual();
             expect(scope.description).toEqual();
-            expect(scope.service).toEqual();
+            expect(scope.service).toEqual(2);
         });
         it('clear should clear request', function () {
             scope.type = 'ISSUE';
@@ -85,7 +88,7 @@ describe('controller: RequestController', function () {
             expect(scope.type).toEqual('ISSUE');
             expect(scope.title).toEqual();
             expect(scope.description).toEqual();
-            expect(scope.service).toEqual();
+            expect(scope.service).toEqual(2);
         });
     });
 
