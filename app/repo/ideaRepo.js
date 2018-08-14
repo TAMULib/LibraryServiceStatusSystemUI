@@ -26,7 +26,14 @@ app.repo("IdeaRepo", function IdeaRepo($q, WsApi, Idea, ServiceRepo, TableFactor
         return WsApi.fetch(ideaRepo.mapping.page);
     };
 
-    var safePage = function (resolve) {
+    ideaRepo.reject = function (idea) {
+        angular.extend(ideaRepo.mapping.reject, {
+            'data': idea
+        });
+        return WsApi.fetch(ideaRepo.mapping.reject);
+    };
+
+    var safePage = function(resolve) {
         ideaRepo.fetchPage().then(function (response) {
             var page = angular.fromJson(response.body).payload.PageImpl;
             ideaRepo.empty();

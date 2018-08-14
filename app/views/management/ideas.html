@@ -22,7 +22,7 @@
               <span ng-if="idea.state !== 'ELEVATED'">{{idea.state | ideaState}}</span>
             </td>
             <td class="actions-column text-center">
-              <!-- <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editIdea(idea)"></span> -->
+              <span ng-if="canManageServices()" class="glyphicon glyphicon-pencil" title="edit" ng-click="editIdea(idea)"></span>
               <span ng-if="canManageServices()" class="glyphicon glyphicon-trash" title="delete" ng-click="confirmDelete(idea)"></span>
             </td>
           </tr>
@@ -34,6 +34,7 @@
       <modal modal-id="addIdeaModal" modal-view="views/modals/detail/service/addIdeaModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
       <modal modal-id="deleteIdeaModal" modal-view="views/modals/detail/service/deleteIdeaModal.html" modal-header-class="modal-header-danger" wvr-modal-backdrop="static"></modal>
       <modal modal-id="editIdeaModal" modal-view="views/modals/detail/service/editIdeaModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+      <modal modal-id="rejectIdeaModal" modal-view="views/modals/detail/service/rejectIdeaModal.html" modal-header-class="modal-header-warning" wvr-modal-backdrop="static"></modal>
     </weaver-table-modals>
 
   </weaver-table>

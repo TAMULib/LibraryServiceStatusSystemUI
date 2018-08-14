@@ -143,13 +143,12 @@ app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi, Service, Table
             for (var j in services[i].ideas) {
                 if (services[i].ideas[j].id === id) {
                     services[i].ideas.splice(j, 1);
-                    service[i].getIdeasTableParams().reload();
+                    services[i].getIdeasTableParams().reload();
                     return;
                 }
             }
         }
     };
-
 
     var checkCreateFeatureProposals = function (service) {
         if (service.featureProposals === undefined) {
