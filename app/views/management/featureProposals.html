@@ -22,7 +22,7 @@
             <td title="'Visible to Anonymous Users'">{{fp.isPublic}}</td>
             <td class="actions-column text-center" title="'Actions'">
               <span ng-if="!hasState('SUBMITTED', fp) && !hasState('REJECTED', fp)" class="toggle-href glyphicon glyphicon-upload" title="submit" ng-click="select(fp, '#submitFpModal');"></span>
-              <span ng-if="!hasState('SUBMITTED', fp) && !hasState('REJECTED', fp)" class="toggle-href glyphicon glyphicon-ban-circle" title="reject" ng-click="select(fp, '#rejectFpModal');"></span>
+              <span ng-if="!hasState('SUBMITTED', fp) && !hasState('REJECTED', fp)" class="toggle-href glyphicon glyphicon-ban-circle" title="reject" ng-click="confirmReject(fp)"></span>
               <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editFeatureProposal(fp)"></span>
               <span class="glyphicon glyphicon-trash" title="delete" ng-click="confirmDeleteFp(fp)"></span>
             </td>

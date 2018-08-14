@@ -143,6 +143,11 @@ var apiMapping = {
             'controller': 'feature-proposals',
             'method': 'update'
         },
+        reject: {
+            'endpoint': '/private/queue',
+            'controller': 'feature-proposals',
+            'method': 'reject'
+        },
         remove: {
             'endpoint': '/private/queue',
             'controller': 'feature-proposals',
@@ -152,11 +157,6 @@ var apiMapping = {
             'endpoint': '/private/queue',
             'controller': 'feature-proposals',
             'method': ':id/vote'
-        },
-        reject: {
-            'endpoint': '/private/queue',
-            'controller': 'feature-proposals',
-            'method': ':id/reject'
         },
         createListen: {
             'endpoint': '/channel',

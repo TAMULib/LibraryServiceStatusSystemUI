@@ -53,18 +53,18 @@ app.repo("FeatureProposalRepo", function FeatureProposalRepo($q, WsApi, FeatureP
         return WsApi.fetch(featureProposalRepo.mapping.elevate);
     };
 
+    featureProposalRepo.reject = function (fp) {
+        angular.extend(featureProposalRepo.mapping.reject, {
+            'data': fp
+        });
+        return WsApi.fetch(featureProposalRepo.mapping.reject);
+    };
+
     featureProposalRepo.vote = function (fp) {
         angular.extend(featureProposalRepo.mapping.vote, {
             'method': fp.id + "/vote"
         });
         return WsApi.fetch(featureProposalRepo.mapping.vote);
-    };
-
-    featureProposalRepo.reject = function (fp) {
-        angular.extend(featureProposalRepo.mapping.reject, {
-            'method': fp.id + "/reject"
-        });
-        return WsApi.fetch(featureProposalRepo.mapping.reject);
     };
 
     var table = TableFactory.buildTable({
