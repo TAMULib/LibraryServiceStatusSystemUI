@@ -18,7 +18,10 @@
 
       <label>Feature Proposal Description</label>
       <textarea class="form-control" ng-model="fpData.description"></textarea>
-      <br />
+
+      <validatedinput model="fpData" type="checkbox" property="isPublic" label="Visibility" placeholder="Is Visible to Anonymous?" form="forms.createFp" validations="fpRepo.getValidations()" results="fpRepo.getValidationResults()"></validatedinput>
+
+      <br>
 
       <div class="modal-footer">
         <button type="button" class="btn btn-default" ng-click="resetFeatureProposals()" ng-disabled="creating">Cancel</button>

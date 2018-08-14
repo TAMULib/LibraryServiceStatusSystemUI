@@ -44,6 +44,13 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
                 isConstant: true
             },
             {
+                gloss: 'Visible to Anonymous Users',
+                property: 'isPublic',
+                filterable: true,
+                sortable: true,
+                isConstant: true
+            },
+            {
                 gloss: 'Actions',
                 filterable: false,
                 sortable: false
@@ -58,6 +65,57 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
                 direction: 'DESC'
             }
         ]
+    };
+
+    $scope.weaverTableDetail = {
+        repo: $scope.fpRepo,
+        columns: [
+            {
+                gloss: 'Title',
+                property: 'title',
+                filterable: false,
+                sortable: true
+            },
+            {
+                gloss: 'Description',
+                property: 'description',
+                filterable: false,
+                sortable: false
+            },
+            {
+                gloss: 'Votes',
+                property: 'votes',
+                filterable: false,
+                sortable: true,
+                isConstant: true
+            },
+            {
+                gloss: 'State',
+                property: 'state',
+                filterable: false,
+                sortable: true,
+                isConstant: true
+            },
+            {
+                gloss: 'Last Modified',
+                property: 'lastModified',
+                filterable: false,
+                sortable: true
+            },
+            {
+                gloss: 'Visible to Anonymous Users',
+                property: 'isPublic',
+                filterable: false,
+                sortable: true,
+                isConstant: true
+            },
+            {
+                gloss: 'Actions',
+                filterable: false,
+                sortable: false
+            }
+        ],
+        activeSort: []
     };
 
     $scope.removedIdeas = [];
@@ -131,6 +189,11 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
 
     $scope.initCreateFeatureProposal = function () {
         $scope.fpData.state = FeatureProposalState.IN_PROGRESS.value;
+        $scope.fpData.isPublic = true;
         $scope.openModal('#addFpModal');
+    };
+
+    $scope.useDetailTable = function () {
+        $scope.weaverTable = $scope.weaverTableDetail;
     };
 });

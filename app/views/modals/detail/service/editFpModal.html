@@ -19,7 +19,8 @@
 
     <label>Feature Proposal Description</label>
     <textarea class="form-control" ng-model="fpData.description"></textarea>
-    <br />
+
+    <validatedinput model="fpData" type="checkbox" property="isPublic" label="Visibility" placeholder="Is Visible to Anonymous?" form="forms.updateFp" validations="fpRepo.getValidations()" results="fpRepo.getValidationResults()"></validatedinput>
 
     <label>Ideas</label>
     <div class="input-group ideas-list" ng-repeat="idea in fpData.ideas">
