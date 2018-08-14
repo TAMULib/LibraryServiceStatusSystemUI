@@ -140,15 +140,15 @@ angular.module('mock.featureProposalRepo', []).service('FeatureProposalRepo', fu
         return defer.promise;
     };
 
-    featureProposalRepo.fetchById = function (noteId) {
-        var note = new Note();
+    featureProposalRepo.fetchById = function (id) {
+        var featureProposal = {};
         for (var i in featureProposalRepo.list) {
             if (featureProposalRepo.list[i].id === id) {
-                note = featureProposalRepo.list[i];
+                featureProposal = featureProposalRepo.list[i];
                 break;
             }
         }
-        return note;
+        return featureProposal;
     };
 
     featureProposalRepo.getPageSettings = function () {
@@ -188,9 +188,23 @@ angular.module('mock.featureProposalRepo', []).service('FeatureProposalRepo', fu
         });
     };
 
+    featureProposalRepo.reject = function (id) {
+        return $q(function (resolve) {
+            var featureProposal = {};
+            for (var i in featureProposalRepo.list) {
+                if (featureProposalRepo.list[i].id === id) {
+                    featureProposal = featureProposalRepo.list[i];
+                    featureProposal.state = "REJECTED";
+                    break;
+                }
+            }
+            resolve(featureProposal);
+        });
+    };
+
     var table = {
         // @todo
     };
-  
+
     return featureProposalRepo;
 });

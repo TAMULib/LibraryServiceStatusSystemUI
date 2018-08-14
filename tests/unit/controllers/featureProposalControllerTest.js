@@ -1,6 +1,6 @@
 describe('controller: FeatureProposalController', function () {
 
-    var controller, scope, fps;
+    var controller, scope, fps, FeatureProposalRepo;
 
     beforeEach(function() {
         module('core');
@@ -16,6 +16,7 @@ describe('controller: FeatureProposalController', function () {
             installPromiseMatchers();
             scope = $rootScope.$new();
             fps = FeatureProposalState;
+            FeatureProposalRepo = _FeatureProposalRepo_;
             controller = $controller('FeatureProposalController', {
                 $scope: scope,
                 Idea: _Idea_,
@@ -48,6 +49,10 @@ describe('controller: FeatureProposalController', function () {
         it('updateFeatureProposal should be defined', function () {
             expect(scope.updateFeatureProposal).toBeDefined();
             expect(typeof scope.updateFeatureProposal).toEqual("function");
+        });
+        it('rejectFeatureProposal should be defined', function () {
+            expect(scope.rejectFeatureProposal).toBeDefined();
+            expect(typeof scope.rejectFeatureProposal).toEqual("function");
         });
         it('select should be defined', function () {
             expect(scope.select).toBeDefined();
@@ -109,6 +114,14 @@ describe('controller: FeatureProposalController', function () {
                 state = v.value;
                 expect(typeof scope.getStateSummary(state)).toEqual("string");
             });
+        });
+
+        it('rejectFeatureProposal should set the state to rejected', function () {
+            var id = 123456789;
+            var featureProposal = FeatureProposalRepo.fetchById(id);
+            featureProposal.state = "REJECTED";
+            scope.rejectFeatureProposal(id);
+            expect(FeatureProposalRepo.fetchById(id)).toEqual(featureProposal);
         });
     });
 });
