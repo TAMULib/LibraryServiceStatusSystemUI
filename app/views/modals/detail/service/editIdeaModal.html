@@ -33,7 +33,8 @@
       </div>
       <div class="row">
         <button ng-disabled="updating || ideaData.state === 'ELEVATED'" type="button" class="btn btn-danger pull-left" ng-click="confirmDelete(ideaData)">Delete Idea</button>
-        <button ng-if="ideaData.state !== 'REJECTED'" ng-disabled="updating || ideaData.state === 'ELEVATED'" type="button" class="btn btn-warning pull-left" ng-click="confirmReject(ideaData)">Reject Idea</button>
+        <button ng-if="ideaData.state === 'WAITING_ON_REVIEW'" ng-disabled="updating" type="button" class="btn btn-warning pull-left" ng-click="confirmReject(ideaData)">Reject Idea</button>
+        <button ng-if="ideaData.state === 'WAITING_ON_REVIEW'" ng-disabled="updating" type="button" class="btn btn-warning pull-left" ng-click="confirmSendToHelpdesk(ideaData)">Send to Helpdesk</button>
       </div>
       <hr>
       

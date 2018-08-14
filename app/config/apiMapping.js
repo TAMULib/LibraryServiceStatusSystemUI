@@ -90,6 +90,11 @@ var apiMapping = {
             'controller': 'ideas',
             'method': 'reject'
         },
+        sendToHelpdesk: {
+            'endpoint': '/private/queue',
+            'controller': 'ideas',
+            'method': 'helpdesk'
+        },
         remove: {
             'endpoint': '/private/queue',
             'controller': 'ideas',

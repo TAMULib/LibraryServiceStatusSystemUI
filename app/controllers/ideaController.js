@@ -106,7 +106,7 @@ app.controller('IdeaController', function($controller, $scope, FeatureProposalRe
         $scope.ideaToReject = idea;
     };
 
-    $scope.rejectIdea = function() {
+    $scope.rejectIdea = function () {
         $scope.updating = true;
         $scope.ideaRepo.reject($scope.ideaToReject).then(function(res) {
             var result = angular.fromJson(res.body);
@@ -116,6 +116,23 @@ app.controller('IdeaController', function($controller, $scope, FeatureProposalRe
                 $scope.ideaToReject = {};
             } else if (result.meta.status === 'INVALID') {
                 $scope.updating = false;
+            }
+        });
+    };
+
+    $scope.confirmSendToHelpdesk = function (idea) {
+        $scope.resetIdeas();
+        $scope.openModal('#sendToHelpdeskModal');
+        $scope.ideaToSendToHelpdesk = idea;
+    };
+
+    $scope.sendToHelpdesk = function () {
+        $scope.updating = true;
+        $scope.ideaRepo.sendToHelpdesk($scope.ideaToSendToHelpdesk).then(function (res) {
+            if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
+                $scope.resetIdeas();
+                $scope.updating = false;
+                $scope.ideaToSendToHelpdesk = {};
             }
         });
     };
