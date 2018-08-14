@@ -13,6 +13,8 @@
 
     <validatedinput disabled="true" model="ideaData" property="title" label="Title" form="forms.updateIdea" validations="ideaRepo.getValidations()" results="ideaRepo.getValidationResults()"></validatedinput>
 
+    <validatedselect ng-disabled="!isAdmin()" model="ideaData" property="state" label="Status" form="forms.updateIdea" validations="ideaRepo.getValidations()" results="ideaRepo.getValidationResults()" options="states" optionProperty="gloss" optionValue="value"></validatedselect>
+
     <validatedselect disabled="true" model="ideaData" property="service" label="Services" form="forms.updateIdea" validations="ideaRepo.getValidations()" results="ideaRepo.getValidationResults()" options="services" optionProperty="name"></validatedselect>
 
     <label>Idea Description</label>

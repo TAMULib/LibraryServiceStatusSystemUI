@@ -150,7 +150,6 @@ app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi, Service, Table
         }
     };
 
-
     var checkCreateFeatureProposals = function (service) {
         if (service.featureProposals === undefined) {
             service.featureProposals = [];

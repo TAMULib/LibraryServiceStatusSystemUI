@@ -1,9 +1,12 @@
-app.controller('IdeaController', function($controller, $scope, FeatureProposalRepo, Idea, ServiceRepo) {
+app.controller('IdeaController', function($controller, $scope, FeatureProposalRepo, Idea, IdeaState, ServiceRepo) {
 
     angular.extend(this, $controller('AbstractIdeaController', {
         $scope: $scope
     }));
+
     $scope.ideaToDelete = {};
+
+    $scope.states = IdeaState;
 
     $scope.weaverTable = {
         repo: $scope.ideaRepo,
