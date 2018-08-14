@@ -22,7 +22,8 @@
               <span ng-if="idea.state !== 'ELEVATED'">{{idea.state | ideaState}}</span>
             </td>
             <td class="actions-column text-center">
-              <button type="button" class="btn btn-default" ng-click="editIdea(idea)">Actions</button>
+              <span ng-if="canManageServices()" class="glyphicon glyphicon-pencil" title="edit" ng-click="editIdea(idea)"></span>
+              <span ng-if="canManageServices()" class="glyphicon glyphicon-trash" title="delete" ng-click="confirmDelete(idea)"></span>
             </td>
           </tr>
         </tbody>

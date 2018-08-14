@@ -15,7 +15,7 @@
         <span class="glyphicon glyphicon glyphicon-triangle-top" title="elevate" ng-click="confirmElevateMultiple([idea])"></span>
         <span class="glyphicon glyphicon-plus" title="add to proposal" ng-click="confirmAddIdea(idea)"></span>
         <!-- <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editIdea(idea)"></span> -->
-        <!-- <span class="glyphicon glyphicon-trash" title="delete" ng-click="confirmDelete(idea)"></span> -->
+        <span ng-if="canManageServices()" class="glyphicon glyphicon-trash" title="delete" ng-click="confirmDelete(idea)"></span>
       </td>
     </tr>
   </table>
