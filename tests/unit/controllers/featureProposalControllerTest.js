@@ -82,6 +82,10 @@ describe('controller: FeatureProposalController', function () {
             expect(scope.initCreateFeatureProposal).toBeDefined();
             expect(typeof scope.initCreateFeatureProposal).toEqual("function");
         });
+        it('useDetailTable should be defined', function () {
+            expect(scope.useDetailTable).toBeDefined();
+            expect(typeof scope.useDetailTable).toEqual("function");
+        });
     });
 
     describe('Are the scope methods working as expected', function () {
