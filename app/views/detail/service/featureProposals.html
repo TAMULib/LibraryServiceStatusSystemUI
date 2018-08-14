@@ -13,7 +13,8 @@
       <td title="'State'">{{fp.state | featureProposalState}}</td>
       <td title="'Last Modified'">{{fp.lastModified | date : 'medium'}}</td>
       <td class="actions-column text-center" title="'Actions'">
-        <span ng-if="!hasState('SUBMITTED', fp)" class="toggle-href glyphicon glyphicon-upload" title="submit" ng-click="select(fp, '#submitFpModal');"></span>
+        <span ng-if="!hasState('SUBMITTED', fp) && !hasState('REJECTED', fp)" class="toggle-href glyphicon glyphicon-upload" title="submit" ng-click="select(fp, '#submitFpModal');"></span>
+        <span ng-if="!hasState('SUBMITTED', fp) && !hasState('REJECTED', fp)" class="toggle-href glyphicon glyphicon-ban-circle" title="reject" ng-click="select(fp, '#rejectFpModal');"></span>
         <span class="toggle-href glyphicon glyphicon-pencil" title="edit" ng-click="editFeatureProposal(fp)"></span>
         <span class="toggle-href glyphicon glyphicon-trash" title="delete" ng-if="fp.ideas.length === 0" ng-click="confirmDeleteFp(fp)"></span>
       </td>
@@ -22,6 +23,7 @@
 
   <modal modal-id="addFpModal" modal-view="views/modals/detail/service/addFpModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
   <modal modal-id="submitFpModal" modal-view="views/modals/detail/service/submitFpModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+  <modal modal-id="rejectFpModal" modal-view="views/modals/detail/service/rejectFpModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
   <modal modal-id="deleteFpModal" modal-view="views/modals/detail/service/deleteFpModal.html" modal-header-class="modal-header-danger" wvr-modal-backdrop="static"></modal>
   <modal modal-id="editFpModal" modal-view="views/modals/detail/service/editFpModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
 </div>

@@ -60,6 +60,13 @@ app.repo("FeatureProposalRepo", function FeatureProposalRepo($q, WsApi, FeatureP
         return WsApi.fetch(featureProposalRepo.mapping.vote);
     };
 
+    featureProposalRepo.reject = function (fp) {
+        angular.extend(featureProposalRepo.mapping.reject, {
+            'method': fp.id + "/reject"
+        });
+        return WsApi.fetch(featureProposalRepo.mapping.reject);
+    };
+
     var table = TableFactory.buildTable({
         pageNumber: sessionStorage.getItem('feature-proposals-page') ? sessionStorage.getItem('feature-proposals-page') : 1,
         pageSize: sessionStorage.getItem('feature-proposals-size') ? sessionStorage.getItem('feature-proposals-size') : 10,

@@ -94,6 +94,14 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
         });
     };
 
+    $scope.rejectFeatureProposal = function (fp) {
+        $scope.fpRepo.reject($scope.fpData).then(function (res) {
+            if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
+                $scope.resetFeatureProposals();
+            }
+        });
+    };
+
     $scope.select = function (fp, modal) {
         $scope.fpData = fp;
         $scope.openModal(modal);
