@@ -3,7 +3,6 @@ app.controller('IdeaController', function($controller, $scope, FeatureProposalRe
     angular.extend(this, $controller('AbstractIdeaController', {
         $scope: $scope
     }));
-
     $scope.ideaToDelete = {};
 
     $scope.weaverTable = {
