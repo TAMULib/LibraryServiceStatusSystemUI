@@ -117,7 +117,7 @@ app.controller('IdeaController', function($controller, $scope, FeatureProposalRe
             } else if (result.meta.status === 'INVALID') {
                 $scope.updating = false;
             }
-        })
+        });
     };
 
     $scope.confirmDelete = function(idea) {
