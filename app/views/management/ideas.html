@@ -21,10 +21,10 @@
               <a ng-if="idea.state === 'ELEVATED'" href="{{'service/' + idea.service.id + '/detail#fp-' + idea.featureProposal}}">{{idea.state | ideaState}}</a>
               <span ng-if="idea.state !== 'ELEVATED'">{{idea.state | ideaState}}</span>
             </td>
-            <!-- <td class="actions-column text-center">
-              <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editIdea(idea)"></span>
-              <span class="glyphicon glyphicon-trash" title="delte" ng-click="confirmDelete(idea)"></span>
-            </td> -->
+            <td class="actions-column text-center">
+              <!-- <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editIdea(idea)"></span> -->
+              <span ng-if="canManageServices()" class="glyphicon glyphicon-trash" title="delete" ng-click="confirmDelete(idea)"></span>
+            </td>
           </tr>
         </tbody>
       </table>
