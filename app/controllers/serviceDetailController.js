@@ -9,8 +9,8 @@ app.controller('ServiceDetailController', function ($controller, $anchorScroll, 
     }));
 
     if (!$scope.isAnonymous()) {
-        UserRepo.getUser().then(function (response) {
-            var apiRes = angular.fromJson(response.body);
+        UserRepo.getUser().then(function (res) {
+            var apiRes = angular.fromJson(res.body);
             if (apiRes.meta.status === 'SUCCESS') {
                 $scope.user = apiRes.payload.User;
                 $scope.hasVoted = function (fp) {

@@ -28,14 +28,17 @@ app.repo("FeatureProposalRepo", function FeatureProposalRepo($q, WsApi, FeatureP
 
     var safePage = function (resolve) {
         featureProposalRepo.fetchPage().then(function (response) {
-            var page = angular.fromJson(response.body).payload.PageImpl;
-            featureProposalRepo.empty();
-            featureProposalRepo.addAll(page.content);
-            if (table.getPageSettings().pageNumber > 1 && table.getPageSettings().pageNumber > page.totalPages) {
-                table.setPage(page.totalPages);
-                safePage(resolve);
-            } else {
-                resolve(page);
+            var apiRes = angular.fromJson(response.body);
+            if (apiRes.meta.status === 'SUCCESS') {
+                var page = apiRes.payload.PageImpl;
+                featureProposalRepo.empty();
+                featureProposalRepo.addAll(page.content);
+                if (table.getPageSettings().pageNumber > 1 && table.getPageSettings().pageNumber > page.totalPages) {
+                    table.setPage(page.totalPages);
+                    safePage(resolve);
+                } else {
+                    resolve(page);
+                }
             }
         });
     };
