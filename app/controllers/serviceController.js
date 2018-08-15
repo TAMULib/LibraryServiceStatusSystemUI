@@ -155,12 +155,14 @@ app.controller('ServiceController', function ($controller, $route, $scope, Proje
 
     $scope.deleteService = function () {
         $scope.deleting = true;
-        $scope.serviceToDelete.delete().then(function () {
-            $scope.closeModal();
-            $scope.deleting = false;
-            ServiceRepo.remove($scope.serviceToDelete);
-            $scope.serviceToDelete = {};
-            $scope.tableParams.reload();
+        $scope.serviceToDelete.delete().then(function (res) {
+            if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
+                $scope.closeModal();
+                $scope.deleting = false;
+                ServiceRepo.remove($scope.serviceToDelete);
+                $scope.serviceToDelete = {};
+                $scope.tableParams.reload();
+            }
         });
     };
 

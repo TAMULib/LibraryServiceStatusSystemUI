@@ -42,7 +42,7 @@ app.controller('UserRepoController', function ($controller, $location, $injector
             };
 
 
-            UserRepo.listen(function (response) {
+            UserRepo.listen(function () {
                 if ($scope.userUpdated.username == $scope.user.username) {
                     $scope.userUpdated = {};
                     $route.reload();

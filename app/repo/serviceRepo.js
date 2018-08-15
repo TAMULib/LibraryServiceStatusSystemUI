@@ -19,14 +19,17 @@ app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi, Service, Table
 
     var safePage = function (resolve) {
         serviceRepo.fetchPage().then(function (response) {
-            var page = angular.fromJson(response.body).payload.PageImpl;
-            serviceRepo.empty();
-            serviceRepo.addAll(page.content);
-            if (table.getPageSettings().pageNumber > 1 && table.getPageSettings().pageNumber > page.totalPages) {
-                table.setPage(page.totalPages);
-                safePage(resolve);
-            } else {
-                resolve(page);
+            var apiRes = angular.fromJson(response.body);
+            if (apiRes.meta.status === 'SUCCESS') {
+                var page = apiRes.payload.PageImpl;
+                serviceRepo.empty();
+                serviceRepo.addAll(page.content);
+                if (table.getPageSettings().pageNumber > 1 && table.getPageSettings().pageNumber > page.totalPages) {
+                    table.setPage(page.totalPages);
+                    safePage(resolve);
+                } else {
+                    resolve(page);
+                }
             }
         });
     };

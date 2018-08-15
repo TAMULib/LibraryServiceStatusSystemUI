@@ -28,14 +28,17 @@ app.repo("NoteRepo", function NoteRepo($q, WsApi, Note, ServiceRepo, TableFactor
 
     var safePage = function (resolve) {
         noteRepo.fetchPage().then(function (response) {
-            var page = angular.fromJson(response.body).payload.PageImpl;
-            noteRepo.empty();
-            noteRepo.addAll(page.content);
-            if (table.getPageSettings().pageNumber > 1 && table.getPageSettings().pageNumber > page.totalPages) {
-                table.setPage(page.totalPages);
-                safePage(resolve);
-            } else {
-                resolve(page);
+            var apiRes = angular.fromJson(response.body);
+            if (apiRes.meta.status === 'SUCCESS') {
+                var page = apiRes.payload.PageImpl;
+                noteRepo.empty();
+                noteRepo.addAll(page.content);
+                if (table.getPageSettings().pageNumber > 1 && table.getPageSettings().pageNumber > page.totalPages) {
+                    table.setPage(page.totalPages);
+                    safePage(resolve);
+                } else {
+                    resolve(page);
+                }
             }
         });
     };

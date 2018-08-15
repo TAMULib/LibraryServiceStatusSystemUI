@@ -1,4 +1,4 @@
-app.controller('FeatureProposalController', function($controller, $scope, Idea, IdeaState, FeatureProposalState, ProjectService) {
+app.controller('FeatureProposalController', function ($controller, $scope, Idea, IdeaState, FeatureProposalState, ProjectService) {
 
     angular.extend(this, $controller('AbstractIdeaController', {
         $scope: $scope
@@ -69,8 +69,7 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
 
     $scope.weaverTableDetail = {
         repo: $scope.fpRepo,
-        columns: [
-            {
+        columns: [{
                 gloss: 'Title',
                 property: 'title',
                 filterable: false,
@@ -152,7 +151,7 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
         });
     };
 
-    $scope.confirmReject = function(fp) {
+    $scope.confirmReject = function (fp) {
         $scope.resetFeatureProposals();
         $scope.openModal('#rejectFpModal');
         $scope.fpToReject = fp;
@@ -160,9 +159,8 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
 
     $scope.rejectFeatureProposal = function () {
         $scope.updating = true;
-        $scope.fpRepo.reject($scope.fpToReject).then(function(res) {
-            var result = angular.fromJson(res.body);
-            if (result.meta.status === 'SUCCESS') {
+        $scope.fpRepo.reject($scope.fpToReject).then(function (res) {
+            if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                 $scope.resetFeatureProposals();
                 $scope.fpToReject = {};
             }
@@ -177,9 +175,11 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
 
     $scope.submitFeatureProposal = function (fp) {
         $scope.submitting = true;
-        ProjectService.submitFeatureProposal(fp).then(function () {
-            $scope.submitting = false;
-            $scope.resetFeatureProposals();
+        ProjectService.submitFeatureProposal(fp).then(function (res) {
+            if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
+                $scope.submitting = false;
+                $scope.resetFeatureProposals();
+            }
         });
     };
 
@@ -190,15 +190,17 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
 
     $scope.deleteFp = function () {
         $scope.deleting = true;
-        $scope.fpToDelete.delete().then(function () {
-            $scope.closeModal();
-            $scope.deleting = false;
-            $scope.fpToDelete = {};
+        $scope.fpToDelete.delete().then(function (res) {
+            if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
+                $scope.closeModal();
+                $scope.deleting = false;
+                $scope.fpToDelete = {};
+            }
         });
     };
 
     $scope.hasState = function (state, fp) {
-        return fp.state === FeatureProposalState[state].value;
+        return fp && fp.state === FeatureProposalState[state].value;
     };
 
     $scope.getStateSummary = function (state) {

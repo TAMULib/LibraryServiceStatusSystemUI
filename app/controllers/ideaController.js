@@ -1,4 +1,4 @@
-app.controller('IdeaController', function($controller, $scope, FeatureProposalRepo, Idea, IdeaState, ServiceRepo) {
+app.controller('IdeaController', function ($controller, $scope, FeatureProposalRepo, Idea, IdeaState, ServiceRepo) {
 
     angular.extend(this, $controller('AbstractIdeaController', {
         $scope: $scope
@@ -101,7 +101,7 @@ app.controller('IdeaController', function($controller, $scope, FeatureProposalRe
         });
     };
 
-    $scope.confirmReject = function(idea) {
+    $scope.confirmReject = function (idea) {
         $scope.resetIdeas();
         $scope.openModal('#rejectIdeaModal');
         $scope.ideaToReject = idea;
@@ -109,13 +109,13 @@ app.controller('IdeaController', function($controller, $scope, FeatureProposalRe
 
     $scope.rejectIdea = function () {
         $scope.updating = true;
-        $scope.ideaRepo.reject($scope.ideaToReject).then(function(res) {
-            var result = angular.fromJson(res.body);
-            if (result.meta.status === 'SUCCESS') {
+        $scope.ideaRepo.reject($scope.ideaToReject).then(function (res) {
+            var apiRes = angular.fromJson(res.body);
+            if (apiRes.meta.status === 'SUCCESS') {
                 $scope.resetIdeas();
                 $scope.updating = false;
                 $scope.ideaToReject = {};
-            } else if (result.meta.status === 'INVALID') {
+            } else if (apiRes.meta.status === 'INVALID') {
                 $scope.updating = false;
             }
         });
@@ -138,7 +138,7 @@ app.controller('IdeaController', function($controller, $scope, FeatureProposalRe
         });
     };
 
-    $scope.confirmDelete = function(idea) {
+    $scope.confirmDelete = function (idea) {
         $scope.resetIdeas();
         $scope.openModal('#deleteIdeaModal');
         $scope.ideaToDelete = idea;
@@ -146,18 +146,19 @@ app.controller('IdeaController', function($controller, $scope, FeatureProposalRe
 
     $scope.deleteIdea = function () {
         $scope.deleting = true;
-        $scope.ideaToDelete.delete().then(function () {
-            $scope.closeModal();
-            $scope.deleting = false;
-            $scope.ideaToDelete = {};
+        $scope.ideaToDelete.delete().then(function (res) {
+            if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
+                $scope.closeModal();
+                $scope.deleting = false;
+                $scope.ideaToDelete = {};
+            }
         });
     };
 
     $scope.elevateIdea = function (idea) {
         $scope.elevating = true;
         FeatureProposalRepo.elevate(idea).then(function (res) {
-            var apiRes = angular.fromJson(res.body);
-            if (apiRes.meta.status === 'SUCCESS') {
+            if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                 $scope.elevating = false;
                 $scope.resetIdeas();
             }
