@@ -191,6 +191,57 @@ header .navbar-toggle {
   cursor: pointer;
 }
 
+.btn-info,
+.label-info {
+  color: #000000;
+  background-color: #aee0ef;
+}
+
+.btn-warning,
+.label-warning {
+  color: #000000;
+  background-color: #f5aa42;
+  border-color: #7f4f0a;
+}
+
+.btn.btn-warning:focus,
+.btn.btn-warning:hover {
+  color: #000000;
+  background-color: #f6bf33;
+}
+
+.btn-danger,
+.label-danger {
+  color: #000000;
+  background-color: #e9574f;
+}
+
+.btn.btn-danger.disabled, .btn.btn-danger[disabled], fieldset[disabled] .btn.btn-danger {
+  color: #ffffff;
+  background-color: #be4d4b;
+}
+
+.btn.btn-danger.disabled:focus,
+.btn.btn-danger.disabled:hover,
+.btn.btn-danger[disabled]:focus,
+.btn.btn-danger[disabled]:hover,
+fieldset[disabled] .btn.btn-danger:focus,
+fieldset[disabled] .btn.btn-danger:hover {
+  background-color: #d1462e;
+}
+
+.btn-success,
+.label-success {
+  color: #000000;
+  background-color: #67bc67;
+}
+
+.btn-primary,
+.label-primary {
+  color: #000000;
+  background-color: #91a5cf;
+}
+
 .ng-table th.sortable.sort-asc,
 .ng-table th.sortable.sort-desc {
   background-color: #4A5C81;
