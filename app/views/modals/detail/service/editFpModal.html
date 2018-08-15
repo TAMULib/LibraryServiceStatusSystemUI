@@ -15,7 +15,7 @@
 
     <validatedselect model="fpData" property="service" label="Services" form="forms.updateFp" validations="fpRepo.getValidations()" results="fpRepo.getValidationResults()" options="services" optionProperty="name" disabled="serviceDisabled"></validatedselect>
 
-    <validatedselect model="fpData" property="state" label="State" form="forms.updateFp" validations="fpRepo.getValidations()" results="fpRepo.getValidationResults()" options="state" optionProperty="gloss" optionValue="value"></validatedselect>
+    <validatedselect model="fpData" property="state" label="Status" form="forms.updateFp" validations="fpRepo.getValidations()" results="fpRepo.getValidationResults()" options="state" optionProperty="gloss" optionValue="value"></validatedselect>
 
     <div ng-if="hasState('REJECTED', fpData)">
       <label>Reason for Rejection</label>

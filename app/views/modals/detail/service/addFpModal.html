@@ -15,7 +15,7 @@
 
     <validatedselect model="fpData" property="service" label="Service" form="forms.createFp" validations="fpRepo.getValidations()" results="fpRepo.getValidationResults()" options="services" optionProperty="name" disabled="serviceDisabled"></validatedselect>
 
-    <validatedselect model="fpData" property="state" label="State" form="forms.createFp" validations="fpRepo.getValidations()" results="fpRepo.getValidationResults()" options="state" optionProperty="gloss" optionValue="value"></validatedselect>
+    <validatedselect model="fpData" property="state" label="Status" form="forms.createFp" validations="fpRepo.getValidations()" results="fpRepo.getValidationResults()" options="state" optionProperty="gloss" optionValue="value"></validatedselect>
 
     <label>Feature Proposal Description</label>
     <textarea class="form-control" ng-model="fpData.description"></textarea>
