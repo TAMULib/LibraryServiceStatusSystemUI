@@ -28,7 +28,7 @@
 
     <br />
 
-    <validatedinput model="fpData" type="checkbox" property="isPublic" label="Visibility" placeholder="Is Visible to Anonymous?" form="forms.updateFp" validations="fpRepo.getValidations()" results="fpRepo.getValidationResults()"></validatedinput>
+    <validatedinput model="fpData" type="checkbox" property="isPrivate" label="Visibility" placeholder="Is Private?" form="forms.updateFp" validations="fpRepo.getValidations()" results="fpRepo.getValidationResults()"></validatedinput>
 
     <label>Ideas</label>
     <div class="input-group ideas-list" ng-repeat="idea in fpData.ideas">

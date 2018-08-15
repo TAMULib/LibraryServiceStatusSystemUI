@@ -21,7 +21,7 @@
                   <span title="{{getStateSummary(fp.state)}}">{{fp.state | featureProposalState}}</span>
                 </td>
                 <td title="'Last Modified'">{{fp.lastModified | date : 'medium'}}</td>
-                <td title="'Visible to Anonymous Users'">{{fp.isPublic}}</td>
+                <td title="'Private'">{{fp.isPrivate}}</td>
                 <td class="actions-column text-center" title="'Actions'">
                     <span ng-if="!hasState('SUBMITTED', fp) && !hasState('REJECTED', fp)" class="toggle-href glyphicon glyphicon-upload" title="submit" ng-click="select(fp, '#submitFpModal');"></span>
                     <span ng-if="!hasState('SUBMITTED', fp) && !hasState('REJECTED', fp)" class="toggle-href glyphicon glyphicon-ban-circle" title="reject" ng-click="confirmReject(fp)"></span>

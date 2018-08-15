@@ -44,8 +44,8 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
                 isConstant: true
             },
             {
-                gloss: 'Visible to Anonymous Users',
-                property: 'isPublic',
+                gloss: 'Private',
+                property: 'isPrivate',
                 filterable: true,
                 sortable: true,
                 isConstant: true
@@ -103,8 +103,8 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
                 sortable: true
             },
             {
-                gloss: 'Visible to Anonymous Users',
-                property: 'isPublic',
+                gloss: 'Private',
+                property: 'isPrivate',
                 filterable: false,
                 sortable: true,
                 isConstant: true
@@ -207,7 +207,7 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
 
     $scope.initCreateFeatureProposal = function () {
         $scope.fpData.state = FeatureProposalState.IN_PROGRESS.value;
-        $scope.fpData.isPublic = true;
+        $scope.fpData.isPrivate = false;
         $scope.openModal('#addFpModal');
     };
 
