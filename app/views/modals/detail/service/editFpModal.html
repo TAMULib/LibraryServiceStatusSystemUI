@@ -26,14 +26,18 @@
     <label>Feature Proposal Description</label>
     <textarea class="form-control" ng-model="fpData.description"></textarea>
 
+    <br />
+
     <validatedinput model="fpData" type="checkbox" property="isPublic" label="Visibility" placeholder="Is Visible to Anonymous?" form="forms.updateFp" validations="fpRepo.getValidations()" results="fpRepo.getValidationResults()"></validatedinput>
 
     <label>Ideas</label>
     <div class="input-group ideas-list" ng-repeat="idea in fpData.ideas">
-        <input type="text" class="form-control" disabled value="{{idea.title}}" disabled>
-        <span class="input-group-btn">
-          <button ng-click="removeIdea(idea)" class="btn btn-danger" type="button"><span class="glyphicon glyphicon-remove"></span></button>
-        </span>
+      <input type="text" class="form-control" disabled value="{{idea.title}}" disabled>
+      <span class="input-group-btn">
+        <button ng-click="removeIdea(idea)" class="btn btn-danger" type="button">
+          <span class="glyphicon glyphicon-remove"></span>
+        </button>
+      </span>
     </div>
 
     <div class="modal-footer">
