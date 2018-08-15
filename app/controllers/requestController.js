@@ -13,6 +13,9 @@ app.controller('RequestController', function ($controller, $routeParams, $scope,
 
         $scope.requestForm = undefined;
 
+        //Needs to be an object for ng-disabled
+        $scope.request = {};
+
         $scope.services = ServiceRepo.getAll();
 
         var clear = function (type) {
@@ -20,7 +23,7 @@ app.controller('RequestController', function ($controller, $routeParams, $scope,
             delete $scope.title;
             delete $scope.description;
             delete $scope.service;
-            $scope.sendUpdates = true;
+            $scope.request.sendUpdates = true;
             if ($scope.requestForm) {
                 $scope.requestForm.$setPristine();
                 $scope.requestForm.$setUntouched();
@@ -50,7 +53,7 @@ app.controller('RequestController', function ($controller, $routeParams, $scope,
             if ($scope.service) {
                 request.service = $scope.service;
             }
-            if ($scope.sendUpdates) {
+            if ($scope.request.sendUpdates) {
                 request.email = $scope.email;
             }
             ServiceRepo.submitRequest(request).then(function (message) {

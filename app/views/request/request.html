@@ -46,13 +46,13 @@
           </select>
         </div>
         <div ng-if="type === 'FEATURE'" class="form-group">
-            <div class="checkbox">
-              <label><input type="checkbox" ng-model="sendUpdates">Send me email updates</label>
-            </div>
+          <div class="checkbox">
+            <label><input type="checkbox" ng-model="request.sendUpdates">Send me email updates</label>
+          </div>
         </div>
         <div ng-if="type === 'FEATURE'" class="form-group">
           <label for="email">Email:</label>
-          <input ng-disabled="!sendUpdates" class="form-control" id="email" type="email" name="email" ng-model="email" aria-describedby="email">
+          <input ng-disabled="!request.sendUpdates" class="form-control" id="email" type="email" name="email" ng-model="email" aria-describedby="email">
         </div>
         <div class="pull-right">
           <button type="button" class="btn btn-default" ng-click="reset()">Back</button>

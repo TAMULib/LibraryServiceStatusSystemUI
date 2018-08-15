@@ -60,6 +60,7 @@ app.controller('IdeaController', function($controller, $scope, FeatureProposalRe
     ServiceRepo.ready().then(function () {
 
         $scope.tableParams = $scope.ideaRepo.getTableParams();
+        $scope.featureProposalsTableParams = FeatureProposalRepo.getTableParams();
 
         $scope.resetIdeas = function () {
             $scope.resetForms($scope.ideaData);
@@ -195,7 +196,7 @@ app.controller('IdeaController', function($controller, $scope, FeatureProposalRe
                 }
             }
         } else {
-            for (var j in $scope.ideasTableParams.data) {
+            for (var j = 0; j < $scope.ideasTableParams.data.length; j++) {
                 var ij = $scope.ideasTableParams.data[j];
                 if (!$scope.isSelectedIdea(ij)) {
                     $scope.selectedIdeas.push(ij);
@@ -238,6 +239,7 @@ app.controller('IdeaController', function($controller, $scope, FeatureProposalRe
     };
 
     $scope.confirmElevateMultiple = function (ideas) {
+        $scope.resetIdeas();
         $scope.fpData.ideas = ideas;
         $scope.fpData.title = ideas[0].title;
         $scope.fpData.description = ideas[0].description;
@@ -246,6 +248,7 @@ app.controller('IdeaController', function($controller, $scope, FeatureProposalRe
     };
 
     $scope.confirmAddIdea = function (idea) {
+        $scope.resetIdeas();
         $scope.ideaToAdd = idea;
         $scope.openModal('#confirmAddIdeaModal');
     };
