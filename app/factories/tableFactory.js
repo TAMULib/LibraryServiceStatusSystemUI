@@ -21,10 +21,10 @@ app.factory('TableFactory', function (NgTableParams) {
                 table.setSize(params.count());
                 return tableConfig.page().then(function (page) {
                     params.total(page.totalElements);
-                    angular.element('.ng-table-pager select option[value="' + params.count() + '"]').prop('selected', true);
                     tableConfig.repo.empty();
                     tableConfig.repo.addAll(page.content);
-                    return tableConfig.repo.getContents();
+                    angular.element('.ng-table-pager select option[value="' + params.count() + '"]').prop('selected', true);
+                    return angular.copy(tableConfig.repo.getContents());
                 });
             }
         });
