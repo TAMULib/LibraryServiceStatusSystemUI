@@ -147,7 +147,7 @@ angular.module('mock.featureProposalRepo', []).service('FeatureProposalRepo', fu
         var featureProposal = {};
         for (var i in featureProposalRepo.list) {
             if (featureProposalRepo.list[i].id === id) {
-                angular.extend(featureProposal, featureProposalRepo.list[i]);
+                angular.copy(featureProposalRepo.list[i], featureProposal);
                 break;
             }
         }
