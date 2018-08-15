@@ -37,7 +37,7 @@ app.controller('FeatureProposalController', function ($controller, $scope, Idea,
                 sortable: true
             },
             {
-                gloss: 'State',
+                gloss: 'Status',
                 property: 'state',
                 filterable: true,
                 sortable: true,
@@ -89,7 +89,7 @@ app.controller('FeatureProposalController', function ($controller, $scope, Idea,
                 isConstant: true
             },
             {
-                gloss: 'State',
+                gloss: 'Status',
                 property: 'state',
                 filterable: false,
                 sortable: true,
