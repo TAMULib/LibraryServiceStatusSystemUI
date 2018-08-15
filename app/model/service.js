@@ -167,7 +167,7 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, IdeaState, F
         };
 
         var hideFromPublic = function () {
-            return sessionStorage.role === "ROLE_ANONYMOUS";
+            return sessionStorage.role === "ROLE_USER" || sessionStorage.role === "ROLE_ANONYMOUS";
         };
 
         var getStateFilter = function () {
@@ -183,10 +183,10 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, IdeaState, F
             return stateFilter;
         };
 
-        var getIsPublicFilter = function () {
+        var getIsPrivateFilter = function () {
             var visibilityFilter = [ ];
             if (hideFromPublic()) {
-                visibilityFilter = [ true ];
+                visibilityFilter = [ false ];
             }
             return visibilityFilter;
         };
@@ -204,7 +204,7 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, IdeaState, F
         service.fetchFeatureProposalPage = function () {
             featureProposalsTable.getPageSettings().filters = {
                 state: getStateFilter(),
-                isPublic: getIsPublicFilter(),
+                isPrivate: getIsPrivateFilter(),
                 service: [service.id]
             };
             return FeatureProposalRepo.fetchPage(featureProposalsTable.getPageSettings());
@@ -238,7 +238,7 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, IdeaState, F
             featureProposalsTable.getPageSettings().pageSize = 1000;
             featureProposalsTable.getPageSettings().filters = {
                 state: getStateFilter(),
-                isPublic: getIsPublicFilter(),
+                isPrivate: getIsPrivateFilter(),
                 service: [service.id]
             };
             FeatureProposalRepo.fetchPage(featureProposalsTable.getPageSettings()).then(function (response) {
