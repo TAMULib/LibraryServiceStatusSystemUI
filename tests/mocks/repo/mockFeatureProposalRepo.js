@@ -11,6 +11,7 @@ var mockFeatureProposals = [
             "notes": []
         },
         "description": "<p>This is <strong>Jack's</strong> feature Proposal.</p>",
+        "feedback": "",
         "id": 123456789,
         "lastModified": 1529618244432,
         "service": {
@@ -45,6 +46,7 @@ var mockFeatureProposals = [
             "notes": []
         },
         "description": "<p>This is <strong>Jill's</strong> feature Proposal.</p>",
+        "feedback": "",
         "id": 987654321,
         "lastModified": 1234567890120,
         "service": {
@@ -79,6 +81,7 @@ var mockFeatureProposals = [
             "notes": []
         },
         "description": "<p>This is <strong>Jacob's</strong> feature Proposal.</p>",
+        "feedback": "Unacceptable.",
         "id": 192837465,
         "lastModified": 1529679921989,
         "service": {
@@ -144,7 +147,7 @@ angular.module('mock.featureProposalRepo', []).service('FeatureProposalRepo', fu
         var featureProposal = {};
         for (var i in featureProposalRepo.list) {
             if (featureProposalRepo.list[i].id === id) {
-                featureProposal = featureProposalRepo.list[i];
+                angular.extend(featureProposal, featureProposalRepo.list[i]);
                 break;
             }
         }
@@ -188,13 +191,14 @@ angular.module('mock.featureProposalRepo', []).service('FeatureProposalRepo', fu
         });
     };
 
-    featureProposalRepo.reject = function (id) {
+    featureProposalRepo.reject = function (fp) {
         return $q(function (resolve) {
             var featureProposal = {};
             for (var i in featureProposalRepo.list) {
-                if (featureProposalRepo.list[i].id === id) {
+                if (featureProposalRepo.list[i].id === fp.id) {
+                    featureProposalRepo.list[i].state = "REJECTED";
+                    featureProposalRepo.list[i].feedback = fp.feedback;
                     featureProposal = featureProposalRepo.list[i];
-                    featureProposal.state = "REJECTED";
                     break;
                 }
             }

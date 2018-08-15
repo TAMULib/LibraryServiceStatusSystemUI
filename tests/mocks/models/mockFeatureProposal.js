@@ -10,6 +10,7 @@ var mockFeatureProposal1 = {
         "notes": []
     },
     "description": "<p>This is <strong>Jack's</strong> feature Proposal.</p>",
+    "feedback": "",
     "id": 123456789,
     "lastModified": 1529618244432,
     "service": {
@@ -45,6 +46,7 @@ var mockFeatureProposal2 = {
         "notes": []
     },
     "description": "<p>This is <strong>Jill's</strong> feature Proposal.</p>",
+    "feedback": "",
     "id": 987654321,
     "lastModified": 1234567890120,
     "service": {
@@ -80,6 +82,7 @@ var mockFeatureProposal3 = {
         "notes": []
     },
     "description": "<p>This is <strong>Jacob's</strong> feature Proposal.</p>",
+    "feedback": "Unacceptable.",
     "id": 192837465,
     "lastModified": 1529679921989,
     "service": {
