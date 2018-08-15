@@ -2,20 +2,22 @@
     <button type="button" class="close" ng-click="closeModal()" aria-label="Close">
       <span class="modal-close" aria-hidden="true">&times;</span>
     </button>
-    <h3 class="modal-title">Are You Sure?</h3>
+    <h3 class="modal-title">Reject {{fpToReject.title}}</h3>
   </div>
 
   <form novalidate>
+    <validationmessage results="fpRepo.getValidationResults()"></validationmessage>
+    <alerts channel="/private/queue/feature-proposals/reject" types="WARNING, ERROR, INVALID"></alerts>
 
     <div class="modal-body">
-      Confirm rejection of feature proposal {{fpData.title}}.
+      <validatedtextarea model="fpToReject" property="feedback" label="Reason for Rejection" form="forms.rejectFeatureProposal" validations="fpRepo.getValidations()" results="fpRepo.getValidationResults()"></validatedtextarea>
     </div>
 
     <div class="modal-footer">
-      <button ng-disabled="submitting" type="button" class="btn btn-default" ng-click="closeModal()">Cancel</button>
-      <button ng-disabled="submitting" type="button" class="btn btn-danger" ng-click="rejectFeatureProposal(fpData)">
-        <span ng-if="!submitting">Confirm</span>
-        <span ng-if="submitting">Submitting
+      <button ng-disabled="updating" type="button" class="btn btn-default" ng-click="closeModal()">Cancel</button>
+      <button ng-disabled="updating" type="button" class="btn btn-danger" ng-click="rejectFeatureProposal()">
+        <span ng-if="!updating">Confirm</span>
+        <span ng-if="updating">Rejecting
           <span class="glyphicon glyphicon-refresh spinning"></span>
         </span>
       </button>

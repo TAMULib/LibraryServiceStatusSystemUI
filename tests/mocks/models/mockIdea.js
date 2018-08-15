@@ -11,6 +11,7 @@ var mockIdea1 = {
     },
     "description": "<p>This is <strong>Jack's</strong> idea.</p>",
     "elevated": false,
+    "feedback": "",
     "id": 123456789,
     "lastModified": 1529618244432,
     "service": {
@@ -46,6 +47,7 @@ var mockIdea2 = {
     },
     "description": "<p>This is <strong>Jill's</strong> idea.</p>",
     "elevated": false,
+    "feedback": "",
     "id": 987654321,
     "lastModified": 1234567890120,
     "service": {
@@ -81,6 +83,7 @@ var mockIdea3 = {
     },
     "description": "<p>This is <strong>Jacob's</strong> idea.</p>",
     "elevated": false,
+    "feedback": "",
     "id": 192837465,
     "lastModified": 1529679921989,
     "service": {

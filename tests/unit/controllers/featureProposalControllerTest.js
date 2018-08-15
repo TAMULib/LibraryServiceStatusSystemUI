@@ -124,8 +124,14 @@ describe('controller: FeatureProposalController', function () {
             var id = 123456789;
             var featureProposal = FeatureProposalRepo.fetchById(id);
             featureProposal.state = "REJECTED";
-            scope.rejectFeatureProposal(id);
-            expect(FeatureProposalRepo.fetchById(id)).toEqual(featureProposal);
+            featureProposal.feedback = "Not wanted";
+            scope.fpToReject = featureProposal;
+            scope.rejectFeatureProposal();
+
+            var updatedFeatureProposal = FeatureProposalRepo.fetchById(id);
+            expect(updatedFeatureProposal).toEqual(featureProposal);
+            expect(updatedFeatureProposal.state).toEqual(featureProposal.state);
+            expect(updatedFeatureProposal.feedback).toEqual(featureProposal.feedback);
         });
     });
 });

@@ -152,11 +152,21 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
         });
     };
 
-    $scope.rejectFeatureProposal = function (fp) {
-        $scope.fpRepo.reject($scope.fpData).then(function (res) {
-            if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
+    $scope.confirmReject = function(fp) {
+        $scope.resetFeatureProposals();
+        $scope.openModal('#rejectFpModal');
+        $scope.fpToReject = fp;
+    };
+
+    $scope.rejectFeatureProposal = function () {
+        $scope.updating = true;
+        $scope.fpRepo.reject($scope.fpToReject).then(function(res) {
+            var result = angular.fromJson(res.body);
+            if (result.meta.status === 'SUCCESS') {
                 $scope.resetFeatureProposals();
+                $scope.fpToReject = {};
             }
+            $scope.updating = false;
         });
     };
 

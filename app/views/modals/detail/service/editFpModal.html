@@ -17,6 +17,12 @@
 
     <validatedselect model="fpData" property="state" label="State" form="forms.updateFp" validations="fpRepo.getValidations()" results="fpRepo.getValidationResults()" options="state" optionProperty="gloss" optionValue="value"></validatedselect>
 
+    <div ng-if="hasState('REJECTED', fpData)">
+      <label>Reason for Rejection</label>
+      <textarea required="hasState('REJECTED', fpData)" class="form-control" ng-model="fpData.feedback"></textarea>
+      <br>
+    </div>
+
     <label>Feature Proposal Description</label>
     <textarea class="form-control" ng-model="fpData.description"></textarea>
 
