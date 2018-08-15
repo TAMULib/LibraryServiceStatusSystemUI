@@ -31,13 +31,9 @@
 
     <service-status model="serviceData"></service-status>
 
-    <div class="checkbox">
-      <label><input type="checkbox" value="false" ng-model="serviceData.isPublic">Service is visible to anonymous users</label>
-    </div>
+    <validatedinput model="serviceData" type="checkbox" property="isPublic" placeholder="Is service visible to anonymous users?" form="forms.create" validations="serviceRepo.getValidations()" results="serviceRepo.getValidationResults()"></validatedinput>
 
-    <div class="checkbox">
-      <label><input type="checkbox" value="false" ng-model="serviceData.onShortList">Service is flagged for prominent display</label>
-    </div>
+    <validatedinput model="serviceData" type="checkbox" property="onShortList" placeholder="Is service flagged for prominent display?" form="forms.create" validations="serviceRepo.getValidations()" results="serviceRepo.getValidationResults()"></validatedinput>
 
     <div class="modal-footer">
       <button type="button" class="btn btn-default" ng-click="resetServices()">Cancel</button>

@@ -2,7 +2,9 @@
   <button type="button" class="close" ng-click="cancel(); resetSchedule();" aria-label="Close">
     <span class="modal-close" aria-hidden="true">&times;</span>
   </button>
-  <h3 class="modal-title">{{modalData.title}} <span ng-if="data.type === 'note'">{{data.title}}</span><span ng-if="data.type !== 'note'">{{data.name}}</span> Schedule</h3>
+  <h3 class="modal-title">{{modalData.title}}
+    <span ng-if="data.type === 'note'">{{data.title}}</span>
+    <span ng-if="data.type !== 'note'">{{data.name}}</span> Schedule</h3>
 </div>
 
 <form ng-submit="saveSchedule()" name="forms.schedule" novalidate>
@@ -41,7 +43,7 @@
 
     <div class="col-xs-12 add-schedule" ng-if="!schedule.editing">
       <p class="input-group">
-        <button type="button" class="btn btn-default" ng-click="addSchedule(modalData.type === 'service')" >New Schedule</button>
+        <button type="button" class="btn btn-default" ng-click="addSchedule(modalData.type === 'service')">New Schedule</button>
       </p>
     </div>
 
@@ -53,7 +55,9 @@
           <p class="input-group">
             <input type="text" class="form-control" uib-datepicker-popup ng-model="schedule.scheduledPostingStart" is-open="popupStart.opened" datepicker-options="dateOptions" close-text="Close" date-as-timestamp/>
             <span class="input-group-btn">
-              <button type="button" class="btn btn-default" ng-click="openStart($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              <button type="button" class="btn btn-default" ng-click="openStart($event)">
+                <i class="glyphicon glyphicon-calendar"></i>
+              </button>
             </span>
           </p>
           <div uib-timepicker ng-model="schedule.scheduledPostingStart" hour-step="1" minute-step="5" show-meridian="true" date-as-timestamp></div>
@@ -64,7 +68,9 @@
           <p class="input-group">
             <input type="text" class="form-control" uib-datepicker-popup popup-placement="auto bottom" ng-model="schedule.scheduledPostingEnd" is-open="popupEnd.opened" datepicker-options="dateOptions" close-text="Close" date-as-timestamp/>
             <span class="input-group-btn">
-              <button type="button" class="btn btn-default" ng-click="openEnd($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              <button type="button" class="btn btn-default" ng-click="openEnd($event)">
+                <i class="glyphicon glyphicon-calendar"></i>
+              </button>
             </span>
           </p>
           <div uib-timepicker ng-model="schedule.scheduledPostingEnd" hour-step="1" minute-step="5" show-meridian="true" date-as-timestamp></div>
@@ -81,7 +87,7 @@
 
         <div ng-if="schedule.editing" class="col-xs-6">
           <label>Action </label>
-          <p class="input-group" >
+          <p class="input-group">
             <button type="button" class="btn btn-primary" ng-click="confirmSchedule(schedule)" ng-class="{'disabled': invalidSchedule(schedule)}">
               <span ng-if="isNew(schedule)">Add Schedule</span>
               <span ng-if="!isNew(schedule)">Update Schedule</span>
@@ -99,7 +105,6 @@
       <br/>
       <span class="text-warning">{{message}}</span>
     </div>
-
 
   </div>
 

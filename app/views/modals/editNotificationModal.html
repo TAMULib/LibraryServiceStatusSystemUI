@@ -22,9 +22,7 @@
       <option ng-repeat="(key, location) in locations" value="{{key}}">{{location}}</option>
     </select>
 
-    <div class="checkbox">
-      <label><input type="checkbox" value="false" ng-model="notificationData.active">Is the Notification active?</label>
-    </div>
+    <validatedinput model="notificationData" type="checkbox" property="active" placeholder="Is the Notification active?" form="forms.update" validations="notificationRepo.getValidations()" results="notificationRepo.getValidationResults()"></validatedinput>
 
     <div class="modal-footer">
       <button type="button" class="btn btn-default" ng-click="resetNotifications()">Cancel</button>

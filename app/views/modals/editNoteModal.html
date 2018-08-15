@@ -21,13 +21,9 @@
     <textarea ui-tinymce="tinymceOptions" ng-model="noteData.body"></textarea>
     <br />
 
-    <div class="checkbox">
-      <label><input type="checkbox" value="false" ng-model="noteData.pinned">Is the Note pinned?</label>
-    </div>
+    <validatedinput model="noteData" type="checkbox" property="pinned" placeholder="Is the Note pinned?" form="forms.update" validations="noteRepo.getValidations()" results="noteRepo.getValidationResults()"></validatedinput>
 
-    <div class="checkbox">
-      <label><input type="checkbox" value="false" ng-model="noteData.active">Is the Note active?</label>
-    </div>
+    <validatedinput model="noteData" type="checkbox" property="active" placeholder="Is the Note active?" form="forms.update" validations="noteRepo.getValidations()" results="noteRepo.getValidationResults()"></validatedinput>
 
     <div class="modal-footer">
       <button type="button" class="btn btn-default" ng-click="resetNotes()">Cancel</button>
