@@ -196,7 +196,7 @@ app.controller('IdeaController', function($controller, $scope, FeatureProposalRe
                 }
             }
         } else {
-            for (var j in $scope.ideasTableParams.data) {
+            for (var j = 0; j < $scope.ideasTableParams.data.length; j++) {
                 var ij = $scope.ideasTableParams.data[j];
                 if (!$scope.isSelectedIdea(ij)) {
                     $scope.selectedIdeas.push(ij);
