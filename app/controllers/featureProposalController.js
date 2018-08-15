@@ -213,7 +213,4 @@ app.controller('FeatureProposalController', function ($controller, $scope, Idea,
         $scope.openModal('#addFpModal');
     };
 
-    $scope.useDetailTable = function () {
-        $scope.weaverTable = $scope.weaverTableDetail;
-    };
 });
