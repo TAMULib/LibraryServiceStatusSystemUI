@@ -53,7 +53,7 @@ app.controller('RequestController', function ($controller, $routeParams, $scope,
             if ($scope.service) {
                 request.service = $scope.service;
             }
-            if ($scope.sendUpdates) {
+            if ($scope.request.sendUpdates) {
                 request.email = $scope.email;
             }
             ServiceRepo.submitRequest(request).then(function (message) {
