@@ -103,11 +103,14 @@ angular.module('mock.serviceRepo', []).service('ServiceRepo', function ($q) {
     };
 
     ServiceRepo.findById = function (id) {
+        var found;
         for (var i in ServiceRepo.list) {
             if (ServiceRepo.list[i].id === id) {
-                return ServiceRepo.list[i];
+                found = angular.copy(ServiceRepo.list[i]);
+                break;
             }
         }
+        return found;
     };
 
     ServiceRepo.submitRequest = function (request) {
