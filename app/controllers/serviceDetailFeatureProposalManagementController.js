@@ -3,12 +3,14 @@ app.controller('ServiceDetailFeatureProposalManagementController', function ($co
     angular.extend(
         this,
         $controller(
-            'ServiceDetailController',
-            { $scope: $scope }
+            'ServiceDetailController', {
+                $scope: $scope
+            }
         ),
         $controller(
-            'FeatureProposalController',
-            { $scope: $scope }
+            'FeatureProposalController', {
+                $scope: $scope
+            }
         )
     );
 
@@ -65,4 +67,5 @@ app.controller('ServiceDetailFeatureProposalManagementController', function ($co
     ServiceRepo.ready().then(function () {
         $scope.featureProposalsTableParams = $scope.service.getFeatureProposalsTableParams();
     });
+
 });

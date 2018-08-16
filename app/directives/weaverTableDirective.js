@@ -13,6 +13,8 @@ app.directive('weaverTable', function () {
         },
         controller: ['$scope', function ($scope) {
 
+            console.log($scope.weaverTable);
+
             $scope.weaverTable.repo.getPageSettings().sort = [];
 
             $scope.filters = $scope.weaverTable.columns.filter(function (column) {
