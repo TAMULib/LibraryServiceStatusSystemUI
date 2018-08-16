@@ -2,23 +2,23 @@ describe('controller: AppAbstractController', function () {
 
     var controller, scope;
 
-    beforeEach(module('core'));
+    beforeEach(function() {
+        module('core');
+        module('app');
+        module('mock.user');
 
-    beforeEach(module('app'));
-
-    beforeEach(module('mock.user'));
-
-    beforeEach(inject(function ($controller, $location, $rootScope, _StorageService_, _User_, _UserService_) {
-        scope = $rootScope.$new();
-        storageService = _StorageService_;
-        controller = $controller('AppAbstractController', {
-            $scope: scope,
-            StorageService: _StorageService_,
-            User: _User_,
-            UserService: _UserService_
+        inject(function ($controller, $location, $rootScope, _StorageService_, _User_, _UserService_) {
+            scope = $rootScope.$new();
+            storageService = _StorageService_;
+            controller = $controller('AppAbstractController', {
+                $scope: scope,
+                StorageService: _StorageService_,
+                User: _User_,
+                UserService: _UserService_
+            });
+            installPromiseMatchers();
         });
-        installPromiseMatchers();
-    }));
+    });
 
     describe('Is the controller defined', function () {
         it('should be defined', function () {
@@ -279,8 +279,5 @@ describe('controller: AppAbstractController', function () {
             expect(scope.canManageUsers()).toEqual(false);
         });
     });
-
-    
-    
 
 });

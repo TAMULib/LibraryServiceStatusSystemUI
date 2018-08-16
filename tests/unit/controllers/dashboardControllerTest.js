@@ -59,4 +59,5 @@ describe('controller: DashboardController', function () {
           expect(!before === after).toBeTruthy();
         });
     });
+
 });

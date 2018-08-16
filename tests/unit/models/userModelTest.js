@@ -1,7 +1,8 @@
 describe('model: User', function () {
 
-    beforeEach(module('core'));
-
-    beforeEach(module('app'));
+    beforeEach(function() {
+        module('core');
+        module('app');
+    });
 
 });

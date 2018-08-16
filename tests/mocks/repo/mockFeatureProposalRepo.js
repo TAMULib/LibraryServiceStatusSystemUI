@@ -144,14 +144,14 @@ angular.module('mock.featureProposalRepo', []).service('FeatureProposalRepo', fu
     };
 
     featureProposalRepo.fetchById = function (id) {
-        var featureProposal = {};
+        var found;
         for (var i in featureProposalRepo.list) {
             if (featureProposalRepo.list[i].id === id) {
-                angular.copy(featureProposalRepo.list[i], featureProposal);
+                found = angular.copy(featureProposalRepo.list[i]);
                 break;
             }
         }
-        return featureProposal;
+        return found;
     };
 
     featureProposalRepo.getPageSettings = function () {
