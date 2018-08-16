@@ -6,7 +6,7 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, IdeaState, F
         service.before(function () {
             TableFactory.buildPaging({
                 name: 'notes',
-                child: Note,
+                parent: service,
                 repo: NoteRepo,
                 filters: {
                     default: {
@@ -33,15 +33,14 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, IdeaState, F
                 pager: {
                     getTableParamsName: 'getNotesTableParams',
                     getName: 'getNotes'
-                },
-                parent: service
+                }
             });
         });
 
         service.before(function () {
             TableFactory.buildPaging({
                 name: 'ideas',
-                child: Idea,
+                parent: service,
                 repo: IdeaRepo,
                 filters: {
                     default: {
@@ -71,15 +70,14 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, IdeaState, F
                 pager: {
                     getTableParamsName: 'getIdeasTableParams',
                     getName: 'getIdeas'
-                },
-                parent: service
+                }
             });
         });
 
         service.before(function () {
             TableFactory.buildPaging({
                 name: 'featureProposals',
-                child: FeatureProposal,
+                parent: service,
                 repo: FeatureProposalRepo,
                 filters: {
                     default: {
@@ -107,8 +105,7 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, IdeaState, F
                 pager: {
                     getTableParamsName: 'getFeatureProposalsTableParams',
                     getName: 'getFeatureProposals'
-                },
-                parent: service
+                }
             });
         });
 

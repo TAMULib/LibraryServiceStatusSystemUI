@@ -2,24 +2,20 @@ app.factory('TableFactory', function ($q, $timeout, NgTableParams) {
 
     this.buildPaging = function (pagingConfig) {
 
-        var items = [];
-
         var pager = {};
 
         var page = function () {
             var pagePromise = $q(function (resolve) {
                 $timeout(function () {
                     defaultFetchPage().then(function (response) {
-                        resolve(processPageResponse(response));
+                        resolve(angular.fromJson(response.body).payload.PageImpl);
                     });
                 }, 100);
             });
             pagePromise.then(function (page) {
                 if (table.getPageSettings().pageNumber > 1 && table.getPageSettings().pageNumber > page.totalPages) {
                     table.setPage(page.totalPages);
-                    defaultFetchPage().then(function (response) {
-                        processPageResponse(response);
-                    });
+                    defaultFetchPage();
                 }
             });
             return pagePromise;
@@ -33,39 +29,24 @@ app.factory('TableFactory', function ($q, $timeout, NgTableParams) {
             filters: pagingConfig.filters ? pagingConfig.filters : {},
             counts: pagingConfig.counts ? pagingConfig.counts : [5, 10, 25, 50, 100],
             page: page,
-            data: items,
             name: 'child-' + pagingConfig.name,
             repo: pagingConfig.repo
         });
-
-        pager[pagingConfig.name] = items;
 
         pager[pagingConfig.pager.getTableParamsName] = function () {
             return table.getTableParams();
         };
 
         pager[pagingConfig.pager.getName] = function (pinned, active) {
-            pagingConfig.parent.notes.length = 0;
             table.getPageSettings().pageNumber = 1;
             table.getPageSettings().pageSize = 1000;
             table.getPageSettings().filters = pagingConfig.filters.custom(pinned, active);
-            pagingConfig.repo.fetchPage(table.getPageSettings()).then(function (response) {
-                processPageResponse(response);
-            });
+            pagingConfig.repo.fetchPage(table.getPageSettings());
         };
 
         var defaultFetchPage = function () {
             table.getPageSettings().filters = pagingConfig.filters.default;
             return pagingConfig.repo.fetchPage(table.getPageSettings());
-        };
-
-        var processPageResponse = function (response) {
-            var page = angular.fromJson(response.body).payload.PageImpl;
-            items.length = 0;
-            for (var i in page.content) {
-                items.push(new pagingConfig.child(page.content[i]));
-            }
-            return page;
         };
 
         angular.extend(pagingConfig.parent, pager);
@@ -97,7 +78,6 @@ app.factory('TableFactory', function ($q, $timeout, NgTableParams) {
                     tableConfig.repo.empty();
                     tableConfig.repo.addAll(page.content);
                     angular.element('.ng-table-pager select option[value="' + params.count() + '"]').prop('selected', true);
-                    console.log(angular.copy(tableConfig.repo.getContents()));
                     return angular.copy(tableConfig.repo.getContents());
                 });
             }
