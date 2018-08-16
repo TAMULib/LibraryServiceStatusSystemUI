@@ -12,7 +12,7 @@ app.controller('ServiceDetailFeatureProposalManagementController', function ($co
         )
     );
 
-    $scope.weaverTableDetail = {
+    $scope.weaverTable = {
         repo: $scope.fpRepo,
         columns: [{
                 gloss: 'Title',
