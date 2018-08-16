@@ -1,26 +1,22 @@
 describe('controller: ServiceDetailController', function () {
 
-    var scope, controller;
+    var scope, controller, ServiceRepo;
 
     beforeEach(function() {
         module('core');
         module('app');
-        module('mock.featureProposalRepo');
         module('mock.serviceRepo');
-        module('mock.userRepo');
-        module('mock.userService');
-        module('mock.user');
 
-        inject(function ($controller, $rootScope, _FeatureProposalRepo_, _ServiceRepo_, _User_, _UserService_, _UserRepo_) {
+        inject(function ($controller, $rootScope, $anchorScroll, $routeParams, $timeout, _ServiceRepo_) {
             installPromiseMatchers();
             scope = $rootScope.$new();
+            ServiceRepo = _ServiceRepo_;
             controller = $controller('ServiceDetailController', {
                 $scope: scope,
-                FeatureProposalRepo: _FeatureProposalRepo_,
-                ServiceRepo: _ServiceRepo_,
-                User: _User_,
-                UserService: _UserService_,
-                UserRepo: _UserRepo_
+                $anchorScroll: $anchorScroll,
+                $routeParams: $routeParams,
+                $timeout: $timeout,
+                ServiceRepo: _ServiceRepo_
             });
         });
     });
@@ -31,4 +27,30 @@ describe('controller: ServiceDetailController', function () {
         });
     });
 
+    describe('Are the scope methods defined', function () {
+        it('setActiveTab should be defined', function () {
+            expect(scope.setActiveTab).toBeDefined();
+            expect(typeof scope.setActiveTab).toEqual("function");
+        });
+        it('getServiceWebsite should be defined', function () {
+            expect(scope.getServiceWebsite).toBeDefined();
+            expect(typeof scope.getServiceWebsite).toEqual("function");
+        });
+    });
+
+    describe('Do the scope methods work as expected', function () {
+        it('setActiveTab should assign the active tab', function () {
+            var tab = "activeTabTest";
+            scope.activeTab = "";
+            scope.setActiveTab(tab);
+            expect(scope.activeTab).toEqual(tab);
+        });
+        it('getServiceWebsite should return the service website', function () {
+            var service = ServiceRepo.findById(1);
+            expect(scope.getServiceWebsite(service)).toEqual(service.website);
+
+            service.website = null;
+            expect(scope.getServiceWebsite(service)).toEqual(service.website);
+        });
+    });
 });

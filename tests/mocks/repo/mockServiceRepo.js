@@ -18,7 +18,8 @@ var mockServices = [{
         "serviceUrl": null,
         "description": "<p>Hello, Test 1!</p>",
         "projectId": null,
-        "type": "service"
+        "type": "service",
+        "website": "https://example.tamu.edu/"
     },
     {
         "notes": [
@@ -40,7 +41,8 @@ var mockServices = [{
         "serviceUrl": null,
         "description": "<p>Hello, Test 2!</p>",
         "projectId": null,
-        "type": "service"
+        "type": "service",
+        "website": "http://example.tamu.edu/"
     },
     {
         "notes": [
@@ -62,7 +64,8 @@ var mockServices = [{
         "serviceUrl": null,
         "description": "<p>Hello, Test 3!</p>",
         "projectId": null,
-        "type": "service"
+        "type": "service",
+        "website": null
     }
 ];
 

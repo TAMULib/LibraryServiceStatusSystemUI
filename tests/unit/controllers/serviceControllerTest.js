@@ -60,7 +60,8 @@ describe('controller: ServiceController', function () {
                 "serviceUrl": null,
                 "description": "<p>Hello, Test 4!</p>",
                 "projectId": null,
-                "type": "service"
+                "type": "service",
+                "website": "https://example.tamu.edu/"
             };
             scope.serviceData = newService;
             scope.createService();
@@ -89,7 +90,8 @@ describe('controller: ServiceController', function () {
                 "serviceUrl": null,
                 "description": "<p>Hello, Test 1 Update!</p>",
                 "projectId": null,
-                "type": "service"
+                "type": "service",
+                "website": "https://example.tamu.edu/"
             };
             scope.serviceData = updatedService;
             scope.updateService();
