@@ -31,10 +31,7 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, IdeaState, F
                 },
                 counts: [5, 10, 25, 50, 100],
                 pager: {
-                    getPageSettingsName: 'getNotesPageSettings',
                     getTableParamsName: 'getNotesTableParams',
-                    featchPageName: 'fetchNotePage',
-                    pageName: 'notesPage',
                     getName: 'getNotes'
                 },
                 parent: service
@@ -72,10 +69,7 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, IdeaState, F
                 },
                 counts: [5, 10, 25, 50, 100],
                 pager: {
-                    getPageSettingsName: 'getIdeasPageSettings',
                     getTableParamsName: 'getIdeasTableParams',
-                    featchPageName: 'fetchIdeaPage',
-                    pageName: 'ideasPage',
                     getName: 'getIdeas'
                 },
                 parent: service
@@ -111,10 +105,7 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, IdeaState, F
                 },
                 counts: [5, 10, 25, 50, 100],
                 pager: {
-                    getPageSettingsName: 'getFeatureProposalsPageSettings',
                     getTableParamsName: 'getFeatureProposalsTableParams',
-                    featchPageName: 'fetchFeatureProposalPage',
-                    pageName: 'featureProposalsPage',
                     getName: 'getFeatureProposals'
                 },
                 parent: service

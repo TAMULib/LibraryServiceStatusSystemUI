@@ -7,7 +7,7 @@ app.factory('TableFactory', function ($q, $timeout, NgTableParams) {
         var page = function () {
             var pagePromise = $q(function (resolve) {
                 $timeout(function () {
-                    pagingConfig.parent[pagingConfig.pager.featchPageName]().then(function (response) {
+                    defaultFetchPage().then(function (response) {
                         resolve(processPageResponse(response));
                     });
                 }, 100);
@@ -15,7 +15,7 @@ app.factory('TableFactory', function ($q, $timeout, NgTableParams) {
             pagePromise.then(function (page) {
                 if (table.getPageSettings().pageNumber > 1 && table.getPageSettings().pageNumber > page.totalPages) {
                     table.setPage(page.totalPages);
-                    pagingConfig.parent[pagingConfig.pager.featchPageName]().then(function (response) {
+                    defaultFetchPage().then(function (response) {
                         processPageResponse(response);
                     });
                 }
@@ -41,21 +41,8 @@ app.factory('TableFactory', function ($q, $timeout, NgTableParams) {
             notes: items,
         };
 
-        pager[pagingConfig.pager.getPageSettingsName] = function () {
-            return table.getPageSettings();
-        };
-
         pager[pagingConfig.pager.getTableParamsName] = function () {
             return table.getTableParams();
-        };
-
-        pager[pagingConfig.pager.featchPageName] = function () {
-            table.getPageSettings().filters = pagingConfig.filters.default;
-            return pagingConfig.repo.fetchPage(table.getPageSettings());
-        };
-
-        pager[pagingConfig.pager.pageName] = function () {
-            return page();
         };
 
         pager[pagingConfig.pager.getName] = function (pinned, active) {
@@ -66,6 +53,11 @@ app.factory('TableFactory', function ($q, $timeout, NgTableParams) {
             pagingConfig.repo.fetchPage(table.getPageSettings()).then(function (response) {
                 processPageResponse(response);
             });
+        };
+
+        var defaultFetchPage = function () {
+            table.getPageSettings().filters = pagingConfig.filters.default;
+            return pagingConfig.repo.fetchPage(table.getPageSettings());
         };
 
         var processPageResponse = function (response) {

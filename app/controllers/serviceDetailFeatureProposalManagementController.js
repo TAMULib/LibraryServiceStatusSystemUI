@@ -32,7 +32,7 @@ app.controller('ServiceDetailFeatureProposalManagementController', function ($co
                 gloss: 'Votes',
                 property: 'votes',
                 filterable: false,
-                sortable: true,
+                sortable: false,
                 isConstant: true
             },
             {
