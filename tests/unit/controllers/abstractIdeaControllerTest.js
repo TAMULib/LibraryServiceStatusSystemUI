@@ -59,7 +59,7 @@ describe('controller: AbstractIdeaController', function () {
             spyOn(form, '$setPristine');
             form.$setDirty();
 
-            scope.forms["testForm"] = form;
+            scope.forms.testForm = form;
             scope.resetForms();
             expect(form.$setPristine).toHaveBeenCalled();
         });

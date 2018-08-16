@@ -5,5 +5,22 @@ describe('controller: AdminController', function () {
     beforeEach(function() {
         module('core');
         module('app');
+        module('mock.user');
+
+        inject(function ($controller, $rootScope, _User_, _UserService_) {
+            installPromiseMatchers();
+            scope = $rootScope.$new();
+            controller = $controller('AdminController', {
+                $scope: scope,
+                User: _User_,
+                UserService: _UserService_
+            });
+        });
+    });
+
+    describe('Is the controller defined', function () {
+        it('should be defined', function () {
+            expect(controller).toBeDefined();
+        });
     });
 });
