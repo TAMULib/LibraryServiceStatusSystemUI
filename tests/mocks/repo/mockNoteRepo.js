@@ -153,7 +153,7 @@ angular.module('mock.noteRepo', []).service('NoteRepo', function ($q) {
         return defer.promise;
     };
 
-    NoteRepo.fetchById = function (noteId) {
+    NoteRepo.fetchById = function (id) {
         var found;
         for (var i in NoteRepo.list) {
             if (NoteRepo.list[i].id === id) {
