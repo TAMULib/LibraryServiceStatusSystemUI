@@ -7,14 +7,14 @@ describe('controller: ServiceDetailController', function () {
         module('app');
         module('mock.serviceRepo');
 
-        inject(function ($controller, $rootScope, $anchorScroll, $routeParams, $timeout, _ServiceRepo_) {
+        inject(function ($controller, $rootScope, $anchorScroll, $timeout, _ServiceRepo_) {
             installPromiseMatchers();
             scope = $rootScope.$new();
             ServiceRepo = _ServiceRepo_;
             controller = $controller('ServiceDetailController', {
                 $scope: scope,
                 $anchorScroll: $anchorScroll,
-                $routeParams: $routeParams,
+                $routeParams: {},
                 $timeout: $timeout,
                 ServiceRepo: _ServiceRepo_
             });
