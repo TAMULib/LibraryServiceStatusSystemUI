@@ -147,7 +147,7 @@ angular.module('mock.ideaRepo', []).service('IdeaRepo', function ($q) {
         var found;
         for (var i in IdeaRepo.list) {
             if (IdeaRepo.list[i].id === id) {
-                found = angulary.copy(IdeaRepo.list[i]);
+                found = angular.copy(IdeaRepo.list[i]);
                 break;
             }
         }

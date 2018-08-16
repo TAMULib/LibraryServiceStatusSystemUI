@@ -157,7 +157,7 @@ angular.module('mock.noteRepo', []).service('NoteRepo', function ($q) {
         var found;
         for (var i in NoteRepo.list) {
             if (NoteRepo.list[i].id === id) {
-                found = angulary.copy(NoteRepo.list[i]);
+                found = angular.copy(NoteRepo.list[i]);
                 break;
             }
         }
