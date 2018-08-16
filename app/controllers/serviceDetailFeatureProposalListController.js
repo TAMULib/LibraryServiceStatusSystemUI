@@ -7,6 +7,10 @@ app.controller('ServiceDetailFeatureProposalListController', function ($controll
             { $scope: $scope }
         ),
         $controller(
+            'FeatureProposalController',
+            { $scope: $scope }
+        ),
+        $controller(
             'AuthenticationController',
             { $scope: $scope }
         )

@@ -1,10 +1,14 @@
-app.controller('ServiceDetailFeatureProposalManagementController', function ($controller, $scope, ServiceRepo) {
+app.controller('ServiceDetailFeatureProposalManagementController', function ($controller, $scope) {
 
-    angular.extend(this, $controller('ServiceDetailController', {
-        $scope: $scope
-    }));
-
-    ServiceRepo.ready().then(function () {
-        $scope.ideasTableParams = $scope.service.getIdeasTableParams();
-    });
+    angular.extend(
+        this,
+        $controller(
+            'ServiceDetailController',
+            { $scope: $scope }
+        ),
+        $controller(
+            'FeatureProposalController',
+            { $scope: $scope }
+        )
+    );
 });
