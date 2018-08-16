@@ -2,14 +2,20 @@ describe('model: AssumedControl', function () {
 
     var AssumedControl;
 
-    beforeEach(module('core'));
+    beforeEach(function() {
+        module('core');
+        module('app');
+        module('AssumedControl');
 
-    beforeEach(module('app'));
+        inject(function ($q, _WsApi_, $injector) {
+            ProjectService = $injector.get('ProjectService');
+            WsApi = _WsApi_;
+            installPromiseMatchers();
+        });
 
-    beforeEach(module('AssumedControl'));
-
-    beforeEach(inject(function (_AssumedControl_) {
-        AssumedControl = _AssumedControl_;
-    }));
+        inject(function (_AssumedControl_) {
+            AssumedControl = _AssumedControl_;
+        });
+    });
 
 });

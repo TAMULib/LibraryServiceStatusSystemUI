@@ -134,4 +134,5 @@ describe('controller: FeatureProposalController', function () {
             expect(updatedFeatureProposal.feedback).toEqual(featureProposal.feedback);
         });
     });
+
 });

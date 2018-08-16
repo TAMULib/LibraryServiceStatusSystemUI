@@ -2,8 +2,9 @@ describe('controller: UserController', function () {
 
     var controller, scope;
 
-    beforeEach(module('core'));
-
-    beforeEach(module('app'));
+    beforeEach(function() {
+        module('core');
+        module('app');
+    });
 
 });

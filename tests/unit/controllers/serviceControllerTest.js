@@ -2,25 +2,24 @@ describe('controller: ServiceController', function () {
 
     var scope, controller, ServiceRepo;
 
-    beforeEach(module('core'));
+    beforeEach(function() {
+        module('core');
+        module('app');
+        module('mock.service');
+        module('mock.serviceRepo');
 
-    beforeEach(module('app'));
+        inject(function ($controller, $rootScope, _Service_, _ServiceRepo_) {
+            installPromiseMatchers();
+            scope = $rootScope.$new();
+            ServiceRepo = _ServiceRepo_;
+            controller = $controller('ServiceController', {
+                $scope: scope,
+                Service: _Service_,
+                ServiceRepo: _ServiceRepo_
+            });
 
-    beforeEach(module('mock.service'));
-
-    beforeEach(module('mock.serviceRepo'));
-
-    beforeEach(inject(function ($controller, $rootScope, _Service_, _ServiceRepo_) {
-        installPromiseMatchers();
-        scope = $rootScope.$new();
-        ServiceRepo = _ServiceRepo_;
-        controller = $controller('ServiceController', {
-            $scope: scope,
-            Service: _Service_,
-            ServiceRepo: _ServiceRepo_
         });
-
-    }));
+    });
 
     describe('Is the controller defined', function () {
         it('should be defined', function () {

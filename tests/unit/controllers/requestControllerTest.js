@@ -2,37 +2,33 @@ describe('controller: RequestController', function () {
 
     var controller, scope;
 
-    beforeEach(module('core'));
+    beforeEach(function() {
+        module('core');
+        module('app');
+        module('mock.wsApi');
+        module('mock.user');
+        module('mock.service');
+        module('mock.serviceRepo');
+        module('mock.storageService');
 
-    beforeEach(module('app'));
-
-    beforeEach(module('mock.wsApi'));
-
-    beforeEach(module('mock.user'));
-
-    beforeEach(module('mock.service'));
-
-    beforeEach(module('mock.serviceRepo'));
-
-    beforeEach(module('mock.storageService'));
-
-    beforeEach(inject(function ($controller, $rootScope, _WsApi_, _User_, _UserService_, _Service_, _ServiceRepo_, _StorageService_) {
-        scope = $rootScope.$new();
-        _StorageService_.set('role', 'ROLE_USER');
-        controller = $controller('RequestController', {
-            $scope: scope,
-            $routeParams: {
-                service: 2
-            },
-            WsApi: _WsApi_,
-            User: _User_,
-            UserService: _UserService_,
-            Service: _Service_,
-            ServiceRepo: _ServiceRepo_,
-            StorageService: _StorageService_
+        inject(function ($controller, $rootScope, _WsApi_, _User_, _UserService_, _Service_, _ServiceRepo_, _StorageService_) {
+            scope = $rootScope.$new();
+            _StorageService_.set('role', 'ROLE_USER');
+            controller = $controller('RequestController', {
+                $scope: scope,
+                $routeParams: {
+                    service: 2
+                },
+                WsApi: _WsApi_,
+                User: _User_,
+                UserService: _UserService_,
+                Service: _Service_,
+                ServiceRepo: _ServiceRepo_,
+                StorageService: _StorageService_
+            });
+            installPromiseMatchers();
         });
-        installPromiseMatchers();
-    }));
+    });
 
     describe('Is the controller defined', function () {
         it('should be defined', function () {
