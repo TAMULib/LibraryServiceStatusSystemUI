@@ -4,6 +4,8 @@ app.factory('TableFactory', function ($q, $timeout, NgTableParams) {
 
         var items = [];
 
+        var pager = {};
+
         var page = function () {
             var pagePromise = $q(function (resolve) {
                 $timeout(function () {
@@ -32,14 +34,11 @@ app.factory('TableFactory', function ($q, $timeout, NgTableParams) {
             counts: pagingConfig.counts ? pagingConfig.counts : [5, 10, 25, 50, 100],
             page: page,
             data: items,
-
             name: 'child-' + pagingConfig.name,
             repo: pagingConfig.repo
         });
 
-        var pager = {
-            notes: items,
-        };
+        pager[pagingConfig.name] = items;
 
         pager[pagingConfig.pager.getTableParamsName] = function () {
             return table.getTableParams();
@@ -98,6 +97,7 @@ app.factory('TableFactory', function ($q, $timeout, NgTableParams) {
                     tableConfig.repo.empty();
                     tableConfig.repo.addAll(page.content);
                     angular.element('.ng-table-pager select option[value="' + params.count() + '"]').prop('selected', true);
+                    console.log(angular.copy(tableConfig.repo.getContents()));
                     return angular.copy(tableConfig.repo.getContents());
                 });
             }
