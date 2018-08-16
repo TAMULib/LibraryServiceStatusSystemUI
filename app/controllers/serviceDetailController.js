@@ -12,7 +12,6 @@ app.controller('ServiceDetailController', function ($controller, $anchorScroll, 
         $scope.service = ServiceRepo.findById($routeParams.serviceId);
 
         $scope.notesTableParams = $scope.service.getNotesTableParams();
-        $scope.featureProposalsTableParams = $scope.service.getFeatureProposalsTableParams();
 
         $timeout(function () {
             $anchorScroll();
