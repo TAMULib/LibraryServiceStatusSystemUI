@@ -29,7 +29,7 @@ app.controller('ServiceDetailController', function ($controller, $anchorScroll, 
 
     $scope.getServiceWebsite = function (service) {
         var link = service.website;
-        if (link.indexOf('//') === -1) {
+        if (link && link.indexOf('//') === -1) {
             link = '//' + link;
         }
         return link;

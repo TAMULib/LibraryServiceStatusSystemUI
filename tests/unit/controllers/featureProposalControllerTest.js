@@ -90,16 +90,6 @@ describe('controller: FeatureProposalController', function () {
 
     describe('Are the scope methods working as expected', function () {
         it('hasState should return a boolean', function () {
-            var state = "IN_PROGRESS";
-            var fp = {
-                state: state
-            };
-            expect(typeof scope.hasState(state, fp)).toEqual("boolean");
-        });
-    });
-
-    describe('Are the scope methods working as expected', function () {
-        it('hasState should return a boolean', function () {
             var state;
             var fp = {
                 state: state
@@ -134,5 +124,4 @@ describe('controller: FeatureProposalController', function () {
             expect(updatedFeatureProposal.feedback).toEqual(featureProposal.feedback);
         });
     });
-
 });
