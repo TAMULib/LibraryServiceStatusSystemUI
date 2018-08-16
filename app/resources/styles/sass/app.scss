@@ -366,6 +366,7 @@ fieldset:disabled a.btn {
   pointer-events: none;
 }
 
+.label-primary,
 .btn-primary {
   color: #fff;
   /* Non-compliant - replaced*/
@@ -406,6 +407,7 @@ fieldset:disabled a.btn {
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
 }
 
+.label-secondary,
 .btn-secondary {
   color: #fff;
   background-color: #6c757d;
@@ -440,6 +442,7 @@ fieldset:disabled a.btn {
   box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
 }
 
+.label-success,
 .btn-success {
   color: #fff;
   background-color: #28a745;
@@ -474,6 +477,7 @@ fieldset:disabled a.btn {
   box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
 }
 
+.label-info,
 .btn-info {
   color: #fff;
   background-color: #17a2b8;
@@ -508,6 +512,7 @@ fieldset:disabled a.btn {
   box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.5);
 }
 
+.label-warning,
 .btn-warning {
   color: #212529;
   background-color: #ffc107;
@@ -542,6 +547,7 @@ fieldset:disabled a.btn {
   box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.5);
 }
 
+.label-danger,
 .btn-danger {
   color: #fff;
   background-color: #dc3545;
@@ -576,6 +582,7 @@ fieldset:disabled a.btn {
   box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);
 }
 
+.label-light,
 .btn-light {
   color: #212529;
   background-color: #f8f9fa;
@@ -610,6 +617,7 @@ fieldset:disabled a.btn {
   box-shadow: 0 0 0 0.2rem rgba(248, 249, 250, 0.5);
 }
 
+.label-dark,
 .btn-dark {
   color: #fff;
   background-color: #343a40;
@@ -938,7 +946,3 @@ fieldset:disabled a.btn {
 .btn-link:disabled, .btn-link.disabled {
   color: #6c757d;
 }
-
-/**
- * Bootstrap 4 : Buttons
- */
