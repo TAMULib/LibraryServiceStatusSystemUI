@@ -1,4 +1,4 @@
-app.repo("IdeaRepo", function IdeaRepo($q, WsApi, Idea, ServiceRepo, TableFactory) {
+app.repo("IdeaRepo", function IdeaRepo(WsApi, Idea, ServiceRepo, TableFactory) {
 
     var ideaRepo = this;
 

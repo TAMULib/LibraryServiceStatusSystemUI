@@ -1,4 +1,4 @@
-app.repo("NoteRepo", function NoteRepo($q, WsApi, Note, ServiceRepo, TableFactory) {
+app.repo("NoteRepo", function NoteRepo(WsApi, Note, ServiceRepo, TableFactory) {
 
     var noteRepo = this;
 
@@ -23,6 +23,7 @@ app.repo("NoteRepo", function NoteRepo($q, WsApi, Note, ServiceRepo, TableFactor
         angular.extend(noteRepo.mapping.page, {
             'data': pageSettings ? pageSettings : table.getPageSettings()
         });
+        console.log(noteRepo.mapping.page);
         return WsApi.fetch(noteRepo.mapping.page);
     };
 

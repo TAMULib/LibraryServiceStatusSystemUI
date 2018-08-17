@@ -19,7 +19,8 @@ app.controller('ServiceController', function ($controller, $route, $scope, Proje
     $scope.serviceToDelete = {};
 
     $scope.weaverTable = {
-        repo: $scope.serviceRepo,
+		pageSettings: $scope.serviceRepo.getPageSettings(),
+        tableParams: $scope.serviceRepo.getTableParams(),
         columns: [{
                 gloss: 'Service',
                 property: 'name',
@@ -127,6 +128,7 @@ app.controller('ServiceController', function ($controller, $route, $scope, Proje
     };
 
     $scope.updateService = function () {
+    	$scope.serviceData.dirty(true);
         $scope.serviceRepo.update($scope.serviceData).then(function (res) {
             if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                 $scope.resetServices();

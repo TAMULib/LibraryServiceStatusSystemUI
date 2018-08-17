@@ -1,4 +1,4 @@
-app.controller('ServiceDetailFeatureProposalListController', function ($controller, $scope, FeatureProposalState, FeatureProposalRepo, ServiceRepo, UserRepo) {
+app.controller('ServiceDetailFeatureProposalListController', function ($controller, $scope, $timeout, $anchorScroll, FeatureProposalState, FeatureProposalRepo, ServiceRepo, UserRepo) {
 
     angular.extend(
         this,
@@ -18,6 +18,14 @@ app.controller('ServiceDetailFeatureProposalListController', function ($controll
 
     ServiceRepo.ready().then(function () {
         $scope.featureProposalsTableParams = $scope.service.getFeatureProposalsTableParams();
+        
+        $scope.hasFeatureProposals = function () {
+            return $scope.featureProposalsTableParams.data.length > 0;
+        };
+        
+        $timeout(function () {
+            $anchorScroll();
+        }, 500);
     });
 
     if (!$scope.isAnonymous()) {

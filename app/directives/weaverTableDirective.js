@@ -13,15 +13,13 @@ app.directive('weaverTable', function () {
         },
         controller: ['$scope', function ($scope) {
 
-            $scope.weaverTable.repo.getPageSettings().sort = [];
-
             $scope.filters = $scope.weaverTable.columns.filter(function (column) {
                 return column.filterable;
             });
 
             $scope.filter = $scope.filters[0];
 
-            $scope.activeFilters = $scope.weaverTable.repo.getPageSettings().filters;
+            $scope.activeFilters = $scope.weaverTable.pageSettings.filters;
 
             $scope.selectFilter = function (filter) {
                 $scope.filter = filter;
@@ -32,7 +30,7 @@ app.directive('weaverTable', function () {
                 if ($scope.activeFilters[prop].length === 0) {
                     delete $scope.activeFilters[prop];
                 }
-                $scope.weaverTable.repo.getTableParams().reload();
+                $scope.weaverTable.tableParams.reload();
             };
 
             $scope.applyFilter = function (filter) {
@@ -44,7 +42,7 @@ app.directive('weaverTable', function () {
                 } else {
                     $scope.activeFilters[filter.property] = [filter.value];
                 }
-                $scope.weaverTable.repo.getTableParams().reload();
+                $scope.weaverTable.tableParams.reload();
                 delete $scope.filter.value;
             };
 
@@ -57,7 +55,7 @@ app.directive('weaverTable', function () {
                 }
             };
 
-            var activeSort = $scope.weaverTable.repo.getPageSettings().sort = $scope.weaverTable.activeSort;
+            var activeSort = $scope.weaverTable.pageSettings.sort = $scope.weaverTable.activeSort;
 
             $scope.weaverTable.unsorted = function (prop) {
                 for (var i in activeSort) {
@@ -109,7 +107,7 @@ app.directive('weaverTable', function () {
                         direction: 'ASC'
                     });
                 }
-                $scope.weaverTable.repo.getTableParams().reload();
+                $scope.weaverTable.tableParams.reload();
             };
 
         }]

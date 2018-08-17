@@ -7,7 +7,7 @@
     </weaver-table-controls>
 
     <weaver-table-element>
-      <table ng-table="tableParams" template-header="customTableHeader" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped fp-table">
+      <table ng-table="weaverTable.tableParams" template-header="customTableHeader" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped fp-table">
         <tbody>
           <tr ng-repeat="fp in $data">
             <td title="'Service'">

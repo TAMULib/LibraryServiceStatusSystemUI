@@ -43,6 +43,7 @@ app.controller('IdeaController', function ($controller, $scope, FeatureProposalR
 
     $scope.updateIdea = function () {
         $scope.updating = true;
+        $scope.ideaData.dirty(true);
         $scope.ideaRepo.update($scope.ideaData).then(function (res) {
             if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                 $scope.updating = false;

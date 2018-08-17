@@ -1,4 +1,4 @@
-app.controller('ServiceDetailController', function ($controller, $anchorScroll, $routeParams, $scope, $timeout, ServiceRepo) {
+app.controller('ServiceDetailController', function ($controller, $routeParams, $scope, ServiceRepo) {
 
     angular.extend(this, $controller('AppAbstractController', {
         $scope: $scope
@@ -13,14 +13,9 @@ app.controller('ServiceDetailController', function ($controller, $anchorScroll, 
 
         $scope.notesTableParams = $scope.service.getNotesTableParams();
 
-        $timeout(function () {
-            $anchorScroll();
-        }, 500);
-
-        $scope.hasFeatureProposals = function () {
-            return $scope.featureProposalsTableParams.data.length > 0;
+        $scope.hasNotes = function () {
+            return $scope.notesTableParams.data.length > 0;
         };
-
     });
 
     $scope.setActiveTab = function (tab) {

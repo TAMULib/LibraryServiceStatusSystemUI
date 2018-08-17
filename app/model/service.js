@@ -1,4 +1,4 @@
-app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, IdeaState, FeatureProposal, FeatureProposalRepo, FeatureProposalState, Note, NoteRepo, TableFactory) {
+app.model("Service", function Service(Idea, IdeaRepo, IdeaState, FeatureProposal, FeatureProposalRepo, FeatureProposalState, Note, NoteRepo, TableFactory) {
 
     return function Service() {
         var service = this;
@@ -27,6 +27,7 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, IdeaState, F
                 },
                 counts: [5, 10, 25, 50, 100],
                 pager: {
+                	getPageSettingsName: 'getNotesPageSettings',
                     getTableParamsName: 'getNotesTableParams',
                     getName: 'getNotes'
                 }
@@ -60,6 +61,7 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, IdeaState, F
                 },
                 counts: [5, 10, 25, 50, 100],
                 pager: {
+                	getPageSettingsName: 'getIdeasPageSettings',
                     getTableParamsName: 'getIdeasTableParams',
                     getName: 'getIdeas'
                 }
@@ -91,6 +93,7 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, IdeaState, F
                 },
                 counts: [5, 10, 25, 50, 100],
                 pager: {
+                	getPageSettingsName: 'getFeatureProposalsPageSettings',
                     getTableParamsName: 'getFeatureProposalsTableParams',
                     getName: 'getFeatureProposals'
                 }

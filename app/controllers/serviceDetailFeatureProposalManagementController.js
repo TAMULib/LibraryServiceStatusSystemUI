@@ -15,7 +15,8 @@ app.controller('ServiceDetailFeatureProposalManagementController', function ($co
     );
 
     $scope.weaverTable = {
-        repo: $scope.fpRepo,
+        pageSettings: $scope.service.getFeatureProposalsPageSettings(),
+        tableParams: $scope.service.getFeatureProposalsTableParams(),
         columns: [{
                 gloss: 'Title',
                 property: 'title',
@@ -63,9 +64,5 @@ app.controller('ServiceDetailFeatureProposalManagementController', function ($co
         ],
         activeSort: []
     };
-
-    ServiceRepo.ready().then(function () {
-        $scope.featureProposalsTableParams = $scope.service.getFeatureProposalsTableParams();
-    });
 
 });

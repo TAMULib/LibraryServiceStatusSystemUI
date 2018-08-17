@@ -1,4 +1,4 @@
-app.repo("FeatureProposalRepo", function FeatureProposalRepo($q, WsApi, FeatureProposal, ServiceRepo, TableFactory) {
+app.repo("FeatureProposalRepo", function FeatureProposalRepo(WsApi, FeatureProposal, ServiceRepo, TableFactory) {
 
     var featureProposalRepo = this;
 

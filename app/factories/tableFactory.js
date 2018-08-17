@@ -3,26 +3,48 @@ app.factory('TableFactory', function ($q, NgTableParams) {
     this.buildPaging = function (pagingConfig) {
 
         var pager = {};
+        
+        pager[pagingConfig.name] = [];
 
-        var table = this.buildTable({
-            pageNumber: sessionStorage.getItem(pagingConfig.sessionStorageKeys.pageNumber) ? sessionStorage.getItem(pagingConfig.sessionStorageKeys.pageNumber) : 1,
-            pageSize: sessionStorage.getItem(pagingConfig.sessionStorageKeys.pageSize) ? sessionStorage.getItem(pagingConfig.sessionStorageKeys.pageSize) : 10,
-            filters: pagingConfig.filters.initial ? pagingConfig.filters.initial : {},
-            counts: pagingConfig.counts ? pagingConfig.counts : [5, 10, 25, 50, 100],
-            name: 'child-' + pagingConfig.name,
-            repo: pagingConfig.repo
-        });
+        pager[pagingConfig.pager.getPageSettingsName] = function () {
+            return table.getPageSettings();
+        };
 
         pager[pagingConfig.pager.getTableParamsName] = function () {
             return table.getTableParams();
         };
 
+        // NOTE: this method is called for each service on the dashboard to display its active pinned notes
         pager[pagingConfig.pager.getName] = function (pinned, active) {
-            table.getPageSettings().pageNumber = 1;
-            table.getPageSettings().pageSize = 1000;
-            table.getPageSettings().filters = pagingConfig.filters.custom(pinned, active);
-            pagingConfig.repo.fetchPage(table.getPageSettings());
+        	var filter = pagingConfig.filters.custom(pinned, active);
+        	console.log(pagingConfig.pager.getName, pinned, active, filter);
+            pagingConfig.repo.fetchPage({
+            	pageNumber: 1,
+            	pageSize: 1000,
+            	sort: [],
+            	filter: filter
+            }).then(function(response) {
+            	var apiRes = angular.fromJson(response.body);
+                if (apiRes.meta.status === 'SUCCESS') {
+                	var page = apiRes.payload.PageImpl;
+                	for(var i in page.content) {
+                		// TODO: instantiate child model
+                		pager[pagingConfig.name].push(page.content[i]);
+                	}
+                	console.log(pager[pagingConfig.name]);
+                }
+            });
         };
+        
+        var table = this.buildTable({
+            pageNumber: sessionStorage.getItem(pagingConfig.sessionStorageKeys.pageNumber) ? sessionStorage.getItem(pagingConfig.sessionStorageKeys.pageNumber) : 1,
+            pageSize: sessionStorage.getItem(pagingConfig.sessionStorageKeys.pageSize) ? sessionStorage.getItem(pagingConfig.sessionStorageKeys.pageSize) : 10,
+            filters: pagingConfig.filters.initial ? pagingConfig.filters.initial : {},
+            sort: pagingConfig.sort ? pagingConfig.sort : [],
+            counts: pagingConfig.counts ? pagingConfig.counts : [5, 10, 25, 50, 100],
+            name: 'child-' + pagingConfig.name,
+            repo: pagingConfig.repo
+        });
 
         angular.extend(pagingConfig.parent, pager);
     };
@@ -49,7 +71,7 @@ app.factory('TableFactory', function ($q, NgTableParams) {
                         tableConfig.repo.addAll(page.content);
                         angular.extend(page, {
                             content: tableConfig.repo.getContents()
-                        });
+                        }); 
                         resolve(page);
                     }
                 } else {

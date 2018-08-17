@@ -13,7 +13,8 @@ app.controller('IdeaManagementController', function ($controller, $scope) {
     );
 
     $scope.weaverTable = {
-        repo: $scope.ideaRepo,
+		pageSettings: $scope.ideaRepo.getPageSettings(),
+        tableParams: $scope.ideaRepo.getTableParams(),
         columns: [{
                 gloss: 'Service',
                 property: 'service.name',
@@ -61,5 +62,4 @@ app.controller('IdeaManagementController', function ($controller, $scope) {
         ]
     };
 
-    $scope.tableParams = $scope.ideaRepo.getTableParams();
 });
