@@ -199,12 +199,14 @@ app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi, Service, Table
     WsApi.listen(serviceRepo.mapping.updateListen).then(null, null, function (response) {
         $timeout(function () {
             serviceRepo.reset();
+            table.getTableParams().reload();
         }, 250);
     });
 
     WsApi.listen(serviceRepo.mapping.deleteListen).then(null, null, function (response) {
         $timeout(function () {
             serviceRepo.reset();
+            table.getTableParams().reload();
         }, 250);
     });
 

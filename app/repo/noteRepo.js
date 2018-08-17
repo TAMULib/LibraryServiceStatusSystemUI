@@ -54,6 +54,7 @@ app.repo("NoteRepo", function NoteRepo(WsApi, Note, ServiceRepo, TableFactory) {
         var note = new Note(angular.fromJson(response.body).payload.Note);
         ServiceRepo.updateNote(note);
         updateNote(note);
+        table.getTableParams().reload();
     });
 
     WsApi.listen(noteRepo.mapping.deleteListen).then(null, null, function (response) {

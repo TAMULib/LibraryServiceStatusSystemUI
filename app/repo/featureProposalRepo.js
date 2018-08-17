@@ -75,6 +75,7 @@ app.repo("FeatureProposalRepo", function FeatureProposalRepo(WsApi, FeaturePropo
         var featureProposal = new FeatureProposal(angular.fromJson(response.body).payload.FeatureProposal);
         ServiceRepo.updateFeatureProposal(featureProposal);
         updateFeatureProposal(featureProposal);
+        table.getTableParams().reload();
     });
 
     WsApi.listen(featureProposalRepo.mapping.deleteListen).then(null, null, function (response) {
