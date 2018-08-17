@@ -1,6 +1,6 @@
 app.factory('TableFactory', function ($q, NgTableParams) {
 
-    this.buildPaging = function (pagingConfig) {
+    this.buildSubResourcePaging = function (pagingConfig) {
 
         var pager = {};
 

@@ -4,7 +4,7 @@ app.model("Service", function Service(Idea, IdeaRepo, IdeaState, FeatureProposal
         var service = this;
 
         service.before(function () {
-            TableFactory.buildPaging({
+            TableFactory.buildSubResourcePaging({
                 name: 'notes',
                 parent: service,
                 repo: NoteRepo,
@@ -35,7 +35,7 @@ app.model("Service", function Service(Idea, IdeaRepo, IdeaState, FeatureProposal
         });
 
         service.before(function () {
-            TableFactory.buildPaging({
+            TableFactory.buildSubResourcePaging({
                 name: 'ideas',
                 parent: service,
                 repo: IdeaRepo,
@@ -69,7 +69,7 @@ app.model("Service", function Service(Idea, IdeaRepo, IdeaState, FeatureProposal
         });
 
         service.before(function () {
-            TableFactory.buildPaging({
+            TableFactory.buildSubResourcePaging({
                 name: 'featureProposals',
                 parent: service,
                 repo: FeatureProposalRepo,
