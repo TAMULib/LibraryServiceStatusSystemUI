@@ -56,10 +56,8 @@ app.controller('RequestController', function ($controller, $routeParams, $scope,
             if ($scope.request.sendUpdates) {
                 request.email = $scope.email;
             }
-            ServiceRepo.submitRequest(request).then(function (res) {
-                if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
-                    clear();
-                }
+            ServiceRepo.submitRequest(request).then(function () {
+                clear();
             });
         };
 
