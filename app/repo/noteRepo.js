@@ -26,38 +26,11 @@ app.repo("NoteRepo", function NoteRepo($q, WsApi, Note, ServiceRepo, TableFactor
         return WsApi.fetch(noteRepo.mapping.page);
     };
 
-    var safePage = function (resolve) {
-        noteRepo.fetchPage().then(function (response) {
-            var apiRes = angular.fromJson(response.body);
-            if (apiRes.meta.status === 'SUCCESS') {
-                var page = apiRes.payload.PageImpl;
-                noteRepo.empty();
-                noteRepo.addAll(page.content);
-                if (table.getPageSettings().pageNumber > 1 && table.getPageSettings().pageNumber > page.totalPages) {
-                    table.setPage(page.totalPages);
-                    safePage(resolve);
-                } else {
-                    resolve(page);
-                }
-            }
-        });
-    };
-
-    noteRepo.page = function () {
-        return $q(function (resolve) {
-            safePage(resolve);
-        });
-    };
-
     var table = TableFactory.buildTable({
         pageNumber: sessionStorage.getItem('notes-page') ? sessionStorage.getItem('notes-page') : 1,
         pageSize: sessionStorage.getItem('notes-size') ? sessionStorage.getItem('notes-size') : 10,
-        direction: 'DESC',
-        properties: ['title'],
         filters: {},
         counts: [5, 10, 25, 50, 100],
-        page: noteRepo.page,
-        data: noteRepo.getContents(),
         name: 'notes',
         repo: noteRepo
     });

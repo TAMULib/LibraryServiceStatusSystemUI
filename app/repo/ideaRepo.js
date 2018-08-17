@@ -40,38 +40,11 @@ app.repo("IdeaRepo", function IdeaRepo($q, WsApi, Idea, ServiceRepo, TableFactor
         return WsApi.fetch(ideaRepo.mapping.sendToHelpdesk);
     };
 
-    var safePage = function (resolve) {
-        ideaRepo.fetchPage().then(function (response) {
-            var apiRes = angular.fromJson(response.body);
-            if (apiRes.meta.status === 'SUCCESS') {
-                var page = apiRes.payload.PageImpl;
-                ideaRepo.empty();
-                ideaRepo.addAll(page.content);
-                if (table.getPageSettings().pageNumber > 1 && table.getPageSettings().pageNumber > page.totalPages) {
-                    table.setPage(page.totalPages);
-                    safePage(resolve);
-                } else {
-                    resolve(page);
-                }
-            }
-        });
-    };
-
-    ideaRepo.page = function () {
-        return $q(function (resolve) {
-            safePage(resolve);
-        });
-    };
-
     var table = TableFactory.buildTable({
         pageNumber: sessionStorage.getItem('ideas-page') ? sessionStorage.getItem('ideas-page') : 1,
         pageSize: sessionStorage.getItem('ideas-size') ? sessionStorage.getItem('ideas-size') : 10,
-        direction: 'DESC',
-        properties: ['title'],
         filters: {},
         counts: [5, 10, 25, 50, 100],
-        page: ideaRepo.page,
-        data: ideaRepo.getContents(),
         name: 'ideas',
         repo: ideaRepo
     });

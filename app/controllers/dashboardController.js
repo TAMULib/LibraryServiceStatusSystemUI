@@ -38,6 +38,4 @@ app.controller("DashboardController", function ($controller, $scope, UserService
         direction: 'DESC'
     }];
 
-    NoteRepo.page();
-
 });

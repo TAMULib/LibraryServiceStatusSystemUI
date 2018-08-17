@@ -9,7 +9,7 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, IdeaState, F
                 parent: service,
                 repo: NoteRepo,
                 filters: {
-                    default: {
+                    initial: {
                         active: ['true'],
                         service: [service.id]
                     },
@@ -25,10 +25,6 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, IdeaState, F
                     pageNumber: 'service-notes-page',
                     pageSize: 'service-notes-size'
                 },
-                sorting: {
-                    direction: 'DESC',
-                    properties: ['title'],
-                },
                 counts: [5, 10, 25, 50, 100],
                 pager: {
                     getTableParamsName: 'getNotesTableParams',
@@ -43,7 +39,7 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, IdeaState, F
                 parent: service,
                 repo: IdeaRepo,
                 filters: {
-                    default: {
+                    initial: {
                         state: [
                             IdeaState.WAITING_ON_REVIEW.value,
                             IdeaState.REJECTED.value,
@@ -62,10 +58,6 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, IdeaState, F
                     pageNumber: 'service-ideas-page',
                     pageSize: 'service-ideas-size'
                 },
-                sorting: {
-                    direction: 'DESC',
-                    properties: ['title'],
-                },
                 counts: [5, 10, 25, 50, 100],
                 pager: {
                     getTableParamsName: 'getIdeasTableParams',
@@ -80,7 +72,7 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, IdeaState, F
                 parent: service,
                 repo: FeatureProposalRepo,
                 filters: {
-                    default: {
+                    initial: {
                         state: getStateFilter(),
                         isPrivate: getIsPrivateFilter(),
                         service: [service.id]
@@ -96,10 +88,6 @@ app.model("Service", function Service($q, $timeout, Idea, IdeaRepo, IdeaState, F
                 sessionStorageKeys: {
                     pageNumber: 'service-feature-proposals-page',
                     pageSize: 'service-feature-proposals-size'
-                },
-                sorting: {
-                    direction: 'DESC',
-                    properties: ['title'],
                 },
                 counts: [5, 10, 25, 50, 100],
                 pager: {

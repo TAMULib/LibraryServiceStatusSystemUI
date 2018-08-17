@@ -17,38 +17,11 @@ app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi, Service, Table
         return WsApi.fetch(serviceRepo.mapping.page);
     };
 
-    var safePage = function (resolve) {
-        serviceRepo.fetchPage().then(function (response) {
-            var apiRes = angular.fromJson(response.body);
-            if (apiRes.meta.status === 'SUCCESS') {
-                var page = apiRes.payload.PageImpl;
-                serviceRepo.empty();
-                serviceRepo.addAll(page.content);
-                if (table.getPageSettings().pageNumber > 1 && table.getPageSettings().pageNumber > page.totalPages) {
-                    table.setPage(page.totalPages);
-                    safePage(resolve);
-                } else {
-                    resolve(page);
-                }
-            }
-        });
-    };
-
-    serviceRepo.page = function () {
-        return $q(function (resolve) {
-            safePage(resolve);
-        });
-    };
-
     var table = TableFactory.buildTable({
         pageNumber: sessionStorage.getItem('services-page') ? sessionStorage.getItem('services-page') : 1,
         pageSize: sessionStorage.getItem('services-size') ? sessionStorage.getItem('services-size') : 10,
-        direction: 'DESC',
-        properties: ['name'],
         filters: {},
         counts: [5, 10, 25, 50, 100],
-        page: serviceRepo.page,
-        data: serviceRepo.getContents(),
         name: 'services',
         repo: serviceRepo
     });
