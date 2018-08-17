@@ -28,7 +28,8 @@ app.controller('FeatureProposalController', function ($controller, $scope, Idea,
         }
     };
 
-    $scope.updateFeatureProposal = function (fp) {
+    $scope.updateFeatureProposal = function () {
+        $scope.fpData.dirty(true);
         $scope.fpRepo.update($scope.fpData).then(function (res) {
             if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                 $scope.resetFeatureProposals();

@@ -3,17 +3,20 @@ app.controller('IdeaManagementController', function ($controller, $scope) {
     angular.extend(
         this,
         $controller(
-            'IdeaController',
-            { $scope: $scope }
+            'IdeaController', {
+                $scope: $scope
+            }
         ),
         $controller(
-            'ManagementController',
-            { $scope: $scope }
+            'ManagementController', {
+                $scope: $scope
+            }
         )
     );
 
     $scope.weaverTable = {
-        repo: $scope.ideaRepo,
+        pageSettings: $scope.ideaRepo.getPageSettings(),
+        tableParams: $scope.ideaRepo.getTableParams(),
         columns: [{
                 gloss: 'Service',
                 property: 'service.name',
@@ -61,5 +64,4 @@ app.controller('IdeaManagementController', function ($controller, $scope) {
         ]
     };
 
-    $scope.tableParams = $scope.ideaRepo.getTableParams();
 });

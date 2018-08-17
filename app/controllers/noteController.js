@@ -44,7 +44,8 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
     ];
 
     $scope.weaverTable = {
-        repo: $scope.noteRepo,
+        pageSettings: $scope.noteRepo.getPageSettings(),
+        tableParams: $scope.noteRepo.getTableParams(),
         columns: [{
                 gloss: 'Service',
                 property: 'service.name',
@@ -106,8 +107,6 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
 
     ServiceRepo.ready().then(function () {
 
-        $scope.tableParams = NoteRepo.getTableParams();
-
         $scope.resetNotes = function () {
             if ($scope.noteData) {
                 $scope.noteData.refresh();
@@ -145,6 +144,7 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
         };
 
         $scope.updateNote = function () {
+            $scope.noteData.dirty(true);
             $scope.noteRepo.update($scope.noteData).then(function (res) {
                 if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                     $scope.resetNotes();

@@ -1,4 +1,4 @@
-app.repo("FeatureProposalRepo", function FeatureProposalRepo($q, WsApi, FeatureProposal, ServiceRepo, TableFactory) {
+app.repo("FeatureProposalRepo", function FeatureProposalRepo(WsApi, FeatureProposal, ServiceRepo, TableFactory) {
 
     var featureProposalRepo = this;
 
@@ -26,29 +26,6 @@ app.repo("FeatureProposalRepo", function FeatureProposalRepo($q, WsApi, FeatureP
         return WsApi.fetch(featureProposalRepo.mapping.page);
     };
 
-    var safePage = function (resolve) {
-        featureProposalRepo.fetchPage().then(function (response) {
-            var apiRes = angular.fromJson(response.body);
-            if (apiRes.meta.status === 'SUCCESS') {
-                var page = apiRes.payload.PageImpl;
-                featureProposalRepo.empty();
-                featureProposalRepo.addAll(page.content);
-                if (table.getPageSettings().pageNumber > 1 && table.getPageSettings().pageNumber > page.totalPages) {
-                    table.setPage(page.totalPages);
-                    safePage(resolve);
-                } else {
-                    resolve(page);
-                }
-            }
-        });
-    };
-
-    featureProposalRepo.page = function () {
-        return $q(function (resolve) {
-            safePage(resolve);
-        });
-    };
-
     featureProposalRepo.elevate = function (idea) {
         angular.extend(featureProposalRepo.mapping.elevate, {
             'data': idea
@@ -73,12 +50,8 @@ app.repo("FeatureProposalRepo", function FeatureProposalRepo($q, WsApi, FeatureP
     var table = TableFactory.buildTable({
         pageNumber: sessionStorage.getItem('feature-proposals-page') ? sessionStorage.getItem('feature-proposals-page') : 1,
         pageSize: sessionStorage.getItem('feature-proposals-size') ? sessionStorage.getItem('feature-proposals-size') : 10,
-        direction: 'DESC',
-        properties: ['title'],
         filters: {},
         counts: [5, 10, 25, 50, 100],
-        page: featureProposalRepo.page,
-        data: featureProposalRepo.getContents(),
         name: 'feature-proposals',
         repo: featureProposalRepo
     });

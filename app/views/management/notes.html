@@ -7,7 +7,7 @@
     </weaver-table-controls>
 
     <weaver-table-element>
-      <table ng-table="tableParams" template-header="customTableHeader" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped note-table">
+      <table ng-table="weaverTable.tableParams" template-header="customTableHeader" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped note-table">
         <tbody>
           <tr ng-repeat="note in $data">
             <td><a href="{{'service/' + note.service.id + '/detail/'}}">{{note.service.name}}</a> <span ng-if="note.schedules.length > 0">(scheduled)</span></td>

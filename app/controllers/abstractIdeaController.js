@@ -46,9 +46,9 @@ app.controller('AbstractIdeaController', function ($controller, $scope, FeatureP
 
     $scope.clearOverallCheckbox = function () {
         var overallCheckbox = angular.element('#overallCheckbox')[0];
-        if(overallCheckbox) {
+        if (overallCheckbox) {
             overallCheckbox.indeterminate = false;
-            overallCheckbox.checked = false;	
+            overallCheckbox.checked = false;
         }
     };
 

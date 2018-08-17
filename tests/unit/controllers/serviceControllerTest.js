@@ -2,7 +2,7 @@ describe('controller: ServiceController', function () {
 
     var scope, controller, ServiceRepo;
 
-    beforeEach(function() {
+    beforeEach(function () {
         module('core');
         module('app');
         module('mock.service');
@@ -61,7 +61,10 @@ describe('controller: ServiceController', function () {
                 "description": "<p>Hello, Test 4!</p>",
                 "projectId": null,
                 "type": "service",
-                "website": "https://example.tamu.edu/"
+                "website": "https://example.tamu.edu/",
+                "dirty": function (dirty) {
+                    return true;
+                }
             };
             scope.serviceData = newService;
             scope.createService();
@@ -91,7 +94,10 @@ describe('controller: ServiceController', function () {
                 "description": "<p>Hello, Test 1 Update!</p>",
                 "projectId": null,
                 "type": "service",
-                "website": "https://example.tamu.edu/"
+                "website": "https://example.tamu.edu/",
+                "dirty": function (dirty) {
+                    return true;
+                }
             };
             scope.serviceData = updatedService;
             scope.updateService();

@@ -2,7 +2,7 @@ describe('controller: ServiceDetailFeatureProposalListController', function () {
 
     var scope, controller, ServiceRepo;
 
-    beforeEach(function() {
+    beforeEach(function () {
         module('core');
         module('app');
         module('mock.idea');
