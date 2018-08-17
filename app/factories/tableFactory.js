@@ -1,4 +1,4 @@
-app.factory('TableFactory', function ($q, $timeout, NgTableParams) {
+app.factory('TableFactory', function ($q, NgTableParams) {
 
     this.buildPaging = function (pagingConfig) {
 
