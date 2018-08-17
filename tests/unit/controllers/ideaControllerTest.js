@@ -93,4 +93,5 @@ describe('controller: IdeaController', function () {
             expect(typeof scope.setSelectedFp).toEqual("function");
         });
     });
+
 });

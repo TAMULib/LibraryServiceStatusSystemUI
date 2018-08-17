@@ -61,4 +61,5 @@ describe('controller: ServiceDetailIdeaManagementController', function () {
             expect(typeof scope.removeIdeaFromSelected).toEqual("function");
         });
     });
+
 });

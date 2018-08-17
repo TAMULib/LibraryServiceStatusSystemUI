@@ -26,4 +26,5 @@ describe('controller: NoteController', function () {
             expect(controller).toBeDefined();
         });
     });
+
 });

@@ -47,4 +47,5 @@ describe('controller: ServiceDetailFeatureProposalListController', function () {
             expect(typeof scope.vote).toEqual("function");
         });
     });
+
 });

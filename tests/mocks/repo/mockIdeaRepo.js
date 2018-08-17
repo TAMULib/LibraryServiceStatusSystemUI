@@ -172,8 +172,11 @@ angular.module('mock.ideaRepo', []).service('IdeaRepo', function ($q) {
     };
 
     IdeaRepo.getTableParams = function () {
+        var table = {
+            reload: function() {}
+        }
         // @todo
-        return {};
+        return table;
     };
 
     IdeaRepo.fetchPage = function (pageSettings) {
@@ -195,4 +198,11 @@ angular.module('mock.ideaRepo', []).service('IdeaRepo', function ($q) {
         // @todo
     };
 
+    IdeaRepo.ready = function () {
+        var defer = $q.defer();
+        defer.resolve();
+        return defer.promise;
+    };
+
+    return IdeaRepo;
 });

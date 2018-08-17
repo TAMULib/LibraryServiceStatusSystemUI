@@ -12,7 +12,9 @@ var mockFeatureProposal1 = {
     "description": "<p>This is <strong>Jack's</strong> feature Proposal.</p>",
     "feedback": "",
     "id": 123456789,
+    "ideas": [],
     "lastModified": 1529618244432,
+    "removedIdeas": [],
     "service": {
       "id": 1,
       "schedules": [],
@@ -31,7 +33,8 @@ var mockFeatureProposal1 = {
       "type": "service"
     },
     "state": "IN_PROGRESS",
-    "title": "Jack's FeatureProposal"
+    "title": "Jack's FeatureProposal",
+    "dirty": function(boolean) { this.isDirty = boolean; }
 };
 
 var mockFeatureProposal2 = {
@@ -48,7 +51,9 @@ var mockFeatureProposal2 = {
     "description": "<p>This is <strong>Jill's</strong> feature Proposal.</p>",
     "feedback": "",
     "id": 987654321,
+    "ideas": [],
     "lastModified": 1234567890120,
+    "removedIdeas": [],
     "service": {
       "id": 1,
       "schedules": [],
@@ -68,6 +73,7 @@ var mockFeatureProposal2 = {
     },
     "state": "SUBMITTED",
     "title": "Jill's Note",
+    "dirty": function(boolean) { this.isDirty = boolean; }
 };
 
 var mockFeatureProposal3 = {
@@ -84,7 +90,9 @@ var mockFeatureProposal3 = {
     "description": "<p>This is <strong>Jacob's</strong> feature Proposal.</p>",
     "feedback": "Unacceptable.",
     "id": 192837465,
+    "ideas": [],
     "lastModified": 1529679921989,
+    "removedIdeas": [],
     "service": {
       "id": 1,
       "schedules": [],
@@ -103,7 +111,8 @@ var mockFeatureProposal3 = {
       "type": "service"
     },
     "state": "REJECTED",
-    "title": "Jacob's FeatureProposal"
+    "title": "Jacob's FeatureProposal",
+    "dirty": function(boolean) { this.isDirty = boolean; }
 };
 
 angular.module('mock.featureProposal', []).service('FeatureProposal', function ($q) {

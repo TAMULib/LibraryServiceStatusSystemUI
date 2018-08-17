@@ -61,4 +61,5 @@ describe('controller: NotificationController', function () {
             expect(typeof scope.resetSchedule).toEqual("function");
         });
     });
+
 });

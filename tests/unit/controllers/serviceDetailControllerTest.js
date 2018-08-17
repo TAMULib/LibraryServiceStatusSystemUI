@@ -53,4 +53,5 @@ describe('controller: ServiceDetailController', function () {
             expect(scope.getServiceWebsite(service)).toEqual(service.website);
         });
     });
+
 });

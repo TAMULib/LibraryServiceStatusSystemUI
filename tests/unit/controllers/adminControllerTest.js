@@ -23,4 +23,5 @@ describe('controller: AdminController', function () {
             expect(controller).toBeDefined();
         });
     });
+
 });

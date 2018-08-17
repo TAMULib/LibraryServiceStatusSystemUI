@@ -127,4 +127,5 @@ angular.module('mock.serviceRepo', []).service('ServiceRepo', function ($q) {
 
     ServiceRepo.reset = function () {};
 
+    return ServiceRepo;
 });

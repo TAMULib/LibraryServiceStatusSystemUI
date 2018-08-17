@@ -182,8 +182,11 @@ angular.module('mock.noteRepo', []).service('NoteRepo', function ($q) {
     };
 
     NoteRepo.getTableParams = function () {
+        var table = {
+            reload: function() {}
+        }
         // @todo
-        return {};
+        return table;
     };
 
     NoteRepo.fetchPage = function (pageSettings) {
@@ -203,6 +206,12 @@ angular.module('mock.noteRepo', []).service('NoteRepo', function ($q) {
 
     var table = {
         // @todo
+    };
+
+    NoteRepo.ready = function () {
+        var defer = $q.defer();
+        defer.resolve();
+        return defer.promise;
     };
 
     return NoteRepo;
