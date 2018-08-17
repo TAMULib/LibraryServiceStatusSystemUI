@@ -68,6 +68,7 @@ app.repo("IdeaRepo", function IdeaRepo(WsApi, Idea, ServiceRepo, TableFactory) {
         var idea = new Idea(angular.fromJson(response.body).payload.Idea);
         ServiceRepo.updateIdea(idea);
         updateIdea(idea);
+        table.getTableParams().reload();
     });
 
     WsApi.listen(ideaRepo.mapping.deleteListen).then(null, null, function (response) {
