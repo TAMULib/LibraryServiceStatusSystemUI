@@ -8,58 +8,8 @@ app.controller('IdeaController', function ($controller, $scope, FeatureProposalR
 
     $scope.states = IdeaState;
 
-    $scope.weaverTable = {
-        repo: $scope.ideaRepo,
-        columns: [{
-                gloss: 'Service',
-                property: 'service.name',
-                filterable: true,
-                sortable: true
-            },
-            {
-                gloss: 'Title',
-                property: 'title',
-                filterable: true,
-                sortable: true
-            },
-            {
-                gloss: 'Description',
-                property: 'description',
-                filterable: true,
-                sortable: false
-            },
-            {
-                gloss: 'Last Modified',
-                property: 'lastModified',
-                filterable: true,
-                sortable: true
-            },
-            {
-                gloss: 'Status',
-                property: 'state',
-                filterable: true,
-                sortable: true
-            },
-            {
-                gloss: 'Actions',
-                filterable: false,
-                sortable: false
-            }
-        ],
-        activeSort: [{
-                property: 'service.name',
-                direction: 'ASC'
-            },
-            {
-                property: 'lastModified',
-                direction: 'DESC'
-            }
-        ]
-    };
-
     ServiceRepo.ready().then(function () {
 
-        $scope.tableParams = $scope.ideaRepo.getTableParams();
         $scope.featureProposalsTableParams = FeatureProposalRepo.getTableParams();
 
         $scope.resetIdeas = function () {
@@ -93,6 +43,7 @@ app.controller('IdeaController', function ($controller, $scope, FeatureProposalR
 
     $scope.updateIdea = function () {
         $scope.updating = true;
+        $scope.ideaData.dirty(true);
         $scope.ideaRepo.update($scope.ideaData).then(function (res) {
             if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                 $scope.updating = false;
@@ -163,80 +114,6 @@ app.controller('IdeaController', function ($controller, $scope, FeatureProposalR
                 $scope.resetIdeas();
             }
         });
-    };
-
-    $scope.setOverallCheckbox = function () {
-        var overallCheckbox = angular.element('#overallCheckbox')[0];
-        if ($scope.selectedIdeas.length === 0) {
-            overallCheckbox.indeterminate = false;
-            overallCheckbox.checked = false;
-        } else if ($scope.selectedIdeas.length === $scope.ideasTableParams._settings.total) {
-            overallCheckbox.indeterminate = false;
-            overallCheckbox.checked = true;
-        } else {
-            overallCheckbox.indeterminate = true;
-            overallCheckbox.checked = false;
-        }
-    };
-
-    $scope.toggleSelectIdea = function (idea) {
-        if ($scope.isSelectedIdea(idea)) {
-            $scope.removeIdeaFromSelected(idea);
-        } else {
-            $scope.selectedIdeas.push(idea);
-        }
-        $scope.setOverallCheckbox();
-    };
-
-    $scope.toggleAll = function () {
-        if ($scope.overallCheckboxValue || $scope.anyOnPageSelected()) {
-            for (var i in $scope.ideasTableParams.data) {
-                var ii = $scope.ideasTableParams.data[i];
-                if ($scope.isSelectedIdea(ii)) {
-                    $scope.removeIdeaFromSelected(ii);
-                }
-            }
-        } else {
-            for (var j = 0; j < $scope.ideasTableParams.data.length; j++) {
-                var ij = $scope.ideasTableParams.data[j];
-                if (!$scope.isSelectedIdea(ij)) {
-                    $scope.selectedIdeas.push(ij);
-                }
-            }
-        }
-        $scope.setOverallCheckbox();
-    };
-
-    $scope.anyOnPageSelected = function () {
-        var anySelected = false;
-        for (var i in $scope.ideasTableParams.data) {
-            var idea = $scope.ideasTableParams.data[i];
-            if ($scope.isSelectedIdea(idea)) {
-                anySelected = true;
-                break;
-            }
-        }
-        return anySelected;
-    };
-
-    $scope.isSelectedIdea = function (idea) {
-        var selected = false;
-        for (var i in $scope.selectedIdeas) {
-            if (idea.id === $scope.selectedIdeas[i].id) {
-                selected = true;
-                break;
-            }
-        }
-        return selected;
-    };
-
-    $scope.removeIdeaFromSelected = function (idea) {
-        for (var i in $scope.selectedIdeas) {
-            if (idea.id === $scope.selectedIdeas[i].id) {
-                $scope.selectedIdeas.splice(i, 1);
-                break;
-            }
-        }
     };
 
     $scope.confirmElevateMultiple = function (ideas) {

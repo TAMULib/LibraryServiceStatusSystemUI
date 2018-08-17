@@ -10,116 +10,7 @@ app.controller('FeatureProposalController', function ($controller, $scope, Idea,
 
     $scope.state = FeatureProposalState;
 
-    $scope.weaverTable = {
-        repo: $scope.fpRepo,
-        columns: [{
-                gloss: 'Service',
-                property: 'service.name',
-                filterable: true,
-                sortable: true
-            },
-            {
-                gloss: 'Title',
-                property: 'title',
-                filterable: true,
-                sortable: true
-            },
-            {
-                gloss: 'Description',
-                property: 'description',
-                filterable: true,
-                sortable: false
-            },
-            {
-                gloss: 'Last Modified',
-                property: 'lastModified',
-                filterable: true,
-                sortable: true
-            },
-            {
-                gloss: 'Status',
-                property: 'state',
-                filterable: true,
-                sortable: true,
-                isConstant: true
-            },
-            {
-                gloss: 'Private',
-                property: 'isPrivate',
-                filterable: true,
-                sortable: true,
-                isConstant: true
-            },
-            {
-                gloss: 'Actions',
-                filterable: false,
-                sortable: false
-            }
-        ],
-        activeSort: [{
-                property: 'service.name',
-                direction: 'ASC'
-            },
-            {
-                property: 'lastModified',
-                direction: 'DESC'
-            }
-        ]
-    };
-
-    $scope.weaverTableDetail = {
-        repo: $scope.fpRepo,
-        columns: [{
-                gloss: 'Title',
-                property: 'title',
-                filterable: false,
-                sortable: true
-            },
-            {
-                gloss: 'Description',
-                property: 'description',
-                filterable: false,
-                sortable: false
-            },
-            {
-                gloss: 'Votes',
-                property: 'votes',
-                filterable: false,
-                sortable: true,
-                isConstant: true
-            },
-            {
-                gloss: 'Status',
-                property: 'state',
-                filterable: false,
-                sortable: true,
-                isConstant: true
-            },
-            {
-                gloss: 'Last Modified',
-                property: 'lastModified',
-                filterable: false,
-                sortable: true
-            },
-            {
-                gloss: 'Private',
-                property: 'isPrivate',
-                filterable: false,
-                sortable: true,
-                isConstant: true
-            },
-            {
-                gloss: 'Actions',
-                filterable: false,
-                sortable: false
-            }
-        ],
-        activeSort: []
-    };
-
     $scope.removedIdeas = [];
-
-    $scope.tableParams = $scope.fpRepo.getTableParams();
 
     $scope.editFeatureProposal = function (fp) {
         $scope.fpData = fp;
@@ -137,7 +28,8 @@ app.controller('FeatureProposalController', function ($controller, $scope, Idea,
         }
     };
 
-    $scope.updateFeatureProposal = function (fp) {
+    $scope.updateFeatureProposal = function () {
+        $scope.fpData.dirty(true);
         $scope.fpRepo.update($scope.fpData).then(function (res) {
             if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                 $scope.resetFeatureProposals();
@@ -213,7 +105,4 @@ app.controller('FeatureProposalController', function ($controller, $scope, Idea,
         $scope.openModal('#addFpModal');
     };
 
-    $scope.useDetailTable = function () {
-        $scope.weaverTable = $scope.weaverTableDetail;
-    };
 });

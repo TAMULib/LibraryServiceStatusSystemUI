@@ -30,6 +30,7 @@ app.controller("DashboardController", function ($controller, $scope, UserService
     NoteRepo.getPageSettings().filters = {
         active: [true]
     };
+
     NoteRepo.getPageSettings().sort = [{
         property: 'service.name',
         direction: 'ASC'
@@ -37,7 +38,5 @@ app.controller("DashboardController", function ($controller, $scope, UserService
         property: 'lastModified',
         direction: 'DESC'
     }];
-
-    NoteRepo.page();
 
 });

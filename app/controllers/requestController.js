@@ -13,7 +13,7 @@ app.controller('RequestController', function ($controller, $routeParams, $scope,
 
         $scope.requestForm = undefined;
 
-        //Needs to be an object for ng-disabled
+        // needs to be an object for ng-disabled
         $scope.request = {};
 
         $scope.services = ServiceRepo.getAll();

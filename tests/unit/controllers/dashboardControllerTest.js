@@ -3,16 +3,16 @@ describe('controller: DashboardController', function () {
     var controller, scope;
 
     beforeEach(function() {
-      module('core');
-      module('app');
-      module('mock.user');
-      module('mock.serviceRepo');
-      module('mock.noteRepo');
-      module('mock.userService');
-      module('mock.overallStatusFull');
-      module('mock.overallStatusPublic');
+        module('core');
+        module('app');
+        module('mock.user');
+        module('mock.serviceRepo');
+        module('mock.noteRepo');
+        module('mock.userService');
+        module('mock.overallStatusFull');
+        module('mock.overallStatusPublic');
 
-      inject(function ($controller, $rootScope, _User_, _UserService_, _NoteRepo_, _OverallStatusFull_, _OverallStatusPublic_, _ServiceRepo_) {
+        inject(function ($controller, $rootScope, _User_, _UserService_, _NoteRepo_, _OverallStatusFull_, _OverallStatusPublic_, _ServiceRepo_) {
             installPromiseMatchers();
             scope = $rootScope.$new();
             controller = $controller('DashboardController', {
@@ -24,7 +24,7 @@ describe('controller: DashboardController', function () {
                 OverallStatusPublic: _OverallStatusPublic_,
                 ServiceRepo: _ServiceRepo_
             });
-        })
+        });
     });
 
     describe('Is the controller defined', function () {
@@ -56,7 +56,9 @@ describe('controller: DashboardController', function () {
           var after = scope.showShortList;
           expect(typeof before).toEqual("boolean");
 
-          expect(!before === after).toBeTruthy();
+          var notBefore = !before;
+          expect(notBefore === after).toBeTruthy();
         });
     });
+
 });

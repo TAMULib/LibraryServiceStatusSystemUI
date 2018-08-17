@@ -2,19 +2,18 @@ describe('service: ProjectService', function () {
 
     var WsApi, ProjectService;
 
-    beforeEach(module('core'));
+    beforeEach(function() {
+        module('core');
+        module('app');
+        module('mock.projects');
+        module('mock.wsApi');
 
-    beforeEach(module('app'));
-
-    beforeEach(module('mock.projects'));
-
-    beforeEach(module('mock.wsApi'));
-
-    beforeEach(inject(function ($q, _WsApi_, $injector) {
-        ProjectService = $injector.get('ProjectService');
-        WsApi = _WsApi_;
-        installPromiseMatchers();
-    }));
+        inject(function ($q, _WsApi_, $injector) {
+            ProjectService = $injector.get('ProjectService');
+            WsApi = _WsApi_;
+            installPromiseMatchers();
+        });
+    });
 
     describe('Are the service methods defined', function () {
         it('getAll should be defined', function () {

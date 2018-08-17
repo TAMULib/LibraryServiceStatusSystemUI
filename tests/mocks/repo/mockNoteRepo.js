@@ -153,15 +153,15 @@ angular.module('mock.noteRepo', []).service('NoteRepo', function ($q) {
         return defer.promise;
     };
 
-    NoteRepo.fetchById = function (noteId) {
-        var note = new Note();
+    NoteRepo.fetchById = function (id) {
+        var found;
         for (var i in NoteRepo.list) {
             if (NoteRepo.list[i].id === id) {
-                note = NoteRepo.list[i];
+                found = angular.copy(NoteRepo.list[i]);
                 break;
             }
         }
-        return note;
+        return found;
     };
 
     NoteRepo.getPageSettings = function () {

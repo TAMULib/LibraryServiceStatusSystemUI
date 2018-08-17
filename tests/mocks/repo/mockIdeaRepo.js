@@ -143,15 +143,15 @@ angular.module('mock.ideaRepo', []).service('IdeaRepo', function ($q) {
         return defer.promise;
     };
 
-    IdeaRepo.fetchById = function (noteId) {
-        var note = new Note();
+    IdeaRepo.fetchById = function (id) {
+        var found;
         for (var i in IdeaRepo.list) {
             if (IdeaRepo.list[i].id === id) {
-                note = IdeaRepo.list[i];
+                found = angular.copy(IdeaRepo.list[i]);
                 break;
             }
         }
-        return note;
+        return found;
     };
 
     IdeaRepo.getPageSettings = function () {

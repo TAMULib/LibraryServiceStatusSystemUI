@@ -2,7 +2,7 @@ describe('controller: FeatureProposalController', function () {
 
     var controller, scope, fps, FeatureProposalRepo;
 
-    beforeEach(function() {
+    beforeEach(function () {
         module('core');
         module('app');
         module('mock.idea');
@@ -82,20 +82,6 @@ describe('controller: FeatureProposalController', function () {
             expect(scope.initCreateFeatureProposal).toBeDefined();
             expect(typeof scope.initCreateFeatureProposal).toEqual("function");
         });
-        it('useDetailTable should be defined', function () {
-            expect(scope.useDetailTable).toBeDefined();
-            expect(typeof scope.useDetailTable).toEqual("function");
-        });
-    });
-
-    describe('Are the scope methods working as expected', function () {
-        it('hasState should return a boolean', function () {
-            var state = "IN_PROGRESS";
-            var fp = {
-                state: state
-            };
-            expect(typeof scope.hasState(state, fp)).toEqual("boolean");
-        });
     });
 
     describe('Are the scope methods working as expected', function () {
@@ -105,7 +91,7 @@ describe('controller: FeatureProposalController', function () {
                 state: state
             };
 
-            angular.forEach(fps, function(v, k) {
+            angular.forEach(fps, function (v, k) {
                 state = v.value;
                 fp.state = state;
                 expect(typeof scope.hasState(state, fp)).toEqual("boolean");
@@ -114,7 +100,7 @@ describe('controller: FeatureProposalController', function () {
 
         it('getStateSummary should return a string', function () {
             var state;
-            angular.forEach(fps, function(v, k) {
+            angular.forEach(fps, function (v, k) {
                 state = v.value;
                 expect(typeof scope.getStateSummary(state)).toEqual("string");
             });
