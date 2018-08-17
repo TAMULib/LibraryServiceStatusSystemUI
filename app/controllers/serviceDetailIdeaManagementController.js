@@ -3,12 +3,14 @@ app.controller('ServiceDetailIdeaManagementController', function ($controller, $
     angular.extend(
         this,
         $controller(
-            'IdeaController',
-            { $scope: $scope }
+            'IdeaController', {
+                $scope: $scope
+            }
         ),
         $controller(
-            'ServiceDetailController',
-            { $scope: $scope }
+            'ServiceDetailController', {
+                $scope: $scope
+            }
         )
     );
 

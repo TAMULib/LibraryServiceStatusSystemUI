@@ -11,13 +11,13 @@ app.model("Service", function Service(Idea, IdeaRepo, IdeaState, FeatureProposal
                 filters: {
                     initial: {
                         active: ['true'],
-                        service: [service.id]
+                        'service.id': [service.id]
                     },
                     custom: function (pinned, active) {
                         return {
                             pinned: [pinned],
                             active: [active],
-                            service: [service.id]
+                            'service.id': [service.id]
                         };
                     }
                 },
@@ -27,7 +27,7 @@ app.model("Service", function Service(Idea, IdeaRepo, IdeaState, FeatureProposal
                 },
                 counts: [5, 10, 25, 50, 100],
                 pager: {
-                	getPageSettingsName: 'getNotesPageSettings',
+                    getPageSettingsName: 'getNotesPageSettings',
                     getTableParamsName: 'getNotesTableParams',
                     getName: 'getNotes'
                 }
@@ -46,12 +46,12 @@ app.model("Service", function Service(Idea, IdeaRepo, IdeaState, FeatureProposal
                             IdeaState.REJECTED.value,
                             IdeaState.SENT_TO_HELPDESK.value
                         ],
-                        service: [service.id]
+                        'service.id': [service.id]
                     },
                     custom: function (pinned, active) {
                         return {
                             state: [IdeaState.WAITING_ON_REVIEW.value],
-                            service: [service.id]
+                            'service.id': [service.id]
                         };
                     }
                 },
@@ -61,7 +61,7 @@ app.model("Service", function Service(Idea, IdeaRepo, IdeaState, FeatureProposal
                 },
                 counts: [5, 10, 25, 50, 100],
                 pager: {
-                	getPageSettingsName: 'getIdeasPageSettings',
+                    getPageSettingsName: 'getIdeasPageSettings',
                     getTableParamsName: 'getIdeasTableParams',
                     getName: 'getIdeas'
                 }
@@ -77,13 +77,13 @@ app.model("Service", function Service(Idea, IdeaRepo, IdeaState, FeatureProposal
                     initial: {
                         state: getStateFilter(),
                         isPrivate: getIsPrivateFilter(),
-                        service: [service.id]
+                        'service.id': [service.id]
                     },
                     custom: function (pinned, active) {
                         return {
                             state: getStateFilter(),
                             isPrivate: getIsPrivateFilter(),
-                            service: [service.id]
+                            'service.id': [service.id]
                         };
                     }
                 },
@@ -93,7 +93,7 @@ app.model("Service", function Service(Idea, IdeaRepo, IdeaState, FeatureProposal
                 },
                 counts: [5, 10, 25, 50, 100],
                 pager: {
-                	getPageSettingsName: 'getFeatureProposalsPageSettings',
+                    getPageSettingsName: 'getFeatureProposalsPageSettings',
                     getTableParamsName: 'getFeatureProposalsTableParams',
                     getName: 'getFeatureProposals'
                 }

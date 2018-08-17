@@ -144,7 +144,7 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
         };
 
         $scope.updateNote = function () {
-        	$scope.noteData.dirty(true);
+            $scope.noteData.dirty(true);
             $scope.noteRepo.update($scope.noteData).then(function (res) {
                 if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                     $scope.resetNotes();

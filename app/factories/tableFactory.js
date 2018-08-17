@@ -3,7 +3,7 @@ app.factory('TableFactory', function ($q, NgTableParams) {
     this.buildPaging = function (pagingConfig) {
 
         var pager = {};
-        
+
         pager[pagingConfig.name] = [];
 
         pager[pagingConfig.pager.getPageSettingsName] = function () {
@@ -16,26 +16,24 @@ app.factory('TableFactory', function ($q, NgTableParams) {
 
         // NOTE: this method is called for each service on the dashboard to display its active pinned notes
         pager[pagingConfig.pager.getName] = function (pinned, active) {
-        	var filter = pagingConfig.filters.custom(pinned, active);
-        	console.log(pagingConfig.pager.getName, pinned, active, filter);
             pagingConfig.repo.fetchPage({
-            	pageNumber: 1,
-            	pageSize: 1000,
-            	sort: [],
-            	filter: filter
-            }).then(function(response) {
-            	var apiRes = angular.fromJson(response.body);
+                pageNumber: 1,
+                pageSize: 1000,
+                sort: [],
+                filters: pagingConfig.filters.custom(pinned, active)
+            }).then(function (response) {
+                var apiRes = angular.fromJson(response.body);
                 if (apiRes.meta.status === 'SUCCESS') {
-                	var page = apiRes.payload.PageImpl;
-                	for(var i in page.content) {
-                		// TODO: instantiate child model
-                		pager[pagingConfig.name].push(page.content[i]);
-                	}
-                	console.log(pager[pagingConfig.name]);
+                    var page = apiRes.payload.PageImpl;
+                    pager[pagingConfig.name].length = 0;
+                    for (var i in page.content) {
+                        // TODO: mayber instantiate child model
+                        pager[pagingConfig.name].push(page.content[i]);
+                    }
                 }
             });
         };
-        
+
         var table = this.buildTable({
             pageNumber: sessionStorage.getItem(pagingConfig.sessionStorageKeys.pageNumber) ? sessionStorage.getItem(pagingConfig.sessionStorageKeys.pageNumber) : 1,
             pageSize: sessionStorage.getItem(pagingConfig.sessionStorageKeys.pageSize) ? sessionStorage.getItem(pagingConfig.sessionStorageKeys.pageSize) : 10,
@@ -71,7 +69,7 @@ app.factory('TableFactory', function ($q, NgTableParams) {
                         tableConfig.repo.addAll(page.content);
                         angular.extend(page, {
                             content: tableConfig.repo.getContents()
-                        }); 
+                        });
                         resolve(page);
                     }
                 } else {

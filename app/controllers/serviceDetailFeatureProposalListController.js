@@ -3,26 +3,29 @@ app.controller('ServiceDetailFeatureProposalListController', function ($controll
     angular.extend(
         this,
         $controller(
-            'ServiceDetailController', 
-            { $scope: $scope }
+            'ServiceDetailController', {
+                $scope: $scope
+            }
         ),
         $controller(
-            'FeatureProposalController',
-            { $scope: $scope }
+            'FeatureProposalController', {
+                $scope: $scope
+            }
         ),
         $controller(
-            'AuthenticationController',
-            { $scope: $scope }
+            'AuthenticationController', {
+                $scope: $scope
+            }
         )
     );
 
     ServiceRepo.ready().then(function () {
         $scope.featureProposalsTableParams = $scope.service.getFeatureProposalsTableParams();
-        
+
         $scope.hasFeatureProposals = function () {
             return $scope.featureProposalsTableParams.data.length > 0;
         };
-        
+
         $timeout(function () {
             $anchorScroll();
         }, 500);

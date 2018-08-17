@@ -3,17 +3,19 @@ app.controller('FeatureProposalManagementController', function ($controller, $sc
     angular.extend(
         this,
         $controller(
-            'FeatureProposalController',
-            { $scope: $scope }
+            'FeatureProposalController', {
+                $scope: $scope
+            }
         ),
         $controller(
-            'ManagementController',
-            { $scope: $scope }
+            'ManagementController', {
+                $scope: $scope
+            }
         )
     );
 
     $scope.weaverTable = {
-		pageSettings: $scope.fpRepo.getPageSettings(),
+        pageSettings: $scope.fpRepo.getPageSettings(),
         tableParams: $scope.fpRepo.getTableParams(),
         columns: [{
                 gloss: 'Service',

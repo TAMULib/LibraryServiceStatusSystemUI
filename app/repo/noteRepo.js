@@ -23,7 +23,6 @@ app.repo("NoteRepo", function NoteRepo(WsApi, Note, ServiceRepo, TableFactory) {
         angular.extend(noteRepo.mapping.page, {
             'data': pageSettings ? pageSettings : table.getPageSettings()
         });
-        console.log(noteRepo.mapping.page);
         return WsApi.fetch(noteRepo.mapping.page);
     };
 

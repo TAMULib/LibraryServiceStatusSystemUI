@@ -63,7 +63,7 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
     };
 
     $scope.updateNotification = function () {
-    	$scope.notificationData.direty(true);
+        $scope.notificationData.direty(true);
         NotificationRepo.update($scope.notificationData).then(function (res) {
             if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                 $scope.resetNotifications();
