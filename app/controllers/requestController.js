@@ -34,6 +34,9 @@ app.controller('RequestController', function ($controller, $routeParams, $scope,
             if ($routeParams.service) {
                 $scope.service = $routeParams.service;
             }
+            if ($routeParams.type) {
+                $scope.type = $routeParams.type;
+            }
         };
 
         $scope.reset = function () {
