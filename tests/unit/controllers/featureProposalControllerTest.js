@@ -121,25 +121,23 @@ describe('controller: FeatureProposalController', function () {
             expect(scope.fpRepo.update).toHaveBeenCalled();
         });*/
         // test not working.
-        /*
         it('confirmReject should open a modal', function () {
-            var element = angular.element('<form name="testForm"><div class="modal-body"><input name="testInput" ng-model="temp" value=""></div></form>');
-            element = compile(element)(scope);
-            var form = scope.testForm;
-            scope.forms.testForm = form;
-
             // digest must be called to trigger the promise to then trigger the repo's ready() promise to be returned.
             scope.$digest();
 
+            scope.fpData = {
+                'refresh': function() {},
+                'clearValidationResults': function() {}
+            };
+
             scope.fpToReject = null;
-            scope.openModal = function(name) { };
 
             spyOn(scope, 'openModal');
 
             scope.confirmReject(mockFeatureProposal1);
             expect(scope.fpToReject).toEqual(mockFeatureProposal1);
             expect(scope.openModal).toHaveBeenCalled();
-        });*/
+        });
         it('hasState should return a boolean', function () {
             var fp = mockFeatureProposal1;
             var state = fp.state;

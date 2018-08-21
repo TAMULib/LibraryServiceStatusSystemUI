@@ -67,7 +67,7 @@ var mockIdea2 = {
       "projectId": 1,
       "type": "service"
     },
-    "title": "Jill's Note",
+    "title": "Jill's Note"
 };
 
 var mockIdea3 = {
