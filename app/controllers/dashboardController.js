@@ -4,9 +4,8 @@ app.controller("DashboardController", function ($controller, $scope, UserService
         $scope: $scope
     }));
 
-    $scope.$on('$routeChangeSuccess', function () {
-        ServiceRepo.reset();
-    });
+    // Clear out any cached pages and get full list of services.
+    ServiceRepo.reset();
 
     $scope.overallStatus = $scope.isFullServiceConsumer() ? new OverallStatusFull() : new OverallStatusPublic();
 
