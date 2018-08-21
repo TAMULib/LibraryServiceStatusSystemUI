@@ -108,25 +108,25 @@ var mockFeatureProposals = [
 
 angular.module('mock.featureProposalRepo', []).service('FeatureProposalRepo', function ($q) {
 
-    var FeatureProposalRepo = this;
+    var featureProposalRepo = this;
 
-    FeatureProposalRepo.list = mockFeatureProposals;
+    featureProposalRepo.list = mockFeatureProposals;
 
-    FeatureProposalRepo.create = function (note) {
+    featureProposalRepo.create = function (note) {
         var defer = $q.defer();
-        note.id = FeatureProposalRepo.list.length + 1;
-        FeatureProposalRepo.list.push(note);
+        note.id = featureProposalRepo.list.length + 1;
+        featureProposalRepo.list.push(note);
         defer.resolve(note);
         return defer.promise;
     };
 
-    FeatureProposalRepo.update = function (fp) {
+    featureProposalRepo.update = function (fp) {
         var defer = $q.defer();
         var featureProposal;
-        for (var i in FeatureProposalRepo.list) {
-            if (FeatureProposalRepo.list[i].id === fp.id) {
-                angular.extend(FeatureProposalRepo.list[i], fp);
-                featureProposal = angular.copy(FeatureProposalRepo.list[i]);
+        for (var i in featureProposalRepo.list) {
+            if (featureProposalRepo.list[i].id === fp.id) {
+                angular.extend(featureProposalRepo.list[i], fp);
+                featureProposal = angular.copy(featureProposalRepo.list[i]);
                 break;
             }
         }
@@ -135,27 +135,27 @@ angular.module('mock.featureProposalRepo', []).service('FeatureProposalRepo', fu
     };
 
     var updateNote = function (note) {
-        FeatureProposalRepo.update(note);
+        featureProposalRepo.update(note);
     };
 
-    FeatureProposalRepo.getAll = function () {
+    featureProposalRepo.getAll = function () {
         var defer = $q.defer();
-        defer.resolve(FeatureProposalRepo.list);
+        defer.resolve(featureProposalRepo.list);
         return defer.promise;
     };
 
-    FeatureProposalRepo.fetchById = function (id) {
+    featureProposalRepo.fetchById = function (id) {
         var found;
-        for (var i in FeatureProposalRepo.list) {
-            if (FeatureProposalRepo.list[i].id === id) {
-                found = angular.copy(FeatureProposalRepo.list[i]);
+        for (var i in featureProposalRepo.list) {
+            if (featureProposalRepo.list[i].id === id) {
+                found = angular.copy(featureProposalRepo.list[i]);
                 break;
             }
         }
         return found;
     };
 
-    FeatureProposalRepo.getPageSettings = function () {
+    featureProposalRepo.getPageSettings = function () {
         var mockPageSettings = {
             filters: {
                 active: [true]
@@ -172,7 +172,7 @@ angular.module('mock.featureProposalRepo', []).service('FeatureProposalRepo', fu
         return mockPageSettings;
     };
 
-    FeatureProposalRepo.getTableParams = function () {
+    featureProposalRepo.getTableParams = function () {
         var table = {
             reload: function() {}
         }
@@ -180,7 +180,7 @@ angular.module('mock.featureProposalRepo', []).service('FeatureProposalRepo', fu
         return table;
     };
 
-    FeatureProposalRepo.fetchPage = function (pageSettings) {
+    featureProposalRepo.fetchPage = function (pageSettings) {
         // @todo
         return {};
     };
@@ -189,20 +189,20 @@ angular.module('mock.featureProposalRepo', []).service('FeatureProposalRepo', fu
         // @todo
     };
 
-    FeatureProposalRepo.page = function () {
+    featureProposalRepo.page = function () {
         return $q(function (resolve) {
             safePage(resolve);
         });
     };
 
-    FeatureProposalRepo.reject = function (fp) {
+    featureProposalRepo.reject = function (fp) {
         return $q(function (resolve) {
             var featureProposal = {};
-            for (var i in FeatureProposalRepo.list) {
-                if (FeatureProposalRepo.list[i].id === fp.id) {
-                    FeatureProposalRepo.list[i].state = "REJECTED";
-                    FeatureProposalRepo.list[i].feedback = fp.feedback;
-                    featureProposal = FeatureProposalRepo.list[i];
+            for (var i in featureProposalRepo.list) {
+                if (featureProposalRepo.list[i].id === fp.id) {
+                    featureProposalRepo.list[i].state = "REJECTED";
+                    featureProposalRepo.list[i].feedback = fp.feedback;
+                    featureProposal = featureProposalRepo.list[i];
                     break;
                 }
             }
@@ -214,11 +214,11 @@ angular.module('mock.featureProposalRepo', []).service('FeatureProposalRepo', fu
         // @todo
     };
 
-    FeatureProposalRepo.ready = function () {
+    featureProposalRepo.ready = function () {
         var defer = $q.defer();
         defer.resolve();
         return defer.promise;
     };
 
-    return FeatureProposalRepo;
+    return featureProposalRepo;
 });

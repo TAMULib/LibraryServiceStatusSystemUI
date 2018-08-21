@@ -108,24 +108,24 @@ var mockIdeas = [
 
 angular.module('mock.ideaRepo', []).service('IdeaRepo', function ($q) {
 
-    var IdeaRepo = this;
+    var ideaRepo = this;
 
-    IdeaRepo.list = mockIdeas;
+    ideaRepo.list = mockIdeas;
 
-    IdeaRepo.create = function (note) {
+    ideaRepo.create = function (note) {
         var defer = $q.defer();
-        note.id = IdeaRepo.list.length + 1;
-        IdeaRepo.list.push(note);
+        note.id = ideaRepo.list.length + 1;
+        ideaRepo.list.push(note);
         defer.resolve(note);
         return defer.promise;
     };
 
-    IdeaRepo.update = function (note) {
+    ideaRepo.update = function (note) {
         var defer = $q.defer();
-        for (var i in IdeaRepo.list) {
-            if (IdeaRepo.list[i].id === note.id) {
-                angular.extend(IdeaRepo.list[i], note);
-                note = IdeaRepo.list[i];
+        for (var i in ideaRepo.list) {
+            if (ideaRepo.list[i].id === note.id) {
+                angular.extend(ideaRepo.list[i], note);
+                note = ideaRepo.list[i];
                 break;
             }
         }
@@ -134,27 +134,27 @@ angular.module('mock.ideaRepo', []).service('IdeaRepo', function ($q) {
     };
 
     var updateNote = function (note) {
-        IdeaRepo.update(note);
+        ideaRepo.update(note);
     };
 
-    IdeaRepo.getAll = function () {
+    ideaRepo.getAll = function () {
         var defer = $q.defer();
-        defer.resolve(IdeaRepo.list);
+        defer.resolve(ideaRepo.list);
         return defer.promise;
     };
 
-    IdeaRepo.fetchById = function (id) {
+    ideaRepo.fetchById = function (id) {
         var found;
-        for (var i in IdeaRepo.list) {
-            if (IdeaRepo.list[i].id === id) {
-                found = angular.copy(IdeaRepo.list[i]);
+        for (var i in ideaRepo.list) {
+            if (ideaRepo.list[i].id === id) {
+                found = angular.copy(ideaRepo.list[i]);
                 break;
             }
         }
         return found;
     };
 
-    IdeaRepo.getPageSettings = function () {
+    ideaRepo.getPageSettings = function () {
         var mockPageSettings = {
             filters: {
                 active: [true]
@@ -171,7 +171,7 @@ angular.module('mock.ideaRepo', []).service('IdeaRepo', function ($q) {
         return mockPageSettings;
     };
 
-    IdeaRepo.getTableParams = function () {
+    ideaRepo.getTableParams = function () {
         var table = {
             reload: function() {}
         }
@@ -179,7 +179,7 @@ angular.module('mock.ideaRepo', []).service('IdeaRepo', function ($q) {
         return table;
     };
 
-    IdeaRepo.fetchPage = function (pageSettings) {
+    ideaRepo.fetchPage = function (pageSettings) {
         // @todo
         return {};
     };
@@ -188,7 +188,7 @@ angular.module('mock.ideaRepo', []).service('IdeaRepo', function ($q) {
         // @todo
     };
 
-    IdeaRepo.page = function () {
+    ideaRepo.page = function () {
         return $q(function (resolve) {
             safePage(resolve);
         });
@@ -198,11 +198,11 @@ angular.module('mock.ideaRepo', []).service('IdeaRepo', function ($q) {
         // @todo
     };
 
-    IdeaRepo.ready = function () {
+    ideaRepo.ready = function () {
         var defer = $q.defer();
         defer.resolve();
         return defer.promise;
     };
 
-    return IdeaRepo;
+    return ideaRepo;
 });

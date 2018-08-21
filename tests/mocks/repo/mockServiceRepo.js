@@ -71,24 +71,24 @@ var mockServices = [{
 
 angular.module('mock.serviceRepo', []).service('ServiceRepo', function ($q) {
 
-    var ServiceRepo = this;
+    var serviceRepo = this;
 
-    ServiceRepo.list = mockServices;
+    serviceRepo.list = mockServices;
 
-    ServiceRepo.create = function (service) {
+    serviceRepo.create = function (service) {
         var defer = $q.defer();
-        service.id = ServiceRepo.list.length + 1;
-        ServiceRepo.list.push(service);
+        service.id = serviceRepo.list.length + 1;
+        serviceRepo.list.push(service);
         defer.resolve(service);
         return defer.promise;
     };
 
-    ServiceRepo.update = function (service) {
+    serviceRepo.update = function (service) {
         var defer = $q.defer();
-        for (var i in ServiceRepo.list) {
-            if (ServiceRepo.list[i].id === service.id) {
-                angular.extend(ServiceRepo.list[i], service);
-                service = ServiceRepo.list[i];
+        for (var i in serviceRepo.list) {
+            if (serviceRepo.list[i].id === service.id) {
+                angular.extend(serviceRepo.list[i], service);
+                service = serviceRepo.list[i];
                 break;
             }
         }
@@ -96,36 +96,36 @@ angular.module('mock.serviceRepo', []).service('ServiceRepo', function ($q) {
         return defer.promise;
     };
 
-    ServiceRepo.getAll = function () {
+    serviceRepo.getAll = function () {
         var defer = $q.defer();
-        defer.resolve(ServiceRepo.list);
+        defer.resolve(serviceRepo.list);
         return defer.promise;
     };
 
-    ServiceRepo.findById = function (id) {
+    serviceRepo.findById = function (id) {
         var found;
-        for (var i in ServiceRepo.list) {
-            if (ServiceRepo.list[i].id === id) {
-                found = angular.copy(ServiceRepo.list[i]);
+        for (var i in serviceRepo.list) {
+            if (serviceRepo.list[i].id === id) {
+                found = angular.copy(serviceRepo.list[i]);
                 break;
             }
         }
         return found;
     };
 
-    ServiceRepo.submitRequest = function (request) {
+    serviceRepo.submitRequest = function (request) {
         var defer = $q.defer();
         defer.resolve();
         return defer.promise;
     };
 
-    ServiceRepo.ready = function () {
+    serviceRepo.ready = function () {
         var defer = $q.defer();
         defer.resolve();
         return defer.promise;
     };
 
-    ServiceRepo.reset = function () {};
+    serviceRepo.reset = function () {};
 
-    return ServiceRepo;
+    return serviceRepo;
 });

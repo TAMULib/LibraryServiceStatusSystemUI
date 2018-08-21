@@ -118,24 +118,24 @@ var mockNotes = [
 ];
 
 angular.module('mock.noteRepo', []).service('NoteRepo', function ($q) {
-    var NoteRepo = this;
+    var noteRepo = this;
 
-    NoteRepo.list = mockNotes;
+    noteRepo.list = mockNotes;
 
-    NoteRepo.create = function (note) {
+    noteRepo.create = function (note) {
         var defer = $q.defer();
-        note.id = NoteRepo.list.length + 1;
-        NoteRepo.list.push(note);
+        note.id = noteRepo.list.length + 1;
+        noteRepo.list.push(note);
         defer.resolve(note);
         return defer.promise;
     };
 
-    NoteRepo.update = function (note) {
+    noteRepo.update = function (note) {
         var defer = $q.defer();
-        for (var i in NoteRepo.list) {
-            if (NoteRepo.list[i].id === note.id) {
-                angular.extend(NoteRepo.list[i], note);
-                note = NoteRepo.list[i];
+        for (var i in noteRepo.list) {
+            if (noteRepo.list[i].id === note.id) {
+                angular.extend(noteRepo.list[i], note);
+                note = noteRepo.list[i];
                 break;
             }
         }
@@ -144,27 +144,27 @@ angular.module('mock.noteRepo', []).service('NoteRepo', function ($q) {
     };
 
     var updateNote = function (note) {
-        NoteRepo.update(note);
+        noteRepo.update(note);
     };
 
-    NoteRepo.getAll = function () {
+    noteRepo.getAll = function () {
         var defer = $q.defer();
-        defer.resolve(NoteRepo.list);
+        defer.resolve(noteRepo.list);
         return defer.promise;
     };
 
-    NoteRepo.fetchById = function (id) {
+    noteRepo.fetchById = function (id) {
         var found;
-        for (var i in NoteRepo.list) {
-            if (NoteRepo.list[i].id === id) {
-                found = angular.copy(NoteRepo.list[i]);
+        for (var i in noteRepo.list) {
+            if (noteRepo.list[i].id === id) {
+                found = angular.copy(noteRepo.list[i]);
                 break;
             }
         }
         return found;
     };
 
-    NoteRepo.getPageSettings = function () {
+    noteRepo.getPageSettings = function () {
         var mockPageSettings = {
             filters: {
                 active: [true]
@@ -181,7 +181,7 @@ angular.module('mock.noteRepo', []).service('NoteRepo', function ($q) {
         return mockPageSettings;
     };
 
-    NoteRepo.getTableParams = function () {
+    noteRepo.getTableParams = function () {
         var table = {
             reload: function() {}
         }
@@ -189,7 +189,7 @@ angular.module('mock.noteRepo', []).service('NoteRepo', function ($q) {
         return table;
     };
 
-    NoteRepo.fetchPage = function (pageSettings) {
+    noteRepo.fetchPage = function (pageSettings) {
         // @todo
         return {};
     };
@@ -198,7 +198,7 @@ angular.module('mock.noteRepo', []).service('NoteRepo', function ($q) {
         // @todo
     };
 
-    NoteRepo.page = function () {
+    noteRepo.page = function () {
         return $q(function (resolve) {
             safePage(resolve);
         });
@@ -208,11 +208,11 @@ angular.module('mock.noteRepo', []).service('NoteRepo', function ($q) {
         // @todo
     };
 
-    NoteRepo.ready = function () {
+    noteRepo.ready = function () {
         var defer = $q.defer();
         defer.resolve();
         return defer.promise;
     };
 
-    return NoteRepo;
+    return noteRepo;
 });
