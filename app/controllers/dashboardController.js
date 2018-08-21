@@ -4,6 +4,10 @@ app.controller("DashboardController", function ($controller, $scope, UserService
         $scope: $scope
     }));
 
+    $scope.$on('$routeChangeSuccess', function () {
+        ServiceRepo.reset();
+    });
+
     $scope.overallStatus = $scope.isFullServiceConsumer() ? new OverallStatusFull() : new OverallStatusPublic();
 
     $scope.services = ServiceRepo.getAll();
