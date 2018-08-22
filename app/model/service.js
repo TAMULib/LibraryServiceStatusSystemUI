@@ -75,12 +75,10 @@ app.model("Service", function Service(Idea, IdeaRepo, IdeaState, FeatureProposal
                 repo: FeatureProposalRepo,
                 filters: {
                     initial: {
-                        isPrivate: getIsPrivateFilter(),
                         'service.id': [service.id]
                     },
                     custom: function (pinned, active) {
                         return {
-                            isPrivate: getIsPrivateFilter(),
                             'service.id': [service.id]
                         };
                     }
