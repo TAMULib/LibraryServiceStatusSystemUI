@@ -48,7 +48,13 @@ app.controller('ServiceDetailFeatureProposalListController', function ($controll
     };
 
     $scope.vote = function (fp) {
-        FeatureProposalRepo.vote(fp);
+        FeatureProposalRepo.vote(fp).then(function (res) {
+            var apiRes = angular.fromJson(res.body);
+            if (apiRes.meta.status === 'SUCCESS') {
+                $scope.service.getListFeatureProposalsTableParams().reload();
+                $scope.service.getManagedFeatureProposalsTableParams().reload();
+            }
+        });
     };
 
 });
