@@ -141,7 +141,8 @@ app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi, Service, Table
     serviceRepo.addFeatureProposal = function (featureProposal) {
         var service = getFeatureProposalsService(featureProposal);
         service.featureProposals.push(featureProposal);
-        service.getFeatureProposalsTableParams().reload();
+        service.getManagedFeatureProposalsTableParams().reload();
+        service.getListFeatureProposalsTableParams().reload();
     };
 
     serviceRepo.updateFeatureProposal = function (featureProposal) {
@@ -149,12 +150,14 @@ app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi, Service, Table
         for (var i in service.featureProposals) {
             if (service.featureProposals[i].id === featureProposal.id) {
                 angular.extend(service.featureProposals[i], featureProposal);
-                service.getFeatureProposalsTableParams().reload();
+                service.getManagedFeatureProposalsTableParams().reload();
+                service.getListFeatureProposalsTableParams().reload();
                 return;
             }
         }
         service.featureProposals.push(featureProposal);
-        service.getFeatureProposalsTableParams().reload();
+        service.getManagedFeatureProposalsTableParams().reload();
+        service.getListFeatureProposalsTableParams().reload();
     };
 
     serviceRepo.removeFeatureProposalById = function (id) {
@@ -164,7 +167,8 @@ app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi, Service, Table
             for (var j in services[i].featureProposals) {
                 if (services[i].featureProposals[j].id === id) {
                     services[i].featureProposals.splice(j, 1);
-                    services[i].getFeatureProposalsTableParams().reload();
+                    services[i].getManagedFeatureProposalsTableParams().reload();
+                    services[i].getListFeatureProposalsTableParams().reload();
                     return;
                 }
             }

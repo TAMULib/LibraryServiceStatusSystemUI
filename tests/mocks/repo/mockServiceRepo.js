@@ -125,4 +125,6 @@ angular.module('mock.serviceRepo', []).service('ServiceRepo', function ($q) {
         return defer.promise;
     };
 
+    ServiceRepo.reset = function () {};
+
 });
