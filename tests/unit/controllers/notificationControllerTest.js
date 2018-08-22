@@ -18,6 +18,9 @@ describe('controller: NotificationController', function () {
                 NotificationRepo: _NotificationRepo_,
                 ServiceRepo: _ServiceRepo_
             });
+
+            // ensure that the isReady() is called.
+            //scope.$digest();
         });
     });
 

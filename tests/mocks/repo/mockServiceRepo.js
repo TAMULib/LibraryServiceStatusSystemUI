@@ -72,19 +72,42 @@ var mockServices = [{
 angular.module('mock.serviceRepo', []).service('ServiceRepo', function ($q) {
 
     var serviceRepo = this;
+    var defer;
+
+    var payloadResponse = function (payload) {
+        return defer.resolve({
+            body: angular.toJson({
+                meta: {
+                    status: 'SUCCESS'
+                },
+                payload: payload
+            })
+        });
+    };
+
+    var messageResponse = function (message) {
+        return defer.resolve({
+            body: angular.toJson({
+                meta: {
+                    status: 'SUCCESS',
+                    message: message
+                }
+            })
+        });
+    };
 
     serviceRepo.list = mockServices;
 
     serviceRepo.create = function (service) {
-        var defer = $q.defer();
+        defer = $q.defer();
         service.id = serviceRepo.list.length + 1;
         serviceRepo.list.push(angular.copy(service));
-        defer.resolve(service);
+        payloadResponse(service);
         return defer.promise;
     };
 
     serviceRepo.update = function (service) {
-        var defer = $q.defer();
+        defer = $q.defer();
         for (var i in serviceRepo.list) {
             if (serviceRepo.list[i].id === service.id) {
                 angular.extend(serviceRepo.list[i], service);
@@ -92,13 +115,13 @@ angular.module('mock.serviceRepo', []).service('ServiceRepo', function ($q) {
                 break;
             }
         }
-        defer.resolve(service);
+        payloadResponse(service);
         return defer.promise;
     };
 
     serviceRepo.getAll = function () {
-        var defer = $q.defer();
-        defer.resolve(angular.copy(serviceRepo.list));
+        defer = $q.defer();
+        payloadResponse(angular.copy(serviceRepo.list));
         return defer.promise;
     };
 
@@ -114,14 +137,14 @@ angular.module('mock.serviceRepo', []).service('ServiceRepo', function ($q) {
     };
 
     serviceRepo.submitRequest = function (request) {
-        var defer = $q.defer();
-        defer.resolve();
+        defer = $q.defer();
+        payloadResponse();
         return defer.promise;
     };
 
     serviceRepo.ready = function () {
-        var defer = $q.defer();
-        defer.resolve();
+        defer = $q.defer();
+        payloadResponse();
         return defer.promise;
     };
 

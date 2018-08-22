@@ -30,6 +30,18 @@ var mockUser3 = {
 
 angular.module('mock.user', []).service('User', function ($q) {
     return function () {
+        var defer;
+        var payloadResponse = function (payload) {
+            return defer.resolve({
+                body: angular.toJson({
+                    meta: {
+                        status: 'SUCCESS'
+                    },
+                    payload: payload
+                })
+            });
+        };
+
         this.isDirty = false;
 
         this.mock = function(toMock) {
@@ -43,6 +55,12 @@ angular.module('mock.user', []).service('User', function ($q) {
         };
 
         this.save = function() {
+        };
+
+        this.delete = function() {
+            defer = $q.defer();
+            payloadResponse();
+            return defer.promise;
         };
 
         this.dirty = function(boolean) {

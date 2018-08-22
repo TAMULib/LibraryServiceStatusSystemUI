@@ -27,6 +27,9 @@ describe('controller: RequestController', function () {
                 StorageService: _StorageService_
             });
             installPromiseMatchers();
+
+            // ensure that the isReady() is called.
+            scope.$digest();
         });
     });
 

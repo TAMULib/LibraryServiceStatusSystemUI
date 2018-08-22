@@ -28,6 +28,9 @@ describe('controller: ServiceDetailFeatureProposalManagementController', functio
                 UserRepo: _UserRepo_,
                 ServiceRepo: _ServiceRepo_
             });
+
+            // ensure that the isReady() is called.
+            //scope.$digest();
         });
     });
 

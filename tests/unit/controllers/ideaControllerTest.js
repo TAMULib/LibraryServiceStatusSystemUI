@@ -1,6 +1,6 @@
 describe('controller: IdeaController', function () {
 
-    var controller, scope;
+    var controller, scope, q, Idea, IdeaRepo, FeatureProposal;
 
     beforeEach(function() {
         module('core');
@@ -12,9 +12,13 @@ describe('controller: IdeaController', function () {
         module('mock.featureProposalRepo');
         module('mock.serviceRepo');
 
-        inject(function ($controller, $rootScope, _Idea_, _IdeaRepo_, IdeaState, _FeatureProposal_, _FeatureProposalRepo_, FeatureProposalState, _ProjectService_, _ServiceRepo_) {
+        inject(function ($controller, $rootScope, $q, _Idea_, _IdeaRepo_, IdeaState, _FeatureProposal_, _FeatureProposalRepo_, FeatureProposalState, _ProjectService_, _ServiceRepo_) {
             installPromiseMatchers();
             scope = $rootScope.$new();
+            q = $q;
+            Idea = _Idea_;
+            IdeaRepo = _IdeaRepo_;
+            FeatureProposal = _FeatureProposal_;
             controller = $controller('IdeaController', {
                 $scope: scope,
                 Idea: _Idea_,
@@ -26,6 +30,9 @@ describe('controller: IdeaController', function () {
                 ProjectService: _ProjectService_,
                 ServiceRepo: _ServiceRepo_
             });
+
+            // ensure that the isReady() is called.
+            scope.$digest();
         });
     });
 
@@ -36,6 +43,10 @@ describe('controller: IdeaController', function () {
     });
 
     describe('Are the scope methods defined', function () {
+        it('createFeatureProposal should be defined', function () {
+            expect(scope.createFeatureProposal).toBeDefined();
+            expect(typeof scope.createFeatureProposal).toEqual("function");
+        });
         it('createIdea should be defined', function () {
             expect(scope.createIdea).toBeDefined();
             expect(typeof scope.createIdea).toEqual("function");
@@ -94,4 +105,122 @@ describe('controller: IdeaController', function () {
         });
     });
 
+    describe('Are the scope methods working as expected', function () {
+        it('createFeatureProposal should create a feature proposal', function () {
+            scope.fpData = new FeatureProposal();
+            scope.fpData.title = "New Feature Proposal";
+            scope.creating = null;
+
+            scope.createFeatureProposal();
+            scope.$digest();
+
+            expect(scope.creating).toBe(false);
+        });
+        it('createIdea should create an idea', function () {
+            scope.fpData = new FeatureProposal();
+            scope.fpData.title = "New Feature Proposal";
+            scope.creating = null;
+
+            scope.createFeatureProposal();
+            scope.$digest();
+
+            expect(scope.creating).toBe(false);
+        });
+        it('editIdea should open a modal', function () {
+            var idea = new Idea();
+            idea.mock(mockIdea1);
+            scope.ideaData = null;
+            scope.openModal = function(name) { };
+
+            spyOn(scope, 'openModal');
+
+            scope.editIdea(idea);
+
+            expect(scope.ideaData).toEqual(idea);
+            expect(scope.openModal).toHaveBeenCalled();
+        });
+        it('updateFeatureProposal should update a feature proposal', function () {
+            scope.ideaData = new Idea();
+            scope.ideaData.mock(mockIdea1);
+
+            var deferred = q.defer();
+            spyOn(scope.ideaRepo, 'update').and.returnValue(deferred.promise);
+            scope.updateIdea();
+            deferred.resolve();
+
+            expect(scope.ideaRepo.update).toHaveBeenCalled();
+        });
+        it('confirmReject should open a modal', function () {
+            var idea = new Idea();
+            idea.mock(mockIdea1);
+            scope.ideaToReject = idea;
+            scope.fpToReject = null;
+            scope.openModal = function(name) { };
+
+            spyOn(scope, 'openModal');
+
+            scope.confirmReject(idea);
+
+            expect(scope.ideaToReject).toEqual(idea);
+            expect(scope.openModal).toHaveBeenCalled();
+        });
+        it('rejectIdea should set the state to rejected', function () {
+            var id = mockIdea1.id;
+            var idea = IdeaRepo.fetchById(id);
+            idea.feedback = "Not wanted";
+            scope.ideaToReject = idea;
+
+            scope.rejectIdea();
+
+            var updatedIdea = IdeaRepo.fetchById(id);
+            idea.state = "REJECTED";
+            expect(updatedIdea).toEqual(idea);
+            expect(updatedIdea.state).toEqual(idea.state);
+            expect(updatedIdea.feedback).toEqual(idea.feedback);
+        });
+        it('confirmSendToHelpdesk should open a modal', function () {
+            var idea = new Idea();
+            idea.mock(mockIdea1);
+            scope.openModal = function(name) { };
+
+            spyOn(scope, 'openModal');
+
+            scope.confirmSendToHelpdesk(idea);
+
+            expect(scope.ideaToSendToHelpdesk).toEqual(idea);
+            expect(scope.openModal).toHaveBeenCalled();
+        });
+        it('sendToHelpdesk should set the state to elevated', function () {
+            var id = mockIdea1.id;
+            var idea = IdeaRepo.fetchById(id);
+            scope.ideaToSendToHelpdesk = idea;
+
+            scope.sendToHelpdesk();
+
+            var updatedIdea = IdeaRepo.fetchById(id);
+            idea.state = "ELEVATED";
+            expect(updatedIdea).toEqual(idea);
+            expect(updatedIdea.state).toEqual(idea.state);
+        });
+        it('confirmDelete should assign idea for deletion', function () {
+            scope.ideaToDelete = null;
+
+            scope.confirmDelete(mockIdea1);
+
+            expect(scope.ideaToDelete).toBe(mockIdea1);
+        });
+        it('deleteIdea should delete a feature proposal', function () {
+            scope.deleting = null;
+            scope.ideaToDelete = new Idea();
+            scope.ideaToDelete.mock(mockIdea1);
+
+            var deferred = q.defer();
+            spyOn(scope.ideaToDelete, 'delete').and.returnValue(deferred.promise);
+            scope.deleteIdea();
+            deferred.resolve();
+
+            expect(scope.deleting).toBeTruthy();
+            expect(scope.ideaToDelete.delete).toHaveBeenCalled();
+        });
+    });
 });

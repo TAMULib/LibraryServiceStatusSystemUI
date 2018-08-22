@@ -11,7 +11,6 @@ var mockIdeas = [
             "notes": []
         },
         "description": "<p>This is <strong>Jack's</strong> idea.</p>",
-        "elevated": false,
         "feedback": "",
         "id": 123456789,
         "lastModified": 1529618244432,
@@ -32,6 +31,7 @@ var mockIdeas = [
           "projectId": 1,
           "type": "service"
         },
+        "state": "WAITING_ON_REVIEW",
         "title": "Jack's Idea"
     },
     {
@@ -46,7 +46,6 @@ var mockIdeas = [
             "notes": []
         },
         "description": "<p>This is <strong>Jill's</strong> idea.</p>",
-        "elevated": false,
         "feedback": "",
         "id": 987654321,
         "lastModified": 1234567890120,
@@ -67,6 +66,7 @@ var mockIdeas = [
           "projectId": 1,
           "type": "service"
         },
+        "state": "WAITING_ON_REVIEW",
         "title": "Jill's Note",
     },
     {
@@ -81,7 +81,6 @@ var mockIdeas = [
             "notes": []
         },
         "description": "<p>This is <strong>Jacob's</strong> idea.</p>",
-        "elevated": false,
         "feedback": "",
         "id": 192837465,
         "lastModified": 1529679921989,
@@ -102,6 +101,7 @@ var mockIdeas = [
           "projectId": 1,
           "type": "service"
         },
+        "state": "WAITING_ON_REVIEW",
         "title": "Jacob's Idea"
     }
 ];
@@ -109,19 +109,54 @@ var mockIdeas = [
 angular.module('mock.ideaRepo', []).service('IdeaRepo', function ($q) {
 
     var ideaRepo = this;
+    var defer;
+
+    var payloadResponse = function (payload) {
+        return defer.resolve({
+            body: angular.toJson({
+                meta: {
+                    status: 'SUCCESS'
+                },
+                payload: payload
+            })
+        });
+    };
+
+    var messageResponse = function (message) {
+        return defer.resolve({
+            body: angular.toJson({
+                meta: {
+                    status: 'SUCCESS',
+                    message: message
+                }
+            })
+        });
+    };
+
+    var updateNote = function (idea) {
+        ideaRepo.update(idea);
+    };
+
+    var safePage = function(resolve) {
+        // @todo
+    };
+
+    var table = {
+        // @todo
+    };
 
     ideaRepo.list = mockIdeas;
 
     ideaRepo.create = function (idea) {
-        var defer = $q.defer();
+        defer = $q.defer();
         idea.id = ideaRepo.list.length + 1;
         ideaRepo.list.push(angular.copy(idea));
-        defer.resolve(idea);
+        payloadResponse(idea);
         return defer.promise;
     };
 
     ideaRepo.update = function (idea) {
-        var defer = $q.defer();
+        defer = $q.defer();
         for (var i in ideaRepo.list) {
             if (ideaRepo.list[i].id === idea.id) {
                 angular.extend(ideaRepo.list[i], idea);
@@ -129,17 +164,13 @@ angular.module('mock.ideaRepo', []).service('IdeaRepo', function ($q) {
                 break;
             }
         }
-        defer.resolve(idea);
+        payloadResponse(idea);
         return defer.promise;
     };
 
-    var updateNote = function (idea) {
-        ideaRepo.update(idea);
-    };
-
     ideaRepo.getAll = function () {
-        var defer = $q.defer();
-        defer.resolve(angular.copy(ideaRepo.list));
+        defer = $q.defer();
+        payloadResponse(angular.copy(ideaRepo.list));
         return defer.promise;
     };
 
@@ -184,23 +215,44 @@ angular.module('mock.ideaRepo', []).service('IdeaRepo', function ($q) {
         return {};
     };
 
-    var safePage = function(resolve) {
-        // @todo
-    };
-
     ideaRepo.page = function () {
         return $q(function (resolve) {
             safePage(resolve);
         });
     };
 
-    var table = {
-        // @todo
+    ideaRepo.reject = function (idea) {
+        defer = $q.defer();
+        var updatedIdea = {};
+        for (var i in ideaRepo.list) {
+            if (ideaRepo.list[i].id === idea.id) {
+                ideaRepo.list[i].state = "REJECTED";
+                ideaRepo.list[i].feedback = idea.feedback;
+                updatedIdea = angular.copy(ideaRepo.list[i]);
+                break;
+            }
+        }
+        payloadResponse(updatedIdea);
+        return defer.promise;
+    };
+
+    ideaRepo.sendToHelpdesk = function (idea) {
+        defer = $q.defer();
+        var updatedIdea = {};
+        for (var i in ideaRepo.list) {
+            if (ideaRepo.list[i].id === idea.id) {
+                ideaRepo.list[i].state = "ELEVATED";
+                updatedIdea = angular.copy(ideaRepo.list[i]);
+                break;
+            }
+        }
+        payloadResponse(updatedIdea);
+        return defer.promise;
     };
 
     ideaRepo.ready = function () {
-        var defer = $q.defer();
-        defer.resolve();
+        defer = $q.defer();
+        payloadResponse();
         return defer.promise;
     };
 

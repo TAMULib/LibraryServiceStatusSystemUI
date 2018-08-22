@@ -15,6 +15,9 @@ describe('controller: NavigationController', function () {
                 $location: $location,
                 $window: $window
             });
+
+            // ensure that the isReady() is called.
+            scope.$digest();
         });
     });
 

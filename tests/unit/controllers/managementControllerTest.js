@@ -11,6 +11,9 @@ describe('controller: ManagementController', function () {
             controller = $controller('ManagementController', {
                 $scope: scope
             });
+
+            // ensure that the isReady() is called.
+            scope.$digest();
         });
     });
 

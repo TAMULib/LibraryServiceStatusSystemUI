@@ -18,6 +18,9 @@ describe('controller: NoteController', function () {
                 NoteRepo: _NoteRepo_,
                 ServiceRepo: _ServiceRepo_
             });
+
+            // ensure that the isReady() is called.
+            scope.$digest();
         });
     });
 

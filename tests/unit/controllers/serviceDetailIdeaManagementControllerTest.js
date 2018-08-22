@@ -26,6 +26,9 @@ describe('controller: ServiceDetailIdeaManagementController', function () {
                 ProjectService: _ProjectService_,
                 ServiceRepo: _ServiceRepo_
             });
+
+            // ensure that the isReady() is called.
+            //scope.$digest();
         });
     });
 

@@ -118,20 +118,56 @@ var mockNotes = [
 ];
 
 angular.module('mock.noteRepo', []).service('NoteRepo', function ($q) {
+
     var noteRepo = this;
+    var defer;
+
+    var payloadResponse = function (payload) {
+        return defer.resolve({
+            body: angular.toJson({
+                meta: {
+                    status: 'SUCCESS'
+                },
+                payload: payload
+            })
+        });
+    };
+
+    var messageResponse = function (message) {
+        return defer.resolve({
+            body: angular.toJson({
+                meta: {
+                    status: 'SUCCESS',
+                    message: message
+                }
+            })
+        });
+    };
+
+    var updateNote = function (note) {
+        noteRepo.update(note);
+    };
+
+    var safePage = function(resolve) {
+        // @todo
+    };
+
+    var table = {
+        // @todo
+    };
 
     noteRepo.list = mockNotes;
 
     noteRepo.create = function (note) {
-        var defer = $q.defer();
+        defer = $q.defer();
         note.id = noteRepo.list.length + 1;
         noteRepo.list.push(angular.copy(note));
-        defer.resolve(note);
+        payloadResponse(note);
         return defer.promise;
     };
 
     noteRepo.update = function (note) {
-        var defer = $q.defer();
+        defer = $q.defer();
         for (var i in noteRepo.list) {
             if (noteRepo.list[i].id === note.id) {
                 angular.extend(noteRepo.list[i], note);
@@ -139,17 +175,13 @@ angular.module('mock.noteRepo', []).service('NoteRepo', function ($q) {
                 break;
             }
         }
-        defer.resolve(note);
+        payloadResponse(note);
         return defer.promise;
     };
 
-    var updateNote = function (note) {
-        noteRepo.update(note);
-    };
-
     noteRepo.getAll = function () {
-        var defer = $q.defer();
-        defer.resolve(angular.copy(noteRepo.list));
+        defer = $q.defer();
+        payloadResponse(angular.copy(noteRepo.list));
         return defer.promise;
     };
 
@@ -194,23 +226,15 @@ angular.module('mock.noteRepo', []).service('NoteRepo', function ($q) {
         return {};
     };
 
-    var safePage = function(resolve) {
-        // @todo
-    };
-
     noteRepo.page = function () {
         return $q(function (resolve) {
             safePage(resolve);
         });
     };
 
-    var table = {
-        // @todo
-    };
-
     noteRepo.ready = function () {
-        var defer = $q.defer();
-        defer.resolve();
+        defer = $q.defer();
+        payloadResponse();
         return defer.promise;
     };
 

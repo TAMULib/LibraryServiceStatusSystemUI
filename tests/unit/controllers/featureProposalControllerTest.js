@@ -1,6 +1,6 @@
 describe('controller: FeatureProposalController', function () {
 
-    var controller, scope, compile, fps, FeatureProposalRepo, ServiceRepo, q, Idea, FeatureProposal;
+    var controller, scope, compile, q, fps, FeatureProposalRepo, ServiceRepo, Idea, FeatureProposal;
 
     beforeEach(function () {
         module('core');
@@ -33,6 +33,9 @@ describe('controller: FeatureProposalController', function () {
                 ServiceRepo: _ServiceRepo_
             });
             compile = $compile;
+
+            // ensure that the isReady() is called.
+            scope.$digest();
         });
     });
 
@@ -43,6 +46,10 @@ describe('controller: FeatureProposalController', function () {
     });
 
     describe('Are the scope methods defined', function () {
+        it('createFeatureProposal should be defined', function () {
+            expect(scope.createFeatureProposal).toBeDefined();
+            expect(typeof scope.createFeatureProposal).toEqual("function");
+        });
         it('editFeatureProposal should be defined', function () {
             expect(scope.editFeatureProposal).toBeDefined();
             expect(typeof scope.editFeatureProposal).toEqual("function");
@@ -90,6 +97,16 @@ describe('controller: FeatureProposalController', function () {
     });
 
     describe('Are the scope methods working as expected', function () {
+        it('createFeatureProposal should create a feature proposal', function () {
+            scope.fpData = new FeatureProposal();
+            scope.fpData.title = "New Feature Proposal";
+            scope.creating = null;
+
+            scope.createFeatureProposal();
+            scope.$digest();
+
+            expect(scope.creating).toBe(false);
+        });
         it('editFeatureProposal should open a modal', function () {
             scope.fpData = null;
             scope.openModal = function(name) { };
@@ -97,6 +114,7 @@ describe('controller: FeatureProposalController', function () {
             spyOn(scope, 'openModal');
 
             scope.editFeatureProposal(mockFeatureProposal1);
+
             expect(scope.fpData).toEqual(mockFeatureProposal1);
             expect(scope.openModal).toHaveBeenCalled();
         });
@@ -117,6 +135,7 @@ describe('controller: FeatureProposalController', function () {
             var length = scope.fpData.ideas.length;
 
             scope.removeIdea(idea1);
+
             expect(scope.fpData.ideas.length).toEqual(length - 1);
             expect(scope.removedIdeas.length).toEqual(1);
         });
@@ -130,7 +149,7 @@ describe('controller: FeatureProposalController', function () {
             scope.fpData.mock(mockFeatureProposal1);
             scope.fpData.ideas = [idea1, idea2];
 
-            deferred = q.defer();
+            var deferred = q.defer();
             spyOn(scope.fpRepo, 'update').and.returnValue(deferred.promise);
             scope.updateFeatureProposal();
             deferred.resolve();
@@ -138,30 +157,28 @@ describe('controller: FeatureProposalController', function () {
             expect(scope.fpRepo.update).toHaveBeenCalled();
         });
         it('confirmReject should open a modal', function () {
-            scope.$digest();
-
-            scope.fpData = {
-                'refresh': function() {},
-                'clearValidationResults': function() {}
-            };
-
+            var fp = new FeatureProposal();
+            fp.mock(mockFeatureProposal1);
+            scope.fpData = fp;
             scope.fpToReject = null;
 
             spyOn(scope, 'openModal');
 
-            scope.confirmReject(mockFeatureProposal1);
-            expect(scope.fpToReject).toEqual(mockFeatureProposal1);
+            scope.confirmReject(fp);
+
+            expect(scope.fpToReject).toEqual(fp);
             expect(scope.openModal).toHaveBeenCalled();
         });
         it('rejectFeatureProposal should set the state to rejected', function () {
-            var id = 123456789;
+            var id = mockFeatureProposal1.id;
             var fp = FeatureProposalRepo.fetchById(id);
-            fp.state = "REJECTED";
             fp.feedback = "Not wanted";
             scope.fpToReject = fp;
+
             scope.rejectFeatureProposal();
 
             var updatedFeatureProposal = FeatureProposalRepo.fetchById(id);
+            fp.state = "REJECTED";
             expect(updatedFeatureProposal).toEqual(fp);
             expect(updatedFeatureProposal.state).toEqual(fp.state);
             expect(updatedFeatureProposal.feedback).toEqual(fp.feedback);
@@ -174,18 +191,23 @@ describe('controller: FeatureProposalController', function () {
             spyOn(scope, 'openModal');
 
             scope.select(mockFeatureProposal1, modal);
+
             expect(scope.fpData).toEqual(mockFeatureProposal1);
             expect(scope.openModal).toHaveBeenCalledWith(modal);
         });
         it('submitFeatureProposal should submit a feature proposal', function () {
             scope.submitting = null;
+
             scope.submitFeatureProposal(mockFeatureProposal1);
-            // todo: needs work, might need to test toBe(false) to ensure that a SUCCESS was returned.
-            expect(scope.submitting).toBeTruthy();
+            scope.$digest();
+
+            expect(scope.submitting).toBe(false);
         });
         it('confirmDeleteFp should assign feature proposal for deletion', function () {
             scope.fpToDelete = null;
+
             scope.confirmDeleteFp(mockFeatureProposal1);
+
             expect(scope.fpToDelete).toBe(mockFeatureProposal1);
         });
         it('deleteFp should delete a feature proposal', function () {
@@ -193,10 +215,13 @@ describe('controller: FeatureProposalController', function () {
             scope.fpToDelete = new FeatureProposal();
             scope.fpToDelete.mock(mockFeatureProposal1);
 
+            var deferred = q.defer();
+            spyOn(scope.fpToDelete, 'delete').and.returnValue(deferred.promise);
             scope.deleteFp();
-            // todo: needs work, might need to test toBe(false) to ensure that a SUCCESS was returned.
+            deferred.resolve();
+
             expect(scope.deleting).toBeTruthy();
-            // todo: expect(scope.fpToDelete).toEqual({});
+            expect(scope.fpToDelete.delete).toHaveBeenCalled();
         });
         it('hasState should return a boolean', function () {
             var fp = mockFeatureProposal1;

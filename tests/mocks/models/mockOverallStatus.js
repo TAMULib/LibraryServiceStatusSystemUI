@@ -7,6 +7,9 @@ var mockOverallStatus = function () {
     this.save = function() {
     };
 
+    this.delete = function() {
+    };
+
     this.dirty = function(boolean) {
         this.isDirty = boolean;
     };

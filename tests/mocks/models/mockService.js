@@ -7,11 +7,17 @@ var mockService = function () {
     this.save = function() {
     };
 
+    this.delete = function() {
+    };
+
     this.dirty = function(boolean) {
         this.isDirty = boolean;
     };
 
     this.refresh = function() {
+    };
+
+    this.clearValidationResults = function() {
     };
 
     return this;

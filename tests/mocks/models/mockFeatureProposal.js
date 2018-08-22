@@ -114,6 +114,18 @@ var mockFeatureProposal3 = {
 
 angular.module('mock.featureProposal', []).service('FeatureProposal', function ($q) {
     return function () {
+        var defer;
+        var payloadResponse = function (payload) {
+            return defer.resolve({
+                body: angular.toJson({
+                    meta: {
+                        status: 'SUCCESS'
+                    },
+                    payload: payload
+                })
+            });
+        };
+
         this.isDirty = false;
 
         this.mock = function(toMock) {
@@ -133,8 +145,8 @@ angular.module('mock.featureProposal', []).service('FeatureProposal', function (
         };
 
         this.delete = function() {
-            var defer = $q.defer();
-            defer.resolve();
+            defer = $q.defer();
+            payloadResponse();
             return defer.promise;
         };
 
@@ -143,6 +155,9 @@ angular.module('mock.featureProposal', []).service('FeatureProposal', function (
         };
 
         this.refresh = function() {
+        };
+
+        this.clearValidationResults = function() {
         };
 
         return this;

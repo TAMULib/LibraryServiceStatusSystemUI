@@ -18,6 +18,9 @@ describe('controller: UserController', function () {
                 UserService: _UserService_,
                 StorageService: _StorageService_
             });
+
+            // ensure that the isReady() is called.
+            scope.$digest();
         });
     });
 

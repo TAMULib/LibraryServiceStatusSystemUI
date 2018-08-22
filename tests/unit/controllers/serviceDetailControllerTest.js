@@ -18,6 +18,9 @@ describe('controller: ServiceDetailController', function () {
                 $timeout: $timeout,
                 ServiceRepo: _ServiceRepo_
             });
+
+            // ensure that the isReady() is called.
+            //scope.$digest();
         });
     });
 
