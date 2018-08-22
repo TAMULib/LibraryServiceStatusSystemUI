@@ -1,4 +1,4 @@
-app.controller('RequestController', function ($controller, $routeParams, $scope, ServiceRepo, StorageService, UserService) {
+app.controller('RequestController', function ($controller, $location, $routeParams, $scope, ServiceRepo, StorageService, UserService) {
 
     angular.extend(this, $controller('AuthenticationController', {
         $scope: $scope
@@ -28,11 +28,24 @@ app.controller('RequestController', function ($controller, $routeParams, $scope,
                 $scope.requestForm.$setPristine();
                 $scope.requestForm.$setUntouched();
             }
-            if (type) {
-                $scope.type = type;
-            }
             if ($routeParams.service) {
                 $scope.service = $routeParams.service;
+            }
+            if (type) {
+                $scope.type = type;
+            } else {
+                if ($routeParams.type) {
+                    var pType = $routeParams.type.toUpperCase();
+                    if (pType === 'FEATURE' || pType === 'ISSUE') {
+                        $scope.type = pType;
+                    } else {
+                        if ($scope.service) {
+                            $location.path('request/' + $scope.service);
+                        } else {
+                            $location.path('request');
+                        }
+                    }
+                }
             }
         };
 
