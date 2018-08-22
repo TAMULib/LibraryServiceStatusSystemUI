@@ -28,21 +28,22 @@ app.controller('RequestController', function ($controller, $location, $routePara
                 $scope.requestForm.$setPristine();
                 $scope.requestForm.$setUntouched();
             }
-            if (type) {
-                $scope.type = type;
-            }
             if ($routeParams.service) {
                 $scope.service = $routeParams.service;
             }
-            if ($routeParams.type) {
-                var type = $routeParams.type.toUpperCase();
-                if (type === 'FEATURE' || type === 'ISSUE') {
-                    $scope.type = type;
-                } else {
-                    if ($scope.service) {
-                        $location.path('request/' + $scope.service);
+            if (type) {
+                $scope.type = type;
+            } else {
+                if ($routeParams.type) {
+                    var pType = $routeParams.type.toUpperCase();
+                    if (pType === 'FEATURE' || pType === 'ISSUE') {
+                        $scope.type = pType;
                     } else {
-                        $location.path('request');
+                        if ($scope.service) {
+                            $location.path('request/' + $scope.service);
+                        } else {
+                            $location.path('request');
+                        }
                     }
                 }
             }
