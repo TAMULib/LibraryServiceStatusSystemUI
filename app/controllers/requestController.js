@@ -1,4 +1,4 @@
-app.controller('RequestController', function ($controller, $routeParams, $scope, ServiceRepo, StorageService, UserService) {
+app.controller('RequestController', function ($controller, $location, $routeParams, $scope, ServiceRepo, StorageService, UserService) {
 
     angular.extend(this, $controller('AuthenticationController', {
         $scope: $scope
@@ -33,6 +33,18 @@ app.controller('RequestController', function ($controller, $routeParams, $scope,
             }
             if ($routeParams.service) {
                 $scope.service = $routeParams.service;
+            }
+            if ($routeParams.type) {
+                var type = $routeParams.type.toUpperCase();
+                if (type === 'FEATURE' || type === 'ISSUE') {
+                    $scope.type = type;
+                } else {
+                    if ($scope.service) {
+                        $location.path('request/' + $scope.service);
+                    } else {
+                        $location.path('request');
+                    }
+                }
             }
         };
 
