@@ -106,7 +106,7 @@ app.model("Service", function Service(Idea, IdeaRepo, IdeaState, FeatureProposal
                         state: [
                             FeatureProposalState.ACTIVE.value
                         ],
-                        isPrivate: getIsPrivateFilter(),
+                        isPrivate: [false],
                         'service.id': [service.id]
                     },
                     custom: function (pinned, active) {
@@ -114,7 +114,7 @@ app.model("Service", function Service(Idea, IdeaRepo, IdeaState, FeatureProposal
                             state: [
                                 FeatureProposalState.ACTIVE.value
                             ],
-                            isPrivate: getIsPrivateFilter(),
+                            isPrivate: [false],
                             'service.id': [service.id]
                         };
                     }
@@ -131,19 +131,6 @@ app.model("Service", function Service(Idea, IdeaRepo, IdeaState, FeatureProposal
                 }
             });
         });
-
-        var hideFromPublic = function () {
-            return sessionStorage.role === "ROLE_USER" || sessionStorage.role === "ROLE_ANONYMOUS";
-        };
-
-        var getIsPrivateFilter = function () {
-            var visibilityFilter = [];
-            if (hideFromPublic()) {
-                visibilityFilter = [false];
-            }
-            return visibilityFilter;
-        };
-
 
         return service;
     };
