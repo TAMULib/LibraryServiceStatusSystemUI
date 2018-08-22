@@ -70,55 +70,72 @@ app.model("Service", function Service(Idea, IdeaRepo, IdeaState, FeatureProposal
 
         service.before(function () {
             TableFactory.buildSubResourcePaging({
-                name: 'featureProposals',
+                name: 'managedFeatureProposals',
                 parent: service,
                 repo: FeatureProposalRepo,
                 filters: {
                     initial: {
-                        state: getStateFilter(),
                         isPrivate: getIsPrivateFilter(),
                         'service.id': [service.id]
                     },
                     custom: function (pinned, active) {
                         return {
-                            state: getStateFilter(),
                             isPrivate: getIsPrivateFilter(),
                             'service.id': [service.id]
                         };
                     }
                 },
                 sessionStorageKeys: {
-                    pageNumber: 'service-feature-proposals-page',
-                    pageSize: 'service-feature-proposals-size'
+                    pageNumber: 'service-managed-feature-proposals-page',
+                    pageSize: 'service-managed-feature-proposals-size'
                 },
                 counts: [5, 10, 25, 50, 100],
                 pager: {
-                    getPageSettingsName: 'getFeatureProposalsPageSettings',
-                    getTableParamsName: 'getFeatureProposalsTableParams',
-                    getName: 'getFeatureProposals'
+                    getPageSettingsName: 'getManagedFeatureProposalsPageSettings',
+                    getTableParamsName: 'getManagedFeatureProposalsTableParams',
+                    getName: 'getManagedFeatureProposals'
                 }
             });
         });
 
-        var hideInProgress = function () {
-            return sessionStorage.role === "ROLE_STAFF" || sessionStorage.role === "ROLE_USER" || sessionStorage.role === "ROLE_ANONYMOUS";
-        };
+        service.before(function () {
+            TableFactory.buildSubResourcePaging({
+                name: 'listFeatureProposals',
+                parent: service,
+                repo: FeatureProposalRepo,
+                filters: {
+                    initial: {
+                        state: [
+                            FeatureProposalState.ACTIVE.value
+                        ],
+                        isPrivate: getIsPrivateFilter(),
+                        'service.id': [service.id]
+                    },
+                    custom: function (pinned, active) {
+                        return {
+                            state: [
+                                FeatureProposalState.ACTIVE.value
+                            ],
+                            isPrivate: getIsPrivateFilter(),
+                            'service.id': [service.id]
+                        };
+                    }
+                },
+                sessionStorageKeys: {
+                    pageNumber: 'service-list-feature-proposals-page',
+                    pageSize: 'service-list-feature-proposals-size'
+                },
+                counts: [5, 10, 25, 50, 100],
+                pager: {
+                    getPageSettingsName: 'getListFeatureProposalsPageSettings',
+                    getTableParamsName: 'getListFeatureProposalsTableParams',
+                    getName: 'getListFeatureProposals'
+                }
+            });
+        });
 
         var hideFromPublic = function () {
             return sessionStorage.role === "ROLE_USER" || sessionStorage.role === "ROLE_ANONYMOUS";
-        };
-
-        var getStateFilter = function () {
-            var stateFilter = [];
-            if (hideInProgress()) {
-                stateFilter = [
-                    FeatureProposalState.ACTIVE.value,
-                    FeatureProposalState.SUBMITTED.value,
-                    FeatureProposalState.ON_HOLD.value,
-                    FeatureProposalState.REJECTED.value
-                ];
-            }
-            return stateFilter;
         };
 
         var getIsPrivateFilter = function () {

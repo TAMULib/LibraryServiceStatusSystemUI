@@ -20,7 +20,7 @@ app.controller('ServiceDetailFeatureProposalListController', function ($controll
     );
 
     ServiceRepo.ready().then(function () {
-        $scope.featureProposalsTableParams = $scope.service.getFeatureProposalsTableParams();
+        $scope.featureProposalsTableParams = $scope.service.getListFeatureProposalsTableParams();
 
         $scope.hasFeatureProposals = function () {
             return $scope.featureProposalsTableParams.data.length > 0;
