@@ -112,34 +112,34 @@ angular.module('mock.ideaRepo', []).service('IdeaRepo', function ($q) {
 
     ideaRepo.list = mockIdeas;
 
-    ideaRepo.create = function (note) {
+    ideaRepo.create = function (idea) {
         var defer = $q.defer();
-        note.id = ideaRepo.list.length + 1;
-        ideaRepo.list.push(note);
-        defer.resolve(note);
+        idea.id = ideaRepo.list.length + 1;
+        ideaRepo.list.push(angular.copy(idea));
+        defer.resolve(idea);
         return defer.promise;
     };
 
-    ideaRepo.update = function (note) {
+    ideaRepo.update = function (idea) {
         var defer = $q.defer();
         for (var i in ideaRepo.list) {
-            if (ideaRepo.list[i].id === note.id) {
-                angular.extend(ideaRepo.list[i], note);
-                note = ideaRepo.list[i];
+            if (ideaRepo.list[i].id === idea.id) {
+                angular.extend(ideaRepo.list[i], idea);
+                idea = ideaRepo.list[i];
                 break;
             }
         }
-        defer.resolve(note);
+        defer.resolve(idea);
         return defer.promise;
     };
 
-    var updateNote = function (note) {
-        ideaRepo.update(note);
+    var updateNote = function (idea) {
+        ideaRepo.update(idea);
     };
 
     ideaRepo.getAll = function () {
         var defer = $q.defer();
-        defer.resolve(ideaRepo.list);
+        defer.resolve(angular.copy(ideaRepo.list));
         return defer.promise;
     };
 

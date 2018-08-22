@@ -1,6 +1,6 @@
 describe('controller: FeatureProposalController', function () {
 
-    var controller, scope, compile, fps, FeatureProposalRepo;
+    var controller, scope, compile, fps, FeatureProposalRepo, ServiceRepo, q, Idea, FeatureProposal;
 
     beforeEach(function () {
         module('core');
@@ -12,11 +12,15 @@ describe('controller: FeatureProposalController', function () {
         module('mock.featureProposalRepo');
         module('mock.serviceRepo');
 
-        inject(function ($controller, $rootScope, $compile, _Idea_, _IdeaRepo_, IdeaState, _FeatureProposal_, _FeatureProposalRepo_, FeatureProposalState, _ProjectService_, _ServiceRepo_) {
+        inject(function ($controller, $rootScope, $compile, $q, _Idea_, _IdeaRepo_, IdeaState, _FeatureProposal_, _FeatureProposalRepo_, FeatureProposalState, _ProjectService_, _ServiceRepo_) {
             installPromiseMatchers();
             scope = $rootScope.$new();
             fps = FeatureProposalState;
             FeatureProposalRepo = _FeatureProposalRepo_;
+            ServiceRepo = _ServiceRepo_;
+            q = $q;
+            Idea = _Idea_,
+            FeatureProposal = _FeatureProposal_;
             controller = $controller('FeatureProposalController', {
                 $scope: scope,
                 Idea: _Idea_,
@@ -97,8 +101,14 @@ describe('controller: FeatureProposalController', function () {
             expect(scope.openModal).toHaveBeenCalled();
         });
         it('removeIdea should remove an idea', function () {
-            scope.fpData = mockFeatureProposal1;
-            scope.fpData.ideas = [mockIdea1, mockIdea2];
+            var idea1 = Idea();
+            var idea2 = Idea();
+            idea1.mock(mockIdea1);
+            idea2.mock(mockIdea2);
+
+            scope.fpData = new FeatureProposal();
+            scope.fpData.mock(mockFeatureProposal1);
+            scope.fpData.ideas = [idea1, idea2];
             scope.forms = {
                 updateFp: {
                     $setDirty: function() {}
@@ -106,23 +116,28 @@ describe('controller: FeatureProposalController', function () {
             };
             var length = scope.fpData.ideas.length;
 
-            scope.removeIdea(mockIdea1);
+            scope.removeIdea(idea1);
             expect(scope.fpData.ideas.length).toEqual(length - 1);
             expect(scope.removedIdeas.length).toEqual(1);
         });
-        // test not working.
-        /*it('updateFeatureProposal should update a feature proposal', function () {
-            scope.fpData = mockFeatureProposal1;
-            scope.fpData.ideas = [mockIdea1, mockIdea2];
+        it('updateFeatureProposal should update a feature proposal', function () {
+            var idea1 = new Idea();
+            var idea2 = new Idea();
+            idea1.mock(mockIdea1);
+            idea2.mock(mockIdea2);
 
-            spyOn(scope.fpRepo, 'update');
+            scope.fpData = new FeatureProposal();
+            scope.fpData.mock(mockFeatureProposal1);
+            scope.fpData.ideas = [idea1, idea2];
 
+            deferred = q.defer();
+            spyOn(scope.fpRepo, 'update').and.returnValue(deferred.promise);
             scope.updateFeatureProposal();
+            deferred.resolve();
+
             expect(scope.fpRepo.update).toHaveBeenCalled();
-        });*/
-        // test not working.
+        });
         it('confirmReject should open a modal', function () {
-            // digest must be called to trigger the promise to then trigger the repo's ready() promise to be returned.
             scope.$digest();
 
             scope.fpData = {
@@ -137,6 +152,51 @@ describe('controller: FeatureProposalController', function () {
             scope.confirmReject(mockFeatureProposal1);
             expect(scope.fpToReject).toEqual(mockFeatureProposal1);
             expect(scope.openModal).toHaveBeenCalled();
+        });
+        it('rejectFeatureProposal should set the state to rejected', function () {
+            var id = 123456789;
+            var fp = FeatureProposalRepo.fetchById(id);
+            fp.state = "REJECTED";
+            fp.feedback = "Not wanted";
+            scope.fpToReject = fp;
+            scope.rejectFeatureProposal();
+
+            var updatedFeatureProposal = FeatureProposalRepo.fetchById(id);
+            expect(updatedFeatureProposal).toEqual(fp);
+            expect(updatedFeatureProposal.state).toEqual(fp.state);
+            expect(updatedFeatureProposal.feedback).toEqual(fp.feedback);
+        });
+        it('select should select a feature proposal', function () {
+            var modal = angular.element('<div class="modal-body"></div>');
+            modal = compile(modal)(scope);
+            scope.fpData = null
+
+            spyOn(scope, 'openModal');
+
+            scope.select(mockFeatureProposal1, modal);
+            expect(scope.fpData).toEqual(mockFeatureProposal1);
+            expect(scope.openModal).toHaveBeenCalledWith(modal);
+        });
+        it('submitFeatureProposal should submit a feature proposal', function () {
+            scope.submitting = null;
+            scope.submitFeatureProposal(mockFeatureProposal1);
+            // todo: needs work, might need to test toBe(false) to ensure that a SUCCESS was returned.
+            expect(scope.submitting).toBeTruthy();
+        });
+        it('confirmDeleteFp should assign feature proposal for deletion', function () {
+            scope.fpToDelete = null;
+            scope.confirmDeleteFp(mockFeatureProposal1);
+            expect(scope.fpToDelete).toBe(mockFeatureProposal1);
+        });
+        it('deleteFp should delete a feature proposal', function () {
+            scope.deleting = null;
+            scope.fpToDelete = new FeatureProposal();
+            scope.fpToDelete.mock(mockFeatureProposal1);
+
+            scope.deleteFp();
+            // todo: needs work, might need to test toBe(false) to ensure that a SUCCESS was returned.
+            expect(scope.deleting).toBeTruthy();
+            // todo: expect(scope.fpToDelete).toEqual({});
         });
         it('hasState should return a boolean', function () {
             var fp = mockFeatureProposal1;
@@ -154,19 +214,6 @@ describe('controller: FeatureProposalController', function () {
                 state = v.value;
                 expect(typeof scope.getStateSummary(state)).toEqual("string");
             });
-        });
-        it('rejectFeatureProposal should set the state to rejected', function () {
-            var id = 123456789;
-            var fp = FeatureProposalRepo.fetchById(id);
-            fp.state = "REJECTED";
-            fp.feedback = "Not wanted";
-            scope.fpToReject = fp;
-            scope.rejectFeatureProposal();
-
-            var updatedFeatureProposal = FeatureProposalRepo.fetchById(id);
-            expect(updatedFeatureProposal).toEqual(fp);
-            expect(updatedFeatureProposal.state).toEqual(fp.state);
-            expect(updatedFeatureProposal.feedback).toEqual(fp.feedback);
         });
     });
 

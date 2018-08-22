@@ -33,8 +33,7 @@ var mockFeatureProposal1 = {
       "type": "service"
     },
     "state": "IN_PROGRESS",
-    "title": "Jack's FeatureProposal",
-    "dirty": function(boolean) { this.isDirty = boolean; }
+    "title": "Jack's FeatureProposal"
 };
 
 var mockFeatureProposal2 = {
@@ -72,8 +71,7 @@ var mockFeatureProposal2 = {
       "type": "service"
     },
     "state": "SUBMITTED",
-    "title": "Jill's Note",
-    "dirty": function(boolean) { this.isDirty = boolean; }
+    "title": "Jill's Note"
 };
 
 var mockFeatureProposal3 = {
@@ -111,12 +109,42 @@ var mockFeatureProposal3 = {
       "type": "service"
     },
     "state": "REJECTED",
-    "title": "Jacob's FeatureProposal",
-    "dirty": function(boolean) { this.isDirty = boolean; }
+    "title": "Jacob's FeatureProposal"
 };
 
 angular.module('mock.featureProposal', []).service('FeatureProposal', function ($q) {
     return function () {
+        this.isDirty = false;
+
+        this.mock = function(toMock) {
+            this.author = toMock.author;
+            this.description = toMock.description;
+            this.feedback = toMock.feedback;
+            this.id = toMock.id;
+            this.ideas = toMock.ideas;
+            this.lastModified = toMock.lastModified;
+            this.removedIdeas = toMock.removedIdeas;
+            this.service = toMock.service;
+            this.state = toMock.state;
+            this.title = toMock.title;
+        };
+
+        this.save = function() {
+        };
+
+        this.delete = function() {
+            var defer = $q.defer();
+            defer.resolve();
+            return defer.promise;
+        };
+
+        this.dirty = function(boolean) {
+            this.isDirty = boolean;
+        };
+
+        this.refresh = function() {
+        };
+
         return this;
     };
 });

@@ -108,6 +108,29 @@ var mockIdea3 = {
 
 angular.module('mock.idea', []).service('Idea', function ($q) {
     return function () {
+        this.isDirty = false;
+
+        this.mock = function(toMock) {
+            this.author = toMock.author;
+            this.description = toMock.description;
+            this.elevated = toMock.elevated;
+            this.feedback = toMock.feedback;
+            this.id = toMock.id;
+            this.lastModified = toMock.lastModified;
+            this.service = toMock.service;
+            this.title = toMock.title;
+        };
+
+        this.save = function() {
+        };
+
+        this.dirty = function(boolean) {
+            this.isDirty = boolean;
+        };
+
+        this.refresh = function() {
+        };
+
         return this;
     };
 });

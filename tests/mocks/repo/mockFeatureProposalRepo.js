@@ -112,11 +112,11 @@ angular.module('mock.featureProposalRepo', []).service('FeatureProposalRepo', fu
 
     featureProposalRepo.list = mockFeatureProposals;
 
-    featureProposalRepo.create = function (note) {
+    featureProposalRepo.create = function (fp) {
         var defer = $q.defer();
-        note.id = featureProposalRepo.list.length + 1;
-        featureProposalRepo.list.push(note);
-        defer.resolve(note);
+        fp.id = featureProposalRepo.list.length + 1;
+        featureProposalRepo.list.push(angular.copy(fp));
+        defer.resolve(fp);
         return defer.promise;
     };
 
@@ -140,7 +140,7 @@ angular.module('mock.featureProposalRepo', []).service('FeatureProposalRepo', fu
 
     featureProposalRepo.getAll = function () {
         var defer = $q.defer();
-        defer.resolve(featureProposalRepo.list);
+        defer.resolve(angular.copy(featureProposalRepo.list));
         return defer.promise;
     };
 

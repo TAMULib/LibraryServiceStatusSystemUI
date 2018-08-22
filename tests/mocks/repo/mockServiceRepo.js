@@ -78,7 +78,7 @@ angular.module('mock.serviceRepo', []).service('ServiceRepo', function ($q) {
     serviceRepo.create = function (service) {
         var defer = $q.defer();
         service.id = serviceRepo.list.length + 1;
-        serviceRepo.list.push(service);
+        serviceRepo.list.push(angular.copy(service));
         defer.resolve(service);
         return defer.promise;
     };
@@ -98,7 +98,7 @@ angular.module('mock.serviceRepo', []).service('ServiceRepo', function ($q) {
 
     serviceRepo.getAll = function () {
         var defer = $q.defer();
-        defer.resolve(serviceRepo.list);
+        defer.resolve(angular.copy(serviceRepo.list));
         return defer.promise;
     };
 

@@ -8,7 +8,7 @@ angular.module('mock.projectService', []).service('ProjectService', function ($q
     this.keys = {
         'session': {},
         'local': {}
-    }
+    };
 
     this.set = function (key, value, type) {
         type = (type !== undefined) ? type : appConfig.storageType;
@@ -31,12 +31,10 @@ angular.module('mock.projectService', []).service('ProjectService', function ($q
         }
         var data = {};
         this.keys[type][key].promise.then(null, null, function (promisedData) {
-            console.log(promisedData);
             angular.extend(data, promisedData);
         })
         return data;
-    }
-
+    };
 
     this.delete = function (key, type) {
         type = (type !== undefined) ? type : appConfig.storageType;
@@ -45,7 +43,25 @@ angular.module('mock.projectService', []).service('ProjectService', function ($q
         }
         delete this.keys[type][key];
         delete this.storage[type][key];
+    };
+
+    this.getAll = function(force) {
+        var defer = $q.defer();
+        defer.resolve([]);
+        return defer.promise;
     }
+
+    this.getById = function(id) {
+        var defer = $q.defer();
+        defer.resolve({});
+        return defer.promise;
+    }
+
+    this.submitFeatureProposal = function (fp) {
+        var defer = $q.defer();
+        defer.resolve();
+        return defer.promise;
+    };
 
     for (var type in {
             'session': '0',

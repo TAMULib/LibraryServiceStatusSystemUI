@@ -125,7 +125,7 @@ angular.module('mock.noteRepo', []).service('NoteRepo', function ($q) {
     noteRepo.create = function (note) {
         var defer = $q.defer();
         note.id = noteRepo.list.length + 1;
-        noteRepo.list.push(note);
+        noteRepo.list.push(angular.copy(note));
         defer.resolve(note);
         return defer.promise;
     };
@@ -149,7 +149,7 @@ angular.module('mock.noteRepo', []).service('NoteRepo', function ($q) {
 
     noteRepo.getAll = function () {
         var defer = $q.defer();
-        defer.resolve(noteRepo.list);
+        defer.resolve(angular.copy(noteRepo.list));
         return defer.promise;
     };
 

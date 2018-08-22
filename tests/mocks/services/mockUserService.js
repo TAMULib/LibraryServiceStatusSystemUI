@@ -37,7 +37,6 @@ angular.module('mock.userService', []).service('UserService', function ($q) {
         }
         var data = {};
         this.keys[type][key].promise.then(null, null, function (promisedData) {
-            console.log(promisedData);
             angular.extend(data, promisedData);
         });
         return data;

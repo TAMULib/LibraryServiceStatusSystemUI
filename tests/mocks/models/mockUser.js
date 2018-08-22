@@ -30,9 +30,31 @@ var mockUser3 = {
 
 angular.module('mock.user', []).service('User', function ($q) {
     return function () {
-        this.clearValidationResults = function () {
+        this.isDirty = false;
 
+        this.mock = function(toMock) {
+            this.lastName = toMock.lastName;
+            this.firstName = toMock.firstName;
+            this.uin = toMock.uin;
+            this.exp = toMock.exp;
+            this.email = toMock.email;
+            this.role = toMock.role;
+            this.netId = toMock.netId;
         };
+
+        this.save = function() {
+        };
+
+        this.dirty = function(boolean) {
+            this.isDirty = boolean;
+        };
+
+        this.refresh = function() {
+        };
+
+        this.clearValidationResults = function () {
+        };
+
         return this;
     };
 });
