@@ -12,6 +12,7 @@ describe('controller: NoteController', function () {
         inject(function ($controller, $rootScope, _Note_, _NoteRepo_, _ServiceRepo_) {
             installPromiseMatchers();
             scope = $rootScope.$new();
+
             controller = $controller('NoteController', {
                 $scope: scope,
                 Note: _Note_,

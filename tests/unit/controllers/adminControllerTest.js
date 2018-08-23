@@ -10,6 +10,7 @@ describe('controller: AdminController', function () {
         inject(function ($controller, $rootScope, _User_, _UserService_) {
             installPromiseMatchers();
             scope = $rootScope.$new();
+
             controller = $controller('AdminController', {
                 $scope: scope,
                 User: _User_,

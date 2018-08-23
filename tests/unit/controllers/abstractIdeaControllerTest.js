@@ -1,6 +1,6 @@
 describe('controller: AbstractIdeaController', function () {
 
-    var controller, scope, compile, q, FeatureProposal, Idea;
+    var controller, compile, q, scope, FeatureProposal, Idea;
 
     beforeEach(function() {
         module('core');
@@ -11,13 +11,12 @@ describe('controller: AbstractIdeaController', function () {
         module('mock.ideaRepo');
         module('mock.serviceRepo');
 
-        inject(function ($controller, $rootScope, $compile, $q, _FeatureProposal_, _FeatureProposalRepo_, _Idea_, _IdeaRepo_, _ServiceRepo_) {
+        inject(function ($controller, $compile, $q, $rootScope, _FeatureProposal_, _FeatureProposalRepo_, _Idea_, _IdeaRepo_, _ServiceRepo_) {
             installPromiseMatchers();
+            compile = $compile;
             scope = $rootScope.$new();
             q = $q;
-            ServiceRepo = _ServiceRepo_;
-            FeatureProposal = _FeatureProposal_;
-            Idea = _Idea_;
+
             controller = $controller('AbstractIdeaController', {
                 $scope: scope,
                 FeatureProposal: _FeatureProposal_,
@@ -25,7 +24,10 @@ describe('controller: AbstractIdeaController', function () {
                 IdeaRepo: _IdeaRepo_,
                 ServiceRepo: _ServiceRepo_
             });
-            compile = $compile;
+
+            FeatureProposal = _FeatureProposal_;
+            Idea = _Idea_;
+            ServiceRepo = _ServiceRepo_;
 
             // ensure that the isReady() is called.
             scope.$digest();

@@ -1,38 +1,40 @@
 describe('controller: FeatureProposalController', function () {
 
-    var controller, scope, compile, q, fps, FeatureProposalRepo, ServiceRepo, Idea, FeatureProposal;
+    var controller, compile, q, scope, FeatureProposal, FeatureProposalRepo, fps, ServiceRepo, Idea;
 
     beforeEach(function () {
         module('core');
         module('app');
+        module('mock.featureProposal');
+        module('mock.featureProposalRepo');
         module('mock.idea');
         module('mock.ideaRepo');
         module('mock.projectService');
-        module('mock.featureProposal');
-        module('mock.featureProposalRepo');
         module('mock.serviceRepo');
 
-        inject(function ($controller, $rootScope, $compile, $q, _Idea_, _IdeaRepo_, IdeaState, _FeatureProposal_, _FeatureProposalRepo_, FeatureProposalState, _ProjectService_, _ServiceRepo_) {
+        inject(function ($controller, $compile, $q, $rootScope, _FeatureProposal_, _FeatureProposalRepo_, FeatureProposalState, _Idea_, _IdeaRepo_, IdeaState, _ProjectService_, _ServiceRepo_) {
             installPromiseMatchers();
+            compile = $compile;
             scope = $rootScope.$new();
-            fps = FeatureProposalState;
-            FeatureProposalRepo = _FeatureProposalRepo_;
-            ServiceRepo = _ServiceRepo_;
             q = $q;
-            Idea = _Idea_,
-            FeatureProposal = _FeatureProposal_;
+
             controller = $controller('FeatureProposalController', {
                 $scope: scope,
-                Idea: _Idea_,
-                IdeaRepo: _IdeaRepo_,
-                IdeaState: IdeaState,
                 FeatureProposal: _FeatureProposal_,
                 FeatureProposalRepo: _FeatureProposalRepo_,
                 FeatureProposalState: FeatureProposalState,
+                Idea: _Idea_,
+                IdeaRepo: _IdeaRepo_,
+                IdeaState: IdeaState,
                 ProjectService: _ProjectService_,
                 ServiceRepo: _ServiceRepo_
             });
-            compile = $compile;
+
+            FeatureProposal = _FeatureProposal_;
+            FeatureProposalRepo = _FeatureProposalRepo_;
+            fps = FeatureProposalState;
+            Idea = _Idea_,
+            ServiceRepo = _ServiceRepo_;
 
             // ensure that the isReady() is called.
             scope.$digest();

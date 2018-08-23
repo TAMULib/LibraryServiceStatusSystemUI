@@ -1,6 +1,6 @@
 describe('controller: NoteDetailController', function () {
 
-    var controller, scope, routeParams, NoteRepo;
+    var controller, routeParams, scope, NoteRepo;
 
     beforeEach(function() {
         module('core');
@@ -11,16 +11,19 @@ describe('controller: NoteDetailController', function () {
         inject(function ($controller, $rootScope, _Note_, _NoteRepo_) {
             installPromiseMatchers();
             scope = $rootScope.$new();
+
             routeParams = {
                 noteId: 123456789
             };
-            NoteRepo = _NoteRepo_;
+
             controller = $controller('NoteDetailController', {
                 $scope: scope,
                 $routeParams: routeParams,
                 Note: _Note_,
                 NoteRepo: _NoteRepo_
             });
+
+            NoteRepo = _NoteRepo_;
 
             // ensure that the isReady() is called.
             scope.$digest();

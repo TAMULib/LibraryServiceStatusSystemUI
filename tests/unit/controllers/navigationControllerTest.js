@@ -6,10 +6,11 @@ describe('controller: NavigationController', function () {
         module('core');
         module('app');
 
-        inject(function ($controller, $rootScope, $location, $window) {
+        inject(function ($controller, $location, $rootScope, $window) {
             installPromiseMatchers();
             scope = $rootScope.$new();
             window = $window;
+
             controller = $controller('NavigationController', {
                 $scope: scope,
                 $location: $location,

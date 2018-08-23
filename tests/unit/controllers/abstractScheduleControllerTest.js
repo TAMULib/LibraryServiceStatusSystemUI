@@ -1,6 +1,6 @@
 describe('controller: AbstractScheduleController', function () {
 
-    var controller, scope, q, Schedule;
+    var controller, q, scope, Schedule;
 
     beforeEach(function() {
         module('core');
@@ -10,11 +10,13 @@ describe('controller: AbstractScheduleController', function () {
         inject(function ($controller, $rootScope, $q, _Schedule_) {
             installPromiseMatchers();
             scope = $rootScope.$new();
-            Schedule = _Schedule_;
             q = $q;
+
             controller = $controller('AbstractScheduleController', {
                 $scope: scope
             });
+
+            Schedule = _Schedule_;
 
             // ensure that the isReady() is called.
             scope.$digest();

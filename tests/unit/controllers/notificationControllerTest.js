@@ -11,6 +11,7 @@ describe('controller: NotificationController', function () {
         inject(function ($controller, $rootScope, _Notification_, _NotificationRepo_) {
             installPromiseMatchers();
             scope = $rootScope.$new();
+
             controller = $controller('NotificationController', {
                 $scope: scope,
                 Notification: _Notification_,

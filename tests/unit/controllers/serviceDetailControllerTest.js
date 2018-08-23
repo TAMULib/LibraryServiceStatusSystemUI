@@ -7,17 +7,19 @@ describe('controller: ServiceDetailController', function () {
         module('app');
         module('mock.serviceRepo');
 
-        inject(function ($controller, $rootScope, $anchorScroll, $timeout, _ServiceRepo_) {
+        inject(function ($anchorScroll, $controller, $rootScope, $timeout, _ServiceRepo_) {
             installPromiseMatchers();
             scope = $rootScope.$new();
-            ServiceRepo = _ServiceRepo_;
+
             controller = $controller('ServiceDetailController', {
-                $scope: scope,
                 $anchorScroll: $anchorScroll,
+                $scope: scope,
                 $routeParams: {},
                 $timeout: $timeout,
                 ServiceRepo: _ServiceRepo_
             });
+
+            ServiceRepo = _ServiceRepo_;
 
             // ensure that the isReady() is called.
             //scope.$digest();

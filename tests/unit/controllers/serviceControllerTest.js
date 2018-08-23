@@ -11,12 +11,14 @@ describe('controller: ServiceController', function () {
         inject(function ($controller, $rootScope, _Service_, _ServiceRepo_) {
             installPromiseMatchers();
             scope = $rootScope.$new();
-            ServiceRepo = _ServiceRepo_;
+
             controller = $controller('ServiceController', {
                 $scope: scope,
                 Service: _Service_,
                 ServiceRepo: _ServiceRepo_
             });
+
+            ServiceRepo = _ServiceRepo_;
 
             // ensure that the isReady() is called.
             //scope.$digest();

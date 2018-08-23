@@ -5,18 +5,19 @@ describe('controller: UserController', function () {
     beforeEach(function() {
         module('core');
         module('app');
+        module('mock.storageService');
         module('mock.user');
         module('mock.userService');
-        module('mock.storageService');
 
-        inject(function ($controller, $rootScope, _User_, _UserService_, _StorageService_) {
+        inject(function ($controller, $rootScope, _StorageService_, _User_, _UserService_) {
             installPromiseMatchers();
             scope = $rootScope.$new();
+
             controller = $controller('UserController', {
                 $scope: scope,
+                StorageService: _StorageService_,
                 User: _User_,
-                UserService: _UserService_,
-                StorageService: _StorageService_
+                UserService: _UserService_
             });
 
             // ensure that the isReady() is called.

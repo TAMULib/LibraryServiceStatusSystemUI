@@ -1,36 +1,38 @@
 describe('controller: IdeaController', function () {
 
-    var controller, scope, q, Idea, IdeaRepo, FeatureProposal, FeatureProposalRepo;
+    var controller, q, scope, FeatureProposal, FeatureProposalRepo, Idea, IdeaRepo;
 
     beforeEach(function() {
         module('core');
         module('app');
+        module('mock.featureProposal');
+        module('mock.featureProposalRepo');
         module('mock.idea');
         module('mock.ideaRepo');
         module('mock.projectService');
-        module('mock.featureProposal');
-        module('mock.featureProposalRepo');
         module('mock.serviceRepo');
 
-        inject(function ($controller, $rootScope, $q, _Idea_, _IdeaRepo_, IdeaState, _FeatureProposal_, _FeatureProposalRepo_, FeatureProposalState, _ProjectService_, _ServiceRepo_) {
+        inject(function ($controller, $q, $rootScope, _FeatureProposal_, _FeatureProposalRepo_, FeatureProposalState, _Idea_, _IdeaRepo_, IdeaState, _ProjectService_, _ServiceRepo_) {
             installPromiseMatchers();
-            scope = $rootScope.$new();
             q = $q;
-            Idea = _Idea_;
-            IdeaRepo = _IdeaRepo_;
-            FeatureProposal = _FeatureProposal_;
-            FeatureProposalRepo = _FeatureProposalRepo_;
+            scope = $rootScope.$new();
+
             controller = $controller('IdeaController', {
                 $scope: scope,
-                Idea: _Idea_,
-                IdeaRepo: _IdeaRepo_,
-                IdeaState: IdeaState,
                 FeatureProposal: _FeatureProposal_,
                 FeatureProposalRepo: _FeatureProposalRepo_,
                 FeatureProposalState: FeatureProposalState,
+                Idea: _Idea_,
+                IdeaRepo: _IdeaRepo_,
+                IdeaState: IdeaState,
                 ProjectService: _ProjectService_,
                 ServiceRepo: _ServiceRepo_
             });
+
+            FeatureProposal = _FeatureProposal_;
+            FeatureProposalRepo = _FeatureProposalRepo_;
+            Idea = _Idea_;
+            IdeaRepo = _IdeaRepo_;
 
             // ensure that the isReady() is called.
             scope.$digest();

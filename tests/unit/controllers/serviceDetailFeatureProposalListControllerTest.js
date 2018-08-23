@@ -5,30 +5,31 @@ describe('controller: ServiceDetailFeatureProposalListController', function () {
     beforeEach(function () {
         module('core');
         module('app');
-        module('mock.idea');
-        module('mock.ideaRepo');
         module('mock.featureProposal');
         module('mock.featureProposalRepo');
+        module('mock.idea');
+        module('mock.ideaRepo');
         module('mock.projectService');
+        module('mock.serviceRepo');
         module('mock.user');
         module('mock.userRepo');
-        module('mock.serviceRepo');
 
-        inject(function ($controller, $rootScope, _Idea_, _IdeaRepo_, IdeaState, _FeatureProposal_, _FeatureProposalRepo_, FeatureProposalState, _ProjectService_, _User_, _UserRepo_, _ServiceRepo_) {
+        inject(function ($controller, $rootScope, _FeatureProposal_, _FeatureProposalRepo_, FeatureProposalState, _Idea_, _IdeaRepo_, IdeaState, _ProjectService_, _ServiceRepo_, _User_, _UserRepo_) {
             installPromiseMatchers();
             scope = $rootScope.$new();
+
             controller = $controller('ServiceDetailFeatureProposalListController', {
                 $scope: scope,
-                Idea: _Idea_,
-                IdeaRepo: _IdeaRepo_,
-                IdeaState: IdeaState,
                 FeatureProposal: _FeatureProposal_,
                 FeatureProposalRepo: _FeatureProposalRepo_,
                 FeatureProposalState: FeatureProposalState,
+                Idea: _Idea_,
+                IdeaRepo: _IdeaRepo_,
+                IdeaState: IdeaState,
                 ProjectService: _ProjectService_,
+                ServiceRepo: _ServiceRepo_,
                 User: _User_,
-                UserRepo: _UserRepo_,
-                ServiceRepo: _ServiceRepo_
+                UserRepo: _UserRepo_
             });
 
             // ensure that the isReady() is called.
