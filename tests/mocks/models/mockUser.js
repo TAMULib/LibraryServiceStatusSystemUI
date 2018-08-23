@@ -67,7 +67,7 @@ angular.module('mock.user', []).service('User', function ($q) {
             this.isDirty = boolean;
         };
 
-        this.refresh = function() {
+        this.reload = function() {
         };
 
         this.clearValidationResults = function () {

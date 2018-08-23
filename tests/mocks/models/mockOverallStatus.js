@@ -14,7 +14,7 @@ var mockOverallStatus = function () {
         this.isDirty = boolean;
     };
 
-    this.refresh = function() {
+    this.reload = function() {
     };
 
     return this;

@@ -1,25 +1,13 @@
-var mockSchedule1 = {
-    "editing": false,
-    "id": 123456789,
-    "previousStatus": null,
-    "status": null
+var mockNgTableParams1 = {
 };
 
-var mockSchedule2 = {
-    "editing": false,
-    "id": 987654321,
-    "previousStatus": null,
-    "status": null
+var mockNgTableParams2 = {
 };
 
-var mockSchedule3 = {
-    "editing": false,
-    "id": 192837465,
-    "previousStatus": null,
-    "status": null
+var mockNgTableParams3 = {
 };
 
-angular.module('mock.schedule', []).service('Schedule', function ($q) {
+angular.module('mock.ngTableParams', []).service('NgTableParams', function ($q) {
     return function () {
         var defer;
         var payloadResponse = function (payload) {
@@ -36,10 +24,6 @@ angular.module('mock.schedule', []).service('Schedule', function ($q) {
         this.isDirty = false;
 
         this.mock = function(toMock) {
-            this.editing = toMock.editing;
-            this.id = toMock.id;
-            this.previousStatus = toMock.previousStatus;
-            this.status = toMock.status;
         };
 
         this.save = function() {
@@ -58,7 +42,8 @@ angular.module('mock.schedule', []).service('Schedule', function ($q) {
         this.reload = function() {
         };
 
-        this.clearValidationResults = function() {
+        this.clearValidationResults = function () {
+
         };
 
         return this;

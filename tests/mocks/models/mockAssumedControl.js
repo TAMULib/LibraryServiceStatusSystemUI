@@ -64,7 +64,7 @@ angular.module('mock.AssumedControl', []).service('AssumedControl', function ($q
             this.isDirty = boolean;
         };
 
-        this.refresh = function() {
+        this.reload = function() {
         };
 
         return this;

@@ -122,7 +122,6 @@ describe('controller: NoteController', function () {
             expect(scope.noteData).toEqual(mockNote1);
             expect(scope.openModal).toHaveBeenCalled();
         });
-
         it('updateNote should update a note', function () {
             var note = new Note();
             var deferred;
