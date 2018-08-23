@@ -14,6 +14,9 @@ describe('controller: AbstractScheduleController', function () {
             controller = $controller('AbstractScheduleController', {
                 $scope: scope
             });
+
+            // ensure that the isReady() is called.
+            scope.$digest();
         });
     });
 

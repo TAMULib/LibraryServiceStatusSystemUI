@@ -24,6 +24,9 @@ describe('controller: DashboardController', function () {
                 OverallStatusPublic: _OverallStatusPublic_,
                 ServiceRepo: _ServiceRepo_
             });
+
+            // ensure that the isReady() is called.
+            scope.$digest();
         });
     });
 

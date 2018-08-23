@@ -17,6 +17,9 @@ describe('controller: AppAbstractController', function () {
                 UserService: _UserService_
             });
             installPromiseMatchers();
+
+            // ensure that the isReady() is called.
+            scope.$digest();
         });
     });
 

@@ -15,6 +15,9 @@ describe('controller: AdminController', function () {
                 User: _User_,
                 UserService: _UserService_
             });
+
+            // ensure that the isReady() is called.
+            scope.$digest();
         });
     });
 
