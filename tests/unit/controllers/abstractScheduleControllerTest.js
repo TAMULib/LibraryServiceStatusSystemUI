@@ -1,16 +1,17 @@
 describe('controller: AbstractScheduleController', function () {
 
-    var controller, scope;
+    var controller, scope, q, Schedule;
 
     beforeEach(function() {
         module('core');
         module('app');
-        module('mock.service');
-        module('mock.serviceRepo');
+        module('mock.schedule');
 
-        inject(function ($controller, $rootScope) {
+        inject(function ($controller, $rootScope, $q, _Schedule_) {
             installPromiseMatchers();
             scope = $rootScope.$new();
+            Schedule = _Schedule_;
+            q = $q;
             controller = $controller('AbstractScheduleController', {
                 $scope: scope
             });
@@ -140,7 +141,25 @@ describe('controller: AbstractScheduleController', function () {
             expect(scope.schedule.editing).toBe(true);
         });
         it('isNew should return boolean', function () {
-            expect(scope.isNew).toBeTruthy();
+            var schedule = new Schedule();
+            var result;
+            schedule.mock(mockSchedule1);
+            delete scope.data;
+
+            result = scope.isNew(schedule);
+            expect(result).toBe(false);
+
+            scope.data = {
+                schedules: []
+            };
+
+            result = scope.isNew(schedule);
+            expect(result).toBe(true);
+
+            scope.data.schedules = [schedule];
+
+            result = scope.isNew(schedule);
+            expect(result).toBe(false);
         });
         it('updateSchedule should update the schedule', function () {
             var schedule = {};
@@ -187,7 +206,27 @@ describe('controller: AbstractScheduleController', function () {
             expect(invalid).toBe(true);
         });
         it('isValid should return boolean', function () {
-            expect(scope.isValid).toBeTruthy();
+            var result;
+            scope.changed = true;
+            scope.editing = false;
+            delete scope.message;
+
+            result = scope.isValid();
+            expect(result).toBe(true);
+
+            scope.changed = false;
+            result = scope.isValid();
+            expect(result).toBe(false);
+
+            scope.changed = true;
+            scope.editing = true;
+            result = scope.isValid();
+            expect(result).toBe(false);
+
+            scope.editing = false;
+            scope.message = "test";
+            result = scope.isValid();
+            expect(result).toBe(false);
         });
         it('removeSchedule should return boolean', function () {
             var schedule = {
@@ -201,9 +240,24 @@ describe('controller: AbstractScheduleController', function () {
             scope.removeSchedule(schedule);
             expect(scope.reset).toHaveBeenCalled();
         });
-        // needs to be written.
-        /*it('saveSchedule should work', function () {
-        });*/
+        it('saveSchedule should work', function () {
+            scope.data = {
+                updateRequested: false,
+                schedules: [],
+                dirty: function(dirty) { },
+                save: function() { }
+            };
+
+            spyOn(scope.data, 'dirty');
+
+            var deferred = q.defer();
+            spyOn(scope.data, 'save').and.returnValue(deferred.promise);
+            scope.saveSchedule();
+            deferred.resolve();
+
+            expect(scope.data.dirty).toHaveBeenCalled();
+            expect(scope.data.save).toHaveBeenCalled();
+        });
     });
 
 });
