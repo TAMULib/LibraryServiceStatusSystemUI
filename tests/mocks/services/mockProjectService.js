@@ -70,7 +70,7 @@ angular.module('mock.projectService', []).service('ProjectService', function ($q
     };
 
     this.getAll = function(force) {
-        var defer = $q.defer();
+        defer = $q.defer();
         payloadResponse([]);
         return defer.promise;
     }

@@ -56,7 +56,7 @@ var mockService3 = {
     "onShortList": true,
     "serviceUrl": null,
     "description": "<p>Hello, Test 3!</p>",
-    "projectId": null,
+    "projectId": 1,
     "type": "service",
     "website": null
 };
