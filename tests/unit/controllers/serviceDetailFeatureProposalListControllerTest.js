@@ -7,13 +7,14 @@ describe('controller: ServiceDetailFeatureProposalListController', function () {
         module('app');
         module('mock.idea');
         module('mock.ideaRepo');
-        module('mock.projectService');
         module('mock.featureProposal');
         module('mock.featureProposalRepo');
+        module('mock.projectService');
+        module('mock.user');
         module('mock.userRepo');
         module('mock.serviceRepo');
 
-        inject(function ($controller, $rootScope, _Idea_, _IdeaRepo_, IdeaState, _FeatureProposal_, _FeatureProposalRepo_, FeatureProposalState, _ProjectService_, _UserRepo_, _ServiceRepo_) {
+        inject(function ($controller, $rootScope, _Idea_, _IdeaRepo_, IdeaState, _FeatureProposal_, _FeatureProposalRepo_, FeatureProposalState, _ProjectService_, _User_, _UserRepo_, _ServiceRepo_) {
             installPromiseMatchers();
             scope = $rootScope.$new();
             controller = $controller('ServiceDetailFeatureProposalListController', {
@@ -25,6 +26,7 @@ describe('controller: ServiceDetailFeatureProposalListController', function () {
                 FeatureProposalRepo: _FeatureProposalRepo_,
                 FeatureProposalState: FeatureProposalState,
                 ProjectService: _ProjectService_,
+                User: _User_,
                 UserRepo: _UserRepo_,
                 ServiceRepo: _ServiceRepo_
             });

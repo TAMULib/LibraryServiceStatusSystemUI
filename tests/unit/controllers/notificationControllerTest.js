@@ -5,18 +5,17 @@ describe('controller: NotificationController', function () {
     beforeEach(function() {
         module('core');
         module('app');
-        module('mock.note');
-        module('mock.noteRepo');
-        module('mock.serviceRepo');
+        module('mock.notification');
+        module('mock.notificationRepo');
 
-        inject(function ($controller, $rootScope, _Notification_, _NotificationRepo_, _ServiceRepo_) {
+        inject(function ($controller, $rootScope, _Notification_, _NotificationRepo_) {
             installPromiseMatchers();
             scope = $rootScope.$new();
             controller = $controller('NotificationController', {
                 $scope: scope,
                 Notification: _Notification_,
                 NotificationRepo: _NotificationRepo_,
-                ServiceRepo: _ServiceRepo_
+                NgTableParams: {}
             });
 
             // ensure that the isReady() is called.
