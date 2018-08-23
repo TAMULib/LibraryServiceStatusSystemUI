@@ -1,6 +1,6 @@
 describe('controller: IdeaController', function () {
 
-    var controller, q, scope, FeatureProposal, FeatureProposalRepo, Idea, IdeaRepo;
+    var controller, q, scope, FeatureProposal, FeatureProposalRepo, Idea, IdeaRepo, Service;
 
     beforeEach(function() {
         module('core');
@@ -10,9 +10,10 @@ describe('controller: IdeaController', function () {
         module('mock.idea');
         module('mock.ideaRepo');
         module('mock.projectService');
+        module('mock.service');
         module('mock.serviceRepo');
 
-        inject(function ($controller, $q, $rootScope, _FeatureProposal_, _FeatureProposalRepo_, FeatureProposalState, _Idea_, _IdeaRepo_, IdeaState, _ProjectService_, _ServiceRepo_) {
+        inject(function ($controller, $q, $rootScope, _FeatureProposal_, _FeatureProposalRepo_, FeatureProposalState, _Idea_, _IdeaRepo_, IdeaState, _ProjectService_, _Service_, _ServiceRepo_) {
             installPromiseMatchers();
             q = $q;
             scope = $rootScope.$new();
@@ -33,6 +34,7 @@ describe('controller: IdeaController', function () {
             FeatureProposalRepo = _FeatureProposalRepo_;
             Idea = _Idea_;
             IdeaRepo = _IdeaRepo_;
+            Service = _Service_;
 
             // ensure that the isReady() is called.
             scope.$digest();
@@ -105,6 +107,10 @@ describe('controller: IdeaController', function () {
         it('setSelectedFp should be defined', function () {
             expect(scope.setSelectedFp).toBeDefined();
             expect(typeof scope.setSelectedFp).toEqual("function");
+        });
+        it('resetIdeas should be defined', function () {
+            expect(scope.resetIdeas).toBeDefined();
+            expect(typeof scope.resetIdeas).toEqual("function");
         });
     });
 
@@ -294,6 +300,22 @@ describe('controller: IdeaController', function () {
             scope.setSelectedFp(fp);
 
             expect(scope.selectedFp).toEqual(fp);
+        });
+        it('resetIdeas should reset ideas', function () {
+            var service = new Service();
+            service.mock(mockService1);
+            scope.service = service;
+            scope.ideaData = null;
+            scope.closeModal = function() {};
+
+            spyOn(scope, 'resetForms');
+            spyOn(scope, 'closeModal');
+
+            scope.resetIdeas();
+
+            expect(scope.resetForms).toHaveBeenCalled();
+            expect(scope.closeModal).toHaveBeenCalled();
+            expect(scope.ideaData).not.toEqual(null);
         });
     });
 });

@@ -1,15 +1,13 @@
-var mockServices = [{
+var mockServices = [
+    {
         "notes": [
-
         ],
         "id": 1,
         "schedules": [
-
         ],
         "withinSchedule": false,
         "name": "Test 1",
         "aliases": [
-
         ],
         "status": "UP",
         "isAuto": false,
@@ -23,16 +21,13 @@ var mockServices = [{
     },
     {
         "notes": [
-
         ],
         "id": 2,
         "schedules": [
-
         ],
         "withinSchedule": false,
         "name": "Test 2",
         "aliases": [
-
         ],
         "status": "MAINTENANCE",
         "isAuto": false,
@@ -46,16 +41,13 @@ var mockServices = [{
     },
     {
         "notes": [
-
         ],
         "id": 3,
         "schedules": [
-
         ],
         "withinSchedule": false,
         "name": "Test 3",
         "aliases": [
-
         ],
         "status": "UP",
         "isAuto": false,
@@ -73,6 +65,7 @@ angular.module('mock.serviceRepo', []).service('ServiceRepo', function ($q) {
 
     var serviceRepo = this;
     var defer;
+    var i;
 
     var payloadResponse = function (payload) {
         return defer.resolve({
@@ -149,6 +142,53 @@ angular.module('mock.serviceRepo', []).service('ServiceRepo', function ($q) {
     };
 
     serviceRepo.reset = function () {};
+
+    serviceRepo.getPageSettings = function () {
+        return {};
+    };
+
+    serviceRepo.getTableParams = function() {
+        var table = {
+            data: [],
+            reload: function() {}
+        }
+        // @todo
+        return table;
+    };
+
+    // add required functions.
+    for (i = 0; i < serviceRepo.list.length; i++) {
+        serviceRepo.list[i].getNotesTableParams = function() {
+            var table = {
+                data: {},
+                reload: function() {}
+            }
+            // @todo
+            return table;
+        };
+        serviceRepo.list[i].getFeatureProposalsTableParams = function() {
+            var table = {
+                data: {},
+                reload: function() {}
+            }
+            // @todo
+            return table;
+        };
+        serviceRepo.list[i].getManagedFeatureProposalsTableParams = function() {
+            var table = {
+                data: [],
+                reload: function() {}
+            }
+            // @todo
+            return table;
+        };
+        serviceRepo.list[i].getManagedFeatureProposalsPageSettings = function() {
+            return {};
+        };
+        serviceRepo.list[i].dirty = function (dirty) {
+            return true;
+        };
+    }
 
     return serviceRepo;
 });

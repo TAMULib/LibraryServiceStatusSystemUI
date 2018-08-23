@@ -205,6 +205,7 @@ angular.module('mock.featureProposalRepo', []).service('FeatureProposalRepo', fu
 
     featureProposalRepo.getTableParams = function () {
         var table = {
+            data: [],
             reload: function() {}
         }
         // @todo

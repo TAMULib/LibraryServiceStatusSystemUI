@@ -19,10 +19,10 @@ describe('controller: RequestController', function () {
             _StorageService_.set('role', 'ROLE_USER');
 
             controller = $controller('RequestController', {
-                $scope: scope,
                 $routeParams: {
                     service: 2
                 },
+                $scope: scope,
                 Service: _Service_,
                 ServiceRepo: _ServiceRepo_,
                 StorageService: _StorageService_,

@@ -1,6 +1,6 @@
 describe('controller: AbstractIdeaController', function () {
 
-    var controller, compile, q, scope, FeatureProposal, Idea;
+    var controller, compile, q, scope, FeatureProposal, FeatureProposalRepo, Idea, Service;
 
     beforeEach(function() {
         module('core');
@@ -9,9 +9,10 @@ describe('controller: AbstractIdeaController', function () {
         module('mock.featureProposalRepo');
         module('mock.idea');
         module('mock.ideaRepo');
+        module('mock.service');
         module('mock.serviceRepo');
 
-        inject(function ($controller, $compile, $q, $rootScope, _FeatureProposal_, _FeatureProposalRepo_, _Idea_, _IdeaRepo_, _ServiceRepo_) {
+        inject(function ($controller, $compile, $q, $rootScope, _FeatureProposal_, _FeatureProposalRepo_, _Idea_, _IdeaRepo_, _Service_, _ServiceRepo_) {
             installPromiseMatchers();
             compile = $compile;
             scope = $rootScope.$new();
@@ -26,7 +27,9 @@ describe('controller: AbstractIdeaController', function () {
             });
 
             FeatureProposal = _FeatureProposal_;
+            FeatureProposalRepo = _FeatureProposalRepo_;
             Idea = _Idea_;
+            Service = _Service_;
             ServiceRepo = _ServiceRepo_;
 
             // ensure that the isReady() is called.
@@ -56,6 +59,10 @@ describe('controller: AbstractIdeaController', function () {
         it('updateFeatureProposal should be defined', function () {
             expect(scope.updateFeatureProposal).toBeDefined();
             expect(typeof scope.updateFeatureProposal).toEqual("function");
+        });
+        it('resetFeatureProposals should be defined', function () {
+            expect(scope.resetFeatureProposals).toBeDefined();
+            expect(typeof scope.resetFeatureProposals).toEqual("function");
         });
     });
 
@@ -108,6 +115,22 @@ describe('controller: AbstractIdeaController', function () {
             deferred.resolve();
 
             expect(scope.fpRepo.update).toHaveBeenCalled();
+        });
+        it('resetFeatureProposals should reset feature proposals', function () {
+            var service = new Service();
+            service.mock(mockService1);
+            scope.service = service;
+            scope.fpData = null;
+            scope.closeModal = function() {};
+
+            spyOn(scope, 'resetForms');
+            spyOn(scope, 'closeModal');
+
+            scope.resetFeatureProposals();
+
+            expect(scope.resetForms).toHaveBeenCalled();
+            expect(scope.closeModal).toHaveBeenCalled();
+            expect(scope.fpData).not.toEqual(null);
         });
     });
 });

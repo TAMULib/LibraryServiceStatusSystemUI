@@ -1,6 +1,6 @@
 describe('controller: ServiceController', function () {
 
-    var scope, controller, ServiceRepo;
+    var scope, controller, Service, ServiceRepo;
 
     beforeEach(function () {
         module('core');
@@ -18,6 +18,7 @@ describe('controller: ServiceController', function () {
                 ServiceRepo: _ServiceRepo_
             });
 
+            Service = _Service_;
             ServiceRepo = _ServiceRepo_;
 
             // ensure that the isReady() is called.
@@ -45,31 +46,11 @@ describe('controller: ServiceController', function () {
     describe('Do the scope methods work as expected', function () {
         it('createService should created a new project', function () {
             var id = mockServices.length + 1;
-            var newService = {
-                "notes": [
+            var newService = new Service();
+            newService.name = "Test 4";
+            newService.status = "MAINTENANCE";
+            newService.description = "<p>Hello, Test 4!</p>";
 
-                ],
-                "schedules": [
-
-                ],
-                "withinSchedule": false,
-                "name": "Test 4",
-                "aliases": [
-
-                ],
-                "status": "MAINTENANCE",
-                "isAuto": false,
-                "isPublic": true,
-                "onShortList": true,
-                "serviceUrl": null,
-                "description": "<p>Hello, Test 4!</p>",
-                "projectId": null,
-                "type": "service",
-                "website": "https://example.tamu.edu/",
-                "dirty": function (dirty) {
-                    return true;
-                }
-            };
             scope.serviceData = newService;
             scope.createService();
             newService.id = id;
@@ -77,32 +58,9 @@ describe('controller: ServiceController', function () {
         });
         it('updateService should update a project', function () {
             var id = 1;
-            var updatedService = {
-                "notes": [
+            var updatedService = ServiceRepo.findById(id);
+            updatedService.description = "<p>Hello, Test 1 Update!</p>";
 
-                ],
-                "id": id,
-                "schedules": [
-
-                ],
-                "withinSchedule": false,
-                "name": "Test 1 Updated",
-                "aliases": [
-
-                ],
-                "status": "MAINTENANCE",
-                "isAuto": true,
-                "isPublic": true,
-                "onShortList": true,
-                "serviceUrl": null,
-                "description": "<p>Hello, Test 1 Update!</p>",
-                "projectId": null,
-                "type": "service",
-                "website": "https://example.tamu.edu/",
-                "dirty": function (dirty) {
-                    return true;
-                }
-            };
             scope.serviceData = updatedService;
             scope.updateService();
             expect(ServiceRepo.findById(id)).toEqual(updatedService);
