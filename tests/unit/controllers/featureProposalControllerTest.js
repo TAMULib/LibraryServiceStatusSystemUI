@@ -222,6 +222,7 @@ describe('controller: FeatureProposalController', function () {
             scope.deleteFp();
             deferred.resolve();
 
+            // todo: more work needs to be done, this should be testig for deleting toBe(false).
             expect(scope.deleting).toBeTruthy();
             expect(scope.fpToDelete.delete).toHaveBeenCalled();
         });

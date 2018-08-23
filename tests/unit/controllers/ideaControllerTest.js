@@ -228,6 +228,7 @@ describe('controller: IdeaController', function () {
             scope.deleteIdea();
             deferred.resolve();
 
+            // todo: more work needs to be done, this should be testig for deleting toBe(false).
             expect(scope.deleting).toBeTruthy();
             expect(scope.ideaToDelete.delete).toHaveBeenCalled();
         });
