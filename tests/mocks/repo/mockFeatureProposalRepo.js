@@ -237,6 +237,15 @@ angular.module('mock.featureProposalRepo', []).service('FeatureProposalRepo', fu
         return defer.promise;
     };
 
+    featureProposalRepo.elevate = function (fp) {
+        var i = featureProposalRepo.list.length;
+        defer = $q.defer();
+        featureProposalRepo.list[i] = angular.copy(fp);
+        featureProposalRepo.list[i].state = "IN_PROGRESS";
+        payloadResponse(angular.copy(featureProposalRepo.list[i]));
+        return defer.promise;
+    };
+
     featureProposalRepo.ready = function () {
         defer = $q.defer();
         payloadResponse();

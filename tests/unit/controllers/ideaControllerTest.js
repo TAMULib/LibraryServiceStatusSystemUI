@@ -1,6 +1,6 @@
 describe('controller: IdeaController', function () {
 
-    var controller, scope, q, Idea, IdeaRepo, FeatureProposal;
+    var controller, scope, q, Idea, IdeaRepo, FeatureProposal, FeatureProposalRepo;
 
     beforeEach(function() {
         module('core');
@@ -19,6 +19,7 @@ describe('controller: IdeaController', function () {
             Idea = _Idea_;
             IdeaRepo = _IdeaRepo_;
             FeatureProposal = _FeatureProposal_;
+            FeatureProposalRepo = _FeatureProposalRepo_;
             controller = $controller('IdeaController', {
                 $scope: scope,
                 Idea: _Idea_,
@@ -209,7 +210,7 @@ describe('controller: IdeaController', function () {
 
             expect(scope.ideaToDelete).toBe(mockIdea1);
         });
-        it('deleteIdea should delete a feature proposal', function () {
+        it('deleteIdea should delete an idea', function () {
             scope.deleting = null;
             scope.ideaToDelete = new Idea();
             scope.ideaToDelete.mock(mockIdea1);
@@ -221,6 +222,76 @@ describe('controller: IdeaController', function () {
 
             expect(scope.deleting).toBeTruthy();
             expect(scope.ideaToDelete.delete).toHaveBeenCalled();
+        });
+        it('elevateIdea should elevate an idea', function () {
+            scope.elevating = null;
+            var idea = new Idea();
+            idea.mock(mockIdea1);
+
+            var deferred = q.defer();
+            spyOn(FeatureProposalRepo, 'elevate').and.returnValue(deferred.promise);
+            scope.elevateIdea(idea);
+            deferred.resolve();
+
+            expect(scope.elevating).toBeTruthy();
+            expect(FeatureProposalRepo.elevate).toHaveBeenCalled();
+        });
+        it('elevateIdea should elevate an idea', function () {
+            scope.elevating = null;
+            var idea1 = new Idea();
+            var idea2 = new Idea();
+            var ideas = [idea1, idea2];
+            idea1.mock(mockIdea1);
+            idea2.mock(mockIdea2);
+            scope.fpData = new FeatureProposal();
+            scope.fpData.mock(mockFeatureProposal1);
+            scope.fpData.ideas = [];
+            scope.openModal = function(name) { };
+
+            spyOn(scope, 'openModal');
+
+            scope.confirmElevateMultiple(ideas);
+
+            expect(scope.openModal).toHaveBeenCalled();
+            expect(scope.fpData.ideas).toEqual(ideas);
+        });
+        it('confirmAddIdea should popup a confirmation modal', function () {
+            var idea = new Idea();
+            idea.mock(mockIdea1);
+            scope.ideaToAdd = null;
+            scope.openModal = function(name) { };
+
+            spyOn(scope, 'openModal');
+
+            scope.confirmAddIdea(idea);
+
+            expect(scope.openModal).toHaveBeenCalled();
+            expect(scope.ideaToAdd).toBe(idea);
+        });
+        it('addIdea should add an idea', function () {
+            var fp = new FeatureProposal();
+            var idea = new Idea();
+            fp.mock(mockFeatureProposal1);
+            idea.mock(mockIdea1);
+            fp.ideas = [];
+            scope.ideaToAdd = idea;
+
+            spyOn(scope, 'updateFeatureProposal');
+
+            scope.addIdea(fp);
+
+            expect(scope.updateFeatureProposal).toHaveBeenCalled();
+            expect(fp.ideas).toEqual([idea]);
+            expect(fp.isDirty).toEqual(true);
+        });
+        it('setSelectedFp should select a feature proposal', function () {
+            var fp = new FeatureProposal();
+            fp.mock(mockFeatureProposal1);
+            scope.selectedFp = null;
+
+            scope.setSelectedFp(fp);
+
+            expect(scope.selectedFp).toEqual(fp);
         });
     });
 });
