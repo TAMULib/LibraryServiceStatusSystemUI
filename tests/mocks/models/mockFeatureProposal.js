@@ -12,7 +12,9 @@ var mockFeatureProposal1 = {
     "description": "<p>This is <strong>Jack's</strong> feature Proposal.</p>",
     "feedback": "",
     "id": 123456789,
+    "ideas": [],
     "lastModified": 1529618244432,
+    "removedIdeas": [],
     "service": {
       "id": 1,
       "schedules": [],
@@ -48,7 +50,9 @@ var mockFeatureProposal2 = {
     "description": "<p>This is <strong>Jill's</strong> feature Proposal.</p>",
     "feedback": "",
     "id": 987654321,
+    "ideas": [],
     "lastModified": 1234567890120,
+    "removedIdeas": [],
     "service": {
       "id": 1,
       "schedules": [],
@@ -67,7 +71,7 @@ var mockFeatureProposal2 = {
       "type": "service"
     },
     "state": "SUBMITTED",
-    "title": "Jill's Note",
+    "title": "Jill's Note"
 };
 
 var mockFeatureProposal3 = {
@@ -84,7 +88,9 @@ var mockFeatureProposal3 = {
     "description": "<p>This is <strong>Jacob's</strong> feature Proposal.</p>",
     "feedback": "Unacceptable.",
     "id": 192837465,
+    "ideas": [],
     "lastModified": 1529679921989,
+    "removedIdeas": [],
     "service": {
       "id": 1,
       "schedules": [],
@@ -108,6 +114,52 @@ var mockFeatureProposal3 = {
 
 angular.module('mock.featureProposal', []).service('FeatureProposal', function ($q) {
     return function () {
+        var defer;
+        var payloadResponse = function (payload) {
+            return defer.resolve({
+                body: angular.toJson({
+                    meta: {
+                        status: 'SUCCESS'
+                    },
+                    payload: payload
+                })
+            });
+        };
+
+        this.isDirty = false;
+
+        this.mock = function(toMock) {
+            this.author = toMock.author;
+            this.description = toMock.description;
+            this.feedback = toMock.feedback;
+            this.id = toMock.id;
+            this.ideas = toMock.ideas;
+            this.lastModified = toMock.lastModified;
+            this.removedIdeas = toMock.removedIdeas;
+            this.service = toMock.service;
+            this.state = toMock.state;
+            this.title = toMock.title;
+        };
+
+        this.save = function() {
+        };
+
+        this.delete = function() {
+            defer = $q.defer();
+            payloadResponse();
+            return defer.promise;
+        };
+
+        this.dirty = function(boolean) {
+            this.isDirty = boolean;
+        };
+
+        this.refresh = function() {
+        };
+
+        this.clearValidationResults = function() {
+        };
+
         return this;
     };
 });

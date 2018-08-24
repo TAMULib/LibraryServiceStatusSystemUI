@@ -10,7 +10,6 @@ var mockIdea1 = {
         "notes": []
     },
     "description": "<p>This is <strong>Jack's</strong> idea.</p>",
-    "elevated": false,
     "feedback": "",
     "id": 123456789,
     "lastModified": 1529618244432,
@@ -31,6 +30,7 @@ var mockIdea1 = {
       "projectId": 1,
       "type": "service"
     },
+    "state": "WAITING_ON_REVIEW",
     "title": "Jack's Idea"
 };
 
@@ -46,7 +46,6 @@ var mockIdea2 = {
         "notes": []
     },
     "description": "<p>This is <strong>Jill's</strong> idea.</p>",
-    "elevated": false,
     "feedback": "",
     "id": 987654321,
     "lastModified": 1234567890120,
@@ -67,7 +66,8 @@ var mockIdea2 = {
       "projectId": 1,
       "type": "service"
     },
-    "title": "Jill's Note",
+    "state": "WAITING_ON_REVIEW",
+    "title": "Jill's Note"
 };
 
 var mockIdea3 = {
@@ -82,7 +82,6 @@ var mockIdea3 = {
         "notes": []
     },
     "description": "<p>This is <strong>Jacob's</strong> idea.</p>",
-    "elevated": false,
     "feedback": "",
     "id": 192837465,
     "lastModified": 1529679921989,
@@ -103,11 +102,56 @@ var mockIdea3 = {
       "projectId": 1,
       "type": "service"
     },
+    "state": "WAITING_ON_REVIEW",
     "title": "Jacob's Idea"
 };
 
 angular.module('mock.idea', []).service('Idea', function ($q) {
     return function () {
+        var defer;
+        var payloadResponse = function (payload) {
+            return defer.resolve({
+                body: angular.toJson({
+                    meta: {
+                        status: 'SUCCESS'
+                    },
+                    payload: payload
+                })
+            });
+        };
+
+        this.isDirty = false;
+
+        this.mock = function(toMock) {
+            this.author = toMock.author;
+            this.description = toMock.description;
+            this.feedback = toMock.feedback;
+            this.id = toMock.id;
+            this.lastModified = toMock.lastModified;
+            this.service = toMock.service;
+            this.state = toMock.state;
+            this.title = toMock.title;
+        };
+
+        this.save = function() {
+        };
+
+        this.delete = function() {
+            defer = $q.defer();
+            payloadResponse();
+            return defer.promise;
+        };
+
+        this.dirty = function(boolean) {
+            this.isDirty = boolean;
+        };
+
+        this.refresh = function() {
+        };
+
+        this.clearValidationResults = function() {
+        };
+
         return this;
     };
 });

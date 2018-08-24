@@ -1,17 +1,25 @@
 describe('controller: AbstractScheduleController', function () {
 
-    var controller, scope;
+    var controller, q, scope, Schedule;
 
     beforeEach(function() {
         module('core');
         module('app');
+        module('mock.schedule');
 
-        inject(function ($controller, $rootScope) {
+        inject(function ($controller, $rootScope, $q, _Schedule_) {
             installPromiseMatchers();
             scope = $rootScope.$new();
+            q = $q;
+
             controller = $controller('AbstractScheduleController', {
                 $scope: scope
             });
+
+            Schedule = _Schedule_;
+
+            // ensure that the isReady() is called.
+            scope.$digest();
         });
     });
 
@@ -86,92 +94,171 @@ describe('controller: AbstractScheduleController', function () {
             expect(scope.schedule.scheduleData.nextStatus).toEqual("DOWN");
         });
         it('cancel should cancel the schedule', function () {
-            var data = scope.data;
             scope.changed = null;
-
-            if (data !== undefined) {
-                spyOn(scope.data, 'refresh');
-            }
-
             scope.cancel();
             expect(scope.changed).toBe(false);
-
-            if (data !== undefined) {
-                expect(data.refresh).toHaveBeenCalled();
-            }
         });
         it('openStart should perform popup event', function () {
-            var mockEvent = {
+            var event = {
                 preventDefault: function() { },
                 stopPropagation: function() { }
             };
 
-            spyOn(mockEvent, 'preventDefault');
-            spyOn(mockEvent, 'stopPropagation');
+            spyOn(event, 'preventDefault');
+            spyOn(event, 'stopPropagation');
 
-            scope.openStart(mockEvent);
-            expect(mockEvent.preventDefault).toHaveBeenCalled();
-            expect(mockEvent.stopPropagation).toHaveBeenCalled();
+            scope.openStart(event);
+            expect(event.preventDefault).toHaveBeenCalled();
+            expect(event.stopPropagation).toHaveBeenCalled();
             expect(scope.popupStart.opened).toBe(true);
         });
         it('openEnd should perform popup event', function () {
-            var mockEvent = {
+            var event = {
                 preventDefault: function() { },
                 stopPropagation: function() { }
             };
 
-            spyOn(mockEvent, 'preventDefault');
-            spyOn(mockEvent, 'stopPropagation');
+            spyOn(event, 'preventDefault');
+            spyOn(event, 'stopPropagation');
 
-            scope.openEnd(mockEvent);
-            expect(mockEvent.preventDefault).toHaveBeenCalled();
-            expect(mockEvent.stopPropagation).toHaveBeenCalled();
+            scope.openEnd(event);
+            expect(event.preventDefault).toHaveBeenCalled();
+            expect(event.stopPropagation).toHaveBeenCalled();
             expect(scope.popupEnd.opened).toBe(true);
         });
         it('addSchedule should work', function () {
             scope.schedule.scheduleData = {};
             scope.schedule.editing = null;
+
             scope.addSchedule(false);
             expect(typeof(scope.schedule.scheduleData)).toEqual('undefined');
             expect(scope.schedule.editing).toBe(true);
 
-            scope.data = {
-                status: 'oldStatus'
-            };
+            scope.data = mockServices[0];
+            scope.data.status = 'oldStatus';
             scope.schedule.scheduleData = {};
+
             scope.addSchedule(true);
             expect(scope.schedule.scheduleData.previousStatus).toEqual('oldStatus');
             expect(scope.schedule.editing).toBe(true);
         });
         it('isNew should return boolean', function () {
-            expect(scope.isNew).toBeTruthy();
+            var schedule = new Schedule();
+            var result;
+            schedule.mock(mockSchedule1);
+            delete scope.data;
+
+            result = scope.isNew(schedule);
+            expect(result).toBe(false);
+
+            scope.data = {
+                schedules: []
+            };
+
+            result = scope.isNew(schedule);
+            expect(result).toBe(true);
+
+            scope.data.schedules = [schedule];
+
+            result = scope.isNew(schedule);
+            expect(result).toBe(false);
         });
         it('updateSchedule should update the schedule', function () {
-            var mockSchedule = {};
+            var schedule = {};
             scope.schedule = null;
 
-            scope.updateSchedule(mockSchedule);
-            expect(scope.schedule).toBe(mockSchedule);
+            scope.updateSchedule(schedule);
+            expect(scope.schedule).toBe(schedule);
             expect(scope.schedule.editing).toBe(true);
         });
         it('confirmSchedule should confirm the schedule', function () {
-            var mockSchedule = {};
-            scope.schedule = mockSchedule;
-            scope.data = {
-                schedules: {
-                    push: function (schedule) {},
-                    indexOf: function (index) { return -1; }
-                }
-            };
+            var schedule = {};
+            scope.schedule = schedule;
+            scope.data = mockServices[0];
 
             spyOn(scope.data.schedules, 'push');
 
-            scope.confirmSchedule(mockSchedule);
+            scope.confirmSchedule(schedule);
             expect(scope.data.schedules.push).toHaveBeenCalled();
             expect(scope.changed).toBe(true);
         });
+        it('cancelSchedule should confirm the schedule', function () {
+            spyOn(scope, 'reset');
+
+            scope.cancelSchedule();
+            expect(scope.reset).toHaveBeenCalled();
+        });
+        it('invalidSchedule should confirm the schedule', function () {
+            var oneDayMilliseconds =  24 * 60 * 60 * 1000;
+            var todayMilliseconds = new Date().getTime();
+            var schedule = {
+                editing: true,
+                scheduledPostingStart: new Date(todayMilliseconds + 2 * oneDayMilliseconds),
+                scheduledPostingEnd: new Date(todayMilliseconds + 4 * oneDayMilliseconds)
+            };
+            var invalid;
+
+            invalid = scope.invalidSchedule(schedule);
+            expect(invalid).toBe(false);
+
+            schedule.scheduledPostingStart = new Date(todayMilliseconds - 4 * oneDayMilliseconds);
+            schedule.scheduledPostingEnd =  new Date(todayMilliseconds - 2 * oneDayMilliseconds);
+
+            invalid = scope.invalidSchedule(schedule);
+            expect(invalid).toBe(true);
+        });
         it('isValid should return boolean', function () {
-            expect(scope.isValid).toBeTruthy();
+            var result;
+            scope.changed = true;
+            scope.editing = false;
+            delete scope.message;
+
+            result = scope.isValid();
+            expect(result).toBe(true);
+
+            scope.changed = false;
+            result = scope.isValid();
+            expect(result).toBe(false);
+
+            scope.changed = true;
+            scope.editing = true;
+            result = scope.isValid();
+            expect(result).toBe(false);
+
+            scope.editing = false;
+            scope.message = "test";
+            result = scope.isValid();
+            expect(result).toBe(false);
+        });
+        it('removeSchedule should return boolean', function () {
+            var schedule = {
+                editing: true
+            };
+            scope.data = mockServices[0];
+            scope.data.schedules = [schedule];
+
+            spyOn(scope, 'reset');
+
+            scope.removeSchedule(schedule);
+            expect(scope.reset).toHaveBeenCalled();
+        });
+        it('saveSchedule should work', function () {
+            scope.data = {
+                updateRequested: false,
+                schedules: [],
+                dirty: function(dirty) { },
+                save: function() { }
+            };
+
+            spyOn(scope.data, 'dirty');
+
+            var deferred = q.defer();
+            spyOn(scope.data, 'save').and.returnValue(deferred.promise);
+            scope.saveSchedule();
+            deferred.resolve();
+
+            expect(scope.data.dirty).toHaveBeenCalled();
+            expect(scope.data.save).toHaveBeenCalled();
         });
     });
 

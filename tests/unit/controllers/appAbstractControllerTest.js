@@ -8,15 +8,20 @@ describe('controller: AppAbstractController', function () {
         module('mock.user');
 
         inject(function ($controller, $location, $rootScope, _StorageService_, _User_, _UserService_) {
+            installPromiseMatchers();
             scope = $rootScope.$new();
-            storageService = _StorageService_;
+
             controller = $controller('AppAbstractController', {
                 $scope: scope,
                 StorageService: _StorageService_,
                 User: _User_,
                 UserService: _UserService_
             });
-            installPromiseMatchers();
+
+            storageService = _StorageService_;
+
+            // ensure that the isReady() is called.
+            scope.$digest();
         });
     });
 

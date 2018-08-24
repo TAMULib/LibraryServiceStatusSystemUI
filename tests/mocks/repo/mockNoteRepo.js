@@ -118,53 +118,85 @@ var mockNotes = [
 ];
 
 angular.module('mock.noteRepo', []).service('NoteRepo', function ($q) {
-    var NoteRepo = this;
 
-    NoteRepo.list = mockNotes;
+    var noteRepo = this;
+    var defer;
 
-    NoteRepo.create = function (note) {
-        var defer = $q.defer();
-        note.id = NoteRepo.list.length + 1;
-        NoteRepo.list.push(note);
-        defer.resolve(note);
-        return defer.promise;
+    var payloadResponse = function (payload) {
+        return defer.resolve({
+            body: angular.toJson({
+                meta: {
+                    status: 'SUCCESS'
+                },
+                payload: payload
+            })
+        });
     };
 
-    NoteRepo.update = function (note) {
-        var defer = $q.defer();
-        for (var i in NoteRepo.list) {
-            if (NoteRepo.list[i].id === note.id) {
-                angular.extend(NoteRepo.list[i], note);
-                note = NoteRepo.list[i];
-                break;
-            }
-        }
-        defer.resolve(note);
-        return defer.promise;
+    var messageResponse = function (message) {
+        return defer.resolve({
+            body: angular.toJson({
+                meta: {
+                    status: 'SUCCESS',
+                    message: message
+                }
+            })
+        });
     };
 
     var updateNote = function (note) {
-        NoteRepo.update(note);
+        noteRepo.update(note);
     };
 
-    NoteRepo.getAll = function () {
-        var defer = $q.defer();
-        defer.resolve(NoteRepo.list);
+    var safePage = function(resolve) {
+        // @todo
+    };
+
+    var table = {
+        // @todo
+    };
+
+    noteRepo.list = mockNotes;
+
+    noteRepo.create = function (note) {
+        defer = $q.defer();
+        note.id = noteRepo.list.length + 1;
+        noteRepo.list.push(angular.copy(note));
+        payloadResponse(note);
         return defer.promise;
     };
 
-    NoteRepo.fetchById = function (id) {
+    noteRepo.update = function (note) {
+        defer = $q.defer();
+        for (var i in noteRepo.list) {
+            if (noteRepo.list[i].id === note.id) {
+                angular.extend(noteRepo.list[i], note);
+                note = noteRepo.list[i];
+                break;
+            }
+        }
+        payloadResponse(note);
+        return defer.promise;
+    };
+
+    noteRepo.getAll = function () {
+        defer = $q.defer();
+        payloadResponse(angular.copy(noteRepo.list));
+        return defer.promise;
+    };
+
+    noteRepo.fetchById = function (id) {
         var found;
-        for (var i in NoteRepo.list) {
-            if (NoteRepo.list[i].id === id) {
-                found = angular.copy(NoteRepo.list[i]);
+        for (var i in noteRepo.list) {
+            if (noteRepo.list[i].id === id) {
+                found = angular.copy(noteRepo.list[i]);
                 break;
             }
         }
         return found;
     };
 
-    NoteRepo.getPageSettings = function () {
+    noteRepo.getPageSettings = function () {
         var mockPageSettings = {
             filters: {
                 active: [true]
@@ -181,29 +213,30 @@ angular.module('mock.noteRepo', []).service('NoteRepo', function ($q) {
         return mockPageSettings;
     };
 
-    NoteRepo.getTableParams = function () {
+    noteRepo.getTableParams = function () {
+        var table = {
+            reload: function() {}
+        }
+        // @todo
+        return table;
+    };
+
+    noteRepo.fetchPage = function (pageSettings) {
         // @todo
         return {};
     };
 
-    NoteRepo.fetchPage = function (pageSettings) {
-        // @todo
-        return {};
-    };
-
-    var safePage = function(resolve) {
-        // @todo
-    };
-
-    NoteRepo.page = function () {
+    noteRepo.page = function () {
         return $q(function (resolve) {
             safePage(resolve);
         });
     };
 
-    var table = {
-        // @todo
+    noteRepo.ready = function () {
+        defer = $q.defer();
+        payloadResponse();
+        return defer.promise;
     };
 
-    return NoteRepo;
+    return noteRepo;
 });

@@ -5,25 +5,29 @@ describe('controller: DashboardController', function () {
     beforeEach(function() {
         module('core');
         module('app');
-        module('mock.user');
-        module('mock.serviceRepo');
         module('mock.noteRepo');
-        module('mock.userService');
         module('mock.overallStatusFull');
         module('mock.overallStatusPublic');
+        module('mock.serviceRepo');
+        module('mock.user');
+        module('mock.userService');
 
-        inject(function ($controller, $rootScope, _User_, _UserService_, _NoteRepo_, _OverallStatusFull_, _OverallStatusPublic_, _ServiceRepo_) {
+        inject(function ($controller, $rootScope, _NoteRepo_, _OverallStatusFull_, _OverallStatusPublic_, _ServiceRepo_, _User_, _UserService_) {
             installPromiseMatchers();
             scope = $rootScope.$new();
+
             controller = $controller('DashboardController', {
                 $scope: scope,
-                User: _User_,
-                UserService: _UserService_,
                 NoteRepo: _NoteRepo_,
                 OverallStatusFull: _OverallStatusFull_,
                 OverallStatusPublic: _OverallStatusPublic_,
-                ServiceRepo: _ServiceRepo_
+                ServiceRepo: _ServiceRepo_,
+                User: _User_,
+                UserService: _UserService_
             });
+
+            // ensure that the isReady() is called.
+            scope.$digest();
         });
     });
 

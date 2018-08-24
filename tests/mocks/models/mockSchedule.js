@@ -1,35 +1,26 @@
-var mockAssumedControl1 = {
-    'user': {
-        "uin": "123456789",
-        "lastName": "Daniels",
-        "firstName": "Jack",
-        "role": "ROLE_ADMIN"
-    },
-    'netid': '',
-    'button': 'Unassume',
-    'status': ''
+var mockSchedule1 = {
+    "editing": false,
+    "id": 123456789,
+    "previousStatus": null,
+    "status": null
 };
 
-var mockAssumedControl2 = {
-    'user': {
-        "uin": "987654321",
-        "lastName": "Daniels",
-        "firstName": "Jill",
-        "role": "ROLE_USER"
-    },
-    'netid': '',
-    'button': 'Unassume',
-    'status': ''
+var mockSchedule2 = {
+    "editing": false,
+    "id": 987654321,
+    "previousStatus": null,
+    "status": null
 };
 
-var mockAssumedControl3 = {
-    'user': {},
-    'netid': '',
-    'button': 'Assume',
-    'status': ''
+var mockSchedule3 = {
+    "editing": false,
+    "id": 192837465,
+    "previousStatus": null,
+    "status": null
 };
 
-angular.module('mock.AssumedControl', []).service('AssumedControl', function ($q) {
+angular.module('mock.schedule', []).service('Schedule', function ($q) {
+    return function () {
         var defer;
         var payloadResponse = function (payload) {
             return defer.resolve({
@@ -45,9 +36,9 @@ angular.module('mock.AssumedControl', []).service('AssumedControl', function ($q
         this.isDirty = false;
 
         this.mock = function(toMock) {
-            this.user = toMock.user;
-            this.netid = toMock.netid;
-            this.button = toMock.button;
+            this.editing = toMock.editing;
+            this.id = toMock.id;
+            this.previousStatus = toMock.previousStatus;
             this.status = toMock.status;
         };
 
@@ -67,5 +58,9 @@ angular.module('mock.AssumedControl', []).service('AssumedControl', function ($q
         this.reload = function() {
         };
 
+        this.clearValidationResults = function() {
+        };
+
         return this;
+    };
 });

@@ -5,27 +5,31 @@ describe('controller: ServiceDetailIdeaManagementController', function () {
     beforeEach(function() {
         module('core');
         module('app');
+        module('mock.featureProposal');
+        module('mock.featureProposalRepo');
         module('mock.idea');
         module('mock.ideaRepo');
         module('mock.projectService');
-        module('mock.featureProposal');
-        module('mock.featureProposalRepo');
         module('mock.serviceRepo');
 
-        inject(function ($controller, $rootScope, _Idea_, _IdeaRepo_, IdeaState, _FeatureProposal_, _FeatureProposalRepo_, FeatureProposalState, _ProjectService_, _ServiceRepo_) {
+        inject(function ($controller, $rootScope, _FeatureProposal_, _FeatureProposalRepo_, FeatureProposalState, _Idea_, _IdeaRepo_, IdeaState, _ProjectService_, _ServiceRepo_) {
             installPromiseMatchers();
             scope = $rootScope.$new();
+
             controller = $controller('ServiceDetailIdeaManagementController', {
                 $scope: scope,
-                Idea: _Idea_,
-                IdeaRepo: _IdeaRepo_,
-                IdeaState: IdeaState,
                 FeatureProposal: _FeatureProposal_,
                 FeatureProposalRepo: _FeatureProposalRepo_,
                 FeatureProposalState: FeatureProposalState,
+                Idea: _Idea_,
+                IdeaRepo: _IdeaRepo_,
+                IdeaState: IdeaState,
                 ProjectService: _ProjectService_,
                 ServiceRepo: _ServiceRepo_
             });
+
+            // ensure that the isReady() is called.
+            //scope.$digest();
         });
     });
 
@@ -61,4 +65,5 @@ describe('controller: ServiceDetailIdeaManagementController', function () {
             expect(typeof scope.removeIdeaFromSelected).toEqual("function");
         });
     });
+
 });

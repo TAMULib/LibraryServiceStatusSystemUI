@@ -1,5 +1,29 @@
 angular.module('mock.projectService', []).service('ProjectService', function ($q) {
 
+    var defer;
+
+    var payloadResponse = function (payload) {
+        return defer.resolve({
+            body: angular.toJson({
+                meta: {
+                    status: 'SUCCESS'
+                },
+                payload: payload
+            })
+        });
+    };
+
+    var messageResponse = function (message) {
+        return defer.resolve({
+            body: angular.toJson({
+                meta: {
+                    status: 'SUCCESS',
+                    message: message
+                }
+            })
+        });
+    };
+
     this.storage = {
         'session': {},
         'local': {}
@@ -8,7 +32,7 @@ angular.module('mock.projectService', []).service('ProjectService', function ($q
     this.keys = {
         'session': {},
         'local': {}
-    }
+    };
 
     this.set = function (key, value, type) {
         type = (type !== undefined) ? type : appConfig.storageType;
@@ -31,12 +55,10 @@ angular.module('mock.projectService', []).service('ProjectService', function ($q
         }
         var data = {};
         this.keys[type][key].promise.then(null, null, function (promisedData) {
-            console.log(promisedData);
             angular.extend(data, promisedData);
         })
         return data;
-    }
-
+    };
 
     this.delete = function (key, type) {
         type = (type !== undefined) ? type : appConfig.storageType;
@@ -45,7 +67,25 @@ angular.module('mock.projectService', []).service('ProjectService', function ($q
         }
         delete this.keys[type][key];
         delete this.storage[type][key];
+    };
+
+    this.getAll = function(force) {
+        defer = $q.defer();
+        payloadResponse([]);
+        return defer.promise;
     }
+
+    this.getById = function(id) {
+        defer = $q.defer();
+        payloadResponse({});
+        return defer.promise;
+    }
+
+    this.submitFeatureProposal = function (fp) {
+        defer = $q.defer();
+        payloadResponse();
+        return defer.promise;
+    };
 
     for (var type in {
             'session': '0',

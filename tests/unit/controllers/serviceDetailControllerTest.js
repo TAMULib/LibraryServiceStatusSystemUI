@@ -1,23 +1,36 @@
 describe('controller: ServiceDetailController', function () {
 
-    var scope, controller, ServiceRepo;
+    var scope, controller, Note, Service, ServiceRepo;
 
     beforeEach(function () {
         module('core');
         module('app');
+        module('mock.note');
+        module('mock.service');
         module('mock.serviceRepo');
 
-        inject(function ($controller, $rootScope, $anchorScroll, $timeout, _ServiceRepo_) {
+        inject(function ($anchorScroll, $controller, $rootScope, $timeout, _Note_, _Service_, _ServiceRepo_) {
             installPromiseMatchers();
             scope = $rootScope.$new();
-            ServiceRepo = _ServiceRepo_;
+
             controller = $controller('ServiceDetailController', {
-                $scope: scope,
                 $anchorScroll: $anchorScroll,
-                $routeParams: {},
+                $routeParams: {
+                    serviceId: 2
+                },
+                $scope: scope,
                 $timeout: $timeout,
+                Note: _Note_,
+                Service: _Service_,
                 ServiceRepo: _ServiceRepo_
             });
+
+            Note = _Note_;
+            Service = _Service_;
+            ServiceRepo = _ServiceRepo_;
+
+            // ensure that the isReady() is called.
+            scope.$digest();
         });
     });
 
@@ -36,6 +49,10 @@ describe('controller: ServiceDetailController', function () {
             expect(scope.getServiceWebsite).toBeDefined();
             expect(typeof scope.getServiceWebsite).toEqual("function");
         });
+        it('hasNotes should be defined', function () {
+            expect(scope.hasNotes).toBeDefined();
+            expect(typeof scope.hasNotes).toEqual("function");
+        });
     });
 
     describe('Do the scope methods work as expected', function () {
@@ -52,5 +69,23 @@ describe('controller: ServiceDetailController', function () {
             service.website = null;
             expect(scope.getServiceWebsite(service)).toEqual(service.website);
         });
+        it('hasNotes should return the service website', function () {
+            var result;
+            var note1 = new Note();
+            var note2 = new Note();
+            note1.mock(mockNote1);
+            note2.mock(mockNote2);
+
+            result = scope.hasNotes();
+            expect(result).toBe(false);
+
+            scope.notesTableParams = {
+                data: [note1, note2]
+            };
+
+            result = scope.hasNotes();
+            expect(result).toBe(true);
+        });
     });
+
 });

@@ -1,32 +1,40 @@
 describe('controller: RequestController', function () {
 
-    var controller, scope;
+    var controller, scope, User;
 
     beforeEach(function() {
         module('core');
         module('app');
-        module('mock.wsApi');
-        module('mock.user');
         module('mock.service');
         module('mock.serviceRepo');
         module('mock.storageService');
+        module('mock.user');
+        //module('mock.userService'); // fixme: mock is breaking here.
+        module('mock.wsApi');
 
-        inject(function ($controller, $rootScope, _WsApi_, _User_, _UserService_, _Service_, _ServiceRepo_, _StorageService_) {
+        inject(function ($controller, $rootScope, _Service_, _ServiceRepo_, _StorageService_, _User_, _UserService_, _WsApi_) {
+            installPromiseMatchers();
             scope = $rootScope.$new();
+
             _StorageService_.set('role', 'ROLE_USER');
+
             controller = $controller('RequestController', {
-                $scope: scope,
                 $routeParams: {
                     service: 2
                 },
-                WsApi: _WsApi_,
-                User: _User_,
-                UserService: _UserService_,
+                $scope: scope,
                 Service: _Service_,
                 ServiceRepo: _ServiceRepo_,
-                StorageService: _StorageService_
+                StorageService: _StorageService_,
+                User: _User_,
+                UserService: _UserService_,
+                WsApi: _WsApi_
             });
-            installPromiseMatchers();
+
+            User = _User_;
+
+            // ensure that the isReady() is called.
+            scope.$digest();
         });
     });
 
@@ -53,6 +61,7 @@ describe('controller: RequestController', function () {
 
     describe('Do the scope methods work as expected', function () {
         it('submit should submit a feature request', function () {
+            scope.user
             scope.type = 'FEATURE';
             scope.title = 'Test feature request';
             scope.description = 'This is a test feature request on service 1';

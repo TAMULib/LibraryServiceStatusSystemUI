@@ -10,11 +10,15 @@ describe('controller: AdminController', function () {
         inject(function ($controller, $rootScope, _User_, _UserService_) {
             installPromiseMatchers();
             scope = $rootScope.$new();
+
             controller = $controller('AdminController', {
                 $scope: scope,
                 User: _User_,
                 UserService: _UserService_
             });
+
+            // ensure that the isReady() is called.
+            scope.$digest();
         });
     });
 
@@ -23,4 +27,5 @@ describe('controller: AdminController', function () {
             expect(controller).toBeDefined();
         });
     });
+
 });

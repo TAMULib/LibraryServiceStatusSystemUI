@@ -7,10 +7,15 @@ describe('controller: ManagementController', function () {
         module('app');
 
         inject(function ($controller, $rootScope) {
+            installPromiseMatchers();
             scope = $rootScope.$new();
+
             controller = $controller('ManagementController', {
                 $scope: scope
             });
+
+            // ensure that the isReady() is called.
+            scope.$digest();
         });
     });
 

@@ -109,27 +109,59 @@ var mockFeatureProposals = [
 angular.module('mock.featureProposalRepo', []).service('FeatureProposalRepo', function ($q) {
 
     var featureProposalRepo = this;
+    var defer;
+
+    var payloadResponse = function (payload) {
+        return defer.resolve({
+            body: angular.toJson({
+                meta: {
+                    status: 'SUCCESS'
+                },
+                payload: payload
+            })
+        });
+    };
+
+    var messageResponse = function (message) {
+        return defer.resolve({
+            body: angular.toJson({
+                meta: {
+                    status: 'SUCCESS',
+                    message: message
+                }
+            })
+        });
+    };
+
+    var table = {
+        // @todo
+    };
+
+    var safePage = function(resolve) {
+        // @todo
+    };
 
     featureProposalRepo.list = mockFeatureProposals;
 
-    featureProposalRepo.create = function (note) {
-        var defer = $q.defer();
-        note.id = featureProposalRepo.list.length + 1;
-        featureProposalRepo.list.push(note);
-        defer.resolve(note);
+    featureProposalRepo.create = function (fp) {
+        defer = $q.defer();
+        fp.id = featureProposalRepo.list.length + 1;
+        featureProposalRepo.list.push(angular.copy(fp));
+        payloadResponse(fp);
         return defer.promise;
     };
 
-    featureProposalRepo.update = function (note) {
-        var defer = $q.defer();
+    featureProposalRepo.update = function (fp) {
+        defer = $q.defer();
+        var featureProposal;
         for (var i in featureProposalRepo.list) {
-            if (featureProposalRepo.list[i].id === note.id) {
-                angular.extend(featureProposalRepo.list[i], note);
-                note = featureProposalRepo.list[i];
+            if (featureProposalRepo.list[i].id === fp.id) {
+                angular.extend(featureProposalRepo.list[i], fp);
+                featureProposal = angular.copy(featureProposalRepo.list[i]);
                 break;
             }
         }
-        defer.resolve(note);
+        payloadResponse(featureProposal);
         return defer.promise;
     };
 
@@ -138,8 +170,8 @@ angular.module('mock.featureProposalRepo', []).service('FeatureProposalRepo', fu
     };
 
     featureProposalRepo.getAll = function () {
-        var defer = $q.defer();
-        defer.resolve(featureProposalRepo.list);
+        defer = $q.defer();
+        payloadResponse(angular.copy(featureProposalRepo.list));
         return defer.promise;
     };
 
@@ -172,17 +204,17 @@ angular.module('mock.featureProposalRepo', []).service('FeatureProposalRepo', fu
     };
 
     featureProposalRepo.getTableParams = function () {
+        var table = {
+            data: [],
+            reload: function() {}
+        }
         // @todo
-        return {};
+        return table;
     };
 
     featureProposalRepo.fetchPage = function (pageSettings) {
         // @todo
         return {};
-    };
-
-    var safePage = function(resolve) {
-        // @todo
     };
 
     featureProposalRepo.page = function () {
@@ -192,22 +224,33 @@ angular.module('mock.featureProposalRepo', []).service('FeatureProposalRepo', fu
     };
 
     featureProposalRepo.reject = function (fp) {
-        return $q(function (resolve) {
-            var featureProposal = {};
-            for (var i in featureProposalRepo.list) {
-                if (featureProposalRepo.list[i].id === fp.id) {
-                    featureProposalRepo.list[i].state = "REJECTED";
-                    featureProposalRepo.list[i].feedback = fp.feedback;
-                    featureProposal = featureProposalRepo.list[i];
-                    break;
-                }
+        defer = $q.defer();
+        var featureProposal = {};
+        for (var i in featureProposalRepo.list) {
+            if (featureProposalRepo.list[i].id === fp.id) {
+                featureProposalRepo.list[i].state = "REJECTED";
+                featureProposalRepo.list[i].feedback = fp.feedback;
+                featureProposal = angular.copy(featureProposalRepo.list[i]);
+                break;
             }
-            resolve(featureProposal);
-        });
+        }
+        payloadResponse(featureProposal);
+        return defer.promise;
     };
 
-    var table = {
-        // @todo
+    featureProposalRepo.elevate = function (fp) {
+        var i = featureProposalRepo.list.length;
+        defer = $q.defer();
+        featureProposalRepo.list[i] = angular.copy(fp);
+        featureProposalRepo.list[i].state = "IN_PROGRESS";
+        payloadResponse(angular.copy(featureProposalRepo.list[i]));
+        return defer.promise;
+    };
+
+    featureProposalRepo.ready = function () {
+        defer = $q.defer();
+        payloadResponse();
+        return defer.promise;
     };
 
     return featureProposalRepo;
