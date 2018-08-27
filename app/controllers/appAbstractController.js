@@ -9,7 +9,7 @@ app.controller("AppAbstractController", function ($controller, $scope) {
     };
 
     // Admins have management access
-    $scope.hasManagementAccess= function () {
+    $scope.hasManagementAccess = function () {
         return ($scope.hasAdminAccess() || $scope.isWebManager() || $scope.isServiceManager() || $scope.isNoticeManager());
     };
 
@@ -34,8 +34,31 @@ app.controller("AppAbstractController", function ($controller, $scope) {
     };
 
     $scope.isFullServiceConsumer = function () {
-        return $scope.isStaff() ||
-            $scope.hasManagementAccess();
+        return $scope.isStaff() || $scope.hasManagementAccess();
+    };
+
+    $scope.canManageServices = function () {
+        return ($scope.hasAdminAccess() || $scope.isServiceManager());
+    };
+
+    $scope.canManageNotes = function () {
+        return ($scope.hasManagementAccess() && !$scope.isNoticeManager());
+    };
+
+    $scope.canManageIdeas = function () {
+        return ($scope.hasAdminAccess() || $scope.isServiceManager());
+    };
+
+    $scope.canManageFeatureProposals = function () {
+        return ($scope.hasAdminAccess() || $scope.isServiceManager());
+    };
+
+    $scope.canManageNotifications = function () {
+        return ($scope.hasAdminAccess() || $scope.isWebManager() || $scope.isNoticeManager());
+    };
+
+    $scope.canManageUsers = function () {
+        return $scope.isAdmin();
     };
 
 });

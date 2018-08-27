@@ -24,6 +24,12 @@ app.config(function ($routeProvider) {
         templateUrl: 'views/detail/note.html',
         controller: 'NoteDetailController'
     }).
+    when('/request/:service/:type', {
+        templateUrl: 'views/request/request.html',
+    }).
+    when('/request/:service', {
+        templateUrl: 'views/request/request.html',
+    }).
     when('/request', {
         templateUrl: 'views/request/request.html',
     }).

@@ -1,4 +1,4 @@
-app.controller('FeatureProposalController', function($controller, $scope, Idea, FeatureProposal, ProjectService) {
+app.controller('FeatureProposalController', function ($controller, $scope, Idea, IdeaState, FeatureProposalState, ProjectService) {
 
     angular.extend(this, $controller('AbstractIdeaController', {
         $scope: $scope
@@ -8,66 +8,17 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
 
     $scope.ideaToAdd = {};
 
-    $scope.weaverTable = {
-        repo: $scope.fpRepo,
-        columns: [{
-                gloss: 'Service',
-                property: 'service.name',
-                filterable: true,
-                sortable: true
-            },
-            {
-                gloss: 'Title',
-                property: 'title',
-                filterable: true,
-                sortable: true
-            },
-            {
-                gloss: 'Description',
-                property: 'description',
-                filterable: true,
-                sortable: false
-            },
-            {
-                gloss: 'Last Modified',
-                property: 'lastModified',
-                filterable: true,
-                sortable: true
-            },
-            {
-                gloss: 'Submitted',
-                property: 'submitted',
-                filterable: true,
-                sortable: true
-            },
-            {
-                gloss: 'Actions',
-                filterable: false,
-                sortable: false
-            }
-        ],
-        activeSort: [{
-                property: 'service.name',
-                direction: 'ASC'
-            },
-            {
-                property: 'lastModified',
-                direction: 'DESC'
-            }
-        ]
-    };
+    $scope.state = FeatureProposalState;
 
     $scope.removedIdeas = [];
 
-    $scope.tableParams = $scope.fpRepo.getTableParams();
-
-    $scope.editFeatureProposal = function(fp) {
+    $scope.editFeatureProposal = function (fp) {
         $scope.fpData = fp;
         $scope.openModal('#editFpModal');
     };
 
-    $scope.removeIdea = function(idea) {
-        if ($scope.fpData.ideas.some(function(i) {
+    $scope.removeIdea = function (idea) {
+        if ($scope.fpData.ideas.some(function (i) {
                 return i.id === idea.id;
             })) {
             $scope.removedIdeas.push(new Idea(idea));
@@ -77,13 +28,14 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
         }
     };
 
-    $scope.updateFeatureProposal = function(fp) {
-    	$scope.fpRepo.update($scope.fpData).then(function(res) {
+    $scope.updateFeatureProposal = function () {
+        $scope.fpData.dirty(true);
+        $scope.fpRepo.update($scope.fpData).then(function (res) {
             if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                 $scope.resetFeatureProposals();
                 for (var i in $scope.removedIdeas) {
                     var idea = $scope.removedIdeas[i];
-                    idea.elevated = false;
+                    idea.state = IdeaState.WAITING_ON_REVIEW.value;
                     idea.save();
                 }
                 $scope.removedIdeas.length = 0;
@@ -91,31 +43,66 @@ app.controller('FeatureProposalController', function($controller, $scope, Idea, 
         });
     };
 
-    $scope.select = function(fp, modal) {
+    $scope.confirmReject = function (fp) {
+        $scope.resetFeatureProposals();
+        $scope.openModal('#rejectFpModal');
+        $scope.fpToReject = fp;
+    };
+
+    $scope.rejectFeatureProposal = function () {
+        $scope.updating = true;
+        $scope.fpRepo.reject($scope.fpToReject).then(function (res) {
+            if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
+                $scope.resetFeatureProposals();
+                $scope.fpToReject = {};
+            }
+            $scope.updating = false;
+        });
+    };
+
+    $scope.select = function (fp, modal) {
         $scope.fpData = fp;
         $scope.openModal(modal);
     };
 
-    $scope.submitFeatureProposal = function(fp) {
+    $scope.submitFeatureProposal = function (fp) {
         $scope.submitting = true;
-        ProjectService.submitFeatureProposal(fp).then(function() {
-            $scope.submitting = false;
-            $scope.resetFeatureProposals();
+        ProjectService.submitFeatureProposal(fp).then(function (res) {
+            if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
+                $scope.submitting = false;
+                $scope.resetFeatureProposals();
+            }
         });
     };
 
-    $scope.confirmDeleteFp = function(fp) {
+    $scope.confirmDeleteFp = function (fp) {
         $scope.openModal('#deleteFpModal');
         $scope.fpToDelete = fp;
     };
 
-    $scope.deleteFp = function() {
+    $scope.deleteFp = function () {
         $scope.deleting = true;
-        $scope.fpToDelete.delete().then(function() {
-            $scope.closeModal();
-            $scope.deleting = false;
-            $scope.fpToDelete = {};
+        $scope.fpToDelete.delete().then(function (res) {
+            if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
+                $scope.closeModal();
+                $scope.deleting = false;
+                $scope.fpToDelete = {};
+            }
         });
+    };
+
+    $scope.hasState = function (state, fp) {
+        return fp && fp.state === FeatureProposalState[state].value;
+    };
+
+    $scope.getStateSummary = function (state) {
+        return FeatureProposalState[state] === undefined ? "" : FeatureProposalState[state].summary;
+    };
+
+    $scope.initCreateFeatureProposal = function () {
+        $scope.fpData.state = FeatureProposalState.IN_PROGRESS.value;
+        $scope.fpData.isPrivate = false;
+        $scope.openModal('#addFpModal');
     };
 
 });

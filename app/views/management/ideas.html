@@ -1,4 +1,4 @@
-<div class="management-table" ng-controller="IdeaController">
+<div class="management-table" ng-controller="IdeaManagementController">
 
   <weaver-table weaver-table="weaverTable">
 
@@ -7,18 +7,23 @@
     </weaver-table-controls>
 
     <weaver-table-element>
-      <table ng-table="tableParams" template-header="customTableHeader" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped idea-table">
+      <table ng-table="weaverTable.tableParams" template-header="customTableHeader" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped idea-table">
         <tbody>
           <tr ng-repeat="idea in $data">
-            <td><a href="{{'service/' + idea.service.id + '/detail/'}}">{{idea.service.name}}</a> <span ng-if="idea.schedules.length > 0">(scheduled)</span></td>
+            <td>
+              <a href="{{'service/' + idea.service.id + '/detail/'}}">{{idea.service.name}}</a>
+              <span ng-if="idea.schedules.length > 0">(scheduled)</span>
+            </td>
             <td>{{idea.title}}</td>
             <td>{{idea.description}}</td>
             <td>{{idea.lastModified | date : 'medium'}}</td>
-            <td>{{idea.elevated}}</td>
-            <!-- <td class="actions-column text-center">
-              <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editIdea(idea)"></span>
-              <span class="glyphicon glyphicon-trash" title="delte" ng-click="confirmDelete(idea)"></span>
-            </td> -->
+            <td>
+              <a ng-if="idea.state === 'ELEVATED'" href="{{'service/' + idea.service.id + '/detail#fp-' + idea.featureProposal}}">{{idea.state | ideaState}}</a>
+              <span ng-if="idea.state !== 'ELEVATED'">{{idea.state | ideaState}}</span>
+            </td>
+            <td class="actions-column text-center">
+              <span ng-if="canManageServices()" class="glyphicon glyphicon-pencil" title="edit" ng-click="editIdea(idea)"></span>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -28,6 +33,10 @@
       <modal modal-id="addIdeaModal" modal-view="views/modals/detail/service/addIdeaModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
       <modal modal-id="deleteIdeaModal" modal-view="views/modals/detail/service/deleteIdeaModal.html" modal-header-class="modal-header-danger" wvr-modal-backdrop="static"></modal>
       <modal modal-id="editIdeaModal" modal-view="views/modals/detail/service/editIdeaModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+      <modal modal-id="rejectIdeaModal" modal-view="views/modals/detail/service/rejectIdeaModal.html" modal-header-class="modal-header-warning" wvr-modal-backdrop="static"></modal>
+      <modal modal-id="sendToHelpdeskModal" modal-view="views/modals/detail/service/sendToHelpdeskModal.html" modal-header-class="modal-header-warning" wvr-modal-backdrop="static"></modal>
+      <modal modal-id="elevateMultipleModal" modal-view="views/modals/detail/service/elevateMultipleModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+      <modal modal-id="confirmAddIdeaModal" modal-view="views/modals/detail/service/confirmAddIdeaModal.html" modal-header-class="modal-header-primary" modal-fullscreen="true" wvr-modal-backdrop="static"></modal>
     </weaver-table-modals>
 
   </weaver-table>

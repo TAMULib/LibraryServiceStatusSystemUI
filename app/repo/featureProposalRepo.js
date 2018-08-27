@@ -1,4 +1,4 @@
-app.repo("FeatureProposalRepo", function FeatureProposalRepo($q, WsApi, FeatureProposal, ServiceRepo, TableFactory) {
+app.repo("FeatureProposalRepo", function FeatureProposalRepo(WsApi, FeatureProposal, ServiceRepo, TableFactory) {
 
     var featureProposalRepo = this;
 
@@ -26,34 +26,21 @@ app.repo("FeatureProposalRepo", function FeatureProposalRepo($q, WsApi, FeatureP
         return WsApi.fetch(featureProposalRepo.mapping.page);
     };
 
-    var safePage = function(resolve) {
-        featureProposalRepo.fetchPage().then(function (response) {
-            var page = angular.fromJson(response.body).payload.PageImpl;
-            featureProposalRepo.empty();
-            featureProposalRepo.addAll(page.content);
-            if (table.getPageSettings().pageNumber > 1 && table.getPageSettings().pageNumber > page.totalPages) {
-                table.setPage(page.totalPages);
-                safePage(resolve);
-            } else {
-                resolve(page);
-            }
-        });
-    };
-
-    featureProposalRepo.page = function () {    	
-        return $q(function (resolve) {
-            safePage(resolve);
-        });
-    };
-
-    featureProposalRepo.elevate = function(idea) {
+    featureProposalRepo.elevate = function (idea) {
         angular.extend(featureProposalRepo.mapping.elevate, {
             'data': idea
         });
         return WsApi.fetch(featureProposalRepo.mapping.elevate);
     };
 
-    featureProposalRepo.vote = function(fp) {
+    featureProposalRepo.reject = function (fp) {
+        angular.extend(featureProposalRepo.mapping.reject, {
+            'data': fp
+        });
+        return WsApi.fetch(featureProposalRepo.mapping.reject);
+    };
+
+    featureProposalRepo.vote = function (fp) {
         angular.extend(featureProposalRepo.mapping.vote, {
             'method': fp.id + "/vote"
         });
@@ -63,13 +50,10 @@ app.repo("FeatureProposalRepo", function FeatureProposalRepo($q, WsApi, FeatureP
     var table = TableFactory.buildTable({
         pageNumber: sessionStorage.getItem('feature-proposals-page') ? sessionStorage.getItem('feature-proposals-page') : 1,
         pageSize: sessionStorage.getItem('feature-proposals-size') ? sessionStorage.getItem('feature-proposals-size') : 10,
-        direction: 'DESC',
-        properties: ['title'],
         filters: {},
         counts: [5, 10, 25, 50, 100],
-        page: featureProposalRepo.page,
-        data: featureProposalRepo.getContents(),
-        name: 'feature-proposals'
+        name: 'feature-proposals',
+        repo: featureProposalRepo
     });
 
     var updateFeatureProposal = function (featureProposal) {
@@ -91,6 +75,7 @@ app.repo("FeatureProposalRepo", function FeatureProposalRepo($q, WsApi, FeatureP
         var featureProposal = new FeatureProposal(angular.fromJson(response.body).payload.FeatureProposal);
         ServiceRepo.updateFeatureProposal(featureProposal);
         updateFeatureProposal(featureProposal);
+        table.getTableParams().reload();
     });
 
     WsApi.listen(featureProposalRepo.mapping.deleteListen).then(null, null, function (response) {

@@ -3,28 +3,32 @@ describe('controller: DashboardController', function () {
     var controller, scope;
 
     beforeEach(function() {
-      module('core');
-      module('app');
-      module('mock.user');
-      module('mock.serviceRepo');
-      module('mock.noteRepo');
-      module('mock.userService');
-      module('mock.overallStatusFull');
-      module('mock.overallStatusPublic');
+        module('core');
+        module('app');
+        module('mock.noteRepo');
+        module('mock.overallStatusFull');
+        module('mock.overallStatusPublic');
+        module('mock.serviceRepo');
+        module('mock.user');
+        module('mock.userService');
 
-      inject(function ($controller, $rootScope, _User_, _UserService_, _NoteRepo_, _OverallStatusFull_, _OverallStatusPublic_, _ServiceRepo_) {
+        inject(function ($controller, $rootScope, _NoteRepo_, _OverallStatusFull_, _OverallStatusPublic_, _ServiceRepo_, _User_, _UserService_) {
             installPromiseMatchers();
             scope = $rootScope.$new();
+
             controller = $controller('DashboardController', {
                 $scope: scope,
-                User: _User_,
-                UserService: _UserService_,
                 NoteRepo: _NoteRepo_,
                 OverallStatusFull: _OverallStatusFull_,
                 OverallStatusPublic: _OverallStatusPublic_,
-                ServiceRepo: _ServiceRepo_
+                ServiceRepo: _ServiceRepo_,
+                User: _User_,
+                UserService: _UserService_
             });
-        })
+
+            // ensure that the isReady() is called.
+            scope.$digest();
+        });
     });
 
     describe('Is the controller defined', function () {
@@ -56,7 +60,9 @@ describe('controller: DashboardController', function () {
           var after = scope.showShortList;
           expect(typeof before).toEqual("boolean");
 
-          expect(!before === after).toBeTruthy();
+          var notBefore = !before;
+          expect(notBefore === after).toBeTruthy();
         });
     });
+
 });

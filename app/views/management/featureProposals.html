@@ -1,22 +1,28 @@
-<div class="management-table" ng-controller="FeatureProposalController">
+<div class="management-table" ng-controller="FeatureProposalManagementController">
 
   <weaver-table weaver-table="weaverTable">
 
     <weaver-table-controls>
-      <button class="btn btn-default view-action-button pull-right" ng-click="openModal('#addFpModal')">Add Feature Proposal</button>
+      <button class="btn btn-default view-action-button pull-right" ng-click="initCreateFeatureProposal()">Add Feature Proposal</button>
     </weaver-table-controls>
 
     <weaver-table-element>
-      <table ng-table="tableParams" template-header="customTableHeader"  template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped fp-table">
+      <table ng-table="weaverTable.tableParams" template-header="customTableHeader" template-pagination="views/customPaginationControls.html" show-filter="false" class="table table-bordered table-striped fp-table">
         <tbody>
           <tr ng-repeat="fp in $data">
-            <td title="'Service'"><a href="{{'service/' + fp.service.id + '/detail/'}}">{{fp.service.name}}</a></td>
-            <td title="'Title'">{{fp.title}}</a></td>
+            <td title="'Service'">
+              <a href="{{'service/' + fp.service.id + '/detail/'}}">{{fp.service.name}}</a>
+            </td>
+            <td title="'Title'">{{fp.title}}</td>
             <td title="'Description'">{{fp.description}}</td>
             <td title="'Last Modified'">{{fp.lastModified | date : 'medium'}}</td>
-            <td title="'Submitted'">{{fp.submitted}}</td>
+            <td title="'Status'">
+              <span title="{{getStateSummary(fp.state)}}">{{fp.state | featureProposalState}}</span>
+            </td>
+            <td title="'Private'">{{fp.isPrivate}}</td>
             <td class="actions-column text-center" title="'Actions'">
-              <span ng-if="!fp.submitted" class="toggle-href glyphicon glyphicon-upload" title="submit" ng-click="select(fp, '#submitFpModal');"></span>
+              <span ng-if="!hasState('SUBMITTED', fp) && !hasState('REJECTED', fp)" class="toggle-href glyphicon glyphicon-upload" title="submit" ng-click="select(fp, '#submitFpModal');"></span>
+              <span ng-if="!hasState('SUBMITTED', fp) && !hasState('REJECTED', fp)" class="toggle-href glyphicon glyphicon-ban-circle" title="reject" ng-click="confirmReject(fp)"></span>
               <span class="glyphicon glyphicon-pencil" title="edit" ng-click="editFeatureProposal(fp)"></span>
               <span class="glyphicon glyphicon-trash" title="delete" ng-click="confirmDeleteFp(fp)"></span>
             </td>
@@ -28,6 +34,7 @@
     <weaver-table-modals>
       <modal modal-id="addFpModal" modal-view="views/modals/detail/service/addFpModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
       <modal modal-id="submitFpModal" modal-view="views/modals/detail/service/submitFpModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
+      <modal modal-id="rejectFpModal" modal-view="views/modals/detail/service/rejectFpModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
       <modal modal-id="deleteFpModal" modal-view="views/modals/detail/service/deleteFpModal.html" modal-header-class="modal-header-danger" wvr-modal-backdrop="static"></modal>
       <modal modal-id="editFpModal" modal-view="views/modals/detail/service/editFpModal.html" modal-header-class="modal-header-primary" wvr-modal-backdrop="static"></modal>
     </weaver-table-modals>

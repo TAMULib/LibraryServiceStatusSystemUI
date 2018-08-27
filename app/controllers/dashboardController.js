@@ -4,6 +4,9 @@ app.controller("DashboardController", function ($controller, $scope, UserService
         $scope: $scope
     }));
 
+    // Clear out any cached pages and get full list of services.
+    ServiceRepo.reset();
+
     $scope.overallStatus = $scope.isFullServiceConsumer() ? new OverallStatusFull() : new OverallStatusPublic();
 
     $scope.services = ServiceRepo.getAll();
@@ -30,6 +33,7 @@ app.controller("DashboardController", function ($controller, $scope, UserService
     NoteRepo.getPageSettings().filters = {
         active: [true]
     };
+
     NoteRepo.getPageSettings().sort = [{
         property: 'service.name',
         direction: 'ASC'
@@ -37,7 +41,5 @@ app.controller("DashboardController", function ($controller, $scope, UserService
         property: 'lastModified',
         direction: 'DESC'
     }];
-
-    NoteRepo.page();
 
 });

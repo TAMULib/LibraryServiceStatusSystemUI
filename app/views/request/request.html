@@ -45,6 +45,15 @@
             <option ng-repeat="s in services | filter:{isPublic:true}" value="{{s.id}}" ng-selected="s.id === service">{{s.name}}</option>
           </select>
         </div>
+        <div ng-if="type === 'FEATURE'" class="form-group">
+          <div class="checkbox">
+            <label><input type="checkbox" ng-model="request.sendUpdates">Send me email updates</label>
+          </div>
+        </div>
+        <div ng-if="type === 'FEATURE'" class="form-group">
+          <label for="email">Email:</label>
+          <input ng-disabled="!request.sendUpdates" class="form-control" id="email" type="email" name="email" ng-model="email" aria-describedby="email">
+        </div>
         <div class="pull-right">
           <button type="button" class="btn btn-default" ng-click="reset()">Back</button>
           <button type="button" class="btn btn-warning" ng-disabled="requestForm.$pristine" ng-click="clear()">Clear</button>

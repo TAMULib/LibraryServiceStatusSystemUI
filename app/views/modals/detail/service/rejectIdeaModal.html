@@ -1,0 +1,25 @@
+<div class="modal-header {{attr.modalHeaderClass}}">
+    <button type="button" class="close" ng-click="closeModal()" aria-label="Close">
+      <span class="modal-close" aria-hidden="true">&times;</span>
+    </button>
+    <h3 class="modal-title">Reject {{ideaToReject.title}}</h3>
+  </div>
+  
+  <form novalidate>
+    <validationmessage results="ideaRepo.getValidationResults()"></validationmessage>
+    <alerts channel="/private/queue/ideas/reject" types="WARNING, ERROR, INVALID"></alerts>
+
+    <div class="modal-body">
+      <validatedtextarea model="ideaToReject" property="feedback" label="Reason for Rejection" form="forms.rejectIdea" validations="ideaRepo.getValidations()" results="ideaRepo.getValidationResults()"></validatedtextarea>
+    </div>
+  
+    <div class="modal-footer">
+      <button ng-disabled="updating" type="button" class="btn btn-default" ng-click="closeModal()">Cancel</button>
+      <button ng-disabled="updating" type="button" class="btn btn-danger" ng-click="rejectIdea()">
+        <span ng-if="!updating">Confirm</span>
+        <span ng-if="updating">Rejecting
+          <span class="glyphicon glyphicon-refresh spinning"></span>
+        </span>
+      </button>
+    </div>
+  </form>

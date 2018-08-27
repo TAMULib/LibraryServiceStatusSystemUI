@@ -85,6 +85,16 @@ var apiMapping = {
             'controller': 'ideas',
             'method': 'update'
         },
+        reject: {
+            'endpoint': '/private/queue',
+            'controller': 'ideas',
+            'method': 'reject'
+        },
+        sendToHelpdesk: {
+            'endpoint': '/private/queue',
+            'controller': 'ideas',
+            'method': 'helpdesk'
+        },
         remove: {
             'endpoint': '/private/queue',
             'controller': 'ideas',
@@ -132,6 +142,11 @@ var apiMapping = {
             'endpoint': '/private/queue',
             'controller': 'feature-proposals',
             'method': 'update'
+        },
+        reject: {
+            'endpoint': '/private/queue',
+            'controller': 'feature-proposals',
+            'method': 'reject'
         },
         remove: {
             'endpoint': '/private/queue',

@@ -5,7 +5,7 @@
   <h3 class="modal-title">Edit Feature Proposal</h3>
 </div>
 
-<form ng-submit="updateFeatureProposal(fpData)" name="forms.updateFp" novalidate>
+<form ng-submit="updateFeatureProposal()" name="forms.updateFp" novalidate>
 
   <validationmessage results="fpRepo.getValidationResults()"></validationmessage>
 
@@ -13,18 +13,31 @@
 
     <validatedinput model="fpData" property="title" label="Title" placeholder="Title of the Feature Proposal" form="forms.updateFp" validations="fpRepo.getValidations()" results="fpRepo.getValidationResults()"></validatedinput>
 
+    <validatedselect model="fpData" property="state" label="Status" form="forms.updateFp" validations="fpRepo.getValidations()" results="fpRepo.getValidationResults()" options="state" optionProperty="gloss" optionValue="value"></validatedselect>
+
+    <div ng-if="hasState('REJECTED', fpData)">
+      <label>Reason for Rejection</label>
+      <textarea required="hasState('REJECTED', fpData)" class="form-control" ng-model="fpData.feedback"></textarea>
+      <br>
+    </div>
+
     <validatedselect model="fpData" property="service" label="Services" form="forms.updateFp" validations="fpRepo.getValidations()" results="fpRepo.getValidationResults()" options="services" optionProperty="name" disabled="serviceDisabled"></validatedselect>
 
     <label>Feature Proposal Description</label>
     <textarea class="form-control" ng-model="fpData.description"></textarea>
+
     <br />
+
+    <validatedinput model="fpData" type="checkbox" property="isPrivate" label="Visibility" placeholder="Is Private?" form="forms.updateFp" validations="fpRepo.getValidations()" results="fpRepo.getValidationResults()"></validatedinput>
 
     <label>Ideas</label>
     <div class="input-group ideas-list" ng-repeat="idea in fpData.ideas">
-        <input type="text" class="form-control" disabled value="{{idea.title}}" disabled>
-        <span class="input-group-btn">
-          <button ng-click="removeIdea(idea)" class="btn btn-danger" type="button"><span class="glyphicon glyphicon-remove"></span></button>
-        </span>
+      <input type="text" class="form-control" disabled value="{{idea.title}}" disabled>
+      <span class="input-group-btn">
+        <button ng-click="removeIdea(idea)" class="btn btn-danger" type="button">
+          <span class="glyphicon glyphicon-remove"></span>
+        </button>
+      </span>
     </div>
 
     <div class="modal-footer">

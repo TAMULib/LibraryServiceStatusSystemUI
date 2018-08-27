@@ -1,15 +1,13 @@
-var mockServices = [{
+var mockServices = [
+    {
         "notes": [
-
         ],
         "id": 1,
         "schedules": [
-
         ],
         "withinSchedule": false,
         "name": "Test 1",
         "aliases": [
-
         ],
         "status": "UP",
         "isAuto": false,
@@ -18,20 +16,18 @@ var mockServices = [{
         "serviceUrl": null,
         "description": "<p>Hello, Test 1!</p>",
         "projectId": null,
-        "type": "service"
+        "type": "service",
+        "website": "https://example.tamu.edu/"
     },
     {
         "notes": [
-
         ],
         "id": 2,
         "schedules": [
-
         ],
         "withinSchedule": false,
         "name": "Test 2",
         "aliases": [
-
         ],
         "status": "MAINTENANCE",
         "isAuto": false,
@@ -40,20 +36,18 @@ var mockServices = [{
         "serviceUrl": null,
         "description": "<p>Hello, Test 2!</p>",
         "projectId": null,
-        "type": "service"
+        "type": "service",
+        "website": "http://example.tamu.edu/"
     },
     {
         "notes": [
-
         ],
         "id": 3,
         "schedules": [
-
         ],
         "withinSchedule": false,
         "name": "Test 3",
         "aliases": [
-
         ],
         "status": "UP",
         "isAuto": false,
@@ -62,61 +56,139 @@ var mockServices = [{
         "serviceUrl": null,
         "description": "<p>Hello, Test 3!</p>",
         "projectId": null,
-        "type": "service"
+        "type": "service",
+        "website": null
     }
 ];
 
 angular.module('mock.serviceRepo', []).service('ServiceRepo', function ($q) {
 
-    var ServiceRepo = this;
+    var serviceRepo = this;
+    var defer;
+    var i;
 
-    ServiceRepo.list = mockServices;
+    var payloadResponse = function (payload) {
+        return defer.resolve({
+            body: angular.toJson({
+                meta: {
+                    status: 'SUCCESS'
+                },
+                payload: payload
+            })
+        });
+    };
 
-    ServiceRepo.create = function (service) {
-        var defer = $q.defer();
-        service.id = ServiceRepo.list.length + 1;
-        ServiceRepo.list.push(service);
-        defer.resolve(service);
+    var messageResponse = function (message) {
+        return defer.resolve({
+            body: angular.toJson({
+                meta: {
+                    status: 'SUCCESS',
+                    message: message
+                }
+            })
+        });
+    };
+
+    serviceRepo.list = mockServices;
+
+    serviceRepo.create = function (service) {
+        defer = $q.defer();
+        service.id = serviceRepo.list.length + 1;
+        serviceRepo.list.push(angular.copy(service));
+        payloadResponse(service);
         return defer.promise;
     };
 
-    ServiceRepo.update = function (service) {
-        var defer = $q.defer();
-        for (var i in ServiceRepo.list) {
-            if (ServiceRepo.list[i].id === service.id) {
-                angular.extend(ServiceRepo.list[i], service);
-                service = ServiceRepo.list[i];
+    serviceRepo.update = function (service) {
+        defer = $q.defer();
+        for (var i in serviceRepo.list) {
+            if (serviceRepo.list[i].id === service.id) {
+                angular.extend(serviceRepo.list[i], service);
+                service = serviceRepo.list[i];
                 break;
             }
         }
-        defer.resolve(service);
+        payloadResponse(service);
         return defer.promise;
     };
 
-    ServiceRepo.getAll = function () {
-        var defer = $q.defer();
-        defer.resolve(ServiceRepo.list);
+    serviceRepo.getAll = function () {
+        defer = $q.defer();
+        payloadResponse(angular.copy(serviceRepo.list));
         return defer.promise;
     };
 
-    ServiceRepo.findById = function (id) {
-        for (var i in ServiceRepo.list) {
-            if (ServiceRepo.list[i].id === id) {
-                return ServiceRepo.list[i];
+    serviceRepo.findById = function (id) {
+        var found;
+        for (var i in serviceRepo.list) {
+            if (serviceRepo.list[i].id === id) {
+                found = angular.copy(serviceRepo.list[i]);
+                break;
             }
         }
+        return found;
     };
 
-    ServiceRepo.submitRequest = function (request) {
-        var defer = $q.defer();
-        defer.resolve();
+    serviceRepo.submitRequest = function (request) {
+        defer = $q.defer();
+        payloadResponse();
         return defer.promise;
     };
 
-    ServiceRepo.ready = function () {
-        var defer = $q.defer();
-        defer.resolve();
+    serviceRepo.ready = function () {
+        defer = $q.defer();
+        payloadResponse();
         return defer.promise;
     };
 
+    serviceRepo.reset = function () {};
+
+    serviceRepo.getPageSettings = function () {
+        return {};
+    };
+
+    serviceRepo.getTableParams = function() {
+        var table = {
+            data: [],
+            reload: function() {}
+        }
+        // @todo
+        return table;
+    };
+
+    // add required functions.
+    for (i = 0; i < serviceRepo.list.length; i++) {
+        serviceRepo.list[i].getNotesTableParams = function() {
+            var table = {
+                data: {},
+                reload: function() {}
+            }
+            // @todo
+            return table;
+        };
+        serviceRepo.list[i].getFeatureProposalsTableParams = function() {
+            var table = {
+                data: {},
+                reload: function() {}
+            }
+            // @todo
+            return table;
+        };
+        serviceRepo.list[i].getManagedFeatureProposalsTableParams = function() {
+            var table = {
+                data: [],
+                reload: function() {}
+            }
+            // @todo
+            return table;
+        };
+        serviceRepo.list[i].getManagedFeatureProposalsPageSettings = function() {
+            return {};
+        };
+        serviceRepo.list[i].dirty = function (dirty) {
+            return true;
+        };
+    }
+
+    return serviceRepo;
 });

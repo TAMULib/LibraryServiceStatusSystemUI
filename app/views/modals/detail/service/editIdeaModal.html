@@ -11,15 +11,35 @@
 
   <div class="modal-body">
 
-    <validatedinput model="ideaData" property="title" label="Title" placeholder="Title of the Idea" form="forms.updateIdea" validations="ideaRepo.getValidations()" results="ideaRepo.getValidationResults()"></validatedinput>
+    <validatedinput disabled="true" model="ideaData" property="title" label="Title" form="forms.updateIdea" validations="ideaRepo.getValidations()" results="ideaRepo.getValidationResults()"></validatedinput>
 
-    <validatedselect model="ideaData" property="service" label="Services" form="forms.updateIdea" validations="ideaRepo.getValidations()" results="ideaRepo.getValidationResults()" options="services" optionProperty="name" disabled="serviceDisabled"></validatedselect>
+    <validatedselect ng-disabled="!isAdmin()" model="ideaData" property="state" label="Status" form="forms.updateIdea" validations="ideaRepo.getValidations()" results="ideaRepo.getValidationResults()" options="states" optionProperty="gloss" optionValue="value"></validatedselect>
+
+    <validatedselect disabled="true" model="ideaData" property="service" label="Services" form="forms.updateIdea" validations="ideaRepo.getValidations()" results="ideaRepo.getValidationResults()" options="services" optionProperty="name"></validatedselect>
 
     <label>Idea Description</label>
-    <textarea class="form-control" ng-model="ideaData.description"></textarea>
+    <textarea disabled class="form-control" ng-model="ideaData.description"></textarea>
     <br />
 
+    <div ng-if="ideaData.feedback">
+      <label>Reason for Rejection</label>
+      <textarea disabled class="form-control" ng-model="ideaData.feedback"></textarea>
+      <br />
+    </div>
+
     <div class="modal-footer">
+      <div class="row">
+        <label class="pull-left">Available Actions</label>
+      </div>
+      <div class="row">
+        <button ng-disabled="updating || ideaData.state === 'ELEVATED'" type="button" class="btn btn-danger pull-left btn-action" ng-click="confirmDelete(ideaData)">Delete Idea</button>
+        <button ng-if="ideaData.state === 'WAITING_ON_REVIEW'" ng-disabled="updating" type="button" class="btn btn-warning pull-left btn-action" ng-click="confirmReject(ideaData)">Reject Idea</button>
+        <button ng-if="ideaData.state === 'WAITING_ON_REVIEW'" ng-disabled="updating" type="button" class="btn btn-warning pull-left btn-action" ng-click="confirmSendToHelpdesk(ideaData)">Send to Helpdesk</button>
+        <button ng-if="ideaData.state === 'WAITING_ON_REVIEW'" ng-disabled="updating" type="button" class="btn btn-info pull-left btn-action" ng-click="confirmElevateMultiple([ideaData])">Elevate</button>
+        <button ng-if="ideaData.state === 'WAITING_ON_REVIEW'" ng-disabled="updating" type="button" class="btn btn-primary pull-left btn-action" ng-click="confirmAddIdea(ideaData)">Add to FP</button>
+      </div>
+      <hr>
+      
       <button ng-disabled="updating" type="button" class="btn btn-default" ng-click="resetIdeas()">Cancel</button>
       <button ng-disabled="forms.updateIdea.$invalid || forms.updateIdea.$pristine || updating" id="idea-update" type="submit" class="btn btn-primary">
         <span ng-if="!updating">Update</span>

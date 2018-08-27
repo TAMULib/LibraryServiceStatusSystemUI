@@ -11,7 +11,8 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
         MSL: 'Medical Sciences Library',
         WCL: 'West Campus Library',
         PSEL: 'Policy Sciences & Economics Library',
-        QATAR: 'Qatar Library'
+        QATAR: 'Qatar Library',
+        SCHOLARS: 'SCHOLARS@TAMU'
     };
 
     $scope.modalData = {
@@ -49,9 +50,8 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
     $scope.resetNotifications();
 
     $scope.createNotification = function () {
-        NotificationRepo.create($scope.notificationData).then(function (response) {
-            var apiRes = angular.fromJson(response.body);
-            if (apiRes.meta.status === 'SUCCESS') {
+        NotificationRepo.create($scope.notificationData).then(function (res) {
+            if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                 $scope.resetNotifications();
             }
         });
@@ -63,9 +63,9 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
     };
 
     $scope.updateNotification = function () {
-        NotificationRepo.update($scope.notificationData).then(function (response) {
-            var apiRes = angular.fromJson(response.body);
-            if (apiRes.meta.status === 'SUCCESS') {
+        $scope.notificationData.dirty(true);
+        NotificationRepo.update($scope.notificationData).then(function (res) {
+            if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                 $scope.resetNotifications();
             }
         });
@@ -78,11 +78,13 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
 
     $scope.deleteNotification = function () {
         $scope.deleting = true;
-        $scope.notificationToDelete.delete().then(function () {
-            $scope.closeModal();
-            $scope.deleting = false;
-            $scope.notificationToDelete = {};
-            $scope.tableParams.reload();
+        $scope.notificationToDelete.delete().then(function (res) {
+            if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
+                $scope.closeModal();
+                $scope.deleting = false;
+                $scope.notificationToDelete = {};
+                $scope.tableParams.reload();
+            }
         });
     };
 

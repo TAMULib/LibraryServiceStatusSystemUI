@@ -1,35 +1,42 @@
 describe('controller: RequestController', function () {
 
-    var controller, scope;
+    var controller, scope, User;
 
-    beforeEach(module('core'));
+    beforeEach(function() {
+        module('core');
+        module('app');
+        module('mock.service');
+        module('mock.serviceRepo');
+        module('mock.storageService');
+        module('mock.user');
+        //module('mock.userService'); // fixme: mock is breaking here.
+        module('mock.wsApi');
 
-    beforeEach(module('app'));
+        inject(function ($controller, $rootScope, _Service_, _ServiceRepo_, _StorageService_, _User_, _UserService_, _WsApi_) {
+            installPromiseMatchers();
+            scope = $rootScope.$new();
 
-    beforeEach(module('mock.wsApi'));
+            _StorageService_.set('role', 'ROLE_USER');
 
-    beforeEach(module('mock.user'));
+            controller = $controller('RequestController', {
+                $routeParams: {
+                    service: 2
+                },
+                $scope: scope,
+                Service: _Service_,
+                ServiceRepo: _ServiceRepo_,
+                StorageService: _StorageService_,
+                User: _User_,
+                UserService: _UserService_,
+                WsApi: _WsApi_
+            });
 
-    beforeEach(module('mock.service'));
+            User = _User_;
 
-    beforeEach(module('mock.serviceRepo'));
-
-    beforeEach(module('mock.storageService'));
-
-    beforeEach(inject(function ($controller, $location, $rootScope, _WsApi_, _User_, _UserService_, _Service_, _ServiceRepo_, _StorageService_) {
-        scope = $rootScope.$new();
-        _StorageService_.set('role', 'ROLE_USER');
-        controller = $controller('RequestController', {
-            $scope: scope,
-            WsApi: _WsApi_,
-            User: _User_,
-            UserService: _UserService_,
-            Service: _Service_,
-            ServiceRepo: _ServiceRepo_,
-            StorageService: _StorageService_
+            // ensure that the isReady() is called.
+            scope.$digest();
         });
-        installPromiseMatchers();
-    }));
+    });
 
     describe('Is the controller defined', function () {
         it('should be defined', function () {
@@ -54,6 +61,7 @@ describe('controller: RequestController', function () {
 
     describe('Do the scope methods work as expected', function () {
         it('submit should submit a feature request', function () {
+            scope.user
             scope.type = 'FEATURE';
             scope.title = 'Test feature request';
             scope.description = 'This is a test feature request on service 1';
@@ -75,7 +83,7 @@ describe('controller: RequestController', function () {
             expect(scope.type).toEqual();
             expect(scope.title).toEqual();
             expect(scope.description).toEqual();
-            expect(scope.service).toEqual();
+            expect(scope.service).toEqual(2);
         });
         it('clear should clear request', function () {
             scope.type = 'ISSUE';
@@ -85,7 +93,7 @@ describe('controller: RequestController', function () {
             expect(scope.type).toEqual('ISSUE');
             expect(scope.title).toEqual();
             expect(scope.description).toEqual();
-            expect(scope.service).toEqual();
+            expect(scope.service).toEqual(2);
         });
     });
 

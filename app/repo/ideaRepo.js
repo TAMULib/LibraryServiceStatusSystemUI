@@ -1,4 +1,4 @@
-app.repo("IdeaRepo", function IdeaRepo($q, WsApi, Idea, ServiceRepo, TableFactory) {
+app.repo("IdeaRepo", function IdeaRepo(WsApi, Idea, ServiceRepo, TableFactory) {
 
     var ideaRepo = this;
 
@@ -26,36 +26,27 @@ app.repo("IdeaRepo", function IdeaRepo($q, WsApi, Idea, ServiceRepo, TableFactor
         return WsApi.fetch(ideaRepo.mapping.page);
     };
 
-    var safePage = function(resolve) {
-        ideaRepo.fetchPage().then(function (response) {
-            var page = angular.fromJson(response.body).payload.PageImpl;
-            ideaRepo.empty();
-            ideaRepo.addAll(page.content);
-            if (table.getPageSettings().pageNumber > 1 && table.getPageSettings().pageNumber > page.totalPages) {
-                table.setPage(page.totalPages);
-                safePage(resolve);
-            } else {
-                resolve(page);
-            }
+    ideaRepo.reject = function (idea) {
+        angular.extend(ideaRepo.mapping.reject, {
+            'data': idea
         });
+        return WsApi.fetch(ideaRepo.mapping.reject);
     };
 
-    ideaRepo.page = function () {    	
-        return $q(function (resolve) {
-            safePage(resolve);
+    ideaRepo.sendToHelpdesk = function (idea) {
+        angular.extend(ideaRepo.mapping.sendToHelpdesk, {
+            'data': idea
         });
+        return WsApi.fetch(ideaRepo.mapping.sendToHelpdesk);
     };
 
     var table = TableFactory.buildTable({
         pageNumber: sessionStorage.getItem('ideas-page') ? sessionStorage.getItem('ideas-page') : 1,
         pageSize: sessionStorage.getItem('ideas-size') ? sessionStorage.getItem('ideas-size') : 10,
-        direction: 'DESC',
-        properties: ['title'],
         filters: {},
         counts: [5, 10, 25, 50, 100],
-        page: ideaRepo.page,
-        data: ideaRepo.getContents(),
-        name: 'ideas'
+        name: 'ideas',
+        repo: ideaRepo
     });
 
     var updateIdea = function (idea) {
@@ -77,6 +68,7 @@ app.repo("IdeaRepo", function IdeaRepo($q, WsApi, Idea, ServiceRepo, TableFactor
         var idea = new Idea(angular.fromJson(response.body).payload.Idea);
         ServiceRepo.updateIdea(idea);
         updateIdea(idea);
+        table.getTableParams().reload();
     });
 
     WsApi.listen(ideaRepo.mapping.deleteListen).then(null, null, function (response) {

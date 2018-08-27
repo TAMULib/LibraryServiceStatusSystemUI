@@ -1,6 +1,6 @@
 var appConfig = {
 
-    'version': 'Library Webservices Status',
+    'version': '1.0.0',
 
     'allowAnonymous': true,
 

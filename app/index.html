@@ -25,6 +25,7 @@
 
   <!-- Change this to the domain of your webservice -->
   <link rel="stylesheet" type='text/css' href="resources/styles/app.css">
+  <link rel="stylesheet" type='text/css' href="resources/styles/bootstrap4.css">
 
   <script src="node_modules/html5-boilerplate/dist/js/vendor/modernizr-3.5.0.min.js"></script>
 
@@ -37,8 +38,8 @@
   <h2 class="hidden">Libraries Web Services Status</h2>
 
   <!--[if lt IE 7]>
-    	<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-	<![endif]-->
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
 
   <!-- Content placed here will appear on every page -->
   <main ng-controller="AuthenticationController">
@@ -211,6 +212,10 @@
   <script src="config/runTime.js"></script>
   <script src="config/routes.js"></script>
 
+  <!-- Constants -->
+  <script src="constants/ideaState.js"></script>
+  <script src="constants/featureProposalState.js"></script>
+
   <!-- Directives -->
   <script src="directives/customFooterDirective.js"></script>
   <script src="directives/customHeaderDirective.js"></script>
@@ -224,6 +229,8 @@
   <!-- Filters -->
   <script src="filters/dashboardServicesFilter.js"></script>
   <script src="filters/decodeFilter.js"></script>
+  <script src="filters/ideaStateFilter.js"></script>
+  <script src="filters/featureProposalStateFilter.js"></script>
   <script src="filters/serviceLabelFilter.js"></script>
   <script src="filters/replaceUnderscoreFilter.js"></script>
 
@@ -260,16 +267,21 @@
   <script src="controllers/appAbstractController.js"></script>
   <script src="controllers/dashboardController.js"></script>
   <script src="controllers/featureProposalController.js"></script>
+  <script src="controllers/ideaController.js"></script>
   <script src="controllers/managementController.js"></script>
   <script src="controllers/navigationController.js"></script>
-  <script src="controllers/ideaController.js"></script>
   <script src="controllers/noteController.js"></script>
-  <script src="controllers/noteDetailController.js"></script>
   <script src="controllers/notificationController.js"></script>
   <script src="controllers/requestController.js"></script>
   <script src="controllers/serviceController.js"></script>
-  <script src="controllers/serviceDetailController.js"></script>
   <script src="controllers/userRepoController.js"></script>
+  <script src="controllers/detail/noteDetailController.js"></script>
+  <script src="controllers/detail/serviceDetailController.js"></script>
+  <script src="controllers/detail/service/serviceDetailFeatureProposalListController.js"></script>
+  <script src="controllers/detail/service/serviceDetailFeatureProposalManagementController.js"></script>
+  <script src="controllers/detail/service/serviceDetailIdeaManagementController.js"></script>
+  <script src="controllers/management/featureProposalManagementController.js"></script>
+  <script src="controllers/management/ideaManagementController.js"></script>
 
   <!-- endbuild -->
 

@@ -17,36 +17,13 @@ app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi, Service, Table
         return WsApi.fetch(serviceRepo.mapping.page);
     };
 
-    var safePage = function(resolve) {
-        serviceRepo.fetchPage().then(function (response) {
-            var page = angular.fromJson(response.body).payload.PageImpl;
-            serviceRepo.empty();
-            serviceRepo.addAll(page.content);
-            if (table.getPageSettings().pageNumber > 1 && table.getPageSettings().pageNumber > page.totalPages) {
-                table.setPage(page.totalPages);
-                safePage(resolve);
-            } else {
-                resolve(page);
-            }
-        });
-    };
-
-    serviceRepo.page = function () {
-        return $q(function (resolve) {
-            safePage(resolve);
-        });
-    };
-
     var table = TableFactory.buildTable({
         pageNumber: sessionStorage.getItem('services-page') ? sessionStorage.getItem('services-page') : 1,
         pageSize: sessionStorage.getItem('services-size') ? sessionStorage.getItem('services-size') : 10,
-        direction: 'DESC',
-        properties: ['name'],
         filters: {},
         counts: [5, 10, 25, 50, 100],
-        page: serviceRepo.page,
-        data: serviceRepo.getContents(),
-        name: 'services'
+        name: 'services',
+        repo: serviceRepo
     });
 
     var checkCreateNotes = function (service) {
@@ -142,13 +119,12 @@ app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi, Service, Table
             for (var j in services[i].ideas) {
                 if (services[i].ideas[j].id === id) {
                     services[i].ideas.splice(j, 1);
-                    service[i].getIdeasTableParams().reload();
+                    services[i].getIdeasTableParams().reload();
                     return;
                 }
             }
         }
     };
-
 
     var checkCreateFeatureProposals = function (service) {
         if (service.featureProposals === undefined) {
@@ -165,7 +141,8 @@ app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi, Service, Table
     serviceRepo.addFeatureProposal = function (featureProposal) {
         var service = getFeatureProposalsService(featureProposal);
         service.featureProposals.push(featureProposal);
-        service.getFeatureProposalsTableParams().reload();
+        service.getManagedFeatureProposalsTableParams().reload();
+        service.getListFeatureProposalsTableParams().reload();
     };
 
     serviceRepo.updateFeatureProposal = function (featureProposal) {
@@ -173,12 +150,14 @@ app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi, Service, Table
         for (var i in service.featureProposals) {
             if (service.featureProposals[i].id === featureProposal.id) {
                 angular.extend(service.featureProposals[i], featureProposal);
-                service.getFeatureProposalsTableParams().reload();
+                service.getManagedFeatureProposalsTableParams().reload();
+                service.getListFeatureProposalsTableParams().reload();
                 return;
             }
         }
         service.featureProposals.push(featureProposal);
-        service.getFeatureProposalsTableParams().reload();
+        service.getManagedFeatureProposalsTableParams().reload();
+        service.getListFeatureProposalsTableParams().reload();
     };
 
     serviceRepo.removeFeatureProposalById = function (id) {
@@ -188,7 +167,8 @@ app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi, Service, Table
             for (var j in services[i].featureProposals) {
                 if (services[i].featureProposals[j].id === id) {
                     services[i].featureProposals.splice(j, 1);
-                    services[i].getFeatureProposalsTableParams().reload();
+                    services[i].getManagedFeatureProposalsTableParams().reload();
+                    services[i].getListFeatureProposalsTableParams().reload();
                     return;
                 }
             }
@@ -223,12 +203,14 @@ app.repo("ServiceRepo", function ServiceRepo($q, $timeout, WsApi, Service, Table
     WsApi.listen(serviceRepo.mapping.updateListen).then(null, null, function (response) {
         $timeout(function () {
             serviceRepo.reset();
+            table.getTableParams().reload();
         }, 250);
     });
 
     WsApi.listen(serviceRepo.mapping.deleteListen).then(null, null, function (response) {
         $timeout(function () {
             serviceRepo.reset();
+            table.getTableParams().reload();
         }, 250);
     });
 
