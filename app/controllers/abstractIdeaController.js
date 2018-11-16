@@ -67,8 +67,8 @@ app.controller('AbstractIdeaController', function ($controller, $scope, FeatureP
     $scope.updateFeatureProposal = function (fp) {
         $scope.updating = true;
         FeatureProposalRepo.update(fp).then(function (res) {
+            $scope.updating = false;
             if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
-                $scope.updating = false;
                 $scope.resetFeatureProposals();
             }
         });
