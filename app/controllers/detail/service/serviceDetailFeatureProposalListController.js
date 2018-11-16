@@ -38,7 +38,7 @@ app.controller('ServiceDetailFeatureProposalListController', function ($controll
             if (apiRes.meta.status === 'SUCCESS') {
                 $scope.user = apiRes.payload.User;
                 $scope.hasVoted = function (fp) {
-                    return fp.voters.indexOf($scope.user.id) >= 0;
+                    return fp.voters.map(v => v.id).indexOf($scope.user.id) >= 0;
                 };
             }
         });
