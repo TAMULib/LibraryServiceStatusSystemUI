@@ -1,4 +1,4 @@
-app.controller("DashboardController", function ($controller, $scope, UserService, NoteRepo, OverallStatusFull, OverallStatusPublic, ServiceRepo) {
+app.controller("DashboardController", function ($controller, $scope, $timeout, UserService, NoteRepo, OverallStatusFull, OverallStatusPublic, ServiceRepo) {
 
     angular.extend(this, $controller('AppAbstractController', {
         $scope: $scope
@@ -9,7 +9,10 @@ app.controller("DashboardController", function ($controller, $scope, UserService
 
     $scope.overallStatus = $scope.isFullServiceConsumer() ? new OverallStatusFull() : new OverallStatusPublic();
 
-    $scope.services = ServiceRepo.getAll();
+    // work around for race condition
+    $timeout(function() {
+        $scope.services = ServiceRepo.getAll();
+    }, 250);
 
     $scope.showShortList = true;
 
