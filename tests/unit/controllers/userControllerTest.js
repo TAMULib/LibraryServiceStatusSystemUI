@@ -2,7 +2,7 @@ describe('controller: UserController', function () {
 
     var controller, scope;
 
-    beforeEach(function() {
+    beforeEach(function () {
         module('core');
         module('app');
         module('mock.storageService');
@@ -21,7 +21,7 @@ describe('controller: UserController', function () {
             });
 
             // ensure that the isReady() is called.
-            scope.$digest();
+            // scope.$digest();
         });
     });
 
