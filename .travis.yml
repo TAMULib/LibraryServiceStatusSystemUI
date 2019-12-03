@@ -7,10 +7,9 @@ addons:
   - chrome: stable
 
 services:
-  - svfb
+  - xvfb
 
 before_script:
-  - export DISPLAY=:99.0
   - npm start > /dev/null &
   - npm run update-webdriver
   - sleep 1 # give server time to start
