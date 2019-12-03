@@ -28,7 +28,7 @@
   <div ng-include="'views/detail/service/' + activeTab + '.html'"></div>
 </div>
 
-<div class="container notes-container">
+<div class="container notes-container" ng-if="service.notes.length">
   <h2>Notes</h2>
   <hr />
   <table ng-table="notesTableParams" template-pagination="views/customPaginationControls.html" show-filter="false" class="table borderless service-notes-table">
