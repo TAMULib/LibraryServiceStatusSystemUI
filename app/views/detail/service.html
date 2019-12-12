@@ -2,6 +2,10 @@
   <h1>
     <span class="glyphicon service-indicator" ng-class="{'glyphicon-ok-sign serviceUp': service.status==='UP', 'glyphicon-remove-sign serviceDown': service.status==='DOWN', 'glyphicon-minus-sign serviceMaintenance': service.status==='MAINTENANCE'}"></span>
     <span>{{service.name}}</span>
+    <div class="pull-right request-buttons">
+      <a class="btn btn-info" href="request/{{service.id}}/FEATURE" role="button">Make a Request</a>
+      <a class="btn btn-warning" href="request/{{service.id}}/ISSUE" role="button">Report an Issue</a>
+    </div>
   </h1>
   <hr />
   <div>
