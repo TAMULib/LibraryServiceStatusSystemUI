@@ -3,7 +3,7 @@ $secondary: #3c0000;
 $baseFontSize: 14pt;
 $linkColor: #00569f;
 
-@import "node_modules/weaver-ui-core/app/resources/styles/sass/main";
+@import "node_modules/@wvr/core/app/resources/styles/sass/main";
 
 @import "directives/all";
 @import "details/all";
@@ -11,7 +11,7 @@ $linkColor: #00569f;
 @import "dashboard/all";
 @import "request/all";
 
-@import "node_modules/weaver-ui-core/app/resources/styles/sass/theme-base";
+@import "node_modules/@wvr/core/app/resources/styles/sass/theme-base";
 
 body
 {
