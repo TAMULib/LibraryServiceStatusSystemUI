@@ -1,7 +1,7 @@
 {
   "name": "library-webservices-status",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.4.5",
   "description": "Library Webservices Status System UI",
   "repository": "https://github.com/TAMULib/LibraryServiceStatusSystemUI.git",
   "license": "MIT",
@@ -23,8 +23,8 @@
     "angular-ui-tinymce": "0.0.19",
     "ng-csv": "0.3.6",
     "ng-table": "3.0.1",
-    "tinymce": "4.9.2",
-    "weaver-ui-core": "git+https://github.com/TAMULib/Weaver-UI-Core.git#v2.0.1"
+    "tinymce": "4.9.7",
+    "@wvr/core": "2.0.7"
   },
   "devDependencies": {
     "grunt": "1.0.3",
