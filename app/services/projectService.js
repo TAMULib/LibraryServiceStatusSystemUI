@@ -5,7 +5,7 @@ app.service('ProjectService', function ($q, WsApi) {
             WsApi.fetch(apiMapping.Project.all).then(function (response) {
                 var apiRes = angular.fromJson(response.body);
                 if (apiRes.meta.status === 'SUCCESS') {
-                    resolve(apiRes.payload['ArrayList<Project>']);
+                    resolve(apiRes.payload['ArrayList<Product>']);
                 } else {
                     reject();
                 }

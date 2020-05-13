@@ -38,7 +38,7 @@ angular.module('mock.wsApi', []).service('WsApi', function ($q) {
                             break;
                         default:
                             payloadResponse({
-                                'ArrayList<Project>': mockProjects
+                                'ArrayList<Product>': mockProjects
                             });
                     }
                 } else {
