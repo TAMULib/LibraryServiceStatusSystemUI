@@ -12,12 +12,12 @@ app.constant("FeatureProposalState", {
     SUBMITTED: {
         gloss: "Submitted",
         value: "SUBMITTED",
-        summary: "Sent off to project management API."
+        summary: "Sent off to product management API."
     },
     ON_HOLD: {
         gloss: "On Hold",
         value: "ON_HOLD",
-        summary: "Closed for voting, but not sent to project management API. \"There may be hope\"."
+        summary: "Closed for voting, but not sent to product management API. \"There may be hope\"."
     },
     REJECTED: {
         gloss: "Rejected",

@@ -14,7 +14,7 @@ var mockService1 = {
     "onShortList": false,
     "serviceUrl": null,
     "description": "<p>Hello, Test 1!</p>",
-    "projectId": null,
+    "productId": null,
     "type": "service",
     "website": "https://example.tamu.edu/"
 };
@@ -35,7 +35,7 @@ var mockService2 = {
     "onShortList": true,
     "serviceUrl": null,
     "description": "<p>Hello, Test 2!</p>",
-    "projectId": null,
+    "productId": null,
     "type": "service",
     "website": "http://example.tamu.edu/"
 };
@@ -56,7 +56,7 @@ var mockService3 = {
     "onShortList": true,
     "serviceUrl": null,
     "description": "<p>Hello, Test 3!</p>",
-    "projectId": 1,
+    "productId": 1,
     "type": "service",
     "website": null
 };
@@ -78,7 +78,7 @@ angular.module('mock.service', []).service('Service', function ($q) {
             this.onShortList = toMock.onShortList;
             this.serviceUrl = toMock.serviceUrl;
             this.description = toMock.description;
-            this.projectId = toMock.projectId;
+            this.productId = toMock.productId;
             this.type = toMock.type;
             this.website = toMock.website;
         };

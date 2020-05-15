@@ -29,7 +29,7 @@ var mockFeatureProposal1 = {
       "description": "Repository agnostic curation",
       "website": "cap.library.tamu.edu",
       "software": "Tomcat",
-      "projectId": 1,
+      "productId": 1,
       "type": "service"
     },
     "state": "IN_PROGRESS",
@@ -67,7 +67,7 @@ var mockFeatureProposal2 = {
       "description": "Repository agnostic curation",
       "website": "cap.library.tamu.edu",
       "software": "Tomcat",
-      "projectId": 1,
+      "productId": 1,
       "type": "service"
     },
     "state": "SUBMITTED",
@@ -105,7 +105,7 @@ var mockFeatureProposal3 = {
       "description": "Repository agnostic curation",
       "website": "cap.library.tamu.edu",
       "software": "Tomcat",
-      "projectId": 1,
+      "productId": 1,
       "type": "service"
     },
     "state": "REJECTED",

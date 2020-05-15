@@ -16,11 +16,11 @@
     <textarea ui-tinymce="tinymceOptions" ng-model="serviceData.description"></textarea>
     <br />
 
-    <label for="project">Associate Project</label>
+    <label for="product">Associate Product</label>
     <br />
-    <select class="form-control" ng-model="serviceData.projectId" name="project">
-      <option value="" ng-selected="!serviceData.projectId">None</option>
-      <option ng-repeat="project in projects" value="{{project.id}}" ng-selected="project.id === serviceData.projectId">{{project.name}}</option>
+    <select class="form-control" ng-model="serviceData.productId" name="product">
+      <option value="" ng-selected="!serviceData.productId">None</option>
+      <option ng-repeat="product in products" value="{{product.id}}" ng-selected="product.id === serviceData.productId">{{product.name}}</option>
     </select>
     <br />
 

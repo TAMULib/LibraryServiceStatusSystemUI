@@ -28,7 +28,7 @@ var mockIdeas = [
           "description": "Repository agnostic curation",
           "website": "cap.library.tamu.edu",
           "software": "Tomcat",
-          "projectId": 1,
+          "productId": 1,
           "type": "service"
         },
         "state": "WAITING_ON_REVIEW",
@@ -63,7 +63,7 @@ var mockIdeas = [
           "description": "Repository agnostic curation",
           "website": "cap.library.tamu.edu",
           "software": "Tomcat",
-          "projectId": 1,
+          "productId": 1,
           "type": "service"
         },
         "state": "WAITING_ON_REVIEW",
@@ -98,7 +98,7 @@ var mockIdeas = [
           "description": "Repository agnostic curation",
           "website": "cap.library.tamu.edu",
           "software": "Tomcat",
-          "projectId": 1,
+          "productId": 1,
           "type": "service"
         },
         "state": "WAITING_ON_REVIEW",

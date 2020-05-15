@@ -1,4 +1,4 @@
-angular.module('mock.projectService', []).service('ProjectService', function ($q) {
+angular.module('mock.productService', []).service('ProductService', function ($q) {
 
     var defer;
 

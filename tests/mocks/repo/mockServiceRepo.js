@@ -15,7 +15,7 @@ var mockServices = [
         "onShortList": false,
         "serviceUrl": null,
         "description": "<p>Hello, Test 1!</p>",
-        "projectId": null,
+        "productId": null,
         "type": "service",
         "website": "https://example.tamu.edu/"
     },
@@ -35,7 +35,7 @@ var mockServices = [
         "onShortList": true,
         "serviceUrl": null,
         "description": "<p>Hello, Test 2!</p>",
-        "projectId": null,
+        "productId": null,
         "type": "service",
         "website": "http://example.tamu.edu/"
     },
@@ -55,7 +55,7 @@ var mockServices = [
         "onShortList": true,
         "serviceUrl": null,
         "description": "<p>Hello, Test 3!</p>",
-        "projectId": null,
+        "productId": null,
         "type": "service",
         "website": null
     }

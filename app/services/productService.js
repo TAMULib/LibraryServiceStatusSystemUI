@@ -1,8 +1,8 @@
-app.service('ProjectService', function ($q, WsApi) {
+app.service('ProductService', function ($q, WsApi) {
 
     this.getAll = function (force) {
         return $q(function (resolve, reject) {
-            WsApi.fetch(apiMapping.Project.all).then(function (response) {
+            WsApi.fetch(apiMapping.Product.all).then(function (response) {
                 var apiRes = angular.fromJson(response.body);
                 if (apiRes.meta.status === 'SUCCESS') {
                     resolve(apiRes.payload['ArrayList<Product>']);
@@ -14,14 +14,14 @@ app.service('ProjectService', function ($q, WsApi) {
     };
 
     this.getById = function (id) {
-        angular.extend(apiMapping.Project.getById, {
+        angular.extend(apiMapping.Product.getById, {
             'method': id
         });
         return $q(function (resolve, reject) {
-            WsApi.fetch(apiMapping.Project.getById).then(function (response) {
+            WsApi.fetch(apiMapping.Product.getById).then(function (response) {
                 var apiRes = angular.fromJson(response.body);
                 if (apiRes.meta.status === 'SUCCESS') {
-                    resolve(apiRes.payload.Project);
+                    resolve(apiRes.payload.Product);
                 } else {
                     reject();
                 }
@@ -30,11 +30,11 @@ app.service('ProjectService', function ($q, WsApi) {
     };
 
     this.submitFeatureProposal = function(fp) {
-        angular.extend(apiMapping.Project.submitFeatureProposal, {
+        angular.extend(apiMapping.Product.submitFeatureProposal, {
             'data': fp
         });
         return $q(function (resolve, reject) {
-            WsApi.fetch(apiMapping.Project.submitFeatureProposal).then(function (response) {
+            WsApi.fetch(apiMapping.Product.submitFeatureProposal).then(function (response) {
                 var apiRes = angular.fromJson(response.body);
                 if (apiRes.meta.status === 'SUCCESS') {
                     resolve();

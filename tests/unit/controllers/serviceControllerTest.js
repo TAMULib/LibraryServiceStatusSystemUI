@@ -1,30 +1,30 @@
 describe('controller: ServiceController', function () {
 
-    var scope, q, controller, Projects, ProjectService, Service, ServiceRepo;
+    var scope, q, controller, Products, ProductService, Service, ServiceRepo;
 
     beforeEach(function () {
         module('core');
         module('app');
-        module('mock.projects');
-        module('mock.projectService');
+        module('mock.products');
+        module('mock.productService');
         module('mock.service');
         module('mock.serviceRepo');
 
-        inject(function ($controller, $q, $rootScope, _Projects_, _ProjectService_, _Service_, _ServiceRepo_) {
+        inject(function ($controller, $q, $rootScope, _Products_, _ProductService_, _Service_, _ServiceRepo_) {
             installPromiseMatchers();
             q = $q;
             scope = $rootScope.$new();
 
             controller = $controller('ServiceController', {
                 $scope: scope,
-                Projects: _Projects_,
-                ProjectService: _ProjectService_,
+                Products: _Products_,
+                ProductService: _ProductService_,
                 Service: _Service_,
                 ServiceRepo: _ServiceRepo_
             });
 
-            Projects = _Projects_;
-            ProjectService = _ProjectService_;
+            Products = _Products_;
+            ProductService = _ProductService_;
             Service = _Service_;
             ServiceRepo = _ServiceRepo_;
 
@@ -72,9 +72,9 @@ describe('controller: ServiceController', function () {
             expect(scope.deleteService).toBeDefined();
             expect(typeof scope.deleteService).toEqual("function");
         });
-        it('getProject should be defined', function () {
-            expect(scope.getProject).toBeDefined();
-            expect(typeof scope.getProject).toEqual("function");
+        it('getProduct should be defined', function () {
+            expect(scope.getProduct).toBeDefined();
+            expect(typeof scope.getProduct).toEqual("function");
         });
     });
 
@@ -177,19 +177,19 @@ describe('controller: ServiceController', function () {
 
             expect(scope.resetServices).toHaveBeenCalled();
         });
-        /* todo: ProjectService/Project needs proper mocks and so on.
-        it('getProject should reset services', function () {
+        /* todo: ProductService/Product needs proper mocks and so on.
+        it('getProduct should reset services', function () {
             var service = new Service();
-            var project = new ProjectService();
+            var product = new ProductService();
             service.mock(mockService3);
-            project(mockProjectservice1);
+            product(mockProductservice1);
 
-            spyOn(ProjectService, 'getById');
+            spyOn(ProductService, 'getById');
 
             // todo: more work needed.
-            scope.getProject(service);
+            scope.getProduct(service);
 
-            expect(ProjectService.getById).toHaveBeenCalled();
+            expect(ProductService.getById).toHaveBeenCalled();
         });
         */
     });

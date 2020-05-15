@@ -9,13 +9,13 @@ describe('controller: ServiceDetailFeatureProposalListController', function () {
         module('mock.featureProposalRepo');
         module('mock.idea');
         module('mock.ideaRepo');
-        module('mock.projectService');
+        module('mock.productService');
         module('mock.service');
         module('mock.serviceRepo');
         module('mock.user');
         module('mock.userRepo');
 
-        inject(function ($controller, $rootScope, _FeatureProposal_, _FeatureProposalRepo_, FeatureProposalState, _Idea_, _IdeaRepo_, IdeaState, _ProjectService_, _Service_, _ServiceRepo_, _User_, _UserRepo_) {
+        inject(function ($controller, $rootScope, _FeatureProposal_, _FeatureProposalRepo_, FeatureProposalState, _Idea_, _IdeaRepo_, IdeaState, _ProductService_, _Service_, _ServiceRepo_, _User_, _UserRepo_) {
             installPromiseMatchers();
             scope = $rootScope.$new();
 
@@ -30,7 +30,7 @@ describe('controller: ServiceDetailFeatureProposalListController', function () {
                 Idea: _Idea_,
                 IdeaRepo: _IdeaRepo_,
                 IdeaState: IdeaState,
-                ProjectService: _ProjectService_,
+                ProductService: _ProductService_,
                 ServiceRepo: _ServiceRepo_,
                 User: _User_,
                 UserRepo: _UserRepo_

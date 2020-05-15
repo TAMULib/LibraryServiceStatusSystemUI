@@ -316,18 +316,18 @@ var apiMapping = {
             'method': 'remove'
         }
     },
-    Project: {
+    Product: {
         all: {
             'endpoint': '/private/queue',
-            'controller': 'projects'
+            'controller': 'products'
         },
         getById: {
             'endpoint': '/private/queue',
-            'controller': 'projects'
+            'controller': 'products'
         },
         submitFeatureProposal: {
             'endpoint': '/private/queue',
-            'controller': 'projects',
+            'controller': 'products',
             'method': 'feature'
         }
     }
