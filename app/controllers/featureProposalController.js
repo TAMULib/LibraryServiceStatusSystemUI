@@ -1,4 +1,4 @@
-app.controller('FeatureProposalController', function ($controller, $scope, Idea, IdeaState, FeatureProposalState, ProjectService) {
+app.controller('FeatureProposalController', function ($controller, $scope, Idea, IdeaState, FeatureProposalState, ProductService) {
 
     angular.extend(this, $controller('AbstractIdeaController', {
         $scope: $scope
@@ -67,7 +67,7 @@ app.controller('FeatureProposalController', function ($controller, $scope, Idea,
 
     $scope.submitFeatureProposal = function (fp) {
         $scope.submitting = true;
-        ProjectService.submitFeatureProposal(fp).then(function (res) {
+        ProductService.submitFeatureProposal(fp).then(function (res) {
             if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                 $scope.submitting = false;
                 $scope.resetFeatureProposals();

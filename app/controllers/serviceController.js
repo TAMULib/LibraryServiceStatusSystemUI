@@ -1,4 +1,4 @@
-app.controller('ServiceController', function ($controller, $scope, ProjectService, Service, ServiceRepo) {
+app.controller('ServiceController', function ($controller, $scope, ProductService, Service, ServiceRepo) {
 
     angular.extend(this, $controller('AbstractScheduleController', {
         $scope: $scope
@@ -53,7 +53,7 @@ app.controller('ServiceController', function ($controller, $scope, ProjectServic
                     sortable: true
                 },
                 {
-                    gloss: 'Project',
+                    gloss: 'Product',
                     filterable: false,
                     sortable: false
                 },
@@ -70,20 +70,20 @@ app.controller('ServiceController', function ($controller, $scope, ProjectServic
         };
     });
 
-    ProjectService.getAll().then(function (projects) {
-        $scope.projects = projects;
+    ProductService.getAll().then(function (products) {
+        $scope.products = products;
 
-        $scope.getProject = function (service) {
-            if (service.projectId && !service.project) {
-                service.project = {};
-                ProjectService.getById(service.projectId).then(function (project) {
+        $scope.getProduct = function (service) {
+            if (service.productId && !service.product) {
+                service.product = {};
+                ProductService.getById(service.productId).then(function (product) {
                     angular.extend(service, {
-                        project: project
+                        product: product
                     });
                 });
-                return service.project;
+                return service.product;
             }
-            return service.project;
+            return service.product;
         };
 
     });

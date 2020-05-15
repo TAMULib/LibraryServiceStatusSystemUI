@@ -31,7 +31,7 @@ var mockNotes = [
       "description": "Repository agnostic curation",
       "website": "cap.library.tamu.edu",
       "software": "Tomcat",
-      "projectId": 1,
+      "productId": 1,
       "type": "service"
     },
     "title": "Jack's Note",
@@ -69,7 +69,7 @@ var mockNotes = [
       "description": "Repository agnostic curation",
       "website": "cap.library.tamu.edu",
       "software": "Tomcat",
-      "projectId": 1,
+      "productId": 1,
       "type": "service"
     },
     "title": "Jill's Note",
@@ -108,7 +108,7 @@ var mockNotes = [
       "description": "Repository agnostic curation",
       "website": "cap.library.tamu.edu",
       "software": "Tomcat",
-      "projectId": 1,
+      "productId": 1,
       "type": "service"
     },
     "title": "Jacob's Note",
