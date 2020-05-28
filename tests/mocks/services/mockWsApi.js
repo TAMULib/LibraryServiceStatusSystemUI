@@ -27,7 +27,7 @@ angular.module('mock.wsApi', []).service('WsApi', function ($q) {
     this.fetch = function (apiReq) {
         defer = $q.defer();
         switch (apiReq.controller) {
-            case 'projects':
+            case 'products':
                 if (isNaN(apiReq.method)) {
                     switch (apiReq.method) {
                         case 'feature':
@@ -38,15 +38,15 @@ angular.module('mock.wsApi', []).service('WsApi', function ($q) {
                             break;
                         default:
                             payloadResponse({
-                                'ArrayList<Project>': mockProjects
+                                'ArrayList<Product>': mockProducts
                             });
                     }
                 } else {
                     var id = apiReq.method;
-                    for (var i in mockProjects) {
-                        if (mockProjects[i].id == id) {
+                    for (var i in mockProducts) {
+                        if (mockProducts[i].id == id) {
                             payloadResponse({
-                                'Project': mockProjects[i]
+                                'Product': mockProducts[i]
                             });
                             break;
                         }
