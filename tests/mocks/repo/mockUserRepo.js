@@ -68,5 +68,25 @@ var mockUserRepo3 = {
 };
 
 angular.module('mock.userRepo', []).service('UserRepo', function ($q) {
-    return this;
+    var userRepo = this;
+    var defer;
+
+    var payloadResponse = function (payload) {
+        return defer.resolve({
+            body: angular.toJson({
+                meta: {
+                    status: 'SUCCESS'
+                },
+                payload: payload
+            })
+        });
+    };
+
+    userRepo.ready = function () {
+        defer = $q.defer();
+        payloadResponse();
+        return defer.promise;
+    };
+
+    return userRepo;
 });

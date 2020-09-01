@@ -32,17 +32,19 @@ app.controller('ServiceDetailFeatureProposalListController', function ($controll
         }, 500);
     });
 
-    if (!$scope.isAnonymous()) {
-        UserRepo.getUser().then(function (res) {
-            var apiRes = angular.fromJson(res.body);
-            if (apiRes.meta.status === 'SUCCESS') {
-                $scope.user = apiRes.payload.User;
-                $scope.hasVoted = function (fp) {
-                    return fp.voters.map(function(v) { return v.id; }).indexOf($scope.user.id) >= 0;
-                };
-            }
-        });
-    }
+    UserRepo.ready().then(function () {
+        if (!$scope.isAnonymous()) {
+            UserRepo.getUser().then(function (res) {
+                var apiRes = angular.fromJson(res.body);
+                if (apiRes.meta.status === 'SUCCESS') {
+                    $scope.user = apiRes.payload.User;
+                    $scope.hasVoted = function (fp) {
+                        return fp.voters.map(function(v) { return v.id; }).indexOf($scope.user.id) >= 0;
+                    };
+                }
+            });
+        }
+    });
 
     $scope.isVotingOpen = function (featureProposal) {
         return !$scope.isAnonymous() && featureProposal.state === FeatureProposalState.ACTIVE.value;
