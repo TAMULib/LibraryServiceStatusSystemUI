@@ -13,6 +13,7 @@
       </div>
     </div>
     <div class="col-sm-8 col-sm-offset-2" ng-show="type">
+      <alerts seconds="45" channels="services/feature,services/issue" types="SUCCESS"></alerts>
       <center>
         <h3>Please provide a title and a description for
           <span>{{type === 'FEATURE' ? 'feature or idea' : 'issue or bug'}}</span>.</h3>

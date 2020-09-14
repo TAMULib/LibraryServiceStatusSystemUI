@@ -82,6 +82,12 @@ angular.module('mock.userRepo', []).service('UserRepo', function ($q) {
         });
     };
 
+    userRepo.getUser = function () {
+        defer = $q.defer();
+        payloadResponse({ User: {id : 1} });
+        return defer.promise;
+    };
+
     userRepo.ready = function () {
         defer = $q.defer();
         payloadResponse();
