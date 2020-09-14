@@ -3,7 +3,6 @@
     <div class="row">
       <div class="lead col-md-8">
         <span>{{featureProposal.title}}</span>
-        <span> ({{featureProposal.state | featureProposalState}})</span>
       </div>
       <div class="lead col-md-4" ng-if="!isAnonymous()">
         <span ng-if="hasVoted(featureProposal)" class="glyphicon glyphicon-ok text-success pull-right"></span>

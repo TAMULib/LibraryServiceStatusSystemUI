@@ -33,16 +33,7 @@ app.service('ProductService', function ($q, WsApi) {
         angular.extend(apiMapping.Product.submitFeatureProposal, {
             'data': fp
         });
-        return $q(function (resolve, reject) {
-            WsApi.fetch(apiMapping.Product.submitFeatureProposal).then(function (response) {
-                var apiRes = angular.fromJson(response.body);
-                if (apiRes.meta.status === 'SUCCESS') {
-                    resolve();
-                } else {
-                    reject();
-                }
-            });
-        });
+        return WsApi.fetch(apiMapping.Product.submitFeatureProposal);
     };
 
 });

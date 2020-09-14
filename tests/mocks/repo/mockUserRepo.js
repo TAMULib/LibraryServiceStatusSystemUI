@@ -70,6 +70,7 @@ var mockUserRepo3 = {
 angular.module('mock.userRepo', []).service('UserRepo', function ($q) {
     var userRepo = this;
     var defer;
+
     var payloadResponse = function (payload) {
         return defer.resolve({
             body: angular.toJson({
@@ -84,6 +85,12 @@ angular.module('mock.userRepo', []).service('UserRepo', function ($q) {
     userRepo.getUser = function () {
         defer = $q.defer();
         payloadResponse({ User: {id : 1} });
+        return defer.promise;
+    };
+
+    userRepo.ready = function () {
+        defer = $q.defer();
+        payloadResponse();
         return defer.promise;
     };
 

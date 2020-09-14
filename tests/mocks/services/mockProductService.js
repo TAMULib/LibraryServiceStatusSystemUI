@@ -83,7 +83,7 @@ angular.module('mock.productService', []).service('ProductService', function ($q
 
     this.submitFeatureProposal = function (fp) {
         defer = $q.defer();
-        payloadResponse();
+        payloadResponse(fp);
         return defer.promise;
     };
 
