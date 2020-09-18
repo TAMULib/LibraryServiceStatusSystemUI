@@ -118,6 +118,10 @@ module.exports = function (config) {
 
             'app/repo/**/*.js',
 
+            'app/views/**/*.html',
+
+            'tests/core/**/*.js',
+
             'tests/mocks/**/*.js',
 
             'tests/unit/**/*.js'

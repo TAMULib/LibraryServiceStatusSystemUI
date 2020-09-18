@@ -1,4 +1,4 @@
-app.repo("IdeaRepo", function IdeaRepo(WsApi, Idea, ServiceRepo, TableFactory) {
+app.repo("IdeaRepo", function IdeaRepo(WsApi, Idea, ServiceRepo, TableFactory, UserService) {
 
     var ideaRepo = this;
 
@@ -59,21 +59,44 @@ app.repo("IdeaRepo", function IdeaRepo(WsApi, Idea, ServiceRepo, TableFactory) {
         }
     };
 
-    WsApi.listen(ideaRepo.mapping.createListen).then(null, null, function (response) {
-        ServiceRepo.addIdea(new Idea(angular.fromJson(response.body).payload.Idea));
-        table.getTableParams().reload();
-    });
+    var canAccess = function () {
+        var user = UserService.getCurrentUser();
+        var access = false;
 
-    WsApi.listen(ideaRepo.mapping.updateListen).then(null, null, function (response) {
-        var idea = new Idea(angular.fromJson(response.body).payload.Idea);
-        ServiceRepo.updateIdea(idea);
-        updateIdea(idea);
-        table.getTableParams().reload();
-    });
+        if (user.role === undefined || user.role === null || user.anonymous) {
+            access = false;
+        }
+        else if (user.role === 'ROLE_ADMIN') {
+            access = true;
+        } else if (user.role === 'ROLE_SERVICE_ADMIN') {
+            access = true;
+        } else if (user.role === 'ROLE_SERVICE_MANAGER') {
+            access = true;
+        }
 
-    WsApi.listen(ideaRepo.mapping.deleteListen).then(null, null, function (response) {
-        ServiceRepo.removeIdeaById(angular.fromJson(response.body).payload.Long);
-        table.getTableParams().reload();
+        return access;
+    };
+
+    UserService.userReady().then(function () {
+        if (canAccess()) {
+
+            WsApi.listen(ideaRepo.mapping.createListen).then(null, null, function (response) {
+                ServiceRepo.addIdea(new Idea(angular.fromJson(response.body).payload.Idea));
+                table.getTableParams().reload();
+            });
+
+            WsApi.listen(ideaRepo.mapping.updateListen).then(null, null, function (response) {
+                var idea = new Idea(angular.fromJson(response.body).payload.Idea);
+                ServiceRepo.updateIdea(idea);
+                updateIdea(idea);
+                table.getTableParams().reload();
+            });
+
+            WsApi.listen(ideaRepo.mapping.deleteListen).then(null, null, function (response) {
+                ServiceRepo.removeIdeaById(angular.fromJson(response.body).payload.Long);
+                table.getTableParams().reload();
+            });
+        }
     });
 
     return ideaRepo;
