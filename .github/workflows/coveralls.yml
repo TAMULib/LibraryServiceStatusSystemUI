@@ -1,0 +1,59 @@
+name: TAMULib LibraryServiceStatusSystemUI Coveralls Node
+
+on:
+  push:
+    branches:
+      - $default_branch
+      - sprint*-staging
+
+  pull_request:
+
+  workflow_dispatch:
+
+jobs:
+  coveralls:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: "Cache Node Dependencies"
+        uses: actions/cache@v2
+        env:
+          cache-name: libraryservicestatussystemui-cache-node-dependencies
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-libraryservicestatussystemui-cache-node-${{ hashFiles('**/package.json', '**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-libraryservicestatussystemui-cache-node-${{ hashFiles('**/package.json', '**/package-lock.json') }}
+
+      - name: "Setup Node"
+        uses: actions/setup-node@v2
+        with:
+          node-version: 8
+
+      - name: "Install Node Dependencies"
+        run: npm install
+
+      - name: "Starting Service for Node"
+        run: |
+          npm start > /dev/null &
+          npm run update-webdriver
+          sleep 1 # give server time to start
+
+      - name: "Running Tests for Node"
+        env:
+          COVERALLS_BUILD_NUMBER: libraryservicestatussystemui-${{ github.action }}-${{ github.run_number }}-node
+          COVERALLS_REPO_TOKEN: ${{ secrets.coveralls_repo_token }}
+          COVERALLS_PARALLEL: false
+        run: |
+          npm run test-ci
+          grunt coverage
+          mv ./coverage/*/* ./coverage/ # move coverage data outside of the browser specific path.
+
+      - name: "To Coveralls Node (build libraryservicestatussystemui-${{ github.action }}-${{ github.run_number }}-node)"
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.github_token }}
+          flag-name: libraryservicestatussystemui-${{ github.action }}-${{ github.run_number }}-node
+          parallel: false
+          path-to-lcov: './coverage/lcov.info'
