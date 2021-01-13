@@ -10,7 +10,7 @@
     "postinstall": "grunt",
     "test": "karma start karma.conf.js",
     "test-single-run": "karma start karma.conf.js --single-run --browsers=ChromeHeadless",
-    "test-ci": "node_modules/karma/bin/karma start karma.conf.js --no-auto-watch --single-run --browsers=ChromeHeadlessNoSandbox",
+    "test-ci": "node_modules/karma/bin/karma start karma.conf.js --no-auto-watch --single-run --browsers=ChromeHeadless",
     "preupdate-webdriver": "npm install",
     "update-webdriver": "webdriver-manager update",
     "preprotractor": "npm run update-webdriver",
