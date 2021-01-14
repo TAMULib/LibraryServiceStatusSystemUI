@@ -1,4 +1,4 @@
-name: TAMULib LibraryServiceStatusSystemUI Coveralls Node
+name: TAMULib Coveralls Node
 
 on:
   push:
@@ -20,11 +20,11 @@ jobs:
       - name: "Cache Node Dependencies"
         uses: actions/cache@v2
         env:
-          cache-name: libraryservicestatussystemui-cache-node-dependencies
+          cache-name: cache-node-dependencies
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-libraryservicestatussystemui-cache-node-${{ hashFiles('**/package.json', '**/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-libraryservicestatussystemui-cache-node-${{ hashFiles('**/package.json', '**/package-lock.json') }}
+          key: ${{ runner.os }}-cache-node-${{ hashFiles('**/package.json', '**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-cache-node-${{ hashFiles('**/package.json', '**/package-lock.json') }}
 
       - name: "Setup Node"
         uses: actions/setup-node@v2
@@ -47,10 +47,10 @@ jobs:
           grunt coverage
           mv ./coverage/*/* ./coverage/ # move coverage data outside of the browser specific path.
 
-      - name: "To Coveralls Node (build libraryservicestatussystemui-${{ github.action }}-${{ github.run_number }}-node)"
+      - name: "To Coveralls Node (build ${{ github.action }}-${{ github.run_number }}-node)"
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.github_token }}
-          flag-name: libraryservicestatussystemui-${{ github.action }}-${{ github.run_number }}-node
+          flag-name: ${{ github.action }}-${{ github.run_number }}-node
           parallel: false
           path-to-lcov: './coverage/lcov.info'
