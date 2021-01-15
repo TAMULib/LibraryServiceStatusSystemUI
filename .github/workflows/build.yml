@@ -41,9 +41,9 @@ jobs:
           grunt coverage
           mv ./coverage/*/* ./coverage/ # move coverage data outside of the browser specific path.
 
-      - name: "Send to Coveralls Node (build ${{ github.action }}-${{ github.run_number }}-node)"
-        uses: coverallsapp/github-action@master
+      - name: "Send to Coveralls (build node-${{ github.run_number }})"
+        uses: MikeEdgar/github-action@raw_coverage_file
         with:
           github-token: ${{ secrets.github_token }}
-          parallel: false
-          path-to-lcov: './coverage/lcov.info'
+          path-to-file: './target/coveralls.json'
+          coverage-format: raw
