@@ -45,6 +45,5 @@ jobs:
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.github_token }}
-          flag-name: ${{ github.action }}-${{ github.run_number }}-node
           parallel: false
           path-to-lcov: './coverage/lcov.info'
