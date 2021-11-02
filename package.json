@@ -24,7 +24,7 @@
     "angular-ui-tinymce": "0.0.19",
     "ng-csv": "0.3.6",
     "ng-table": "3.0.1",
-    "tinymce": "4.9.7",
+    "tinymce": "5.10.0",
     "@wvr/core": "2.0.7"
   },
   "devDependencies": {
