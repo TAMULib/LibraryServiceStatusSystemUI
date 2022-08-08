@@ -60,6 +60,36 @@ const config = {
       from: './node_modules/bootstrap/dist/css/bootstrap.css',
       to: './resources/styles/bootstrap/dist/css/bootstrap.css',
     },
+    {
+      from: './node_modules/tinymce/plugins/**/plugin.js',
+      to({ context, absoluteFilename }) {
+        return `${absoluteFilename.replace(/^.*\/node_modules\/tinymce\/plugins\//, "plugins/")}`;
+      },
+    },
+    {
+      from: './node_modules/tinymce/themes/**/theme.js',
+      to({ context, absoluteFilename }) {
+        return `${absoluteFilename.replace(/^.*\/node_modules\/tinymce\/themes\//, "themes/")}`;
+      },
+    },
+    {
+      from: './node_modules/tinymce/models/**/model.js',
+      to({ context, absoluteFilename }) {
+        return `${absoluteFilename.replace(/^.*\/node_modules\/tinymce\/models\//, "models/")}`;
+      },
+    },
+    {
+      from: './node_modules/tinymce/icons/**/icons.js',
+      to({ context, absoluteFilename }) {
+        return `${absoluteFilename.replace(/^.*\/node_modules\/tinymce\/icons\//, "icons/")}`;
+      },
+    },
+    {
+      from: './node_modules/tinymce/skins/**/*.css',
+      to({ context, absoluteFilename }) {
+        return `${absoluteFilename.replace(/^.*\/node_modules\/tinymce\/skins\//, "skins/")}`;
+      },
+    },
   ],
   entry: {
     app: [
