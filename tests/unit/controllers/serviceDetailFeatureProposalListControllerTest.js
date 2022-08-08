@@ -60,34 +60,6 @@ describe('controller: ServiceDetailFeatureProposalListController', function () {
             expect(scope.vote).toBeDefined();
             expect(typeof scope.vote).toEqual("function");
         });
-        /* todo
-        it('hasFeatureProposals should be defined', function () {
-            expect(scope.hasFeatureProposals).toBeDefined();
-            expect(typeof scope.hasFeatureProposals).toEqual("function");
-        });
-        */
-    });
-
-    describe('Do the scope methods work as expected', function () {
-        /* todo
-        it('hasFeatureProposals should return the service website', function () {
-            var result;
-            var fp1 = new FeatureProposal();
-            var fp2 = new FeatureProposal();
-            fp1.mock(mockFeatureProposal1);
-            fp2.mock(mockFeatureProposal2);
-
-            result = scope.hasFeatureProposals();
-            expect(result).toBe(false);
-
-            scope.featureProposalsTableParams = {
-                data: [fp1, fp2]
-            };
-
-            result = scope.hasFeatureProposals();
-            expect(result).toBe(true);
-        });
-        */
     });
 
 });
