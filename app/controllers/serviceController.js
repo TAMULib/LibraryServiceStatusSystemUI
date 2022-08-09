@@ -172,7 +172,7 @@ app.controller('ServiceController', function ($controller, $scope, ProductServic
 
     $scope.tinymceOptions = {
         selector: 'textarea',
-        theme: "modern",
+        theme: "silver",
         plugins: "link lists",
         toolbar: "undo redo | formatselect bold italic separator | alignleft aligncenter alignright | bullist numlist | forecolor backcolor"
     };

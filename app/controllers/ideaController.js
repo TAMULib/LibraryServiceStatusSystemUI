@@ -146,7 +146,7 @@ app.controller('IdeaController', function ($controller, $scope, FeatureProposalR
 
     $scope.tinymceOptions = {
         selector: 'textarea',
-        theme: "modern",
+        theme: "silver",
         plugins: "link lists",
         toolbar: "undo redo | formatselect bold italic separator | alignleft aligncenter alignright | numlist bullist | forecolor backcolor"
     };
