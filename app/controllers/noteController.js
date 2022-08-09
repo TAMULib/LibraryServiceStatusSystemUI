@@ -181,7 +181,7 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
 
     $scope.tinymceOptions = {
         selector: 'textarea',
-        theme: "silver",
+        theme: "modern",
         plugins: "link lists",
         toolbar: "undo redo | formatselect bold italic separator | alignleft aligncenter alignright | numlist bullist | forecolor backcolor"
     };

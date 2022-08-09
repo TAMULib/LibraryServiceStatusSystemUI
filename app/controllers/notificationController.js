@@ -116,7 +116,7 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
 
     $scope.tinymceOptions = {
         selector: 'textarea',
-        theme: "silver",
+        theme: "modern",
         plugins: "link lists",
         toolbar: "undo redo | formatselect bold italic separator | alignleft aligncenter alignright | numlist bullist | forecolor backcolor",
         relative_urls: false,
