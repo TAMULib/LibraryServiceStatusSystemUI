@@ -117,8 +117,11 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
     $scope.tinymceOptions = {
         selector: 'textarea',
         theme: "modern",
-        plugins: "link lists textcolor",
-        toolbar: "undo redo | formatselect bold italic separator | alignleft aligncenter alignright | numlist bullist | forecolor backcolor"
+        plugins: "link lists",
+        toolbar: "undo redo | formatselect bold italic separator | alignleft aligncenter alignright | numlist bullist | forecolor backcolor",
+        relative_urls: false,
+        remove_script_host : false,
+        convert_urls : true
     };
 
 });
