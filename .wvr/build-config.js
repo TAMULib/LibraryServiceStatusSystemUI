@@ -40,7 +40,7 @@ const config = {
           .toString()
           .replace('${STOMP_DEBUG}', 'false')
           .replace('${AUTH_SERVICE_URL}', 'https://labs.library.tamu.edu/authfix')
-          .replace('${WEB_SERVICE_URL}', 'http://localhost:9001')
+          .replace('${WEB_SERVICE_URL}', 'http://localhost:9000')
           .replace('${BASE_PATH}', '/status');
       },
     },
