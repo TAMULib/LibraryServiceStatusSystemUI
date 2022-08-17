@@ -2,7 +2,7 @@
 # Contributing to Library Service Status System UI
 
 Though *Library Service Status System UI* is developed and maintained by Texas A&M University Libraries, we welcome community contributions.
-Involvement in *Library Service Status System UI* can take many forms:
+Involvement in *Library Service Status System UI* can take many forms.
 
 <div align="right">(<a href="#readme-top">back to top</a>)</div>
 
