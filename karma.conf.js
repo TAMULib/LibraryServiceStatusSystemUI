@@ -2,8 +2,8 @@ module.exports = function (config) {
   config.set({
 
     preprocessors: {
-      "app/**/*.js": "coverage",
-      'app/**/*.html': ['ng-html2js']
+      'app/**/*.js': 'coverage',
+      'app/**/*.html': ['ng-html2js'],
     },
 
     reporters: ['progress', 'coverage', 'coveralls'],
@@ -14,29 +14,30 @@ module.exports = function (config) {
       'dist/appConfig.js',
       'app/config/apiMapping.js',
 
-      'node_modules/jquery/dist/jquery.min.js',
-      'node_modules/bootstrap/dist/js/bootstrap.min.js',
-      'node_modules/sockjs-client/dist/sockjs.min.js',
-      'node_modules/stompjs/lib/stomp.min.js',
-      'node_modules/angular/angular.min.js',
-      'node_modules/angular-route/angular-route.min.js',
-      'node_modules/angular-loader/angular-loader.min.js',
-      'node_modules/angular-sanitize/angular-sanitize.min.js',
-      'node_modules/angular-messages/angular-messages.min.js',
+      'node_modules/jquery/dist/jquery.js',
+      'node_modules/bootstrap/dist/js/bootstrap.js',
+      'node_modules/sockjs-client/dist/sockjs.js',
+      'node_modules/stompjs/lib/stomp.js',
+      'node_modules/angular/angular.js',
+      'node_modules/angular-sanitize/angular-sanitize.js',
+      'node_modules/angular-route/angular-route.js',
+      'node_modules/angular-loader/angular-loader.js',
+      'node_modules/angular-messages/angular-messages.js',
       'node_modules/angular-mocks/angular-mocks.js',
-      'node_modules/ng-file-upload/dist/ng-file-upload-shim.min.js',
-      'node_modules/ng-file-upload/dist/ng-file-upload.min.js',
-      'node_modules/ng-table/bundles/ng-table.min.js',
-      'node_modules/tinymce/tinymce.min.js',
-      'node_modules/angular-ui-tinymce/dist/tinymce.min.js',
+      'node_modules/ng-file-upload/dist/ng-file-upload-shim.js',
+      'node_modules/ng-file-upload/dist/ng-file-upload.js',
+      'node_modules/ng-table/bundles/ng-table.js',
+      'node_modules/tinymce/tinymce.js',
+      'node_modules/angular-ui-tinymce/dist/tinymce.js',
       'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
-      "node_modules/jasmine-promise-matchers/dist/jasmine-promise-matchers.js",
-      "node_modules/@wvr/core/app/config/coreConfig.js",
-      "node_modules/@wvr/core/app/components/**/*.js",
-      "node_modules/@wvr/core/app/core.js",
-      "node_modules/@wvr/core/app/**/*.js",
+      'node_modules/jasmine-promise-matchers/dist/jasmine-promise-matchers.js',
 
-      "tests/testSetup.js",
+      'node_modules/@wvr/core/app/config/coreConfig.js',
+      'node_modules/@wvr/core/app/components/**/*.js',
+      'node_modules/@wvr/core/app/core.js',
+      'node_modules/@wvr/core/app/**/*.js',
+
+      'tests/testSetup.js',
 
       'app/app.js',
       'app/config/runTime.js',
@@ -44,20 +45,20 @@ module.exports = function (config) {
       'app/constants/**/*.js',
       'app/controllers/**/*.js',
       'app/directives/**/*.js',
-      'app/services/**/*.js',
+      'app/filters/**/*.js',
       'app/model/**/*.js',
       'app/repo/**/*.js',
-      'app/views/**/*.html',
+      'app/services/**/*.js',
+      'app/**/*.html',
 
       'tests/core/**/*.js',
-      'tests/mocks/**/*.js',
-      'tests/unit/**/*.js'
-
+      'tests/mock/**/mock*.js',
+      'tests/unit/**/*Test.js',
     ],
 
-    failOnEmptyTestSuite: false,
-
     autoWatch: true,
+
+    failOnEmptyTestSuite: false,
 
     frameworks: ['jasmine'],
 
@@ -70,22 +71,22 @@ module.exports = function (config) {
       'karma-firefox-launcher',
       'karma-jasmine',
       'karma-junit-reporter',
-      'karma-ng-html2js-preprocessor'
+      'karma-ng-html2js-preprocessor',
     ],
 
     junitReporter: {
       outputFile: 'test_out/unit.xml',
-      suite: 'unit'
+      suite: 'unit',
     },
 
     ngHtml2JsPreprocessor: {
       stripPrefix: 'app/',
-      moduleName: 'templates'
+      moduleName: 'templates',
     },
 
     coverageReporter: {
-      type: "lcov",
-      dir: "coverage/"
+      type: 'lcov',
+      dir: 'coverage/',
     }
 
   });
