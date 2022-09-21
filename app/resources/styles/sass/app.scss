@@ -13,10 +13,14 @@ $linkColor: #00569f;
 
 @import "node_modules/@wvr/core/app/resources/styles/sass/theme-base";
 
-body
-{
+html {
+  height: 100%;
+}
+
+body {
   margin-right: 0 !important;
   padding-right: 0 !important;
+  height: 100%;
 }
 
 main {
