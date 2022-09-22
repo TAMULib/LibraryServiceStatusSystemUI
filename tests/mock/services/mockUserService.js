@@ -86,6 +86,11 @@ angular.module('mock.userService', []).service('UserService', function ($q) {
         return $q(function (resolve) {
         });
     };
+    
+    this.userEvents = function () {
+        return $q(function (resolve) {
+        });
+    };
 
     this.getCurrentUser = function () {
         return angular.copy(this.currentUser);
