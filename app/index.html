@@ -38,7 +38,7 @@
   <!-- Content placed here will appear on every page -->
   <main ng-controller="AuthenticationController">
 
-    <custom-header title="Libraries Web Services Status" home="/status/" login="login()" anonymous="isAnonymous()"></custom-header>
+    <tl-header page-title="Libraries Web Services Status"></tl-header>
 
     <alerts types="WARNING, ERROR"></alerts>
     <alerts seconds="45" channels="auth/register" types="SUCCESS"></alerts>
@@ -88,12 +88,13 @@
     </div>
   </main>
 
-  <div ng-controller="AuthenticationController">
-    <custom-footer login="login()" anonymous="isAnonymous()"></custom-footer>
-  </div>
+  <tl-footer></tl-footer>
+  <tl-themes active-theme="tamu"></tl-themes>
 
   <script src="appConfig.js"></script>
   <script src="app.bundle.js"></script>
+
+  <script src="https://api.library.tamu.edu/tl-components/2x/tl-components.js"></script>
 
   <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
   <script>
