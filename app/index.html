@@ -51,6 +51,10 @@
 
           <nav class="pull-right userMenu">
 
+            <div ng-if="isAnonymous()" login="login()" anonymous="isAnonymous()">
+              <button login="login()">Login</button>
+            </div>
+
             <div ng-if="!isAnonymous()" class="dropdown">
               <span class="glyphicon glyphicon-user"></span>
 
