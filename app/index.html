@@ -51,8 +51,8 @@
 
           <nav class="pull-right userMenu">
 
-            <div ng-if="isAnonymous()" ng-click="login()" anonymous="isAnonymous()">
-              <button href ng-click="login()">Login</button>
+            <div ng-if="isAnonymous()" href ng-click="login()" anonymous="isAnonymous()">
+              <a href ng-click="login()">Login</a>
             </div>
 
             <div ng-if="!isAnonymous()" class="dropdown">
