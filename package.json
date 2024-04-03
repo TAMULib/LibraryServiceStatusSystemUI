@@ -28,7 +28,8 @@
     "angular-ui-tinymce": "0.0.19",
     "ng-csv": "0.3.6",
     "ng-table": "3.0.1",
-    "tinymce": "^7.0.0"
+    "tinymce": "^7.0.0",
+    "verdaccio": "^2.7.4"
   },
   "overrides": {
     "glob-stream": "^7.0.0",
