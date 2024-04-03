@@ -44,7 +44,7 @@ jobs:
           git reset --hard $CI_WUI_BRANCH
 
       - name: "Run Weaver-UI-Core Docker Compose Registry Image"
-        run: docker-compose -f $GITHUB_WORKSPACE/weaver-ui/docker-compose.yml up -d registry
+        run: docker-compose -f $GITHUB_WORKSPACE/weaver-ui-core/docker-compose.yml up -d registry
 
       - name: "Publish Weaver-UI-Core (@wvr/core)"
         if: ${{ env.CI_WUI_DISABLE_LOCAL_PUBLISH != 'true' }}
