@@ -21,7 +21,7 @@ jobs:
         with:
           repository: TAMULib/Weaver-UI-Core
           path: weaver-ui
-          ref: 2.x
+          ref: 2.2.6
           # Specify depth of 0 to enable fetching all branches and tags so that the "Use Custom Weaver-UI-Core Repo Version" works.
           fetch-depth: 0
 
@@ -70,7 +70,7 @@ jobs:
       - name: "Setup Node"
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
 
       - name: "Install Node"
         run: |
