@@ -2,10 +2,6 @@ name: Build
 
 on: [ push, pull_request, workflow_dispatch ]
 
-env:
-  CI_WUI_BRANCH: ${{ vars.CI_WUI_BRANCH }}
-  CI_WUI_DISABLE_LOCAL_PUBLISH: ${{ vars.CI_WUI_DISABLE_LOCAL_PUBLISH }}
-
 jobs:
   build:
     runs-on: ubuntu-latest
