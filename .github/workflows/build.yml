@@ -46,12 +46,6 @@ jobs:
       - name: "Run Weaver-UI-Core Docker Compose Registry Image"
         run: docker-compose -f $GITHUB_WORKSPACE/weaver-ui/docker-compose.yml up -d registry
 
-      - name: "Publish Weaver-UI-Core (@wvr/core)"
-        if: ${{ env.CI_WUI_DISABLE_LOCAL_PUBLISH != 'false' }}
-        run: |
-          cd $GITHUB_WORKSPACE/weaver-ui
-          npm run publish:local
-
       - name: "Install Chrome Drivers"
         run: sudo apt-get install xvfb
 
