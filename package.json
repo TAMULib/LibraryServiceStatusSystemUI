@@ -1,7 +1,7 @@
 {
   "name": "library-webservices-status",
   "private": true,
-  "version": "1.5.2-rc.2",
+  "version": "1.5.2-rc2",
   "description": "Library Webservices Status System UI",
   "repository": "https://github.com/TAMULib/LibraryServiceStatusSystemUI.git",
   "license": "MIT",
