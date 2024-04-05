@@ -50,6 +50,9 @@
         <div class="col-md-12 appContent">
 
           <nav class="pull-right userMenu">
+            <div ng-if="isAnonymous()" href ng-click="login()" anonymous="isAnonymous()">
+              <a href ng-click="login()">Login</a>
+            </div>
 
             <div ng-if="!isAnonymous()" class="dropdown">
               <span class="glyphicon glyphicon-user"></span>

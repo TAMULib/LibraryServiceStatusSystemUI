@@ -1,6 +1,6 @@
 var appConfig = {
 
-  'allowAnonymous': false,
+  'allowAnonymous': true,
 
   'anonymousRole': 'ROLE_ANONYMOUS',
 

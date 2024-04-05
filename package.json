@@ -1,7 +1,7 @@
 {
   "name": "library-webservices-status",
   "private": true,
-  "version": "1.5.2-rc.2",
+  "version": "1.5.2-rc2",
   "description": "Library Webservices Status System UI",
   "repository": "https://github.com/TAMULib/LibraryServiceStatusSystemUI.git",
   "license": "MIT",
@@ -24,11 +24,11 @@
     "start": "wvr server --port 8080"
   },
   "dependencies": {
-    "@wvr/core": "2.2.2-rc.14",
+    "@wvr/core": "2.2.6",
     "angular-ui-tinymce": "0.0.19",
     "ng-csv": "0.3.6",
     "ng-table": "3.0.1",
-    "tinymce": "4.9.11"
+    "tinymce": "7.0.0"
   },
   "devDependencies": {
   },
