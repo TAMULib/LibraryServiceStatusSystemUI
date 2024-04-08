@@ -1,6 +1,6 @@
 app.run(function ($location) {
 
-    angular.element("body").fadeIn(300);
+    angular.element("body").css('opacity', 0).animate({ opacity: 1 }, 1000);
     // Add runtime tasks here
 
     // Allow the passing of an additional parameter which
