@@ -61,6 +61,8 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
     $scope.editNotification = function (notification) {
         $scope.notificationData = notification;
         $scope.openModal('#editNotificationModal');
+        const iframe = angular.element('#editNotificationModal').find("iframe")[0];
+        iframe.contentDocument.body.innerHTML = notification.body;
     };
 
     $scope.updateNotification = function () {
