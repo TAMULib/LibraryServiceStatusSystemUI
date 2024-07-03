@@ -111,17 +111,19 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
 
     NotificationRepo.ready().then(function () {
         buildTable();
+
+        document.addEventListener("contentSave", function (e) {
+            $scope.notificationData.body = e.detail.data;
+            $scope.save();
+        });
+
+        $scope.save = function () {
+            $scope.notificationData.body = encodeURIComponent($scope.notificationData.body);
+            $scope.notificationData.update($scope.notificationData);
+            $scope.notificationData.body = decodeURIComponent($scope.notificationData.body);
+        };
+
         $scope.tableParams.reload();
     });
-
-    $scope.tinymceOptions = {
-        selector: 'textarea',
-        theme: "modern",
-        plugins: "link lists",
-        toolbar: "undo redo | formatselect bold italic separator | alignleft aligncenter alignright | numlist bullist | forecolor backcolor",
-        relative_urls: false,
-        remove_script_host : false,
-        convert_urls : true
-    };
 
 });
