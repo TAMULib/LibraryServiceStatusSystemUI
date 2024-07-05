@@ -27,14 +27,16 @@ app.controller('NotificationController', function ($controller, $scope, $timeout
 
     $scope.forms = {};
 
-    $scope.notificationToDelete = {};
-
-    $scope.notificationData = new Notification({
+    var emptyNotification = {
         name: '',
         body: '',
         active: false,
         locations: []
-    });
+    };
+
+    $scope.notificationToDelete = new Notification(emptyNotification);
+
+    $scope.notificationData = new Notification(emptyNotification);
 
     $scope.resetNotifications = function () {
         $scope.notificationData.refresh();
@@ -45,13 +47,7 @@ app.controller('NotificationController', function ($controller, $scope, $timeout
                 $scope.forms[key].$setPristine();
             }
         }
-        Object.assign($scope.notificationData, {
-            id: undefined,
-            name: '',
-            body: '',
-            active: false,
-            locations: []
-        });
+        Object.assign($scope.notificationData, emptyNotification);
         $scope.closeModal();
     };
 
@@ -101,7 +97,7 @@ app.controller('NotificationController', function ($controller, $scope, $timeout
             if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                 $scope.closeModal();
                 $scope.deleting = false;
-                $scope.notificationToDelete = {};
+                Object.assign($scope.notificationToDelete, emptyNotification);
                 $scope.tableParams.reload();
             }
         });
