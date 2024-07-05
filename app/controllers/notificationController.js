@@ -1,4 +1,4 @@
-app.controller('NotificationController', function ($controller, $scope, Notification, NotificationRepo, NgTableParams) {
+app.controller('NotificationController', function ($controller, $scope, $timeout, Notification, NotificationRepo, NgTableParams) {
 
     angular.extend(this, $controller('AbstractScheduleController', {
         $scope: $scope
@@ -29,17 +29,24 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
 
     $scope.notificationToDelete = {};
 
+    $scope.notificationData = new Notification({
+        name: '',
+        body: '',
+        active: false,
+        locations: []
+    });
+
     $scope.resetNotifications = function () {
-        if ($scope.notificationData) {
-            $scope.notificationData.refresh();
-            $scope.notificationData.clearValidationResults();
-        }
+        $scope.notificationData.refresh();
+        $scope.notificationData.clearValidationResults();
+
         for (var key in $scope.forms) {
             if (!$scope.forms[key].$pristine) {
                 $scope.forms[key].$setPristine();
             }
         }
-        $scope.notificationData = new Notification({
+        Object.assign($scope.notificationData, {
+            id: undefined,
             name: '',
             body: '',
             active: false,
@@ -59,15 +66,17 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
     };
 
     $scope.editNotification = function (notification) {
-        $scope.notificationData = notification;
-        $scope.openModal('#editNotificationModal');
-        const modal = angular.element('#editNotificationModal');
-        if (modal) {
-            const iframe = modal.find("iframe");
-            if (iframe && iframe.length >= 1) {
-                iframe[0].contentDocument.body.innerHTML = notification.body;
+        Object.assign($scope.notificationData, notification);
+        $timeout(function () {
+            $scope.openModal('#editNotificationModal');
+            const modal = angular.element('#editNotificationModal');
+            if (modal) {
+                const iframe = modal.find("iframe");
+                if (iframe && iframe.length >= 1) {
+                    iframe[0].contentDocument.body.innerHTML = notification.body;
+                }
             }
-        }
+        });
     };
 
     $scope.updateNotification = function () {
@@ -80,8 +89,10 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
     };
 
     $scope.confirmDelete = function (notification) {
-        $scope.openModal('#deleteNotificationModal');
-        $scope.notificationToDelete = notification;
+        Object.assign($scope.notificationToDelete, notification);
+        $timeout(function() {
+            $scope.openModal('#deleteNotificationModal');
+        });
     };
 
     $scope.deleteNotification = function () {
