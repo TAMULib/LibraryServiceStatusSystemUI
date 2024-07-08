@@ -70,24 +70,6 @@ const config = {
       from: './node_modules/bootstrap/dist/css/bootstrap.min.css.map',
       to: './resources/styles/bootstrap/dist/css/bootstrap.min.css.map',
     },
-    {
-      from: './node_modules/tinymce/plugins/**/plugin.js',
-      to({ context, absoluteFilename }) {
-        return `${absoluteFilename.replace(/^.*\/node_modules\/tinymce\/plugins\//, "plugins/")}`;
-      },
-    },
-    {
-      from: './node_modules/tinymce/themes/**/theme.js',
-      to({ context, absoluteFilename }) {
-        return `${absoluteFilename.replace(/^.*\/node_modules\/tinymce\/themes\//, "themes/")}`;
-      },
-    },
-    {
-      from: './node_modules/tinymce/skins/**/*.css',
-      to({ context, absoluteFilename }) {
-        return `${absoluteFilename.replace(/^.*\/node_modules\/tinymce\/skins\//, "skins/")}`;
-      },
-    },
   ],
   entry: {
     app: [
