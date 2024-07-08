@@ -65,9 +65,9 @@ app.controller('NotificationController', function ($controller, $scope, $timeout
         Object.assign($scope.notificationData, notification);
         $timeout(function () {
             $scope.openModal('#editNotificationModal');
-            const modal = angular.element('#editNotificationModal');
+            var modal = angular.element('#editNotificationModal');
             if (modal) {
-                const iframe = modal.find("iframe");
+                var iframe = modal.find("iframe");
                 if (iframe && iframe.length >= 1) {
                     iframe[0].contentDocument.body.innerHTML = notification.body;
                 }
