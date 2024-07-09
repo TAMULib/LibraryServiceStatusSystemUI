@@ -86,8 +86,6 @@ const config = {
       './node_modules/ng-file-upload/dist/ng-file-upload-shim.js',
       './node_modules/ng-file-upload/dist/ng-file-upload.js',
       './node_modules/ng-table/bundles/ng-table.js',
-      './node_modules/tinymce/tinymce.js',
-      './node_modules/angular-ui-tinymce/dist/tinymce.min.js',
       './node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
       './node_modules/@wvr/core/app/config/coreConfig.js',
       './node_modules/@wvr/core/app/components/version/version.js',

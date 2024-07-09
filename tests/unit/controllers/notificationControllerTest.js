@@ -9,11 +9,10 @@ describe('controller: NotificationController', function () {
         module('mock.notification');
         module('mock.notificationRepo');
 
-        inject(function ($controller, $q, $rootScope, $timeout, _NgTableParams_, _Notification_, _NotificationRepo_) {
+        inject(function ($controller, $q, $rootScope, _NgTableParams_, _Notification_, _NotificationRepo_) {
             installPromiseMatchers();
             q = $q;
             scope = $rootScope.$new();
-            timeout = $timeout;
 
             controller = $controller('NotificationController', {
                 $scope: scope,
@@ -116,7 +115,6 @@ describe('controller: NotificationController', function () {
             spyOn(scope, 'openModal');
 
             scope.editNotification(mockNotification1);
-            timeout.flush();
             scope.$digest();
 
             expect(scope.openModal).toHaveBeenCalled();
@@ -140,7 +138,6 @@ describe('controller: NotificationController', function () {
             spyOn(scope, 'openModal');
 
             scope.confirmDelete(mockNotification1);
-            timeout.flush();
             scope.$digest();
 
             expect(scope.openModal).toHaveBeenCalled();

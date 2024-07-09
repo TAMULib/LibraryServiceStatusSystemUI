@@ -1,4 +1,4 @@
-app.controller('NotificationController', function ($controller, $scope, $timeout, Notification, NotificationRepo, NgTableParams) {
+app.controller('NotificationController', function ($controller, $scope, Notification, NotificationRepo, NgTableParams) {
 
     angular.extend(this, $controller('AbstractScheduleController', {
         $scope: $scope
@@ -63,16 +63,14 @@ app.controller('NotificationController', function ($controller, $scope, $timeout
 
     $scope.editNotification = function (notification) {
         Object.assign($scope.notificationData, notification);
-        $timeout(function () {
-            $scope.openModal('#editNotificationModal');
-            var modal = angular.element('#editNotificationModal');
-            if (modal) {
-                var iframe = modal.find("iframe");
-                if (iframe && iframe.length >= 1) {
-                    iframe[0].contentDocument.body.innerHTML = notification.body;
-                }
+        $scope.openModal('#editNotificationModal');
+        var modal = angular.element('#editNotificationModal');
+        if (modal) {
+            var iframe = modal.find("iframe");
+            if (iframe && iframe.length >= 1) {
+                iframe[0].contentDocument.body.innerHTML = notification.body;
             }
-        });
+        }
     };
 
     $scope.updateNotification = function () {
@@ -86,9 +84,7 @@ app.controller('NotificationController', function ($controller, $scope, $timeout
 
     $scope.confirmDelete = function (notification) {
         Object.assign($scope.notificationToDelete, notification);
-        $timeout(function() {
-            $scope.openModal('#deleteNotificationModal');
-        });
+        $scope.openModal('#deleteNotificationModal');
     };
 
     $scope.deleteNotification = function () {
@@ -127,15 +123,10 @@ app.controller('NotificationController', function ($controller, $scope, $timeout
         buildTable();
 
         document.addEventListener("contentSave", function (e) {
-            $scope.notificationData.body = e.detail.data;
-            $scope.save();
-        });
-
-        $scope.save = function () {
-            $scope.notificationData.body = encodeURIComponent($scope.notificationData.body);
+            $scope.notificationData.body = encodeURIComponent(e.detail.data);
             $scope.notificationData.update($scope.notificationData);
             $scope.notificationData.body = decodeURIComponent($scope.notificationData.body);
-        };
+        });
 
         $scope.tableParams.reload();
     });

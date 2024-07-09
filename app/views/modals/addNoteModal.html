@@ -18,7 +18,7 @@
     <validatedselect model="noteData" property="noteType" label="Note Type" form="forms.create" validations="noteRepo.getValidations()" results="noteRepo.getValidationResults()" options="noteTypes" optionProperty="gloss" optionValue="value"></validatedselect>
 
     <label>Note Body</label>
-    <textarea ui-tinymce="tinymceOptions" ng-model="noteData.body"></textarea>
+    <tl-wysiwyg initial-value="{{noteData.body}}" emit-event="contentSave"></tl-wysiwyg>
     <br />
 
     <validatedinput model="noteData" type="checkbox" property="pinned" placeholder="Is the Note pinned?" form="forms.create" validations="noteRepo.getValidations()" results="noteRepo.getValidationResults()"></validatedinput>

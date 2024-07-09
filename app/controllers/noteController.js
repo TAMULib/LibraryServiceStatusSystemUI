@@ -15,7 +15,17 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
 
     $scope.forms = {};
 
-    $scope.noteToDelete = {};
+    var emptyNote = {
+        title: '',
+        active: false,
+        pinned: false,
+        service: $scope.services[0],
+        noteType: 'ENHANCEMENT'
+    };
+
+    $scope.noteToDelete = new Note(emptyNote);
+
+    $scope.noteData = new Note(emptyNote);
 
     $scope.noteTypes = [{
             value: "ENHANCEMENT",
@@ -108,23 +118,16 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
     ServiceRepo.ready().then(function () {
 
         $scope.resetNotes = function () {
-            if ($scope.noteData) {
-                $scope.noteData.refresh();
-                $scope.noteData.clearValidationResults();
-            }
+            $scope.noteData.refresh();
+            $scope.noteData.clearValidationResults();
+
             for (var key in $scope.forms) {
                 if (!$scope.forms[key].$pristine) {
                     $scope.forms[key].$setPristine();
                     $scope.forms[key].$setUntouched();
                 }
             }
-            $scope.noteData = new Note({
-                title: '',
-                active: false,
-                pinned: false,
-                service: $scope.services[0],
-                noteType: 'ENHANCEMENT'
-            });
+            Object.assign($scope.noteData, emptyNote);
             $scope.closeModal();
         };
 
@@ -139,8 +142,15 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
         };
 
         $scope.editNote = function (note) {
-            $scope.noteData = note;
+            Object.assign($scope.noteData, note);
             $scope.openModal('#editNoteModal');
+            var modal = angular.element('#editNoteModal');
+            if (modal) {
+                var iframe = modal.find("iframe");
+                if (iframe && iframe.length >= 1) {
+                    iframe[0].contentDocument.body.innerHTML = note.body;
+                }
+            }
         };
 
         $scope.updateNote = function () {
@@ -162,8 +172,8 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
         };
 
         $scope.confirmDelete = function (note) {
+            Object.assign($scope.noteToDelete, note);
             $scope.openModal('#deleteNoteModal');
-            $scope.noteToDelete = note;
         };
 
         $scope.deleteNote = function () {
@@ -172,18 +182,17 @@ app.controller('NoteController', function ($controller, $scope, Note, NoteRepo, 
                 if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                     $scope.closeModal();
                     $scope.deleting = false;
-                    $scope.noteToDelete = {};
+                    Object.assign($scope.noteToDelete, emptyNote);
                 }
             });
         };
 
-    });
+        document.addEventListener("contentSave", function (e) {
+            $scope.noteData.body = encodeURIComponent(e.detail.data);
+            $scope.noteData.update($scope.noteData);
+            $scope.noteData.body = decodeURIComponent($scope.noteData.body);
+        });
 
-    $scope.tinymceOptions = {
-        selector: 'textarea',
-        theme: "modern",
-        plugins: "link lists",
-        toolbar: "undo redo | formatselect bold italic separator | alignleft aligncenter alignright | numlist bullist | forecolor backcolor"
-    };
+    });
 
 });
