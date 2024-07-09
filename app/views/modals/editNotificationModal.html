@@ -13,7 +13,7 @@
     <validatedinput model="notificationData" property="name" label="Name" placeholder="Name of the Notification" form="forms.update" validations="notificationRepo.getValidations()" results="notificationRepo.getValidationResults()"></validatedinput>
 
     <label>Notification Body</label>
-    <tl-wysiwyg class="edit-notification-wysiwyg" initial-value="{{notificationData.body}}" emit-event="contentSave"></tl-wysiwyg>
+    <tl-wysiwyg initial-value="{{notificationData.body}}" emit-event="contentSave"></tl-wysiwyg>
 
     <br />
 

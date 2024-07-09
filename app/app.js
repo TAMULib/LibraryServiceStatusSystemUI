@@ -35,7 +35,7 @@ setUpApp(function (connected) {
 
         try {
             //If the app is already bootstrapped then an error will be thrown
-            angular.bootstrap(document, ['app', 'core', 'ngMessages', 'ngFileUpload', 'ui.tinymce', 'ui.bootstrap']);
+            angular.bootstrap(document, ['app', 'core', 'ngMessages', 'ngFileUpload', 'ui.bootstrap']);
 
             if (!window.stompClient.connected) {
                 unreachableAlert(injector);

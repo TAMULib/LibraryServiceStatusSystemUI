@@ -27,8 +27,6 @@ module.exports = function (config) {
       'node_modules/ng-file-upload/dist/ng-file-upload-shim.js',
       'node_modules/ng-file-upload/dist/ng-file-upload.js',
       'node_modules/ng-table/bundles/ng-table.js',
-      'node_modules/tinymce/tinymce.js',
-      'node_modules/angular-ui-tinymce/dist/tinymce.js',
       'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
       'node_modules/jasmine-promise-matchers/dist/jasmine-promise-matchers.js',
 

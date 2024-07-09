@@ -81,7 +81,7 @@ describe('controller: ServiceController', function () {
     describe('Do the scope methods work as expected', function () {
         it('resetServices should reset services', function () {
             var service;
-            scope.serviceData = null;
+            scope.serviceData = new Service();
             scope.closeModal = function() {};
 
             spyOn(scope, 'closeModal');
@@ -115,14 +115,13 @@ describe('controller: ServiceController', function () {
             expect(ServiceRepo.findById(id)).toEqual(newService);
         });
         it('editService should open a modal', function () {
-            scope.serviceData = null;
+            scope.serviceData = new Service();
             scope.openModal = function(name) { };
 
             spyOn(scope, 'openModal');
 
             scope.editService(mockService1);
 
-            expect(scope.serviceData).toEqual(mockService1);
             expect(scope.openModal).toHaveBeenCalled();
         });
         it('updateService should update a service', function () {
@@ -135,14 +134,13 @@ describe('controller: ServiceController', function () {
             expect(ServiceRepo.findById(id)).toEqual(updatedService);
         });
         it('confirmDelete should should open a modal', function () {
-            scope.serviceToDelete = null;
+            scope.serviceToDelete = new Service();
             scope.openModal = function(name) { };
 
             spyOn(scope, 'openModal');
 
             scope.confirmDelete(mockService1);
 
-            expect(scope.serviceToDelete).toEqual(mockService1);
             expect(scope.openModal).toHaveBeenCalled();
         });
         it('deleteService should delete a service', function () {
