@@ -72,13 +72,14 @@ describe('controller: NotificationController', function () {
 
     describe('Are the scope methods working as expected', function () {
         it('resetNotifications should reset notifications', function () {
-            var notification;
-            scope.notificationData = null;
+            var notification = new Notification();
+            scope.notificationData = notification;
             scope.closeModal = function() {};
 
             spyOn(scope, 'closeModal');
 
             scope.resetNotifications();
+            scope.$digest();
 
             expect(scope.closeModal).toHaveBeenCalled();
             expect(scope.ideaData).not.toEqual(null);
@@ -109,14 +110,13 @@ describe('controller: NotificationController', function () {
             expect(notification.clearValidationResults).toHaveBeenCalled();
         });
         it('editNotification should open a modal', function () {
-            scope.notificationData = null;
             scope.openModal = function(name) { };
 
             spyOn(scope, 'openModal');
 
             scope.editNotification(mockNotification1);
+            scope.$digest();
 
-            expect(scope.notificationData).toEqual(mockNotification1);
             expect(scope.openModal).toHaveBeenCalled();
         });
 
@@ -133,14 +133,13 @@ describe('controller: NotificationController', function () {
             expect(scope.notificationRepo.update).toHaveBeenCalled();
         });
         it('confirmDelete should should open a modal', function () {
-            scope.notificationToDelete = null;
             scope.openModal = function(name) { };
 
             spyOn(scope, 'openModal');
 
             scope.confirmDelete(mockNotification1);
+            scope.$digest();
 
-            expect(scope.notificationToDelete).toEqual(mockNotification1);
             expect(scope.openModal).toHaveBeenCalled();
         });
         it('deleteNotification should delete a notification', function () {

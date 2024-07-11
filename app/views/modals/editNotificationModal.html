@@ -13,7 +13,8 @@
     <validatedinput model="notificationData" property="name" label="Name" placeholder="Name of the Notification" form="forms.update" validations="notificationRepo.getValidations()" results="notificationRepo.getValidationResults()"></validatedinput>
 
     <label>Notification Body</label>
-    <textarea ui-tinymce="tinymceOptions" ng-model="notificationData.body"></textarea>
+    <tl-wysiwyg initial-value="{{notificationData.body}}" emit-event="contentSave"></tl-wysiwyg>
+
     <br />
 
     <label for="locationSelect">Locations</label>

@@ -27,24 +27,27 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
 
     $scope.forms = {};
 
-    $scope.notificationToDelete = {};
+    var emptyNotification = {
+        name: '',
+        body: '',
+        active: false,
+        locations: []
+    };
+
+    $scope.notificationToDelete = new Notification(emptyNotification);
+
+    $scope.notificationData = new Notification(emptyNotification);
 
     $scope.resetNotifications = function () {
-        if ($scope.notificationData) {
-            $scope.notificationData.refresh();
-            $scope.notificationData.clearValidationResults();
-        }
+        $scope.notificationData.refresh();
+        $scope.notificationData.clearValidationResults();
+
         for (var key in $scope.forms) {
             if (!$scope.forms[key].$pristine) {
                 $scope.forms[key].$setPristine();
             }
         }
-        $scope.notificationData = new Notification({
-            name: '',
-            body: '',
-            active: false,
-            locations: []
-        });
+        Object.assign($scope.notificationData, emptyNotification);
         $scope.closeModal();
     };
 
@@ -59,8 +62,15 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
     };
 
     $scope.editNotification = function (notification) {
-        $scope.notificationData = notification;
+        Object.assign($scope.notificationData, notification);
         $scope.openModal('#editNotificationModal');
+        var modal = angular.element('#editNotificationModal');
+        if (modal) {
+            var iframe = modal.find("iframe");
+            if (iframe && iframe.length >= 1) {
+                iframe[0].contentDocument.body.innerHTML = notification.body;
+            }
+        }
     };
 
     $scope.updateNotification = function () {
@@ -73,8 +83,8 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
     };
 
     $scope.confirmDelete = function (notification) {
+        Object.assign($scope.notificationToDelete, notification);
         $scope.openModal('#deleteNotificationModal');
-        $scope.notificationToDelete = notification;
     };
 
     $scope.deleteNotification = function () {
@@ -83,7 +93,7 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
             if (angular.fromJson(res.body).meta.status === 'SUCCESS') {
                 $scope.closeModal();
                 $scope.deleting = false;
-                $scope.notificationToDelete = {};
+                Object.assign($scope.notificationToDelete, emptyNotification);
                 $scope.tableParams.reload();
             }
         });
@@ -111,17 +121,14 @@ app.controller('NotificationController', function ($controller, $scope, Notifica
 
     NotificationRepo.ready().then(function () {
         buildTable();
+
+        document.addEventListener("contentSave", function (e) {
+            $scope.notificationData.body = encodeURIComponent(e.detail.data);
+            $scope.notificationData.update($scope.notificationData);
+            $scope.notificationData.body = decodeURIComponent($scope.notificationData.body);
+        });
+
         $scope.tableParams.reload();
     });
-
-    $scope.tinymceOptions = {
-        selector: 'textarea',
-        theme: "modern",
-        plugins: "link lists",
-        toolbar: "undo redo | formatselect bold italic separator | alignleft aligncenter alignright | numlist bullist | forecolor backcolor",
-        relative_urls: false,
-        remove_script_host : false,
-        convert_urls : true
-    };
 
 });

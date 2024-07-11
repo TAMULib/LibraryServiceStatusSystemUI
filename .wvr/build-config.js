@@ -70,24 +70,6 @@ const config = {
       from: './node_modules/bootstrap/dist/css/bootstrap.min.css.map',
       to: './resources/styles/bootstrap/dist/css/bootstrap.min.css.map',
     },
-    {
-      from: './node_modules/tinymce/plugins/**/plugin.js',
-      to({ context, absoluteFilename }) {
-        return `${absoluteFilename.replace(/^.*\/node_modules\/tinymce\/plugins\//, "plugins/")}`;
-      },
-    },
-    {
-      from: './node_modules/tinymce/themes/**/theme.js',
-      to({ context, absoluteFilename }) {
-        return `${absoluteFilename.replace(/^.*\/node_modules\/tinymce\/themes\//, "themes/")}`;
-      },
-    },
-    {
-      from: './node_modules/tinymce/skins/**/*.css',
-      to({ context, absoluteFilename }) {
-        return `${absoluteFilename.replace(/^.*\/node_modules\/tinymce\/skins\//, "skins/")}`;
-      },
-    },
   ],
   entry: {
     app: [
@@ -104,8 +86,6 @@ const config = {
       './node_modules/ng-file-upload/dist/ng-file-upload-shim.js',
       './node_modules/ng-file-upload/dist/ng-file-upload.js',
       './node_modules/ng-table/bundles/ng-table.js',
-      './node_modules/tinymce/tinymce.js',
-      './node_modules/angular-ui-tinymce/dist/tinymce.min.js',
       './node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
       './node_modules/@wvr/core/app/config/coreConfig.js',
       './node_modules/@wvr/core/app/components/version/version.js',

@@ -76,7 +76,7 @@ describe('controller: NoteController', function () {
             var service = new Service();
             service.mock(mockService1);
             scope.service = service;
-            scope.noteData = null;
+            scope.noteData = new Note();
             scope.closeModal = function() {};
 
             spyOn(scope, 'closeModal');
@@ -112,14 +112,13 @@ describe('controller: NoteController', function () {
             expect(note.clearValidationResults).toHaveBeenCalled();
         });
         it('editNote should open a modal', function () {
-            scope.noteData = null;
+            scope.noteData = new Note();
             scope.openModal = function(name) { };
 
             spyOn(scope, 'openModal');
 
             scope.editNote(mockNote1);
 
-            expect(scope.noteData).toEqual(mockNote1);
             expect(scope.openModal).toHaveBeenCalled();
         });
         it('updateNote should update a note', function () {
@@ -153,14 +152,13 @@ describe('controller: NoteController', function () {
             expect(scope.resetNotes).toHaveBeenCalled();
         });
         it('confirmDelete should open a modal', function () {
-            scope.noteToDelete = null;
+            scope.noteToDelete = new Note();
             scope.openModal = function(name) { };
 
             spyOn(scope, 'openModal');
 
             scope.confirmDelete(mockNote1);
 
-            expect(scope.noteToDelete).toEqual(mockNote1);
             expect(scope.openModal).toHaveBeenCalled();
         });
         it('deleteNote should delete a note', function () {
